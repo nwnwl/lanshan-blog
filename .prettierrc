@@ -7,7 +7,7 @@
   "printWidth": 100,
   "bracketSpacing": true,
   "arrowParens": "always",
-  "endOfLine": "lf",
+  "endOfLine": "crlf",
   "quoteProps": "as-needed",
   "bracketSameLine": false,
   "singleAttributePerLine": false,

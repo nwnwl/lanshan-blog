@@ -1,0 +1,5 @@
+* text=auto eol=crlf
+
+# Shell scripts must use LF to work correctly in Git Bash / Unix
+.husky/* text eol=lf
+*.sh text eol=lf
