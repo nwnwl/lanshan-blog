@@ -25,6 +25,7 @@ export default tseslint.config(
       "**/out/**",
       "**/build/**",
       "**/coverage/**",
+      "apps/**",
       "*.config.*",
     ],
   },

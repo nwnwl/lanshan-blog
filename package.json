@@ -16,7 +16,7 @@
   "packageManager": "pnpm@11.9.0",
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix --no-warn-ignored",
+      "eslint --fix --no-warn-ignored --ignore-pattern 'apps/**'",
       "prettier --write"
     ],
     "*.{json,md,yaml,yml,css,html}": [
