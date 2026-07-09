@@ -8,8 +8,6 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,8 +17,26 @@
   }
 }
 
-body {
+@utility font-harmony {
+  font-family: var(--font-harmonyos-sans);
+}
+@utility font-noto {
+  font-family: var(--font-noto-sans);
+}
+
+* {
+  flex-shrink: 0;
+  -webkit-user-select: none;
+  user-select: none;
+}
+html {
+  font-size: clamp(1rem, 0.9142rem + 0.3661vw, 1.5rem);
+}
+body,
+html {
+  width: 100vw;
+  height: 100vh;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-harmonyos-sans), var(--font-noto-sans), Arial, Helvetica, sans-serif;
 }

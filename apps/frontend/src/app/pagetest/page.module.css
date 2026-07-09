@@ -1,0 +1,25 @@
+.stripe::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: #191919;
+  background-image: linear-gradient(
+    -45deg,
+    transparent,
+    transparent 16.1610023423%,
+    black 0,
+    black 33.8389976577%,
+    transparent 0,
+    transparent 66.1610023423%,
+    black 0,
+    black 83.8389976577%,
+    transparent 0,
+    transparent
+  );
+  background-size: 0.2rem 0.2rem;
+  background-repeat: repeat;
+  border-radius: 4px;
+  transform-origin: bottom left;
+  transition: transform 0.3s ease-in-out;
+  z-index: 0;
+}
