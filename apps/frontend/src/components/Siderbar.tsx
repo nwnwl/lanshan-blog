@@ -101,7 +101,7 @@ export const Siderbar = () => {
           flex flex-col items-center justify-center gap-[8px]
           group-hover:w-[9.2rem] group-hover:h-[2rem]
           transition-all duration-300 ease-in-out
-          overflow-hidden`}
+          overflow-hidden `}
       >
         {/* hover背景颜色 */}
         <div

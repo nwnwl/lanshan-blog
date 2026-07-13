@@ -9,7 +9,7 @@ export const PC_MiddleSection = () => {
     <div className="part flex w-full ">
       <div
         className="
-      sticky top-0 h-screen w-[3.6rem]"
+      sticky top-0 h-screen w-[3.6rem] z-50"
       >
         <Siderbar />
       </div>

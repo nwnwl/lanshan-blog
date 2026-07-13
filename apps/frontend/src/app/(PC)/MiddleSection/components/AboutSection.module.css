@@ -1,0 +1,39 @@
+/* 中间圆点 */
+.dotsBase {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: black;
+}
+
+/* 左右圆点 */
+.dotsBase::before,
+.dotsBase::after {
+  content: '';
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: black;
+}
+
+/* 左侧：往右+下 圆点 */
+.dotsLt::before {
+  left: 1.5rem;
+  top: 0;
+}
+.dotsLt::after {
+  left: 0;
+  top: 1.5rem;
+}
+
+/* 右侧：往左+下 圆点 */
+.dotsRt::before {
+  right: 1.5rem;
+  top: 0;
+}
+.dotsRt::after {
+  right: 0;
+  top: 1.5rem;
+}
