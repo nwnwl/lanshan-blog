@@ -44,7 +44,7 @@ export const PC_AboutSection = () => {
       <div className="absolute inset-x-0 top-0 bg-[radial-gradient(circle,#000_1.6px,transparent_1.2px)] bg-size-[8px_8px] h-15 w-full"></div>
 
       {/* 斜线背景 */}
-      <div className="absolute inset-y-0 right-0 bg-[repeating-linear-gradient(-45deg,transparent,transparent_4px,#C0C0C0_4px,#C0C0C0_5px)] h-full w-15"></div>
+      <div className="absolute bottom-0 top-14 right-0 bg-[repeating-linear-gradient(-45deg,transparent,transparent_4px,#C0C0C0_6px,#C0C0C0_5px)] h-full w-15"></div>
 
       {/* 小圆点装饰-左 */}
       <div className="absolute top-4 left-6">
@@ -72,9 +72,9 @@ export const PC_AboutSection = () => {
               <span>____</span>
               <span>____</span>
             </div>
-            <div className="flex flex-col gap-4 text-sm pl-8">
+            <div className="flex flex-col gap-4 text-xs pl-8">
               <span>01</span>
-              <span>01</span>
+              <span>02</span>
               <span>03</span>
             </div>
 
@@ -122,15 +122,14 @@ export const PC_AboutSection = () => {
             <p className="pr-15 text-sm  ">BEYOND LANSHAN</p>
           </div>
         </main>
+      </div>
 
-        {/* <div className="abusolute ">
-          <p>
-            <span>THE BEST WAY TO PREDICT THE FUTURE IS TO INVENT IT</span>
-            <span>MAKE IT WORK, MAKE IT RIGHT, MAKE IT FAST</span>
-            <span>TAKE IS CHEAP, SHOW ME THE CODE</span>
-          </p>
-          ;
-        </div> */}
+      <div className="absolute w-100 h-40 bottom-[-40] right-[-60] font-bold">
+        <p className="flex flex-col gap-2 text-xs">
+          <span>THE BEST WAY TO PREDICT THE FUTURE IS TO INVENT IT</span>
+          <span className="indent-15">MAKE IT WORK, MAKE IT RIGHT, MAKE IT FAST</span>
+          <span className="indent-29">TAKE IS CHEAP, SHOW ME THE CODE</span>
+        </p>
       </div>
     </section>
   );
