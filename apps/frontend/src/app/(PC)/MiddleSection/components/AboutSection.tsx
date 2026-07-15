@@ -35,12 +35,21 @@ const barcodeData = [
   { x: 118, w: 2 },
 ];
 
+const text = ' // LANSHAN-BEYOND LANSHAN  YOUR POTENTIAL AWAITS ';
+
 export const PC_AboutSection = () => {
   return (
-    <section id="about" className="section h-screen w-full min-w-0">
-      <div className="">{Marquee()}</div>
+    <section id="about" className="section h-screen w-full flex flex-col overflow-hidden">
+      {/* 滚动字幕 */}
+      <Marquee
+        text={text}
+        bgColor={'#EEEDED'}
+        textColor={'#CECECE'}
+        lgText={'text-9xl'}
+        normalTextSize={'text-8xl'}
+      />
 
-      <div className="relative bg-white text-black overflow-hidden">
+      <div className="flex-1 relative bg-white text-black overflow-hidden ">
         {/* 波点背景 */}
         <div className="absolute inset-x-0 top-0 bg-[radial-gradient(circle,#000_1.6px,transparent_1.2px)] bg-size-[8px_8px] h-15 w-full"></div>
 
@@ -131,7 +140,7 @@ export const PC_AboutSection = () => {
           <p className="flex flex-col gap-2 text-xs">
             <span>THE BEST WAY TO PREDICT THE FUTURE IS TO INVENT IT</span>
             <span className="indent-15">MAKE IT WORK, MAKE IT RIGHT, MAKE IT FAST</span>
-            <span className="indent-29">TAKE IS CHEAP, SHOW ME THE CODE</span>
+            <span className="indent-29">TALK IS CHEAP, SHOW ME THE CODE</span>
           </p>
         </div>
       </div>
