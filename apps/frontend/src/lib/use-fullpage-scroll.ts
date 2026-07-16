@@ -30,7 +30,7 @@ import { useEffect, useRef, useCallback } from 'react';
  *   │          │  向上 snap    │  刚离开，可回     │
  *   └──────────┘               └────────┬─────────┘
  *                                       │
- *                          用户往下滚 > 2px（handleScroll 检测）
+ *                          用户往下滚 > SNAP_ZONE（handleScroll 检测）
  *                          意味：用户想浏览 Middle 内容
  *                                       │
  *                                       ▼
