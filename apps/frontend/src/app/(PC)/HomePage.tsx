@@ -2,6 +2,7 @@
 import { PC_HeroSection } from './HeroSection';
 import { PC_EndSection } from './EndSection';
 import { PC_MiddleSection } from './MiddleSection';
+import { LaunchAnimation } from '@/components/Launch_animation';
 import { useRef } from 'react';
 import { useFullpageScroll } from '@/lib/use-fullpage-scroll';
 
@@ -20,6 +21,7 @@ export const PC_HomePage = () => {
       overflow-y-auto
 	    "
     >
+      <LaunchAnimation />
       <PC_HeroSection />
       <PC_MiddleSection />
       <PC_EndSection />

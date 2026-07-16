@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { Icon } from '@/components/Icon';
 import { useState } from 'react';
-import styles from '../app/page.module.css';
+
 const links = [
   { name: 'aboutus' as const, href: '#about', cn_name: '关于我们' },
   { name: 'organization' as const, href: '#organization', cn_name: '组织架构' },
@@ -52,14 +52,14 @@ export const Siderbar = () => {
 
   return (
     <div
-      className={`${styles.siderbar} h-screen w-[3.6rem] relative
+      className={`siderbar h-screen w-full relative
 	    flex flex-col items-center justify-between
       group
         `}
     >
       {/* 蓝色logo */}
       <div className="absolute w-[2.5rem] left-1/2 -translate-x-1/2 top-[1rem] pointer-events-none">
-        <img src="/icon/logo.png" alt="logo" />
+        <img src="/icon/logoB.png" alt="logo" />
       </div>
       {/* 导航锚点 */}
       <div className="w-full flex flex-col gap-[3px] relative mt-[6rem]">
@@ -74,17 +74,17 @@ export const Siderbar = () => {
         {links.map(({ name, href, cn_name }, index) => (
           <div key={name} className="relative" onClick={() => scrollToSection(href, index)}>
             <div
-              className={`${activeIndex === index ? styles.navSelected : styles.navItem}  flex justify-center items-center 
+              className={`${activeIndex === index ? 'navSelected' : 'navItem'}  flex justify-center items-center
               w-full h-[2.5rem]
               cursor-pointer`}
             >
               <Icon
                 name={name}
                 size="1.5rem"
-                className={`${activeIndex === index ? 'text-[#191919]' : 'text-[#d9d9d9] ' + styles.navicon} `}
+                className={`${activeIndex === index ? 'text-[#191919]' : 'text-[#d9d9d9] navicon'} `}
               />
               <div
-                className={`${styles.navtext} absolute left-[3.6rem] 
+                className={`navText absolute left-[3.6rem] 
                 whitespace-nowrap text-[0.6rem]`}
               >
                 <span>{cn_name}</span>
@@ -95,7 +95,7 @@ export const Siderbar = () => {
       </div>
       {/* 加入我们 */}
       <div
-        className={`${styles.stripe} absolute
+        className={`stripe absolute
           left-[0.8rem] bottom-[4rem]
           w-[2rem] h-[5rem]
           flex flex-col items-center justify-center gap-[8px]
@@ -122,7 +122,7 @@ export const Siderbar = () => {
           `}
         />
         <div
-          className={`${styles.joinLine}
+          className={`joinLine
             absolute h-[2px] w-[1.4rem] 
             bg-[#ffffff4d] 
             top-[2rem] left-[0.3rem]
@@ -131,7 +131,7 @@ export const Siderbar = () => {
             `}
         />
         <div
-          className={`${styles.joinText}
+          className={`joinText
           absolute
           top-[2.5rem] left-0
           w-[2rem]
@@ -143,7 +143,7 @@ export const Siderbar = () => {
         </div>
         {/* 横向 */}
         <div
-          className={`${styles.joinLine}
+          className={`joinLine
             absolute bottom-[0.3rem] left-[2.5rem]
             w-[2px] h-[1.4rem] bg-[#ffffff4d]
             opacity-0 group-hover:opacity-100
@@ -151,7 +151,7 @@ export const Siderbar = () => {
             pointer-events-none`}
         />
         <div
-          className={`${styles.joinText}
+          className={`joinText
           absolute
           bottom-[0.5rem] left-[4.5rem]
           w-[2rem]
