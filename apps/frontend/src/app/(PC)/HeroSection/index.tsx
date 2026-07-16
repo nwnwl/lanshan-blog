@@ -3,7 +3,7 @@
 import ParticleCanvas, { type ParticleCanvasHandle } from './components/ParticleCanvas';
 import DotMatrixBg from './components/DotMatrixBg';
 import ScrollIndicator from './components/ScrollIndicator';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useLayoutEffect, useState, useRef } from 'react';
 
 // ====== 响应式断点配置 ======
 // 按视口宽度匹配：容器宽/高 + 粒子 scale
@@ -33,9 +33,13 @@ function getResponsiveConfig(vw: number): ResponsiveConfig {
 export const PC_HeroSection = () => {
   const [showTrans, setShowTrans] = useState(false);
   const canvasRef = useRef<ParticleCanvasHandle>(null);
-  const [boxW, setBoxW] = useState(() => getResponsiveConfig(window.innerWidth).w);
-  const [boxH, setBoxH] = useState(() => getResponsiveConfig(window.innerWidth).h);
-
+  const [boxW, setBoxW] = useState(FALLBACK_CONFIG.w);
+  const [boxH, setBoxH] = useState(FALLBACK_CONFIG.h);
+  useLayoutEffect(() => {
+    const { w, h } = getResponsiveConfig(window.innerWidth);
+    setBoxW(w);
+    setBoxH(h);
+  }, []);
   // 响应式：根据视口宽度自动更新容器尺寸 + 粒子 scale
   useEffect(() => {
     const applyResponsive = () => {

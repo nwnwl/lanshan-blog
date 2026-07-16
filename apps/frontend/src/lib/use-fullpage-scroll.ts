@@ -4,110 +4,148 @@ import { useEffect, useRef, useCallback } from 'react';
 /**
  * 全屏滚动 Hook
  *
- * === 整体思路 ===
+ * ====== 页面结构 ======
  *
- * 页面结构（DOM 顺序）：
- *   [0] PC_HeroSection    — h-screen（一屏高），Hero 首屏
- *   [1] PC_MiddleSection  — 内容自适应高度（可能很长），包含 About / Project / Contact 等子区块
- *   [2] PC_EndSection     — h-[435px] 固定高度，页脚
+ *   container (h-screen, overflow-y-auto, flex-col)
+ *   ├── [0] HeroSection    h-screen   Hero 首屏
+ *   ├── [1] MiddleSection  自适应高度  5 个子 section 各 h-screen
+ *   └── [2] EndSection     h-[435px]  页脚
  *
- * 滚动策略（混合模式）：
- *   - Hero ↔ Middle 之间：**整屏 snap**（一次滚轮 = 跳一整屏）
- *   - Middle 内部：**自由滚动**（用户可以慢慢浏览长内容）
- *   - Middle → End：自然到达页面底部，不需要 snap
+ *   secondTop = MiddleSection 顶部在容器内的 scrollTop 偏移（≈ window.innerHeight）
  *
- * === 两大核心机制 ===
+ * ====== 滚动策略 ======
  *
- * 1. handleWheel（主动拦截）
- *    在用户滚动滚轮时判断是否需要 snap，如果需要则 preventDefault + scrollTo。
- *    - 向下：scrollTop 还在 Hero 区域（< secondTop）→ snap 到 Middle 顶部
- *    - 向上：scrollTop 在 Middle 顶部附近（≤ secondTop + 150px）→ snap 到 Hero 顶部
- *    - 其他情况：不拦截，让浏览器自由滚动
+ *   Hero ↔ Middle 之间：整屏 snap（一次滚轮 = 跳一整屏）
+ *   Middle 内部：完全自由滚动（浏览 About / Project / Contact 等内容）
+ *   Middle → End：自然到达页面底部
  *
- *    150px 向上 snap 区域的设计原因：
- *    - 浏览器单次滚轮约滚 100px，150px 覆盖约 1.5 次滚轮
- *    - 用户在 Middle 浅层（刚滚下来一点）想回去 → 一滚即回
- *    - 用户在 Middle 深处（远超 150px）→ 自由向上滚，不会误触发 snap
+ * ====== 核心设计：justLeftHero 状态机 ======
  *
- * 2. handleScroll（被动兜底）
- *    在每次 scroll 事件中检测是否跨过了 Middle 顶部边界。
- *    如果从 >= secondTop 跨到 < secondTop（即从 Middle 滚回了 Hero 区域），
- *    自动 snap 到 Hero 顶部 —— 这是 handleWheel 的"安全网"。
+ *   整个系统只有一个状态位 —— justLeftHero —— 追踪用户是否"刚离开 Hero"
  *
- *    典型场景：用户快速滚轮，浏览器一次滚了 200px+，
- *    handleWheel 没拦住（因为还在 > secondTop + 150px），
- *    但 handleScroll 检测到跨过了 secondTop 边界 → 补救 snap。
+ *            snap 到 Middle 时设为 true
+ *   ┌──────────┐               ┌──────────────────┐
+ *   │  Hero    │ ───────────→  │  justLeftHero    │
+ *   │  区域    │ ←───────────  │  = true          │
+ *   │          │  向上 snap    │  刚离开，可回     │
+ *   └──────────┘               └────────┬─────────┘
+ *                                       │
+ *                          用户往下滚 > 2px（handleScroll 检测）
+ *                          意味：用户想浏览 Middle 内容
+ *                                       │
+ *                                       ▼
+ *                               ┌──────────────────┐
+ *                               │  justLeftHero    │
+ *                               │  = false         │
+ *                               │  浏览模式        │
+ *                               │  全部自由滚动    │
+ *                               └────────┬─────────┘
+ *                                       │
+ *                           自由滚动中跨过 secondTop 边界
+ *                           （从 Middle 滚回了 Hero 区域）
+ *                                       │
+ *                                       ▼
+ *                               ┌──────────────────┐
+ *                               │  兜底 snap       │
+ *                               │  scrollTo(0)     │
+ *                               └──────────────────┘
  *
- * === 关键边界值 ===
+ *   为什么这解决了之前所有问题：
+ *   - 之前用 scrollTop 裸值判断 → smooth scroll 落地偏差导致 scrollTop 比 secondTop
+ *     小几 px → "往下一格往上一格就跳回 Hero"
+ *   - justLeftHero 不依赖像素精度：只要用户往下滚过（哪怕 1px），立刻退出 snap 模式
+ *   - 向上 snap 只在"刚离开 Hero + 还没往下滚过 + 在 snap 区间内"时触发
  *
- *   secondTop = Middle 区顶部在容器内的绝对偏移（scrollTop 坐标）
- *   容器 scrollTop = 0         → Hero 顶部
- *   容器 scrollTop = secondTop  → Middle 顶部（≈ window.innerHeight）
+ * ====== 三大机制 ======
  *
- *   currentIndex: 0 = 当前在 Hero 区, 1 = 当前在 Middle/End 区
+ * 1. handleWheel（主动拦截，唯二的 snap 入口）
+ *    - 向下 + scrollTop 在 Hero 区域 → snap 到 Middle，justLeftHero = true
+ *    - 向上 + justLeftHero + 在 snap 区间内 → snap 回 Hero
+ *    - 动画中 → preventDefault 吃掉所有滚轮事件
+ *    - 其余 → 放行，浏览器自由滚动
+ *
+ * 2. handleScroll（状态维护 + 边界兜底）
+ *    - st > s2 + 2：用户往下滚了 → justLeftHero = false，进入浏览模式
+ *    - st < s2 - 10：回到 Hero 区域 → 重置状态
+ *    - prev>=s2 && st<s2：自由滚动中跨过边界 → 兜底 snap 到 Hero 顶部
+ *    - 动画进行中只更新 prevScrollTopRef，不干预滚动
+ *
+ * 3. scrollToSection（rAF 自定义动画，600ms easeOutCubic）
+ *    - 不用浏览器 scroll-behavior: smooth（兼容性差、PixiJS 同主线程抢帧会卡顿）
+ *    - 不用 IntersectionObserver（root: container 在各浏览器行为不一致）
+ *    - 直接用 container.scrollTop 逐帧写值，完全掌控动画曲线
+ *    - easeOutCubic: 1-(1-t)³ → 起步快收尾柔，体感干脆
+ *    - 动画期间 isAnimating = true，handleWheel 会 preventDefault 阻止原生滚动
  */
 
-const SNAP_UP_ZONE = 150; // 向上 snap 的触发区域（px），从 secondTop 往下算
-const SCROLL_END_FALLBACK = 1000; // scrollend 事件兜底超时（ms）
+const SNAP_ZONE = 50; // 向上 snap 区间（安全兜底）：Middle 顶部下方多少 px 内仍算"刚离开"
 
 export const useFullpageScroll = (containerRef: React.RefObject<HTMLDivElement | null>) => {
-  const isAnimating = useRef(false);
-  const currentIndex = useRef(0);
-  const secondSectionTopRef = useRef(0);
-  const prevScrollTopRef = useRef(0);
+  const isAnimating = useRef(false); // 动画锁，防止重入 + 阻止原生滚动
+  const justLeftHero = useRef(false); // 唯一状态位，true = 刚离开 Hero 可 snap 回去
+  const secondTopRef = useRef(0); // MiddleSection 顶部在容器内的 scrollTop 偏移
+  const prevScrollTopRef = useRef(0); // 上一次 scrollTop，用于边界跨越检测
 
-  /** 获取指定索引 section 的实际 scrollTop 偏移 */
+  /** 获取 section[index] 在容器内的 scrollTop 偏移（index=0 直接返回 0） */
   const getSectionTop = useCallback(
     (index: number): number => {
       const container = containerRef.current;
-      const sections = container?.querySelectorAll('.part');
-      if (!container || !sections || index >= sections.length) return 0;
+      if (!container) return 0;
       if (index === 0) return 0;
-
-      const section = sections[index] as HTMLElement;
-      const containerRect = container.getBoundingClientRect();
-      const sectionRect = section.getBoundingClientRect();
-      return sectionRect.top - containerRect.top + container.scrollTop;
+      const sections = container.querySelectorAll('.part');
+      if (index >= sections.length) return 0;
+      const s = sections[index] as HTMLElement;
+      const cr = container.getBoundingClientRect();
+      const sr = s.getBoundingClientRect();
+      return sr.top - cr.top + container.scrollTop;
     },
     [containerRef],
   );
 
-  /** 更新 secondSection 的偏移值（缓存） */
-  const updateSecondSectionTop = useCallback(() => {
-    secondSectionTopRef.current = getSectionTop(1);
+  const updateSecondTop = useCallback(() => {
+    secondTopRef.current = getSectionTop(1);
   }, [getSectionTop]);
 
-  /** 滚动到指定 section */
+  /** rAF 自定义滚动动画：600ms easeOutCubic */
   const scrollToSection = useCallback(
     (index: number) => {
       const container = containerRef.current;
-      const sections = container?.querySelectorAll('.part');
-      if (!container || !sections) return;
-      if (isAnimating.current) return;
+      if (!container || isAnimating.current) return;
+      const sections = container.querySelectorAll('.part');
       if (index < 0 || index >= sections.length) return;
 
       isAnimating.current = true;
-      currentIndex.current = index;
 
-      const targetTop = getSectionTop(index);
+      const startTop = container.scrollTop;
+      const endTop = getSectionTop(index);
+      const distance = endTop - startTop;
 
-      container.scrollTo({
-        top: targetTop,
-        behavior: 'smooth',
-      });
-
-      // 用 scrollend 精准监听滚动结束
-      const onScrollEnd = () => {
+      // 已在目标位置，无需动画
+      if (Math.abs(distance) < 1) {
+        container.scrollTop = endTop;
         isAnimating.current = false;
-        container.removeEventListener('scrollend', onScrollEnd);
+        return;
+      }
+
+      const duration = 600;
+      const startTime = performance.now();
+
+      const animate = (now: number) => {
+        const elapsed = now - startTime;
+        const t = Math.min(elapsed / duration, 1);
+        // easeOutCubic: f(t) = 1 - (1-t)³，起步快收尾柔
+        const eased = 1 - (1 - t) * (1 - t) * (1 - t);
+        container.scrollTop = startTop + distance * eased;
+
+        if (t < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          container.scrollTop = endTop; // 精确落点
+          isAnimating.current = false;
+        }
       };
-      container.addEventListener('scrollend', onScrollEnd);
 
-      // 兜底：防止 scrollend 在部分浏览器不触发
-      setTimeout(() => {
-        isAnimating.current = false;
-        container.removeEventListener('scrollend', onScrollEnd);
-      }, SCROLL_END_FALLBACK);
+      requestAnimationFrame(animate);
     },
     [containerRef, getSectionTop],
   );
@@ -115,94 +153,89 @@ export const useFullpageScroll = (containerRef: React.RefObject<HTMLDivElement |
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+    if (container.querySelectorAll('.part').length < 2) return;
 
-    const sections = container.querySelectorAll('.part');
-    if (sections.length < 2) return;
-
-    // 初始化
-    updateSecondSectionTop();
+    updateSecondTop();
     prevScrollTopRef.current = container.scrollTop;
 
-    // ====== handleWheel：主动拦截 ======
+    // ====== handleWheel：主动拦截，唯二的 snap 入口 ======
     const handleWheel = (e: WheelEvent) => {
-      if (isAnimating.current) return;
-
-      const direction = e.deltaY > 0 ? 1 : -1;
-      const secondTop = secondSectionTopRef.current;
-      const scrollTop = container.scrollTop;
-
-      // 向下：Hero → Middle
-      if (direction === 1 && scrollTop < secondTop - 2) {
+      // 动画进行中：阻止浏览器原生滚动，避免与 self-animation 冲突
+      if (isAnimating.current) {
         e.preventDefault();
+        return;
+      }
+
+      const dir = e.deltaY > 0 ? 1 : -1;
+      const st = container.scrollTop;
+      const s2 = secondTopRef.current;
+
+      // 向下 snap：仅在 Hero 区域时触发（st 明显小于 secondTop）
+      if (dir === 1 && st < s2 - 2) {
+        e.preventDefault();
+        justLeftHero.current = true; // 进入"刚离开 Hero"状态
         scrollToSection(1);
         return;
       }
 
-      // 向上：Middle 浅层 → Hero（SNAP_UP_ZONE 范围内触发 snap）
-      if (direction === -1 && scrollTop > 0 && scrollTop <= secondTop + SNAP_UP_ZONE) {
+      // 向上 snap：刚离开 Hero + 未往下探索 + 在 snap 区间内
+      if (dir === -1 && justLeftHero.current && st <= s2 + SNAP_ZONE && st > 0) {
         e.preventDefault();
+        justLeftHero.current = false;
         scrollToSection(0);
         return;
       }
 
-      // 其余：不拦截，自由滚动
+      // 其余：放行，浏览器自由滚动
     };
 
-    // ====== handleScroll：被动兜底 ======
+    // ====== handleScroll：状态维护 + 边界兜底 ======
     const handleScroll = () => {
-      // 动画进行中不干预（避免与 scrollTo 冲突）
+      const s2 = secondTopRef.current;
+      const st = container.scrollTop;
+      const prev = prevScrollTopRef.current;
+
+      // 始终更新 prevScrollTopRef，动画结束后也不会有过期值
+      prevScrollTopRef.current = st;
+
+      // 动画进行中只更新 prevScrollTopRef，不干预滚动
       if (isAnimating.current) return;
 
-      // 动态更新偏移（以防内容高度变化）
-      updateSecondSectionTop();
+      updateSecondTop();
 
-      const secondTop = secondSectionTopRef.current;
-      const scrollTop = container.scrollTop;
-      const prevTop = prevScrollTopRef.current;
-
-      // 更新当前 section 索引
-      if (scrollTop >= secondTop - 2) {
-        currentIndex.current = 1;
-      } else {
-        currentIndex.current = 0;
+      // 用户往下滚了（哪怕 > s2+2）→ 退出"刚离开"状态，进入浏览模式
+      if (justLeftHero.current && st > s2 + 2) {
+        justLeftHero.current = false;
       }
 
-      // 兜底检测：如果从 Middle 区域（>= secondTop）跨回 Hero 区域（< secondTop）
-      // 说明用户在自由滚动中跨过了边界 → snap 到 Hero 顶部
-      if (prevTop >= secondTop && scrollTop < secondTop) {
-        // 使用 rAF 避免在 scroll 事件中直接 scrollTo 导致的抖动
-        requestAnimationFrame(() => {
-          scrollToSection(0);
-        });
+      // 已经回到 Hero 区域 → 重置状态
+      if (st < s2 - 10) {
+        justLeftHero.current = false;
       }
 
-      prevScrollTopRef.current = scrollTop;
+      // 边界兜底：自由滚动中从 Middle（≥s2）跨回 Hero（<s2）→ snap 到顶部
+      // 典型场景：用户在 Middle 深处往上连续滚，跨过 secondTop 边界
+      if (prev >= s2 && st < s2) {
+        justLeftHero.current = false;
+        scrollToSection(0);
+      }
     };
 
-    // ====== handleResize：窗口变化时修正 ======
+    // resize 时只需更新 secondTop 偏移
     const handleResize = () => {
-      updateSecondSectionTop();
-
-      // 如果当前在 Middle 区域但 secondTop 变了，保持视觉位置
-      const secondTop = secondSectionTopRef.current;
-      if (currentIndex.current === 1 && container.scrollTop < secondTop - 10) {
-        // resize 后可能错位，修正到 Middle 顶部
-        container.scrollTo({ top: secondTop, behavior: 'instant' as ScrollBehavior });
-      }
+      updateSecondTop();
     };
 
     container.addEventListener('wheel', handleWheel, { passive: false });
     container.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
 
-    // 初始状态：确保从顶部开始
     container.scrollTop = 0;
-    currentIndex.current = 0;
 
     return () => {
       container.removeEventListener('wheel', handleWheel);
       container.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
     };
-  }, [containerRef, updateSecondSectionTop, scrollToSection, getSectionTop]);
+  }, [containerRef, updateSecondTop, scrollToSection]);
 };
