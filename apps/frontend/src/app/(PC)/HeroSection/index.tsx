@@ -15,10 +15,11 @@ interface ResponsiveConfig {
 }
 
 const RESPONSIVE_BREAKPOINTS: [number, ResponsiveConfig][] = [
-  [1520, { scale: 2.5, w: 450, h: 550 }],
-  [1330, { scale: 2, w: 400, h: 500 }],
-  [1200, { scale: 1.8, w: 380, h: 400 }],
-  [1110, { scale: 1.7, w: 320, h: 350 }],
+  [1520, { scale: 3, w: 550, h: 550 }],
+  [1330, { scale: 2.5, w: 450, h: 500 }],
+  [1200, { scale: 2, w: 400, h: 500 }],
+  [1110, { scale: 1.8, w: 380, h: 400 }],
+  [1024, { scale: 1.7, w: 320, h: 350 }],
 ];
 
 const FALLBACK_CONFIG: ResponsiveConfig = { scale: 1.5, w: 280, h: 300 };
@@ -73,61 +74,50 @@ export const PC_HeroSection = () => {
   }, []);
 
   return (
-    <div id="hero" className="part relative h-screen w-full bg-black/90 overflow-hidden">
+    <div id="hero" className="part relative h-screen w-full overflow-hidden bg-[#191919]">
       {/* 点阵数字背景 */}
       <DotMatrixBg />
 
       {/* 前景：左侧文字 + 右侧粒子容器 */}
-      <div className="relative z-20 w-full h-screen flex items-center justify-center">
+      <div className="relative z-20 flex h-screen w-full items-center justify-evenly">
         {/* 左侧文字 */}
         <div className="select-none">
-          <div className="leading-none text-[#00d4ff] text-[clamp(16px,4.8vw,24px)]">
+          <div className="indent-[3px] text-[clamp(16px,4.8vw,24px)] leading-none text-[#00d4ff]">
             <span
-              className={`${showTrans ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}
-              transition-all duration-700 ease-out
-              delay-200`}
+              className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'} 
+              transition-all delay-200 duration-700 ease-out`}
             >
               WEB DEVELOPOMENT CLUB
             </span>
           </div>
-          <div className="leading-none text-[#d9d9d98f] text-[10px]">
+          <div className="indent-[3px] text-[10px] text-[#d9d9d98f]">
             <span
-              className={`${showTrans ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}
-              transition-all duration-700 ease-out
-              delay-300`}
+              className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'} 
+              transition-all delay-300 duration-700 ease-out
+              mb-[1rem]`}
             >
               DIGITAL PRODUCTS · INTELLIGENT SYSTEMS · USER-CENTRIC DESIGN
             </span>
           </div>
-          <div className="leading-none text-[#ffffff] text-[clamp(3rem,5vw+5rem,10rem)]">
+          <div className="text-[clamp(3rem,5vw+5rem,10rem)] leading-none text-[#00d4ff]">
             <span
-              className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}
-              transition-all duration-700 ease-out
-              delay-100`}
+              className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'} 
+              transition-all delay-100 duration-700 ease-out`}
             >
-              STUDIO
+              蓝山
             </span>
           </div>
-          <div
-            className="
-          leading-none text-[#00d4ff] text-[clamp(3rem,5vw+5rem,10rem)]
-          overflow-hidden"
-          >
+          <div className="overflow-hidden text-[clamp(3rem,5vw+5rem,10rem)] leading-none text-[#ffffff]">
             <span
-              className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}
-              transition-all duration-700 ease-out
-              `}
+              className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'} transition-all duration-700 ease-out`}
             >
-              LANSHAN
+              工作室
             </span>
           </div>
         </div>
 
         {/* 右侧粒子画布容器 */}
-        <div
-          className="relative rounded-lg overflow-hidden z-10"
-          style={{ width: boxW, height: boxH }}
-        >
+        <div className="relative z-10 rounded-lg" style={{ width: boxW, height: boxH }}>
           <ParticleCanvas ref={canvasRef} className="absolute inset-0" />
         </div>
       </div>

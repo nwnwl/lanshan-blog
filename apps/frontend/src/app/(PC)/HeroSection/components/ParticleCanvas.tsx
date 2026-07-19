@@ -55,12 +55,12 @@ const ParticleCanvas = forwardRef<ParticleCanvasHandle, ParticleCanvasProps>(
     return (
       <div ref={containerRef} className={className} style={{ background: 'transparent', ...style }}>
         {loading && (
-          <div className="absolute inset-0 flex items-center justify-center text-white/50 text-sm">
+          <div className="absolute inset-0 flex items-center justify-center text-sm text-white/50">
             蓝妹正在跨越次元壁...
           </div>
         )}
         {error && (
-          <div className="absolute inset-0 flex items-center justify-center text-red-400 text-sm">
+          <div className="absolute inset-0 flex items-center justify-center text-sm text-red-400">
             {error}
           </div>
         )}

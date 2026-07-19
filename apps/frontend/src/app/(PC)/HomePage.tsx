@@ -13,14 +13,7 @@ export const PC_HomePage = () => {
   useFullpageScroll(containerRef);
 
   return (
-    <div
-      ref={containerRef}
-      className="contain
-      h-screen w-full
-	    flex flex-col
-      overflow-y-auto
-	    "
-    >
+    <div ref={containerRef} className="contain flex h-screen w-full flex-col overflow-y-auto">
       <LaunchAnimation />
       <PC_HeroSection />
       <PC_MiddleSection />

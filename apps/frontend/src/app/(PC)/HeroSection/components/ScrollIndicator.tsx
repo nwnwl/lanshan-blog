@@ -3,7 +3,7 @@ export default function ScrollIndicator() {
     <>
       <style>{`@keyframes drift{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-0.5rem)}}`}</style>
       <svg
-        className="absolute bottom-8 left-1/2 z-20 pointer-events-none"
+        className="pointer-events-none absolute bottom-8 left-1/2 z-20"
         style={{ animation: 'drift 1.5s ease-in-out infinite' }}
         width="20"
         height="20"
