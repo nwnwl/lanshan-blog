@@ -39,22 +39,8 @@ export const PC_AboutSection = () => {
       <div ref={overlayRef} className={styles.darkOverlay} />
 
       {/* 滚动字幕 */}
-      <Marquee
-        text={text_1}
-        bgColor={'bg-white'}
-        textColor={'text-black'}
-        lgText={'text-4xl'}
-        normalTextSize={'text-8xl'}
-        direction="left"
-      />
-      <Marquee
-        text={text_2}
-        bgColor={'bg-white'}
-        textColor={'text-black'}
-        lgText={'text-4xl'}
-        normalTextSize={'text-8xl'}
-        direction="right"
-      />
+      <Marquee text={text_1} bgColor={'bg-white'} textColor={'text-black'} direction="left" />
+      <Marquee text={text_2} bgColor={'bg-white'} textColor={'text-black'} direction="right" />
 
       <div className="relative bg-white text-black overflow-hidden ">
         {/* 斜线背景 */}
@@ -65,13 +51,11 @@ export const PC_AboutSection = () => {
             className={`${styles.headerHover} flex flex-col pl-10 pt-4 mt-16 gap-1 pb-4 mb-10 bg-[#f0f0f076]`}
           >
             <div>
-              <div className="inline-flex h-5 w-20 bg-[#D9D9D9] justify-end pr-1">
+              <div className="inline-flex h-5 w-15 bg-[#D9D9D9] justify-end pr-1">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 23 23"
-                  className="SectionTitle_arrow__qXHl7 "
-                  height={20}
-                  width={20}
+                  className="SectionTitle_arrow__qXHl7 w-4 h-4"
                 >
                   <path
                     fillRule="evenodd"
@@ -80,15 +64,15 @@ export const PC_AboutSection = () => {
                   ></path>
                 </svg>
               </div>
-              <span className="xl:text-xl lg:text-xl font-medium pl-2">ABOUT US</span>
+              <span className="md:text-xl text-xs font-medium pl-2">ABOUT US</span>
             </div>
-            <span className="xl:text-4xl lg:text-7xl text-6xl tracking-tight">关于我们</span>
+            <span className="md:text-4xl sm:text-2xl text-xl tracking-tight">关于我们</span>
           </header>
 
-          <main className="min-h-0 flex flex-1 gap-2">
+          <main className="min-h-0 flex md:gap-2 gap-1">
             <div className="flex flex-col gap-36">
               <div className="flex flex-col gap-4 pl-10">
-                <p className="xl:text-md lg:text-sm  pt-8 pr-4 tracking-widest">
+                <p className="lg:text-sm text-xs  pt-8 pr-4 tracking-widest">
                   LET THE WORLD
                   <span className="block">SEE YOUR POTENTIAL</span>
                 </p>
@@ -108,9 +92,7 @@ export const PC_AboutSection = () => {
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 41 48"
-                  className="__05-Gameplay_icon__Yiqki text-[#A6A6A6] "
-                  height={80}
-                  width={80}
+                  className="__05-Gameplay_icon__Yiqki text-[#A6A6A6] md:w-18 md:h-18 h-12 w-12"
                 >
                   <path
                     fillRule="evenodd"
@@ -122,18 +104,18 @@ export const PC_AboutSection = () => {
             </div>
 
             <div className="flex flex-1 mt-10">
-              <div className="flex flex-col flex-1 gap-20 min-w-0 p-20">
-                <div className="indent-12 tracking-widest xl:text-2xl md:text-xl text-md font-medium leading-relaxed">
+              <div className="flex flex-col flex-1 gap-20 min-w-0 xl:p-20 lg:p-10 p-6">
+                <div className="indent-12 tracking-widest lg:text-2xl md:text-xl text-md font-medium leading-relaxed">
                   蓝山工作室是重庆邮电大学教育信息化办公室/信息中心指导的，专注于教育数字化、智能化创新应用研发的学生团队，开发了“We重邮”微信小程序、重庆市高校辅导员素质能力大赛系统等。工作室以开源为导向，通过开源生态构建来培养复合型人才，在我们的github官网分享了各部门培训课件，也在字节开源组织，apache基金会等其他云原生基金会开源组织积极参与贡献，获得了不错的影响力，是一支富有创造力、朝气蓬勃的数字化队伍
                 </div>
 
                 <div className="flex flex-col gap-4 xl:tracking-wider">
-                  <p className="xl:text-2xl lg:text-xl">TOWARD THE FUTURE</p>
+                  <p className="xl:text-2xl lg:text-xl text-sm">TOWARD THE FUTURE</p>
                   <p className="pr-15 xl:text-sm text-xs  ">BEYOND LANSHAN</p>
                 </div>
               </div>
 
-              <div className="bg-linear-to-b from-[#00D4FF] to-transparent h-full w-40 p-4">
+              <div className="bg-linear-to-b from-[#00D4FF] to-transparent h-full md:w-40 w-30 p-4">
                 <div className="bg-white h-full w-4 relative"></div>
                 <p className="absolute top-68  [writing-mode:vertical-rl] text-4xl font-medium tracking-widest">
                   INTRODUCTION
