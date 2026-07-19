@@ -42,10 +42,7 @@ export const PC_AboutSection = () => {
       <Marquee text={text_1} bgColor={'bg-white'} textColor={'text-black'} direction="left" />
       <Marquee text={text_2} bgColor={'bg-white'} textColor={'text-black'} direction="right" />
 
-      <div className="relative bg-white text-black overflow-hidden ">
-        {/* 斜线背景 */}
-        {/* <div className="absolute bottom-0 top-20 right-0 bg-[repeating-linear-gradient(-45deg,transparent,transparent_4px,#C0C0C0_6px,#C0C0C0_5px)] h-full w-15"></div> */}
-
+      <div className="relative flex-1 bg-white text-black overflow-hidden">
         <div className="w-full h-full font-semibold flex flex-col flex-1 relative">
           <header
             className={`${styles.headerHover} flex flex-col pl-10 pt-4 mt-16 gap-1 pb-4 mb-10 bg-[#f0f0f076]`}
@@ -76,7 +73,7 @@ export const PC_AboutSection = () => {
                   LET THE WORLD
                   <span className="block">SEE YOUR POTENTIAL</span>
                 </p>
-                <div className="flex flex-col gap-4 ">
+                <div className="flex flex-col gap-4">
                   <span>___</span>
                   <span>___</span>
                   <span>___</span>
@@ -111,27 +108,20 @@ export const PC_AboutSection = () => {
 
                 <div className="flex flex-col gap-4 xl:tracking-wider">
                   <p className="xl:text-2xl lg:text-xl text-sm">TOWARD THE FUTURE</p>
-                  <p className="pr-15 xl:text-sm text-xs  ">BEYOND LANSHAN</p>
+                  <p className="pr-15 xl:text-sm text-xs">BEYOND LANSHAN</p>
                 </div>
               </div>
 
               <div className="bg-linear-to-b from-[#00D4FF] to-transparent h-full md:w-40 w-30 p-4">
-                <div className="bg-white h-full w-4 relative"></div>
-                <p className="absolute top-68  [writing-mode:vertical-rl] text-4xl font-medium tracking-widest">
-                  INTRODUCTION
-                </p>
+                <div className="bg-white h-full w-4 relative">
+                  <p className="absolute top-2 [writing-mode:vertical-rl] md:text-4xl text-2xl font-medium tracking-widest">
+                    INTRODUCTION
+                  </p>
+                </div>
               </div>
             </div>
           </main>
         </div>
-
-        {/* <div className="absolute w-100 h-40 bottom-[-40] right-[-60] font-bold">
-          <p className="flex flex-col gap-2 text-xs">
-            <span>THE BEST WAY TO PREDICT THE FUTURE IS TO INVENT IT</span>
-            <span className="indent-15">MAKE IT WORK, MAKE IT RIGHT, MAKE IT FAST</span>
-            <span className="indent-29">TALK IS CHEAP, SHOW ME THE CODE</span>
-          </p>
-        </div> */}
       </div>
     </section>
   );
