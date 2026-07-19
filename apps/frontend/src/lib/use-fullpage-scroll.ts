@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useCallback } from 'react';
+import { useMarqueeStore } from '../components/MarqueeStore';
 
 export const useFullpageScroll = (containerRef: React.RefObject<HTMLDivElement | null>) => {
   const isAnimating = useRef(false);
@@ -58,6 +59,15 @@ export const useFullpageScroll = (containerRef: React.RefObject<HTMLDivElement |
       if (isAnimating.current) return;
 
       const direction = e.deltaY > 0 ? 1 : -1;
+
+      // 新增：判断滚动方向并切换字幕方向
+      const { isReversed, toggleReverse } = useMarqueeStore.getState();
+      if (direction === 1 && !isReversed) {
+        toggleReverse(); // 向下滑 -> 反转
+      } else if (direction === -1 && isReversed) {
+        toggleReverse(); // 向上滑 -> 恢复
+      }
+
       const secondTop = secondSectionTopRef.current;
       const isAtSecondTop = Math.abs(container.scrollTop - secondTop) < 10;
       const isNearSecondTop =
