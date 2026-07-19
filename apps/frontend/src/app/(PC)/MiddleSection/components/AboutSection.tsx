@@ -1,12 +1,11 @@
 import Marquee from '@/components/Marquee';
-import styles from './AboutSection.module.css';
 
 const text_1 = ' // LANSHAN-BEYOND LANSHAN  YOUR POTENTIAL AWAITS\u00A0';
 const text_2 = ' \\\\ UI DESIGN PRODUCT OPERATIONS OPERATION SECURITY FRONTEND BACKEND\u00A0';
 
 export const PC_AboutSection = () => {
   return (
-    <section id="about" className="section h-screen w-full flex flex-col overflow-hidden">
+    <section id="about" className="section h-screen w-full flex flex-col overflow-hidden relative">
       <div className="w-full h-full font-semibold flex flex-col flex-1">
         <div className="header_about flex flex-col pl-10 pt-4 gap-1 pb-4 mb-10 bg-[#f0f0f076]">
           <div>
