@@ -2,6 +2,7 @@
 import { PC_HeroSection } from './HeroSection';
 import { PC_EndSection } from './EndSection';
 import { PC_MiddleSection } from './MiddleSection';
+import { LaunchAnimation } from '@/components/Launch_animation';
 import { useRef } from 'react';
 import { useFullpageScroll } from '@/lib/use-fullpage-scroll';
 
@@ -12,14 +13,8 @@ export const PC_HomePage = () => {
   useFullpageScroll(containerRef);
 
   return (
-    <div
-      ref={containerRef}
-      className="contain
-      h-screen w-full
-	    flex flex-col
-      overflow-y-auto
-	    "
-    >
+    <div ref={containerRef} className="contain flex h-screen w-full flex-col overflow-y-auto">
+      <LaunchAnimation />
       <PC_HeroSection />
       <PC_MiddleSection />
       <PC_EndSection />

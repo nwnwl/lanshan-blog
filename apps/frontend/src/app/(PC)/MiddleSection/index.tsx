@@ -16,8 +16,8 @@ export const PC_MiddleSection = () => {
 
       <div className="flex-1 flex flex-col min-w-0">
         <PC_AboutSection />
-        <PC_OrganizationSection />
         <PC_ProjectSection />
+        <PC_OrganizationSection />
         <PC_GraduationSection />
         <PC_ContactSection />
       </div>
