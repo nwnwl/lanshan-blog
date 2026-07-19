@@ -5,8 +5,8 @@ import { useState } from 'react';
 
 const links = [
   { name: 'aboutus' as const, href: '#about', cn_name: '关于我们' },
-  { name: 'organization' as const, href: '#organization', cn_name: '组织架构' },
   { name: 'pastproject' as const, href: '#project', cn_name: '过往项目' },
+  { name: 'organization' as const, href: '#organization', cn_name: '组织架构' },
   { name: 'headto' as const, href: '#graduation', cn_name: '毕业去向' },
   { name: 'contact' as const, href: '#contact', cn_name: '联系我们' },
 ];
