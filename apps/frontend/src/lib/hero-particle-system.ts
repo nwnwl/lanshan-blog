@@ -81,8 +81,8 @@ export class ParticleSystem {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     this.app = new Application();
     await this.app.init({
-      width: hostElement.clientWidth * dpr,
-      height: hostElement.clientHeight * dpr,
+      width: hostElement.clientWidth,
+      height: hostElement.clientHeight,
       backgroundAlpha: 0,
       antialias: true,
       resolution: dpr,
@@ -114,7 +114,7 @@ export class ParticleSystem {
       const { width, height } = entries[0].contentRect;
       if (width > 0 && height > 0 && this.app) {
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        this.app.renderer.resize(width * dpr, height * dpr);
+        this.app.renderer.resize(width, height);
         this.app.renderer.resolution = dpr;
         this.centerComposition();
       }
