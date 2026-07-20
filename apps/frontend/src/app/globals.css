@@ -54,7 +54,7 @@ html {
 .siderbar {
   animation: moveInto linear;
   animation-timeline: scroll();
-  animation-range: 0 100vh;
+  animation-range: 0 50vh;
 }
 @keyframes moveInto {
   from {
@@ -189,7 +189,7 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/icon/animebg.png');
+  background-image: url('/picture/animebg.png');
   background-size: cover;
   background-position: 50%;
   background-repeat: no-repeat;

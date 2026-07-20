@@ -1,4 +1,4 @@
-import Marquee from '@/components/Marquee';
+import Marquee from './components/Marquee';
 
 const text_1 = ' // LANSHAN-BEYOND LANSHAN  YOUR POTENTIAL AWAITS\u00A0';
 const text_2 = ' \\\\ UI DESIGN PRODUCT OPERATIONS OPERATION SECURITY FRONTEND BACKEND\u00A0';

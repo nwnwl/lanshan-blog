@@ -38,16 +38,17 @@ export const Siderbar = () => {
 
     return () => observer.disconnect();
   }, [isScroll]);
-  //点击跳转，带防抖，防止滚动时检测
+  //点击跳转，带防抖，防止滚动时检测；同时标记锚点跳转，避免全屏滚动 hook 的边界兜底误触发
   const scrollToSection = (href: string, index: number) => {
     setActiveIndex(index);
+    (window as any).__isAnchorScrolling = true;
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
 
     isScroll.current = true;
     if (timeRef.current) clearTimeout(timeRef.current);
     timeRef.current = setTimeout(() => {
       isScroll.current = false;
-    }, 400);
+    }, 800);
   };
 
   return (
@@ -59,7 +60,7 @@ export const Siderbar = () => {
     >
       {/* 蓝色logo */}
       <div className="absolute w-[2.5rem] left-1/2 -translate-x-1/2 top-[1rem] pointer-events-none">
-        <img src="/icon/logoB.png" alt="logo" />
+        <img src="/picture/logoB.png" alt="logo" />
       </div>
       {/* 导航锚点 */}
       <div className="w-full flex flex-col gap-[3px] relative mt-[6rem]">

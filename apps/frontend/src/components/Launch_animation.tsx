@@ -82,7 +82,7 @@ export const LaunchAnimation = () => {
               className="absolute right-1/5 top-2/5
             w-[10rem]"
             >
-              <img src="/icon/logoW.png" alt="logo" />
+              <img src="/picture/logoW.png" alt="logo" />
             </div>
             {/* 分隔线 + 标语 */}
             <div

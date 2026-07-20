@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { useMarqueeStore } from './MarqueeStore';
+import { useMarqueeStore } from '../lib/MarqueeStore';
 
 interface MarqueeProps {
   text: string;

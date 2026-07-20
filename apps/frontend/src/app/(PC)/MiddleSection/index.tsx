@@ -1,8 +1,8 @@
-import { PC_AboutSection } from './components/AboutSection';
-import { PC_GraduationSection } from './components/GraduationSection';
-import { PC_ProjectSection } from './components/ProjectSection';
-import { PC_OrganizationSection } from './components/OrganizationSection';
-import { PC_ContactSection } from './components/ContactSection';
+import { PC_AboutSection } from './components/(About)/About';
+import { PC_GraduationSection } from './components/(Graduation)/Graduation';
+import { PC_ProjectSection } from './components/(Project)/Project';
+import { PC_OrganizationSection } from './components/(Organization)/Organization';
+import { PC_ContactSection } from './components/(Contact)/Contact';
 import { Siderbar } from '@/components/Siderbar';
 export const PC_MiddleSection = () => {
   return (
@@ -14,7 +14,10 @@ export const PC_MiddleSection = () => {
         <Siderbar />
       </div>
 
-      <div className="flex-1 flex flex-col min-w-0">
+      <div
+        className="flex-1 flex flex-col min-w-0"
+        style={{ 'timeline-scope': '--org-appears' } as React.CSSProperties}
+      >
         <PC_AboutSection />
         <PC_ProjectSection />
         <PC_OrganizationSection />

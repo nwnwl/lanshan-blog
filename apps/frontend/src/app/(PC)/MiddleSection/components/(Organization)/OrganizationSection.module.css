@@ -1,0 +1,17 @@
+.overlay {
+  view-timeline-name: --org-appears;
+}
+
+.overlay::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #101010;
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 1;
+}
