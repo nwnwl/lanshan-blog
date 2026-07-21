@@ -5,8 +5,8 @@ const text_2 = ' \\\\ UI DESIGN PRODUCT OPERATIONS OPERATION SECURITY FRONTEND B
 
 export const PC_AboutSection = () => {
   return (
-    <section id="about" className="section h-screen w-full flex flex-col overflow-hidden relative">
-      <div className="w-full h-full font-semibold flex flex-col flex-1">
+    <div id="about" className="section h-screen w-full flex flex-col overflow-hidden relative">
+      <div className="w-full min-h-0 font-semibold flex flex-col flex-1 overflow-hidden">
         <div className="header_about flex flex-col pl-10 pt-4 gap-1 pb-4 mb-10 bg-[#f0f0f076]">
           <div>
             <div className="inline-flex h-5 w-15 bg-[#D9D9D9] justify-end pr-1">
@@ -27,7 +27,7 @@ export const PC_AboutSection = () => {
           <span className="md:text-4xl sm:text-2xl text-xl tracking-tight">关于我们</span>
         </div>
 
-        <div className="main_about min-h-0 flex md:gap-2 gap-1">
+        <div className="main_about min-h-0 flex md:gap-2 gap-1 overflow-hidden">
           <div className="flex flex-col gap-36">
             <div className="flex flex-col gap-4 pl-10">
               <span className="lg:text-sm text-xs  pt-8 pr-4 tracking-widest">
@@ -62,7 +62,7 @@ export const PC_AboutSection = () => {
           </div>
 
           <div className="flex flex-1 mt-10">
-            <div className="flex flex-col flex-1 gap-20 min-w-0 xl:p-20 lg:p-10 p-6">
+            <div className="flex flex-col flex-1 gap-20 min-w-0 xl:p-20 lg:p-10 p-6 overflow-y-auto">
               <div className="indent-12 tracking-widest lg:text-2xl md:text-xl text-md font-medium leading-relaxed">
                 蓝山工作室是重庆邮电大学教育信息化办公室/信息中心指导的，专注于教育数字化、智能化创新应用研发的学生团队，开发了“We重邮”微信小程序、重庆市高校辅导员素质能力大赛系统等。工作室以开源为导向，通过开源生态构建来培养复合型人才，在我们的github官网分享了各部门培训课件，也在字节开源组织，apache基金会等其他云原生基金会开源组织积极参与贡献，获得了不错的影响力，是一支富有创造力、朝气蓬勃的数字化队伍
               </div>
@@ -85,8 +85,10 @@ export const PC_AboutSection = () => {
       </div>
 
       {/* 滚动字幕 */}
-      <Marquee text={text_1} bgColor={'bg-white'} textColor={'text-black'} direction="left" />
-      <Marquee text={text_2} bgColor={'bg-white'} textColor={'text-black'} direction="right" />
-    </section>
+      <div>
+        <Marquee text={text_1} bgColor={'bg-white'} textColor={'text-black'} direction="left" />
+        <Marquee text={text_2} bgColor={'bg-white'} textColor={'text-black'} direction="right" />
+      </div>
+    </div>
   );
 };

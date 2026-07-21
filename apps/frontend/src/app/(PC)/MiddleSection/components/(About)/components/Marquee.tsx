@@ -95,9 +95,13 @@ function Marquee({ text, bgColor, textColor, direction = 'left' }: MarqueeProps)
 
   return (
     <div className={`${bgColor} ${textColor} overflow-hidden w-full`}>
-      <div ref={trackRef} className="flex w-fit whitespace-nowrap font-medium tracking-widest">
-        <span className="text-6xl md:text-8xl">{text}</span>
-        <span className="text-6xl md:text-8xl">{text}</span>
+      <div ref={trackRef} className="flex w-full whitespace-nowrap font-medium tracking-widest">
+        <span className="text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-7xl 2xl:text-8xl">
+          {text}
+        </span>
+        <span className="text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-7xl 2xl:text-8xl">
+          {text}
+        </span>
       </div>
     </div>
   );
