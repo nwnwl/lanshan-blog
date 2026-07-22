@@ -46,10 +46,15 @@ export const PC_AboutSection = () => {
         </div>
         {/* 右侧信息栏 */}
         <div className="main_about flex-6 flex pl-10 gap-1 py-4 my-10">
-          <div className="flex flex-1 ">
+          <div className="flex flex-1">
             <div className="flex flex-col justify-between flex-1 gap-20 min-w-0 pb-0 lg:p-6 lg:pb-0 xl:p-10 xl:pb-0">
-              <div className="indent-12 tracking-widest lg:text-2xl md:text-xl text-md font-medium leading-relaxed">
-                蓝山工作室是重庆邮电大学教育信息化办公室/信息中心指导的，专注于教育数字化、智能化创新应用研发的学生团队，开发了“We重邮”微信小程序、重庆市高校辅导员素质能力大赛系统等。工作室以开源为导向，通过开源生态构建来培养复合型人才，在我们的github官网分享了各部门培训课件，也在字节开源组织，apache基金会等其他云原生基金会开源组织积极参与贡献，获得了不错的影响力，是一支富有创造力、朝气蓬勃的数字化队伍
+              <div className="indent-12 tracking-widest lg:text-2xl md:text-xl text-md font-medium pt-10 2xl:leading-loose leading-relaxed">
+                <p>
+                  蓝山工作室是由重庆邮电大学信息中心、信息化办指导的技术型学生社团，是学校教育数字化转型与智能化升级的排头兵。工作室以"AI赋能教育，技术服务师生，实践收获成长"为理念，聚焦教育场景下数字化工具、AI智能体研发、应用落地等关键方向，打造"AI+教育"数字化产品。我们深耕校园服务应用开发，在实践中淬炼技术落地；我们探索AI智能体工具研发，在创新中激发科研潜力；我们构建多元化培养模式，在团队协作中提升求职竞争力。工作室内90%毕业后的学生斩获众多offer，进入字节跳动、腾讯、小米、美团等互联网头部企业工作。
+                </p>
+                <p>
+                  蓝山工作室下设产品及运营部、运维与安全部、研发部、UI设计部4个部门7个组，其中研发部根据不同的技术栈分为前端开发组、GO语言开发组、Java开发组、Python开发组。
+                </p>
               </div>
 
               <div className="flex flex-col gap-4 xl:tracking-wider">
@@ -58,7 +63,7 @@ export const PC_AboutSection = () => {
               </div>
             </div>
 
-            <div className="bg-[#00D4FF] md:w-40 w-30 h-full p-4 min-w-0">
+            <div className="bg-linear-to-b from-[#00D4FF] to-transparent md:w-40 w-30 h-full p-4 min-w-0">
               <div className="bg-white h-full w-4 relative">
                 <span className="absolute top-2 [writing-mode:vertical-rl] md:text-4xl text-2xl font-medium tracking-widest">
                   INTRODUCTION
