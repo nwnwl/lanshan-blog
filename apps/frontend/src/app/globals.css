@@ -39,9 +39,15 @@ body,
 html {
   width: 100vw;
   height: 100vh;
+  overflow: auto;
+  scrollbar-width: none;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-harmonyos-sans), var(--font-noto-sans), Arial, Helvetica, sans-serif;
+}
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+  display: none;
 }
 .contain {
   scrollbar-width: none;
@@ -53,8 +59,8 @@ html {
 /* ====== Siderbar 组件样式 ====== */
 .siderbar {
   animation: moveInto linear;
-  animation-timeline: scroll();
-  animation-range: 0 50vh;
+  animation-timeline: view();
+  animation-range: entry 0% entry 50%;
 }
 @keyframes moveInto {
   from {
@@ -72,7 +78,9 @@ html {
   height: 100%;
   background-color: #ffffff;
   transition: width 0.3s;
-  box-shadow: 4px 0 10px -8px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    4px 0 10px -8px rgba(0, 0, 0, 0.1),
+    0 -4px 10px -2px rgba(0, 0, 0, 0.1);
   z-index: -2;
 }
 .siderbar:hover::after {
