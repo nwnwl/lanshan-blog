@@ -15,7 +15,7 @@ export interface ParticleParams {
 }
 
 export const PARTICLE_DEFAULTS: ParticleParams = {
-  gap: 2,
+  gap: 3,
   scale: 2.5,
   stiffness: 0.001,
   damping: 0.001,
@@ -72,13 +72,15 @@ export class ParticleSystem {
   private smoothMX = 0;
   private smoothMY = 0;
   private resizeObserver: ResizeObserver | null = null;
+  private dpr = 1;
 
   constructor() {
     this.params = { ...PARTICLE_DEFAULTS };
   }
 
   async init(hostElement: HTMLElement): Promise<void> {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = this.dpr;
     this.app = new Application();
     await this.app.init({
       width: hostElement.clientWidth * dpr,
@@ -113,9 +115,14 @@ export class ParticleSystem {
     this.resizeObserver = new ResizeObserver((entries) => {
       const { width, height } = entries[0].contentRect;
       if (width > 0 && height > 0 && this.app) {
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        this.app.renderer.resize(width * dpr, height * dpr);
-        this.app.renderer.resolution = dpr;
+        const newDpr = Math.min(window.devicePixelRatio || 1, 2);
+        const dprChanged = newDpr !== this.dpr;
+        this.dpr = newDpr;
+        this.app.renderer.resize(width * newDpr, height * newDpr);
+        this.app.renderer.resolution = newDpr;
+        if (dprChanged) {
+          this.recalcHomePositions();
+        }
         this.centerComposition();
       }
     });
@@ -134,7 +141,8 @@ export class ParticleSystem {
       this.centerComposition();
     }
     if (key === 'size' && value !== old) {
-      for (const p of this.particles) p.sprite.scale.set(value);
+      const visualSize = value * this.dpr;
+      for (const p of this.particles) p.sprite.scale.set(visualSize);
     }
   }
 
@@ -183,10 +191,11 @@ export class ParticleSystem {
         sprite.tint = (r << 16) | (g << 8) | b;
         sprite.alpha = a / 255;
         sprite.anchor.set(0.5);
-        sprite.scale.set(size);
+        sprite.scale.set(size * this.dpr);
 
-        const homeX = (x - halfW) * scale;
-        const homeY = (y - halfH) * scale;
+        const effScale = scale * this.dpr;
+        const homeX = (x - halfW) * effScale;
+        const homeY = (y - halfH) * effScale;
         sprite.x = homeX;
         sprite.y = homeY;
 
@@ -198,7 +207,7 @@ export class ParticleSystem {
   }
 
   private recalcHomePositions(): void {
-    const { scale } = this.params;
+    const effScale = this.params.scale * this.dpr;
     const MAX_DIM = 300;
     let sw = this.imgWidth;
     let sh = this.imgHeight;
@@ -210,8 +219,8 @@ export class ParticleSystem {
     const halfW = sw / 2;
     const halfH = sh / 2;
     for (const p of this.particles) {
-      p.homeX = (p.origX - halfW) * scale;
-      p.homeY = (p.origY - halfH) * scale;
+      p.homeX = (p.origX - halfW) * effScale;
+      p.homeY = (p.origY - halfH) * effScale;
     }
   }
 
