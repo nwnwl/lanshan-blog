@@ -7,9 +7,8 @@ import { useRef, useEffect } from 'react';
 import { Marquee } from '@/components/Marquee';
 import { useMarqueeStore } from '@/lib/MarqueeStore';
 
-const text_1 = ' // BEYOND LANSHAN · YOUR POTENTIAL AWAITS ';
-const text_2 =
-  ' \\\\ UI \\\\DESIGN \\\\PRODUCT \\\\OPERATION \\\\SECURITY \\\\FRONTEND \\\\BACKEND ';
+const text_1 = ' // BEYOND LANSHAN · YOUR POTENTIAL AWAITS';
+const text_2 = '\\\\ UI DESIGN \\\\PRODUCT  \\\\OPERATION \\\\SECURITY  \\\\FRONTEND  \\\\BACKEND';
 
 export const PC_HomePage = () => {
   const containerRef = useRef<HTMLDivElement>(null);

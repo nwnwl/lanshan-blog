@@ -58,27 +58,11 @@ export const PC_HeroSection = () => {
   // 响应式：根据视口宽度自动更新容器尺寸 + 粒子 scale
   useEffect(() => {
     const applyResponsive = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const cfg = getResponsiveConfig(window.innerWidth);
       setBoxW(cfg.w);
       setBoxH(cfg.h);
       canvasRef.current?.setParam('scale', cfg.scale);
       canvasRef.current?.setParam('gap', cfg.gap);
-
-      // ---- DEBUG: canvas 响应式参数 ----
-      console.group('🎨 Hero Canvas Responsive');
-      console.log('视口宽度', window.innerWidth, 'px');
-      console.log('视口高度', window.innerHeight, 'px');
-      console.log('devicePixelRatio', dpr);
-      console.log('匹配 scale', cfg.scale);
-      console.log('容器尺寸', `${cfg.w} × ${cfg.h}`, 'px');
-      console.log(
-        '粒子分布范围',
-        `${Math.ceil(300 * cfg.scale)} × ${Math.ceil(300 * cfg.scale)}`,
-        'px',
-      );
-      console.log('覆盖率', `${(((300 * cfg.scale) / cfg.w) * 100).toFixed(1)}%`);
-      console.groupEnd();
     };
 
     applyResponsive();
@@ -110,7 +94,7 @@ export const PC_HeroSection = () => {
       <DotMatrixBg />
 
       {/* 前景：左侧文字 + 右侧粒子容器 */}
-      <div className="relative z-20 flex h-screen w-full items-center justify-center">
+      <div className="relative z-20 flex h-screen w-full items-center justify-center 2xl:gap-40 xl:gap-20">
         {/* 左侧文字 */}
         <div className="select-none">
           <div className="indent-[3px] text-[clamp(16px,4.8vw,24px)] leading-none text-[#00d4ff]">
