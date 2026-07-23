@@ -27,6 +27,12 @@ export const PC_AboutSection = () => {
   return (
     <div id="about" className="section h-screen w-full flex flex-col overflow-hidden relative">
       <div className="w-full min-h-0 font-semibold flex flex-col flex-1 overflow-hidden">
+        {/* 滚动字幕 */}
+        <div>
+          <Marquee text={text_1} bgColor={'bg-white'} textColor={'text-black'} direction="left" />
+          <Marquee text={text_2} bgColor={'bg-white'} textColor={'text-black'} direction="right" />
+        </div>
+
         <div className="header_about flex flex-col pl-10 pt-4 gap-1 pb-4 mb-10 bg-[#f0f0f076]">
           <div>
             <div className="inline-flex h-5 w-15 bg-[#D9D9D9] justify-end pr-1">
@@ -102,12 +108,6 @@ export const PC_AboutSection = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* 滚动字幕 */}
-      <div>
-        <Marquee text={text_1} bgColor={'bg-white'} textColor={'text-black'} direction="left" />
-        <Marquee text={text_2} bgColor={'bg-white'} textColor={'text-black'} direction="right" />
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ const projects: ProjectData[] = [
     id: '01',
     title: 'We CQUPT',
     subTitle: 'We 重邮',
-    borderT: 'border-t-4',
+    borderT: 'border-t-2',
     cardContent: {
       description:
         '全国高校第一个上线的微信小程序，入选2017年度中国“互联网+”优秀案例50强，获第五届中国“互联网＋”大学生创新创业大赛重庆市银奖',
@@ -26,7 +26,7 @@ const projects: ProjectData[] = [
   },
   {
     id: '02',
-    title: 'CQ-CMS',
+    title: 'Counselor Competition System',
     subTitle: '2023年重庆市辅导员大赛竞赛系统',
     cardContent: {
       description:
@@ -35,7 +35,7 @@ const projects: ProjectData[] = [
   },
   {
     id: '03',
-    title: 'WECOME QR CODE CHECK-IN',
+    title: 'WeCom QR Check-in',
     subTitle: '企业微信扫码签到功能',
     cardContent: {
       description:
@@ -44,7 +44,7 @@ const projects: ProjectData[] = [
   },
   {
     id: '04',
-    title: 'CDEGOC',
+    title: 'CQEITC',
     subTitle: '重庆数字教育治理运行中心',
     cardContent: {
       description:
@@ -84,41 +84,70 @@ export const PC_ProjectSection = () => {
   }, []);
 
   return (
-    <div
-      id="project"
-      className="h-screen w-full grid grid-rows-4 bg-white text-black relative px-10 pt-30 pb-50"
-      onMouseMove={handleMouseMove}
-    >
-      {projects.map((project) => (
-        <ProjectRow
-          key={project.id}
-          id={project.id}
-          title={project.title}
-          subTitle={project.subTitle}
-          borderT={project?.borderT}
-          onHover={() => setHoveredId(project.id)}
-          onLeave={() => setHoveredId(null)}
-        />
-      ))}
+    <section id="project" className="h-screen w-full px-10 pt-30 pb-50 relative">
+      <div
+        className="h-full w-full grid grid-rows-4 bg-white text-black"
+        onMouseMove={handleMouseMove}
+      >
+        {projects.map((project) => (
+          <ProjectRow
+            key={project.id}
+            id={project.id}
+            title={project.title}
+            subTitle={project.subTitle}
+            borderT={project?.borderT}
+            onHover={() => setHoveredId(project.id)}
+            onLeave={() => setHoveredId(null)}
+          />
+        ))}
+      </div>
+
+      {/* 底部装饰 */}
+      <div
+        className="absolute bottom-8 inset-x-0
+       h-16 bg-[#00D4FF] "
+      ></div>
 
       {/* 鼠标跟随卡片 */}
       <div
         ref={cardRef}
-
         className={`${activeProject ? 'opacity-100' : 'opacity-0'}
         fixed pointer-events-none z-50
         w-80 h-56
         transition-opacity duration-150 ease-out
         top-0 left-0
-        rounded-2xl border border-white/30 shadow-xl p-6`}
+        bg-white rounded-2xl border border-black shadow-xl
+        `}
       >
         {activeProject && (
-          <div className="text-sm font-light">{activeProject.cardContent.description}</div>
+          <div
+            className={`h-full min-w-0 px-4 py-6 flex flex-col justify-between items-end ${styles.card}`}
+          >
+            <div className="bg-[#D9D9D9] w-full h-6 relative">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 57 57"
+                className="__20-NoticeDetail_close__SEu18 w-10 h-10
+                absolute top-[-10]"
+              >
+                <path
+                  fillRule="evenodd"
+                  fill="currentColor"
+                  d="M28.137,20.301 L48.026,0.414 L55.651,8.038 L35.762,27.925 L28.137,20.301 ZM56.625,48.787 L49.000,56.411 L28.137,35.550 L35.762,27.925 L56.625,48.787 ZM8.428,55.256 L0.803,47.632 L20.511,27.925 L28.137,35.550 L8.428,55.256 ZM1.777,9.193 L9.402,1.568 L28.137,20.301 L20.511,27.925 L1.777,9.193 Z"
+                ></path>
+              </svg>
+            </div>
+
+            <div className="text-sm font-light indent-6">
+              {activeProject.cardContent.description}
+            </div>
+
+            <div>
+              <img src="/picture/logoB.png" alt="logo" height={40} width={40} />
+            </div>
+          </div>
         )}
       </div>
-
-      {/* 遮罩层：用 ref 直接控制 opacity */}
-      <div className={styles.Project_darkOverlay} />
-    </div>
+    </section>
   );
 };
