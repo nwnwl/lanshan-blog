@@ -20,16 +20,6 @@
   position: relative;
 }
 
-.projectSection::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: url('/picture/bg-3.jpg') no-repeat center / cover;
-  opacity: 1;
-  pointer-events: none;
-  z-index: 0;
-}
-
 .projectSection::after {
   content: '';
   position: absolute;

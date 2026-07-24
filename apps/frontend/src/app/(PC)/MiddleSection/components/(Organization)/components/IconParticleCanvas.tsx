@@ -172,7 +172,7 @@ export const IconParticleCanvas = ({
   }, [currentIcon]);
 
   return (
-    <div className="relative w-full h-full flex justify-center">
+    <div className="relative w-full h-full flex justify-center 2xl:justify-evenly">
       {/* 按钮列 — 退出后折叠 */}
       <div
         ref={buttonColRef}
@@ -196,17 +196,17 @@ export const IconParticleCanvas = ({
               key={key}
               onClick={() => handleIconChange(key)}
               style={{ transitionDelay: `${i * 50}ms` }}
-              className={`h-[60px] lg:h-[80px] text-left pl-4 lg:pl-8
-                  relative flex items-end 
-                  bg-transparent border-0 border-b border-white
-                  group cursor-pointer
-                  transition-all
-                  ${
-                    buttonsVisible
-                      ? 'translate-x-0 opacity-100 duration-700 ease-out'
-                      : '-translate-x-full opacity-0 duration-300 ease-in'
-                  }
-                  `}
+              className={`h-[80px] 2xl:h-[100px] text-left pl-8
+            relative flex items-end 
+            bg-transparent border-0 border-b border-white
+            group cursor-pointer
+            transition-all
+            ${
+              buttonsVisible
+                ? 'translate-x-0 opacity-100 duration-700 ease-out'
+                : '-translate-x-full opacity-0 duration-300 ease-in'
+            }
+            `}
             >
               {/* 背景英文字 */}
               <div
@@ -226,8 +226,8 @@ export const IconParticleCanvas = ({
                 group-hover:text-white
                 font-bold"
               >
-                <span className="text-[1.6rem]">{cn}</span>
-                <span className="text-[0.8rem] ml-2 lg:ml-4">{en}</span>
+                <span className="text-[1.6rem] 2xl:text-[2.0rem]">{cn}</span>
+                <span className="text-[0.8rem] ml-4">{en}</span>
               </div>
             </div>
           );

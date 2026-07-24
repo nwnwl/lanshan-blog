@@ -86,7 +86,7 @@ export const PC_ProjectSection = () => {
   return (
     <section
       id="project"
-      className={`${styles.projectSection} h-screen w-full px-10 mt-20 mb-30 xl:py-20 lg:py-30 md:py-40 py-60 relative bg-white text-black`}
+      className={`${styles.projectSection} h-[120vh] w-full px-20 mt-20 mb-30 lg:py-20 py-40 relative bg-white text-black`}
     >
       <div className="relative z-1 h-full w-full grid grid-rows-4" onMouseMove={handleMouseMove}>
         {projects.map((project) => (
@@ -107,7 +107,7 @@ export const PC_ProjectSection = () => {
         ref={cardRef}
         className={`${activeProject ? 'opacity-100' : 'opacity-0'}
         fixed pointer-events-none z-50
-        w-80 h-56
+        w-90 h-60
         transition-opacity duration-150 ease-out
         top-0 left-0
         bg-white rounded-2xl border border-black shadow-xl
