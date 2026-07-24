@@ -542,7 +542,7 @@ export class IconParticleSystem {
     }
 
     for (const p of this.particles) {
-      const easeSpeed = 1 / 30;
+      const easeSpeed = 1 / 60;
       let vx = (p.homeX - p.sprite.x) * easeSpeed;
       let vy = (p.homeY - p.sprite.y) * easeSpeed;
 

@@ -6,7 +6,7 @@ import { PC_ContactSection } from './components/(Contact)/Contact';
 import { Siderbar } from '@/components/Siderbar';
 export const PC_MiddleSection = () => {
   return (
-    <div className="part flex w-full">
+    <div className="flex w-full ">
       <div
         className="
       sticky top-0 h-screen w-[3.6rem] z-50"
@@ -15,7 +15,7 @@ export const PC_MiddleSection = () => {
       </div>
 
       <div
-        className="flex-1 flex flex-col min-w-0"
+        className="flex-1 flex flex-col"
         style={{ 'timeline-scope': '--org-appears' } as React.CSSProperties}
       >
         <PC_AboutSection />

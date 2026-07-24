@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { useMarqueeStore } from '../lib/MarqueeStore';
+import { useMarqueeStore } from '@/lib/MarqueeStore';
 
 interface MarqueeProps {
   text: string;
@@ -9,7 +9,7 @@ interface MarqueeProps {
   direction?: 'left' | 'right';
 }
 
-function Marquee({ text, bgColor, textColor, direction = 'left' }: MarqueeProps) {
+export const Marquee = ({ text, bgColor, textColor, direction = 'left' }: MarqueeProps) => {
   const trackRef = useRef<HTMLDivElement>(null);
 
   // 物理量
@@ -90,6 +90,6 @@ function Marquee({ text, bgColor, textColor, direction = 'left' }: MarqueeProps)
       </div>
     </div>
   );
-}
+};
 
 export default Marquee;

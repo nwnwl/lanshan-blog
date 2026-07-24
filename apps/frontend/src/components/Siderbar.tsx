@@ -65,7 +65,7 @@ export const Siderbar = () => {
       {/* 导航锚点 */}
       <div className="w-full flex flex-col gap-[3px] relative mt-[6rem]">
         <div
-          className="absolute left-0 box-content
+          className="box-content absolute left-0 
           w-[2.7rem] h-[2.5rem]
           group-hover:w-[9.6rem]
           border-l-8 border-[#191919] bg-[#e6e6e6]
