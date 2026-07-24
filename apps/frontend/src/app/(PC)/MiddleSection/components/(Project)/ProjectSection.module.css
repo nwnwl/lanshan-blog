@@ -15,3 +15,44 @@
   pointer-events: none;
   z-index: 1;
 }
+
+.projectSection {
+  position: relative;
+}
+
+.projectSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/picture/bg-3.jpg') no-repeat center / cover;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.projectSection::after {
+  content: '';
+  position: absolute;
+  bottom: -2rem;
+  left: 0;
+  right: 0;
+  background: url('/picture/decoration-2.webp') no-repeat;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 1;
+  height: 4rem;
+  background-size: auto 100%;
+  background-position: center bottom;
+}
+
+@media (min-width: 768px) {
+  .projectSection::after {
+    bottom: -3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .projectSection::after {
+    bottom: -4rem;
+  }
+}
