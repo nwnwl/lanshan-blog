@@ -8,11 +8,6 @@ import { DEPARTMENTS } from '../data/departments';
 
 const ICON_KEYS = DEPARTMENTS.map((d) => d.key);
 
-const ICON_LABELS: Record<string, string> = Object.fromEntries(
-  DEPARTMENTS.map((d) => [d.key, `${d.cn} ${d.en}`]),
-);
-ICON_LABELS.lanshan = '蓝山 LANSHAN';
-
 const ICON_GAP_OVERRIDES: Record<string, number> = {
   lanshan: 2,
 };
@@ -184,10 +179,9 @@ export const IconParticleCanvas = ({
            }`}
       >
         {ICON_KEYS.map((key, i) => {
-          const label = ICON_LABELS[key];
-          const idx = label.indexOf(' ');
-          const cn = label.slice(0, idx);
-          const en = label.slice(idx + 1);
+          const dept = DEPARTMENTS.find((d) => d.key === key);
+          const cn = dept?.cn ?? '';
+          const en = dept?.en ?? '';
           return (
             <div
               key={key}

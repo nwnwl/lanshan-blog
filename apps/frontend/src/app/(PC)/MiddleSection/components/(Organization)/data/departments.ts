@@ -14,7 +14,7 @@ export const DEPARTMENTS: Department[] = [
   },
   {
     key: 'figma',
-    cn: 'UI 设计部',
+    cn: 'UI设计部',
     en: 'UI DESIGN',
     desc: '使用Figma、Sketch、PS等设计工具，负责产品的视觉设计与交互体验，为用户打造便捷、美观且高效的交互页面。',
   },
