@@ -122,6 +122,7 @@ export const IconParticleCanvas = ({
       ([entry]) => {
         if (entry.isIntersecting) {
           setButtonsVisible(true);
+          obs.disconnect(); // 只触发一次，之后不再监听
         }
       },
       { threshold: 0.5 },
