@@ -210,7 +210,7 @@ export const IconParticleCanvas = ({
             >
               {/* 背景英文字 */}
               <div
-                className="absolute inset-0 flex items-center justify-end pr-10
+                className="absolute inset-0 flex items-center justify-end pr-2
                   text-[1.92rem] font-bold text-[#00d4ff]
                   opacity-0 group-hover:opacity-25 transition-opacity duration-300 ease-out
                   pointer-events-none select-none"
