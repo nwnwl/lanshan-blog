@@ -1,4 +1,4 @@
-export default function ScrollIndicator() {
+export const ScrollIndicator = () => {
   return (
     <>
       <style>{`@keyframes drift{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-0.5rem)}}`}</style>
@@ -13,4 +13,4 @@ export default function ScrollIndicator() {
       </svg>
     </>
   );
-}
+};
