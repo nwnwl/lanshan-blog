@@ -220,9 +220,8 @@ export class IconParticleSystem {
       const canvas = this.app?.canvas as HTMLCanvasElement | undefined;
       if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      this.mouseX = (e.clientX - rect.left) * dpr;
-      this.mouseY = (e.clientY - rect.top) * dpr;
+      this.mouseX = e.clientX - rect.left;
+      this.mouseY = e.clientY - rect.top;
       this.mouseOnCanvas = true;
     };
 
@@ -242,8 +241,8 @@ export class IconParticleSystem {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     this.app = new Application();
     await this.app.init({
-      width: hostElement.clientWidth * dpr,
-      height: hostElement.clientHeight * dpr,
+      width: hostElement.clientWidth,
+      height: hostElement.clientHeight,
       backgroundAlpha: 0,
       antialias: true,
       resolution: dpr,
@@ -276,7 +275,7 @@ export class IconParticleSystem {
       const { width, height } = entries[0].contentRect;
       if (width > 0 && height > 0 && this.app) {
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        this.app.renderer.resize(width * dpr, height * dpr);
+        this.app.renderer.resize(width, height);
         this.app.renderer.resolution = dpr;
         this.centerComposition();
       }
