@@ -164,7 +164,7 @@ export const IconParticleCanvas = ({
   }, [currentIcon]);
 
   return (
-    <div className="relative w-full h-full flex justify-center">
+    <div className="relative w-full h-full flex justify-center 2xl:justify-evenly">
       {/* 按钮列 — 退出后折叠 */}
       <div
         ref={buttonColRef}
@@ -188,17 +188,17 @@ export const IconParticleCanvas = ({
               key={key}
               onClick={() => handleIconChange(key)}
               style={{ transitionDelay: `${i * 50}ms` }}
-              className={`h-[80px] text-left pl-8
-                  relative flex items-end 
-                  bg-transparent border-0 border-b border-white
-                  group cursor-pointer
-                  transition-all
-                  ${
-                    buttonsVisible
-                      ? 'translate-x-0 opacity-100 duration-700 ease-out'
-                      : '-translate-x-full opacity-0 duration-300 ease-in'
-                  }
-                  `}
+              className={`h-[80px] 2xl:h-[100px] text-left pl-8
+            relative flex items-end 
+            bg-transparent border-0 border-b border-white
+            group cursor-pointer
+            transition-all
+            ${
+              buttonsVisible
+                ? 'translate-x-0 opacity-100 duration-700 ease-out'
+                : '-translate-x-full opacity-0 duration-300 ease-in'
+            }
+            `}
             >
               {/* 背景英文字 */}
               <div
@@ -218,7 +218,7 @@ export const IconParticleCanvas = ({
                 group-hover:text-white
                 font-bold"
               >
-                <span className="text-[1.6rem]">{cn}</span>
+                <span className="text-[1.6rem] 2xl:text-[2.0rem]">{cn}</span>
                 <span className="text-[0.8rem] ml-4">{en}</span>
               </div>
             </div>
@@ -238,7 +238,7 @@ export const IconParticleCanvas = ({
       {/* 使用 transform 而非 left 做动画：GPU 合成线程执行，避免重排卡顿 */}
       <div
         ref={containerRef}
-        className="absolute top-0 h-full w-[300px] lg:w-[400px] xl:w-[530px] bg-transparent will-change-transform"
+        className="absolute top-0 h-full w-[300px] lg:w-[400px] xl:w-[530px] 2xl:w-[800px] bg-transparent will-change-transform"
         style={{
           left: '25%',
           transform: showContent
