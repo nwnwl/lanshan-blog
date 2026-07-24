@@ -1,0 +1,42 @@
+.aboutHeader {
+  position: relative;
+}
+
+.aboutHeader::before {
+  content: '';
+  position: absolute;
+  background: url('/picture/decoration-1.svg') no-repeat;
+  height: 6rem;
+  width: 6rem;
+  background-size: contain;
+  opacity: 1;
+  top: 8rem;
+  pointer-events: none;
+}
+
+.aboutHeader::after {
+  content: '';
+  position: absolute;
+  background: url('/picture/decoration-3.png') no-repeat;
+  height: 6rem;
+  width: 6rem;
+  background-size: contain;
+  opacity: 1;
+  top: 14rem;
+  left: 3rem;
+  pointer-events: none;
+}
+
+@media (min-width: 1280px) {
+  .aboutHeader::before {
+    height: 8rem;
+    width: 8rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .aboutHeader::after {
+    height: 8rem;
+    width: 8rem;
+  }
+}
