@@ -19,15 +19,17 @@ function ProjectRow({ id, title, subTitle, borderT, onHover, onLeave }: ProjectP
       onMouseLeave={onLeave}
     >
       <div
-        className={`text-white [-webkit-text-stroke:3px_black] text-7xl font-semibold
+        className={`text-white [-webkit-text-stroke:3px_black] 
+        sm:text-7xl text-5xl 
+        font-semibold
         group-hover:text-[#00D4FF] group-hover:[-webkit-text-stroke:2px_#00D4FF]
         transition-[color,-webkit-text-stroke] duration-300 ease-out`}
       >
         {id}
       </div>
-      <div className="flex flex-col gap-4">
-        <span className="text-4xl font-normal tracking-normal">{title}</span>
-        <span className="text-xl font-normal pl-4">+ {subTitle} +</span>
+      <div className="flex flex-col gap-4 min-w-0 flex-1">
+        <span className="sm:text-4xl text-2xl font-semibold tracking-normal">{title}</span>
+        <span className="sm:text-xl text-sm font-normal pl-4">+ {subTitle} +</span>
       </div>
     </div>
   );
