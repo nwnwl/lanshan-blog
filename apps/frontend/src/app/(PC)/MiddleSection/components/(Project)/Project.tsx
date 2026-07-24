@@ -84,11 +84,11 @@ export const PC_ProjectSection = () => {
   }, []);
 
   return (
-    <section id="project" className="h-screen w-full px-10 pt-30 pb-50 relative">
-      <div
-        className="h-full w-full grid grid-rows-4 bg-white text-black"
-        onMouseMove={handleMouseMove}
-      >
+    <section
+      id="project"
+      className={`${styles.projectSection} h-screen w-full px-10 mt-20 mb-30 xl:py-20 lg:py-30 md:py-40 py-60 relative bg-white text-black`}
+    >
+      <div className="relative z-1 h-full w-full grid grid-rows-4" onMouseMove={handleMouseMove}>
         {projects.map((project) => (
           <ProjectRow
             key={project.id}
@@ -101,12 +101,6 @@ export const PC_ProjectSection = () => {
           />
         ))}
       </div>
-
-      {/* 底部装饰 */}
-      <div
-        className="absolute bottom-8 inset-x-0
-       h-16 bg-[#00D4FF] "
-      ></div>
 
       {/* 鼠标跟随卡片 */}
       <div
