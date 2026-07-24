@@ -165,7 +165,7 @@ class DotMatrixEngine {
 
 // ===== React wrapper =====
 
-export default function DotMatrixBg() {
+export const DotMatrixBg = () => {
   const hostRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -178,4 +178,4 @@ export default function DotMatrixBg() {
   }, []);
 
   return <div ref={hostRef} className="absolute inset-0 z-0" />;
-}
+};

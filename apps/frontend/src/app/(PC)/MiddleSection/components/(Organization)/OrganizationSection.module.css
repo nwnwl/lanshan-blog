@@ -1,3 +1,18 @@
+.section_org {
+  position: relative;
+}
+
+.section_org::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  background-image:
+    linear-gradient(to bottom, black 0%, transparent 120px),
+    linear-gradient(to top, black 0%, transparent 120px);
+}
+
 .overlay {
   view-timeline-name: --org-appears;
 }
@@ -13,5 +28,140 @@
   background-color: #101010;
   opacity: 0.85;
   pointer-events: none;
-  z-index: 1;
+  z-index: 10;
+}
+
+/* 米字格背景 */
+.miziGrid {
+  overflow: hidden;
+}
+
+.miziGrid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    /* 斜格横线 (45°) — 原横格线旋转后 */
+    linear-gradient(
+      135deg,
+      transparent calc(50% - 1px),
+      #1b1b1b calc(50% - 1px),
+      #1b1b1b calc(50% + 1px),
+      transparent calc(50% + 1px)
+    ),
+    /* 斜格竖线 (135°) — 原竖格线旋转后 */
+    linear-gradient(
+        45deg,
+        transparent calc(50% - 1px),
+        #1b1b1b calc(50% - 1px),
+        #1b1b1b calc(50% + 1px),
+        transparent calc(50% + 1px)
+      ),
+    /* 横线 — 原对角线 \ 旋转后 */linear-gradient(to bottom, #1b1b1b 1px, transparent 1px),
+    /* 竖线 — 原对角线 / 旋转后 */ linear-gradient(to right, #1b1b1b 1px, transparent 1px),
+    /* 斜格横中线 (45° 偏移) — 原横中线旋转后，25%+75% 双过渡拼成完整线 */
+    linear-gradient(
+        135deg,
+        transparent calc(25% - 0.5px),
+        #1b1b1b calc(25% - 0.5px),
+        #1b1b1b calc(25% + 0.5px),
+        transparent calc(25% + 0.5px),
+        transparent calc(75% - 0.5px),
+        #1b1b1b calc(75% - 0.5px),
+        #1b1b1b calc(75% + 0.5px),
+        transparent calc(75% + 0.5px)
+      ),
+    /* 斜格竖中线 (135° 偏移) — 原竖中线旋转后，25%+75% 双过渡拼成完整线 */
+    linear-gradient(
+        45deg,
+        transparent calc(25% - 0.5px),
+        #1b1b1b calc(25% - 0.5px),
+        #1b1b1b calc(25% + 0.5px),
+        transparent calc(25% + 0.5px),
+        transparent calc(75% - 0.5px),
+        #1b1b1b calc(75% - 0.5px),
+        #1b1b1b calc(75% + 0.5px),
+        transparent calc(75% + 0.5px)
+      );
+  background-size:
+    354px 354px,
+    354px 354px,
+    177px 177px,
+    177px 177px,
+    354px 354px,
+    354px 354px;
+  background-position: 100% 0;
+}
+.textChineseLeft {
+  animation:
+    slideOutLeft 300ms ease-in-out forwards,
+    slideInLeft 300ms ease-in-out 500ms forwards;
+}
+.textEnglishLeft {
+  animation:
+    slideOutLeft 300ms ease-in-out 100ms forwards,
+    slideInLeft 300ms ease-in-out 600ms forwards;
+}
+.textLeft {
+  animation:
+    slideOutLeft 300ms ease-in-out 200ms forwards,
+    slideInLeft 300ms ease-in-out 700ms forwards;
+}
+.textChineseRight {
+  animation:
+    slideOutRight 300ms ease-in-out forwards,
+    slideInRight 300ms ease-in-out 500ms forwards;
+}
+.textEnglishRight {
+  animation:
+    slideOutRight 300ms ease-in-out 100ms forwards,
+    slideInRight 300ms ease-in-out 600ms forwards;
+}
+.textRight {
+  animation:
+    slideOutRight 300ms ease-in-out 200ms forwards,
+    slideInRight 300ms ease-in-out 700ms forwards;
+}
+
+@keyframes slideOutLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-15px);
+    opacity: 0;
+  }
+}
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(15px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(15px);
+    opacity: 0;
+  }
+}
+@keyframes slideInRight {
+  0% {
+    transform: translateX(-15px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

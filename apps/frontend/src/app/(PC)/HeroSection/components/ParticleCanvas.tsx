@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useImperativeHandle, forwardRef } from 'react';
+import { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import { ParticleSystem, type ParticleParams } from '@/lib/hero-particle-system';
 
 export interface ParticleCanvasHandle {
@@ -17,8 +17,6 @@ const ParticleCanvas = forwardRef<ParticleCanvasHandle, ParticleCanvasProps>(
   function ParticleCanvas({ imageUrl = '/picture/lm.png', className, style }, ref) {
     const containerRef = useRef<HTMLDivElement>(null);
     const psRef = useRef<ParticleSystem | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
 
     useImperativeHandle(ref, () => ({
       setParam: (key, value) => {
@@ -30,41 +28,25 @@ const ParticleCanvas = forwardRef<ParticleCanvasHandle, ParticleCanvasProps>(
       const container = containerRef.current;
       if (!container) return;
 
-      let destroyed = false;
       const ps = new ParticleSystem();
       psRef.current = ps;
 
-      ps.init(container)
-        .then(() => {
-          if (!destroyed) setLoading(false);
-        })
-        .catch((err: unknown) => {
-          if (!destroyed) {
-            setError(err instanceof Error ? err.message : 'Failed to init');
-            setLoading(false);
-          }
-        });
+      ps.init(container).catch(() => {
+        // 忽略初始化错误
+      });
 
       return () => {
-        destroyed = true;
         ps.destroy();
         psRef.current = null;
       };
     }, [imageUrl]);
 
     return (
-      <div ref={containerRef} className={className} style={{ background: 'transparent', ...style }}>
-        {loading && (
-          <div className="absolute inset-0 flex items-center justify-center text-sm text-white/50">
-            蓝妹正在跨越次元壁...
-          </div>
-        )}
-        {error && (
-          <div className="absolute inset-0 flex items-center justify-center text-sm text-red-400">
-            {error}
-          </div>
-        )}
-      </div>
+      <div
+        ref={containerRef}
+        className={className}
+        style={{ background: 'transparent', ...style }}
+      />
     );
   },
 );
