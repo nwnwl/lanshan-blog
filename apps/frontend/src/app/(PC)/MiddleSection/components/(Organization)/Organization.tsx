@@ -91,6 +91,8 @@ export const PC_OrganizationSection = () => {
             preserveAspectRatio="xMidYMid slice"
           />
         </div>
+        {/* 米字格线 — organizationBg2 之上，organizationBg1 之下，仅覆盖左侧面板区域 */}
+        <div className={`absolute top-0 left-0 h-full w-[calc(100%*14/15)] ${styles.miziBg}`} />
         <div className="absolute inset-0">
           <img src="/picture/organizationBg1.png" alt="" className="w-full h-full object-cover" />
         </div>

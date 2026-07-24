@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { IconParticleSystem, type IconSvgDef } from '../lib/IconParticleSystem';
+import { IconParticleSystem, PARTICLE_DEFAULTS, type IconSvgDef } from '../lib/IconParticleSystem';
 import { iconDefs } from '@/components/Icon';
 import { DepartmentPanel } from './DepartmentPanel';
 import { DEPARTMENTS } from '../data/departments';
@@ -71,7 +71,9 @@ export const IconParticleCanvas = ({
     const iconDef = iconDefs[currentIcon] as unknown as IconSvgDef;
     if (!iconDef) return;
     const scale = (ICON_SCALE_OVERRIDES[currentIcon] ?? 3) * responsiveRef.current;
-    ps.init(container, iconDef, ICON_GAP_OVERRIDES[currentIcon], scale)
+    const gapDiv = responsiveRef.current <= 0.5 ? 0.5 : 1;
+    const gap = (ICON_GAP_OVERRIDES[currentIcon] ?? PARTICLE_DEFAULTS.gap) / gapDiv;
+    ps.init(container, iconDef, gap, scale)
       .then(() => {
         if (!destroyed) {
           mountedRef.current = true;
@@ -93,7 +95,9 @@ export const IconParticleCanvas = ({
     const iconDef = iconDefs[currentIcon] as unknown as IconSvgDef;
     if (!iconDef) return;
     const scale = (ICON_SCALE_OVERRIDES[currentIcon] ?? 3) * responsiveRef.current;
-    psRef.current.changeIcon(iconDef, ICON_GAP_OVERRIDES[currentIcon], scale).catch(() => {});
+    const gapDiv = responsiveRef.current <= 0.5 ? 0.5 : 1;
+    const gap = (ICON_GAP_OVERRIDES[currentIcon] ?? PARTICLE_DEFAULTS.gap) / gapDiv;
+    psRef.current.changeIcon(iconDef, gap, scale).catch(() => {});
   }, [currentIcon]);
 
   // 按钮点击 → 退出动画 + 切换
@@ -110,8 +114,11 @@ export const IconParticleCanvas = ({
   useEffect(() => {
     if (!ready || !psRef.current) return;
     const baseScale = ICON_SCALE_OVERRIDES[currentIcon] ?? 3;
+    const gapDiv = responsiveScale <= 0.5 ? 0.5 : 1;
+    const baseGap = ICON_GAP_OVERRIDES[currentIcon] ?? PARTICLE_DEFAULTS.gap;
     psRef.current.setParam('scale', baseScale * responsiveScale);
     psRef.current.setParam('size', 2 * responsiveScale);
+    psRef.current.setParam('gap', baseGap / gapDiv);
   }, [responsiveScale, ready, currentIcon]);
 
   // 入场动画
@@ -155,7 +162,8 @@ export const IconParticleCanvas = ({
         if (iconDef)
           psRef.current.forceResample(
             iconDef,
-            ICON_GAP_OVERRIDES[currentIcon],
+            (ICON_GAP_OVERRIDES[currentIcon] ?? PARTICLE_DEFAULTS.gap) /
+              (responsiveRef.current <= 0.5 ? 0.5 : 1),
             (ICON_SCALE_OVERRIDES[currentIcon] ?? 3) * responsiveRef.current,
           );
       }
@@ -202,7 +210,7 @@ export const IconParticleCanvas = ({
             >
               {/* 背景英文字 */}
               <div
-                className="absolute inset-0 flex items-center justify-end pr-10
+                className="absolute inset-0 flex items-center justify-end pr-2
                   text-[1.92rem] font-bold text-[#00d4ff]
                   opacity-0 group-hover:opacity-25 transition-opacity duration-300 ease-out
                   pointer-events-none select-none"
@@ -225,7 +233,7 @@ export const IconParticleCanvas = ({
           );
         })}
       </div>
-      <div className="h-full w-[300px] lg:w-[400px] xl:w-[530px]   px-0 lg:px-10">
+      <div className="h-full w-[300px] lg:w-[400px] xl:w-[530px]   px-0 lg:pr-20">
         <DepartmentPanel
           deptKey={panelDeptKey}
           direction={direction}
@@ -238,7 +246,7 @@ export const IconParticleCanvas = ({
       {/* 使用 transform 而非 left 做动画：GPU 合成线程执行，避免重排卡顿 */}
       <div
         ref={containerRef}
-        className="absolute top-0 h-full w-[300px] lg:w-[400px] xl:w-[530px] 2xl:w-[800px] bg-transparent will-change-transform"
+        className="absolute top-0 h-full  w-[400px] sm:w-[500px] lg:w-[600px] bg-transparent will-change-transform"
         style={{
           left: '25%',
           transform: showContent
