@@ -7,30 +7,21 @@ export const LaunchAnimation = () => {
   const [progress, setProgress] = useState(0);
   const [showProgress, setShowProgress] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
-  const [shouldRender, setShouldRender] = useState(true);
   const [isFading, setIsFading] = useState(false);
   const rafRef = useRef<number>(0);
 
   useEffect(() => {
-    // 8s 时开始渐隐
-    const fadeTimer = setTimeout(() => {
-      setIsFading(true);
-    }, 8000);
-
-    // 8.5s 时彻底移除 DOM
-    const removeTimer = setTimeout(() => {
-      setShouldRender(false);
-    }, 8500);
+    // 5s 时开始渐隐（原 8s，缩短 3s）
+    const fadeTimer = setTimeout(() => setIsFading(true), 5000);
 
     return () => {
       clearTimeout(fadeTimer);
-      clearTimeout(removeTimer);
     };
   }, []);
 
   useEffect(() => {
-    //6.5s 后结束logo动画出现滚动条以及背景
-    const showTimer = setTimeout(() => setShowProgress(true), 6000);
+    // 3s 后结束logo动画出现滚动条以及背景（原 6s，缩短 3s）
+    const showTimer = setTimeout(() => setShowProgress(true), 3000);
     return () => clearTimeout(showTimer);
   }, []);
 
@@ -57,10 +48,8 @@ export const LaunchAnimation = () => {
   }, [showProgress]);
   return (
     <div
-      className={`animeContain 
-        z-1000
-      ${isFading ? 'opacity-0' : ''}
-      ${shouldRender ? '' : '!hidden'}
+      className={`animeContain z-1000
+      ${isFading ? 'opacity-0 pointer-events-none' : ''}
       transition-opacity duration-500 ease-out`}
     >
       {/* 加载logo */}

@@ -196,7 +196,7 @@ export const IconParticleCanvas = ({
               key={key}
               onClick={() => handleIconChange(key)}
               style={{ transitionDelay: `${i * 50}ms` }}
-              className={`h-[80px] 2xl:h-[100px] text-left pl-8
+              className={`h-[80px] min-[1920px]:text-2xl text-left pl-8
             relative flex items-end 
             bg-transparent border-0 border-b border-white
             group cursor-pointer
@@ -246,7 +246,7 @@ export const IconParticleCanvas = ({
       {/* 使用 transform 而非 left 做动画：GPU 合成线程执行，避免重排卡顿 */}
       <div
         ref={containerRef}
-        className="absolute top-0 h-full  w-[400px] sm:w-[500px] lg:w-[600px] bg-transparent will-change-transform"
+        className="absolute top-0 h-[calc(100%*14/15)]  w-[400px] sm:w-[500px] lg:w-[600px] 2xl:w-[700px] bg-transparent will-change-transform"
         style={{
           left: '25%',
           transform: showContent

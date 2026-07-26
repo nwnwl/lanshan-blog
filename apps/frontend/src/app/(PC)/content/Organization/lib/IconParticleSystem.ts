@@ -607,14 +607,18 @@ export class IconParticleSystem {
 
   destroy(): void {
     if (this.app) {
-      this.app.ticker.remove(this.tick);
+      this.app.ticker?.remove(this.tick);
       window.removeEventListener('pointermove', this._onPointerMove);
       window.removeEventListener('pointerleave', this._onPointerLeave);
       for (const p of this.particles) p.sprite.destroy();
       this.particles = [];
       this.whiteTexture?.destroy();
       this.whiteTexture = null;
-      this.app.destroy(true);
+      try {
+        this.app.destroy(false);
+      } catch {
+        // PixiJS v8 destroy 内部可能调用未初始化的 _cancelResize
+      }
       this.app = null;
       this.container = null;
     }

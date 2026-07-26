@@ -22,6 +22,7 @@ const RESPONSIVE_BREAKPOINTS: [number, number, number, number, number][] = [
   [1200, 1.3, 3, 440, 440],
   [1110, 1.2, 3, 380, 380],
   [1024, 1.1, 3, 320, 320],
+  [640, 1, 3, 320, 320],
 ];
 
 const FALLBACK_CONFIG: ResponsiveConfig = { scale: 0.8, gap: 2, w: 260, h: 260 };
@@ -71,7 +72,7 @@ export const PC_HeroSection = () => {
   useEffect(() => {
     const removeTimer = setTimeout(() => {
       setShowTrans(true);
-    }, 8000);
+    }, 5000);
     return () => {
       clearTimeout(removeTimer);
     };
@@ -88,17 +89,15 @@ export const PC_HeroSection = () => {
         <div className="select-none">
           <div className="indent-[3px] text-[clamp(16px,4.8vw,24px)] leading-none text-[#00d4ff]">
             <span
-              className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'} 
-              transition-all delay-200 duration-700 ease-out`}
+              className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'} transition-all delay-200 duration-700 ease-out`}
             >
               WEB DEVELOPOMENT CLUB
             </span>
           </div>
           <div className="indent-[3px] text-[10px] text-[#d9d9d98f]">
             <span
-              className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'} 
-              transition-all delay-300 duration-700 ease-out
-              mb-[1rem]`}
+              className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'} transition-all delay-300 duration-700 ease-out
+              mb-[1rem] font-bold`}
             >
               DIGITAL PRODUCTS · INTELLIGENT SYSTEMS · USER-CENTRIC DESIGN
             </span>
@@ -106,14 +105,17 @@ export const PC_HeroSection = () => {
           <div className="text-[clamp(3rem,5vw+5rem,10rem)] leading-none text-[#00d4ff]">
             <span
               className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'} 
-              transition-all delay-100 duration-700 ease-out`}
+              transition-all delay-100 duration-700 ease-out
+              font-black`}
             >
               蓝山
             </span>
           </div>
           <div className="overflow-hidden text-[clamp(3rem,5vw+5rem,10rem)] leading-none text-[#ffffff]">
             <span
-              className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'} transition-all duration-700 ease-out`}
+              className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'} 
+              transition-all duration-700 ease-out
+              font-black`}
             >
               工作室
             </span>

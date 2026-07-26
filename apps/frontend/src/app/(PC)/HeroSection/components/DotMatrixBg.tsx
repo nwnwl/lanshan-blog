@@ -39,6 +39,8 @@ class DotMatrixEngine {
       autoDensity: true,
     });
 
+    if (!this.app) return;
+
     const canvas = this.app.canvas as HTMLCanvasElement;
     canvas.style.position = 'absolute';
     canvas.style.top = '0';
@@ -151,10 +153,14 @@ class DotMatrixEngine {
 
   destroy() {
     if (this.app) {
-      this.app.ticker.remove(this.tick);
+      this.app.ticker?.remove(this.tick);
       for (const cell of this.cells) cell.text.destroy();
       this.cells = [];
-      this.app.destroy(true);
+      try {
+        this.app.destroy(true);
+      } catch {
+        // PixiJS v8 destroy 内部可能调用未初始化的 _cancelResize
+      }
       this.app = null;
     }
     this.ro?.disconnect();

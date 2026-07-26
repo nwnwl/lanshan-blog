@@ -1,13 +1,14 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { Icon } from '@/components/Icon';
 import { useState } from 'react';
 
 const links = [
   { name: 'aboutus' as const, href: '#about', cn_name: '关于我们' },
+  { name: 'headto' as const, href: '#graduation', cn_name: '毕业去向' },
   { name: 'pastproject' as const, href: '#project', cn_name: '过往项目' },
   { name: 'organization' as const, href: '#organization', cn_name: '组织架构' },
-  { name: 'headto' as const, href: '#graduation', cn_name: '毕业去向' },
   { name: 'contact' as const, href: '#contact', cn_name: '联系我们' },
 ];
 
@@ -86,7 +87,7 @@ export const Siderbar = () => {
               />
               <div
                 className={`navText absolute left-[3.6rem] 
-                whitespace-nowrap text-[0.6rem]`}
+                whitespace-nowrap text-[0.6rem] font-medium`}
               >
                 <span>{cn_name}</span>
               </div>
@@ -95,7 +96,8 @@ export const Siderbar = () => {
         ))}
       </div>
       {/* 加入我们 */}
-      <div
+      <Link
+        href="/join"
         className={`stripe absolute
           left-[0.8rem] bottom-[4rem]
           w-[2rem] h-[5rem]
@@ -108,7 +110,7 @@ export const Siderbar = () => {
         <div
           className="absolute top-0 left-0
           w-full h-full rounded-[4px]
-          bg-[#00e5ff] 
+          bg-[#00e5ff]
           opacity-0 hover:opacity-100
           transition-opacity duration-100 z-0"
         ></div>
@@ -124,21 +126,21 @@ export const Siderbar = () => {
         />
         <div
           className={`joinLine
-            absolute h-[2px] w-[1.4rem] 
-            bg-[#ffffff4d] 
+            absolute h-[2px] w-[1.4rem]
+            bg-[#ffffff4d]
             top-[2rem] left-[0.3rem]
             group-hover:top-[5rem]
             transition-[top,background-color] duration-300 ease-in-out
-            `}
+            pointer-events-none`}
         />
         <div
           className={`joinText
           absolute
           top-[2.5rem] left-0
           w-[2rem]
-          text-center text-[0.7rem] text-[#ffffff] font-bold  
+          text-center text-[0.7rem] text-[#ffffff] font-bold
           group-hover:top-[5.5rem]
-          transition-[top,color] duration-300 ease-in-out`}
+          transition-[top,color] duration-300 ease-in-out pointer-events-none`}
         >
           <span>加入我们</span>
         </div>
@@ -158,12 +160,11 @@ export const Siderbar = () => {
           w-[2rem]
           text-center text-[0.7rem] text-[#ffffff] font-bold whitespace-nowrap
           opacity-0 group-hover:opacity-100
-          transition-[opacity,color] duration-300 ease-in-out
-          pointer-events-none`}
+          transition-[opacity,color] duration-300 ease-in-out pointer-events-none`}
         >
           <span>加入我们</span>
         </div>
-      </div>
+      </Link>
       <div
         className={`
         absolute bottom-[0.5rem] left-1/2 -translate-x-1/2 

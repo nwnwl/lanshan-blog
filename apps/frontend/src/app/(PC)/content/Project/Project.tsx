@@ -86,7 +86,7 @@ export const PC_ProjectSection = () => {
   return (
     <section
       id="project"
-      className={`${styles.projectSection} h-[120vh] w-full px-20 mt-20 mb-30 lg:py-20 py-40 relative bg-white text-black`}
+      className={`${styles.projectSection} h-[120vh] w-full px-20 mt-20 mb-30 relative bg-white text-black`}
     >
       <div className="relative z-1 h-full w-full grid grid-rows-4" onMouseMove={handleMouseMove}>
         {projects.map((project) => (
