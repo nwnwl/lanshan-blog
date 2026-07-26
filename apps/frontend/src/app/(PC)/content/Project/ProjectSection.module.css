@@ -23,7 +23,7 @@
 .projectSection::after {
   content: '';
   position: absolute;
-  bottom: -2rem;
+  bottom: -6rem;
   left: 0;
   right: 0;
   background: url('/picture/decoration-2.webp') no-repeat;
@@ -33,16 +33,4 @@
   height: 4rem;
   background-size: auto 100%;
   background-position: center bottom;
-}
-
-@media (min-width: 768px) {
-  .projectSection::after {
-    bottom: -3rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .projectSection::after {
-    bottom: -4rem;
-  }
 }
