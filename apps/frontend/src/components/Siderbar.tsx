@@ -1,8 +1,9 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Icon } from '@/components/Icon';
 import { useState } from 'react';
+import { useTransitionStore } from '@/store/transitionStore';
 
 const links = [
   { name: 'aboutus' as const, href: '#about', cn_name: '关于我们' },
@@ -13,6 +14,8 @@ const links = [
 ];
 
 export const Siderbar = () => {
+  const router = useRouter();
+  const navigate = useTransitionStore((s) => s.navigate);
   const [activeIndex, setActiveIndex] = useState(0);
   const isScroll = useRef(false);
   const timeRef = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -96,15 +99,15 @@ export const Siderbar = () => {
         ))}
       </div>
       {/* 加入我们 */}
-      <Link
-        href="/join"
+      <div
+        onClick={() => navigate('/join', router.push)}
         className={`stripe absolute
           left-[0.8rem] bottom-[4rem]
           w-[2rem] h-[5rem]
           flex flex-col items-center justify-center gap-[8px]
           group-hover:w-[9.2rem] group-hover:h-[2rem]
           transition-all duration-300 ease-in-out
-          overflow-hidden `}
+          overflow-hidden cursor-pointer `}
       >
         {/* hover背景颜色 */}
         <div
@@ -164,7 +167,7 @@ export const Siderbar = () => {
         >
           <span>加入我们</span>
         </div>
-      </Link>
+      </div>
       <div
         className={`
         absolute bottom-[0.5rem] left-1/2 -translate-x-1/2 

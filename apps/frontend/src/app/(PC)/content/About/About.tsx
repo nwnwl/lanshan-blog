@@ -70,15 +70,15 @@ export const PC_AboutSection = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4 xl:tracking-wider">
-                <p className="xl:text-2xl lg:text-xl text-sm">TOWARD THE FUTURE</p>
+              <div className="flex flex-col gap-4 xl:tracking-wider font-bold">
+                <p className="xl:text-2xl lg:text-xl text-sm ">TOWARD THE FUTURE</p>
                 <p className="pr-15 xl:text-sm text-xs">BEYOND LANSHAN</p>
               </div>
             </div>
 
             <div className="bg-linear-to-b from-[#00D4FF] to-transparent md:w-40 w-30 h-full p-4 min-w-0">
               <div className="bg-white h-full w-4 relative">
-                <span className="absolute top-2 [writing-mode:vertical-rl] md:text-4xl text-2xl font-medium tracking-widest">
+                <span className="absolute top-2 [writing-mode:vertical-rl] md:text-4xl text-2xl font-bold tracking-widest">
                   INTRODUCTION
                 </span>
               </div>
