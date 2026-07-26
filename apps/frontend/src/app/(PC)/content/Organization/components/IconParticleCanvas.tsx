@@ -226,7 +226,7 @@ export const IconParticleCanvas = ({
                 group-hover:text-white
                 font-bold"
               >
-                <span className="text-[1.6rem] 2xl:text-[2.0rem]">{cn}</span>
+                <span className="text-[1.6rem]">{cn}</span>
                 <span className="text-[0.8rem] ml-4">{en}</span>
               </div>
             </div>
