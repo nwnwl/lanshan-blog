@@ -6,37 +6,38 @@
   content: '';
   position: absolute;
   background: url('/picture/decoration-1.svg') no-repeat;
-  height: 6rem;
-  width: 6rem;
+  height: 4rem;
+  width: 4rem;
   background-size: contain;
   opacity: 1;
   top: 8rem;
   pointer-events: none;
+  filter: brightness(0) invert(0.65);
 }
 
 .aboutHeader::after {
   content: '';
   position: absolute;
-  background: url('/picture/decoration-3.png') no-repeat;
-  height: 6rem;
-  width: 6rem;
+  background: url('/picture/decoration-2.png') no-repeat;
+  height: 4rem;
+  width: 4rem;
   background-size: contain;
   opacity: 1;
-  top: 14rem;
-  left: 3rem;
+  top: 12rem;
+  left: 0.4rem;
   pointer-events: none;
 }
 
 @media (min-width: 1280px) {
   .aboutHeader::before {
-    height: 8rem;
-    width: 8rem;
+    height: 6.8rem;
+    width: 6.8rem;
   }
 }
 
 @media (min-width: 1280px) {
   .aboutHeader::after {
-    height: 8rem;
-    width: 8rem;
+    height: 5rem;
+    width: 5rem;
   }
 }
