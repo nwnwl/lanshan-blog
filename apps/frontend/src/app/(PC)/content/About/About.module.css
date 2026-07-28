@@ -41,3 +41,19 @@
     width: 5rem;
   }
 }
+
+.aboutRight {
+  position: relative;
+}
+
+.aboutRight::before {
+  position: absolute;
+  content: '';
+  background: url('/picture/decoration-4.png') no-repeat;
+  height: 8rem;
+  width: 8rem;
+  background-size: contain;
+  z-index: 1;
+  bottom: 2rem;
+  left: 1.8rem;
+}

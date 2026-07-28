@@ -49,15 +49,18 @@ export const PC_AboutSection = () => {
             />
 
             {/* 下侧信息栏 */}
-            <div className="absolute w-[811.375px] ">
-              <div className="text-[42.3333px] font-semibold">探索工作室</div>
-              <div className="text-[26.4583px] font-medium">
+            <div className="absolute w-[811.375px] mt-10 left-10">
+              <div className="relative text-[42.3333px] font-semibold">
+                <span>探索工作室</span>
+                <div className="absolute text-xs top-2 -left-10">1 / 4</div>
+              </div>
+              <div className="text-[26.4583px] font-medium ">
                 蓝山工作室是由教育信息化办公室/信息中心指导的，从事互联网产品、教育信息化产品开发运营和服务全体师生的校级学生组织。
               </div>
             </div>
           </div>
           {/* 蓝色装饰 */}
-          <div className="bg-[#00D4FF] w-[268.109px] py-4 pl-6">
+          <div className={`bg-[#00D4FF] w-[268.109px] py-4 pl-6 ${styles.aboutRight}`}>
             <div className="bg-white h-full w-6 relative">
               <span className="absolute top-2 [writing-mode:vertical-rl] md:text-5xl text-2xl font-semibold tracking-wider">
                 OVERVIEW
