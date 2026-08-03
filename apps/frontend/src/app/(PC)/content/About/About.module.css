@@ -1,3 +1,19 @@
+.aboutDecoration {
+  position: relative;
+}
+
+.aboutDecoration::before {
+  content: '';
+  position: absolute;
+  background: url('/picture/header-decoration.png') no-repeat;
+  height: 3rem;
+  width: 3rem;
+  background-size: contain;
+  pointer-events: none;
+  filter: brightness(0) invert(0.5);
+  bottom: 1.2rem;
+}
+
 .aboutHeader {
   position: relative;
 }
@@ -10,7 +26,7 @@
   width: 4rem;
   background-size: contain;
   opacity: 1;
-  top: 8rem;
+  top: 6rem;
   pointer-events: none;
   filter: brightness(0) invert(0.65);
 }
@@ -23,20 +39,13 @@
   width: 4rem;
   background-size: contain;
   opacity: 1;
-  top: 12rem;
-  left: 0.4rem;
+  top: 9rem;
+  left: 0.3rem;
   pointer-events: none;
 }
 
 @media (min-width: 1280px) {
   .aboutHeader::before {
-    height: 6.8rem;
-    width: 6.8rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .aboutHeader::after {
     height: 5rem;
     width: 5rem;
   }
@@ -50,10 +59,10 @@
   position: absolute;
   content: '';
   background: url('/picture/decoration-4.png') no-repeat;
-  height: 8rem;
-  width: 8rem;
+  height: 5.4rem;
+  width: 5.4rem;
   background-size: contain;
   z-index: 1;
-  bottom: 2rem;
-  left: 1.8rem;
+  bottom: 1.4rem;
+  left: 1.7rem;
 }
