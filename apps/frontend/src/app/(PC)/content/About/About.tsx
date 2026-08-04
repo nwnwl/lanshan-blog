@@ -1,87 +1,74 @@
 'use client';
 import { Icon } from '@/components/Icon';
 import styles from './About.module.css';
+import { MyCarousel } from '@/components/MyCarousel/MyCarousel';
 
 export const PC_AboutSection = () => {
   return (
-    <section id="about" className="h-screen w-full">
-      <div className="w-full h-full font-semibold flex">
+    <section id="about" className="min-h-screen w-full">
+      <div className="w-full min-h-0 flex ml-30 mt-12">
         {/* 左侧 */}
         <div
-          className={`header_about flex-1 flex flex-col pl-10 gap-1 py-4 my-10
+          className={`header_about flex flex-col justify-between
           ${styles.aboutHeader}`}
         >
           {/* header部分 */}
-          <div className="flex flex-col justify-center">
+          <div
+            className={`flex flex-col justify-center
+            ${styles.aboutDecoration}`}
+          >
             <div className="flex items-center">
               <div
                 className="flex 
-              md:h-5 md:w-15
+              md:h-5 md:w-16
               h-4 w-10  
                bg-[#D9D9D9] justify-end items-center pr-1"
               >
                 <Icon
                   name="arrow"
-                  className="SectionTitle_arrow__qXHl7 
+                  className="SectionTitle_arrow__qXHl 
                 md:w-4 md:h-4
-                w-3 h-3"
+                w-3 h-3
+                "
                 />
               </div>
-              <span className="lg:text-xl text-xs font-black pl-2">ABOUT US</span>
+              <span className="lg:text-lg text-xs font-medium pl-1">ABOUT US</span>
             </div>
-            <div className="font-black lg:text-4xl md:text-2xl text-xl tracking-tight">
-              关于我们
-            </div>
+            <div className="font-bold lg:text-3xl md:text-2xl text-xl tracking-tight">关于我们</div>
           </div>
 
           {/* 左侧装饰 */}
-          <div
-            className="flex-1 flex flex-col justify-end
-            "
-          >
-            <div className="p-4 bg-[#D9D9D9] w-fit ">
-              <Icon
-                name="gameplay"
-                className="__05-Gameplay_icon__Yiqki md:w-15 md:h-15 h-10 w-10"
-              />
-            </div>
+          <div className="p-2 bg-[#D9D9D9] w-fit">
+            <Icon name="gameplay" className="__05-Gameplay_icon__Yiqki md:w-15 md:h-15 h-10 w-10" />
           </div>
         </div>
 
-        {/* 右侧信息栏 */}
-        <div className="main_about flex-6 flex gap-1 py-4 my-10">
-          <div className="flex flex-1">
-            <div
-              className="flex flex-col justify-between flex-1 gap-8
-            font-noto
-            min-w-0 pt-6 min-[1920px]:pt-10 px-6 min-[1920px]:px-10"
-            >
-              <div className="flex-1 flex items-center  max-w-3xl mx-auto">
-                <div
-                  className="w-full 2xl:leading-loose leading-relaxed text-gray-800 space-y-5
-                text-[1.2rem] 2xl-[1.5rem]"
-                >
-                  <p className="indent-8">
-                    蓝山工作室是由重庆邮电大学信息中心、信息化办指导的技术型学生社团，是学校教育数字化转型与智能化升级的排头兵。工作室以"AI赋能教育，技术服务师生，实践收获成长"为理念，聚焦教育场景下数字化工具、AI智能体研发、应用落地等关键方向，打造"AI+教育"数字化产品。我们深耕校园服务应用开发，在实践中淬炼技术落地；我们探索AI智能体工具研发，在创新中激发科研潜力；我们构建多元化培养模式，在团队协作中提升求职竞争力。工作室内90%毕业后的学生斩获众多offer，进入字节跳动、腾讯、小米、美团等互联网头部企业工作。
-                  </p>
-                  <p className="indent-8">
-                    蓝山工作室下设产品及运营部、运维与安全部、研发部、UI设计部4个部门7个组，其中研发部根据不同的技术栈分为前端开发组、GO语言开发组、Java开发组、Python开发组。
-                  </p>
-                </div>
-              </div>
+        {/* 右侧图片 */}
+        <div className="pl-16 flex">
+          <div className="relative">
+            {/* <img
+              src="/picture/studio-1.png"
+              alt="studio picture"
+              className="w-[1305.420px] h-[767.891px]"
+            /> */}
+            <MyCarousel />
 
-              <div className="flex flex-col gap-4 xl:tracking-wider font-bold">
-                <p className="xl:text-2xl lg:text-xl text-sm ">TOWARD THE FUTURE</p>
-                <p className="pr-15 xl:text-sm text-xs">BEYOND LANSHAN</p>
+            {/* 下侧信息栏 */}
+            {/* <div className="absolute w-[811.375px] mt-10 left-6">
+              <div className="text-[29.9333px] font-semibold">
+                <span>探索工作室</span>
               </div>
-            </div>
-
-            <div className="bg-linear-to-b from-[#00D4FF] to-transparent md:w-40 w-30 h-full p-4 min-w-0">
-              <div className="bg-white h-full w-4 relative">
-                <span className="absolute top-2 [writing-mode:vertical-rl] md:text-4xl text-2xl font-bold tracking-widest">
-                  INTRODUCTION
-                </span>
+              <div className="text-[18.7083px] font-medium ">
+                蓝山工作室是由教育信息化办公室/信息中心指导的，从事互联网产品、教育信息化产品开发运营和服务全体师生的校级学生组织。
               </div>
+            </div> */}
+          </div>
+          {/* 蓝色装饰 */}
+          <div className={`bg-[#00D4FF] w-[189.573px] py-4 pl-6 ${styles.aboutRight}`}>
+            <div className="bg-white h-full w-4 relative">
+              <span className="absolute top-2 [writing-mode:vertical-rl] md:text-4xl text-2xl font-semibold tracking-wider">
+                ABOUT US
+              </span>
             </div>
           </div>
         </div>
@@ -89,3 +76,12 @@ export const PC_AboutSection = () => {
     </section>
   );
 };
+
+/* 装饰文字 */
+
+{
+  /* <div className="flex flex-col gap-4 xl:tracking-wider">
+                <p className="xl:text-2xl lg:text-xl text-sm">TOWARD THE FUTURE</p>
+                <p className="pr-15 xl:text-sm text-xs">BEYOND LANSHAN</p>
+              </div> */
+}
