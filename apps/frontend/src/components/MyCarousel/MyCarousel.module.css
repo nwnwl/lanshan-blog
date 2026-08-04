@@ -51,3 +51,84 @@
 .carouselBtn:hover::before {
   opacity: 1;
 }
+
+@keyframes textExit {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+}
+
+.textExit {
+  animation: textExit 1.2s ease-out forwards;
+}
+
+@keyframes textEnter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.textEnter {
+  opacity: 0;
+  animation: textEnter 0.4s ease-out 0.1s forwards;
+}
+
+@keyframes sweepLeft {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes sweepRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.curtainSweepLeft {
+  animation: sweepLeft 0.6s ease-out both;
+}
+
+.curtainSweepRight {
+  animation: sweepRight 0.6s ease-out both;
+}
+
+@keyframes sweepLeftOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes sweepRightOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.curtainSweepLeftOut {
+  animation: sweepLeftOut 0.1s ease-out both;
+}
+
+.curtainSweepRightOut {
+  animation: sweepRightOut 0.1s ease-out both;
+}

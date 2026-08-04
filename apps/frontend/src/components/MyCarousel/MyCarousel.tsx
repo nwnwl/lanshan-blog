@@ -1,17 +1,16 @@
 'use client';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import styles from './MyCarousel.module.css';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { title } from 'process';
-
 interface ImageItem {
   id: number;
   src: string;
   alt: string;
+  thresholdSrc: string;
 }
 
 interface ImageDescription {
@@ -20,9 +19,24 @@ interface ImageDescription {
 }
 
 const images_1: ImageItem[] = [
-  { id: 1, src: '/picture/studio-1.png', alt: 'studio picture' },
-  { id: 2, src: '/picture/studio-2.png', alt: 'studio picture' },
-  { id: 3, src: '/picture/studio-3.png', alt: 'graduate employment status' },
+  {
+    id: 1,
+    src: '/picture/studio-1.png',
+    alt: 'studio picture',
+    thresholdSrc: '/picture/studio-threshold-1.png',
+  },
+  {
+    id: 2,
+    src: '/picture/studio-2.png',
+    alt: 'studio picture',
+    thresholdSrc: '/picture/studio-threshold-2.png',
+  },
+  {
+    id: 3,
+    src: '/picture/studio-3.png',
+    alt: 'graduate employment status',
+    thresholdSrc: '/picture/studio-threshold-3.png',
+  },
 ];
 
 const textData_1: ImageDescription[] = [
@@ -62,54 +76,120 @@ const textData_2: ImageDescription[] = [
 ];
 
 export const MyCarousel = () => {
+  const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const [current, setCurrent] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [textVisible, setTextVisible] = useState(true);
+  const [prevIndex, setPrevIndex] = useState(0);
+  const [curtainPhase, setCurtainPhase] = useState<'idle' | 'black' | 'threshold'>('idle');
+  const [thresholdSrc, setThresholdSrc] = useState('');
+  const [direction, setDirection] = useState<'next' | 'prev'>('next');
   const total = images_1.length;
+
+  const isAnimating = curtainPhase !== 'idle';
+
+  const goNext = useCallback(() => {
+    if (isAnimating || !swiper) return;
+    const newIndex = currentIndex >= total - 1 ? 0 : currentIndex + 1;
+
+    // 预加载阈值图，600ms 后挂载时已缓存
+    const preload = new Image();
+    preload.src = images_1[newIndex].thresholdSrc;
+
+    setDirection('next');
+    setPrevIndex(currentIndex);
+    setCurtainPhase('black');
+    setThresholdSrc(images_1[newIndex].thresholdSrc);
+    swiper.slideTo(newIndex, 0);
+
+    setTimeout(() => setCurtainPhase('threshold'), 600);
+    setTimeout(() => {
+      setCurtainPhase('idle');
+      setCurrent(newIndex + 1);
+      setCurrentIndex(newIndex);
+    }, 700);
+  }, [isAnimating, swiper, currentIndex, total]);
+
+  const goPrev = useCallback(() => {
+    if (isAnimating || !swiper) return;
+    const newIndex = currentIndex <= 0 ? total - 1 : currentIndex - 1;
+
+    const preload = new Image();
+    preload.src = images_1[newIndex].thresholdSrc;
+
+    setDirection('prev');
+    setPrevIndex(currentIndex);
+    setCurtainPhase('black');
+    setThresholdSrc(images_1[newIndex].thresholdSrc);
+    swiper.slideTo(newIndex, 0);
+
+    setTimeout(() => setCurtainPhase('threshold'), 600);
+    setTimeout(() => {
+      setCurtainPhase('idle');
+      setCurrent(newIndex + 1);
+      setCurrentIndex(newIndex);
+    }, 700);
+  }, [isAnimating, swiper, currentIndex, total]);
 
   return (
     <div className="relative w-[922.312px] h-[542.542px]">
-      <Swiper
-        modules={[Navigation]}
-        loop={true}
-        slidesPerView={1}
-        spaceBetween={30}
-        navigation={{
-          nextEl: '.swiper-custom-next',
-          prevEl: '.swiper-custom-prev',
-        }}
-        onSlideChange={(swiper: SwiperType) => {
-          const realIndex = swiper.realIndex;
-          setTextVisible(false);
-          setTimeout(() => {
-            setCurrent(realIndex + 1);
-            setCurrentIndex(realIndex);
-            setTextVisible(true);
-          }, 400);
-        }}
-      >
-        {images_1.map((img) => (
-          <SwiperSlide key={img.id}>
-            <img
-              src={img.src}
-              alt={img.alt}
-              style={{ width: '922.312px', height: '542.542px', objectFit: 'cover' }}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {/* 图片区：overflow-hidden 截断幕布，不溢出全屏 */}
+      <div className="relative w-full h-full overflow-hidden">
+        <Swiper
+          modules={[Navigation]}
+          loop={true}
+          slidesPerView={1}
+          spaceBetween={30}
+          speed={0}
+          allowTouchMove={false}
+          onSwiper={setSwiper}
+        >
+          {images_1.map((img) => (
+            <SwiperSlide key={img.id}>
+              <img
+                src={img.src}
+                alt={img.alt}
+                style={{ width: '922.312px', height: '542.542px', objectFit: 'cover' }}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-      {/* 自定义按钮 — 放 Swiper 外面或里面都可以 */}
-      {/* 左按钮 */}
+        {/* 阈值幕布 */}
+        {curtainPhase !== 'idle' && (
+          <img
+            src={thresholdSrc}
+            alt="threshold"
+            className={`absolute inset-0 z-20 w-full h-full object-cover opacity-85 ${
+              curtainPhase === 'threshold'
+                ? direction === 'next'
+                  ? styles.curtainSweepLeftOut
+                  : styles.curtainSweepRightOut
+                : ''
+            }`}
+          />
+        )}
+
+        {/* 黑色幕布：先横扫，期间阈值不存在 */}
+        {curtainPhase === 'black' && (
+          <div
+            className={`absolute inset-0 z-30 bg-black ${
+              direction === 'next' ? styles.curtainSweepLeft : styles.curtainSweepRight
+            }`}
+          />
+        )}
+      </div>
+
+      {/* 按钮放到 overflow-hidden 外面，不受裁剪 */}
       <div
-        className={`${styles.carouselBg} absolute w-fit left-6 bottom-8 z-20 bg-black/60 rounded-full  flex gap-8 p-0.5`}
+        className={`${styles.carouselBg} absolute w-fit left-6 bottom-8 z-50 bg-black/60 rounded-full flex gap-8 p-0.5`}
       >
         <div className="p-0.5 bg-[#FAFAFA] rounded-full z-1 group">
           <button
-            className={`${styles.carouselBtn} swiper-custom-prev rounded-full p-2.5 border-2 border-[#E6E6E6]
-            transition-all duration-500 ease-out 
-            group-hover:bg-[#00d5ffca]
-            `}
+            onClick={goPrev}
+            className={`${styles.carouselBtn} rounded-full p-2.5 border-2 border-[#E6E6E6]
+              transition-all duration-500 ease-out 
+              group-hover:bg-[#00d5ffca]
+              `}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -127,9 +207,10 @@ export const MyCarousel = () => {
         {/* 右按钮 */}
         <div className="p-0.5 bg-[#FAFAFA]  rounded-full z-1 group">
           <button
-            className={`${styles.carouselBtn} swiper-custom-next rounded-full p-2.5 border-2 border-[#E6E6E6]
-            transition-all duration-500 ease-out
-            group-hover:bg-[#00d5ffca]`}
+            onClick={goNext}
+            className={`${styles.carouselBtn} rounded-full p-2.5 border-2 border-[#E6E6E6]
+              transition-all duration-500 ease-out
+              group-hover:bg-[#00d5ffca]`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -146,24 +227,41 @@ export const MyCarousel = () => {
         </div>
       </div>
 
-      {/* 自定义数字指示器容器 */}
-      <div
-        className={`custom-pagination absolute -bottom-14 z-10 pointer-events-none text-[10px] font-bold
-          transition-all duration-500 ease-out
-        ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-x-2'}`}
-      >
-        {current} / {total}
-      </div>
-
-      {/* 下侧信息栏 */}
-      <div
-        className={`absolute w-[811.375px] -bottom-30 left-6 transition-all duration-500 ease-out ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-x-2'}`}
-      >
-        <div className="text-[29.9333px] font-semibold">
-          <span>{textData_1[currentIndex]?.title}</span>
+      {/* 数字指示器 - 退场层 */}
+      {curtainPhase !== 'idle' && (
+        <div
+          className={`${styles.textExit} absolute -bottom-14 z-10 pointer-events-none text-[10px] font-bold`}
+        >
+          {current} / {total}
         </div>
-        <div className="text-[18.7083px] font-medium">{textData_1[currentIndex]?.description}</div>
-      </div>
+      )}
+
+      {/* 数字指示器 - 进场层 */}
+      {curtainPhase === 'idle' && (
+        <div
+          className={`${styles.textEnter} absolute -bottom-14 z-10 pointer-events-none text-[10px] font-bold`}
+        >
+          {current} / {total}
+        </div>
+      )}
+
+      {/* 信息栏 - 退场层 */}
+      {curtainPhase !== 'idle' && (
+        <div className={`${styles.textExit} absolute w-[811.375px] -bottom-30 left-6`}>
+          <div className="text-[29.9333px] font-semibold">{textData_1[prevIndex]?.title}</div>
+          <div className="text-[18.7083px] font-medium">{textData_1[prevIndex]?.description}</div>
+        </div>
+      )}
+
+      {/* 信息栏 - 进场层 */}
+      {curtainPhase === 'idle' && (
+        <div className={`${styles.textEnter} absolute w-[811.375px] -bottom-30 left-6`}>
+          <div className="text-[29.9333px] font-semibold">{textData_1[currentIndex]?.title}</div>
+          <div className="text-[18.7083px] font-medium">
+            {textData_1[currentIndex]?.description}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
