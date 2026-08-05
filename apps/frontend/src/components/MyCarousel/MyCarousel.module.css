@@ -78,36 +78,38 @@
 
 .textEnter {
   opacity: 0;
-  animation: textEnter 0.4s ease-out 0.1s forwards;
+  animation: textEnter 0.2s ease-out 0s forwards;
 }
 
-@keyframes sweepLeft {
+/* ===== 黑色进入：先快后慢 ease-out ===== */
+@keyframes blackEnterLeft {
   from {
     transform: translateX(100%);
   }
   to {
-    transform: translateX(-100%);
+    transform: translateX(0);
   }
 }
 
-@keyframes sweepRight {
+@keyframes blackEnterRight {
   from {
     transform: translateX(-100%);
   }
   to {
-    transform: translateX(100%);
+    transform: translateX(0);
   }
 }
 
-.curtainSweepLeft {
-  animation: sweepLeft 0.6s ease-out both;
+.blackEnterLeft {
+  animation: blackEnterLeft 0.4s ease-out both;
 }
 
-.curtainSweepRight {
-  animation: sweepRight 0.6s ease-out both;
+.blackEnterRight {
+  animation: blackEnterRight 0.4s ease-out both;
 }
 
-@keyframes sweepLeftOut {
+/* ===== 黑色退出：快速 ease-in ===== */
+@keyframes blackExitLeft {
   from {
     transform: translateX(0);
   }
@@ -116,7 +118,7 @@
   }
 }
 
-@keyframes sweepRightOut {
+@keyframes blackExitRight {
   from {
     transform: translateX(0);
   }
@@ -125,10 +127,37 @@
   }
 }
 
-.curtainSweepLeftOut {
-  animation: sweepLeftOut 0.1s ease-out both;
+.blackExitLeft {
+  animation: blackExitLeft 0.15s ease-in both;
 }
 
-.curtainSweepRightOut {
-  animation: sweepRightOut 0.1s ease-out both;
+.blackExitRight {
+  animation: blackExitRight 0.15s ease-in both;
+}
+
+/* ===== 阈值退出：快速 ===== */
+@keyframes thresholdExitLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes thresholdExitRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.thresholdExitLeft {
+  animation: thresholdExitLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.thresholdExitRight {
+  animation: thresholdExitRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

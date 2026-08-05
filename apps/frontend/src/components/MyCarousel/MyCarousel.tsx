@@ -80,7 +80,9 @@ export const MyCarousel = () => {
   const [current, setCurrent] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(0);
-  const [curtainPhase, setCurtainPhase] = useState<'idle' | 'black' | 'threshold'>('idle');
+  const [curtainPhase, setCurtainPhase] = useState<
+    'idle' | 'blackEnter' | 'blackExit' | 'thresholdExit'
+  >('idle');
   const [thresholdSrc, setThresholdSrc] = useState('');
   const [direction, setDirection] = useState<'next' | 'prev'>('next');
   const total = images_1.length;
@@ -91,43 +93,64 @@ export const MyCarousel = () => {
     if (isAnimating || !swiper) return;
     const newIndex = currentIndex >= total - 1 ? 0 : currentIndex + 1;
 
-    // 预加载阈值图，600ms 后挂载时已缓存
-    const preload = new Image();
-    preload.src = images_1[newIndex].thresholdSrc;
+    // 预加载 next 图 + 阈值图
+    const preloadNext = new Image();
+    preloadNext.src = images_1[newIndex].src;
+    const preloadThreshold = new Image();
+    preloadThreshold.src = images_1[newIndex].thresholdSrc;
 
     setDirection('next');
     setPrevIndex(currentIndex);
-    setCurtainPhase('black');
     setThresholdSrc(images_1[newIndex].thresholdSrc);
-    swiper.slideTo(newIndex, 0);
+    setCurtainPhase('blackEnter');
 
-    setTimeout(() => setCurtainPhase('threshold'), 600);
+    // 400ms：黑色铺满，swiper 切图，阈值就位，黑色开始退场
+    setTimeout(() => {
+      swiper.slideTo(newIndex, 0); // 原图已被遮住，安全切换
+      setCurtainPhase('blackExit');
+    }, 400);
+
+    // 650ms：黑色已完全退场，阈值完整显示一瞬后开始退场
+    setTimeout(() => {
+      setCurtainPhase('thresholdExit');
+    }, 650);
+
+    // 1050ms：阈值退场完毕，最终状态
     setTimeout(() => {
       setCurtainPhase('idle');
       setCurrent(newIndex + 1);
       setCurrentIndex(newIndex);
-    }, 700);
+    }, 1050);
   }, [isAnimating, swiper, currentIndex, total]);
 
   const goPrev = useCallback(() => {
     if (isAnimating || !swiper) return;
     const newIndex = currentIndex <= 0 ? total - 1 : currentIndex - 1;
 
-    const preload = new Image();
-    preload.src = images_1[newIndex].thresholdSrc;
+    const preloadNext = new Image();
+    preloadNext.src = images_1[newIndex].src;
+    const preloadThreshold = new Image();
+    preloadThreshold.src = images_1[newIndex].thresholdSrc;
 
     setDirection('prev');
     setPrevIndex(currentIndex);
-    setCurtainPhase('black');
     setThresholdSrc(images_1[newIndex].thresholdSrc);
-    swiper.slideTo(newIndex, 0);
+    setCurtainPhase('blackEnter');
 
-    setTimeout(() => setCurtainPhase('threshold'), 600);
+    setTimeout(() => {
+      swiper.slideTo(newIndex, 0);
+      setCurtainPhase('blackExit');
+    }, 400);
+
+    setTimeout(() => {
+      setCurtainPhase('thresholdExit');
+    }, 650);
+
     setTimeout(() => {
       setCurtainPhase('idle');
       setCurrent(newIndex + 1);
       setCurrentIndex(newIndex);
-    }, 700);
+    }, 1050);
   }, [isAnimating, swiper, currentIndex, total]);
 
   return (
@@ -154,26 +177,34 @@ export const MyCarousel = () => {
           ))}
         </Swiper>
 
-        {/* 阈值幕布 */}
-        {curtainPhase !== 'idle' && (
+        {/* 阈值图：只在 blackExit / thresholdExit 挂载，黑色铺满后才贴上 */}
+        {(curtainPhase === 'blackExit' || curtainPhase === 'thresholdExit') && (
           <img
             src={thresholdSrc}
             alt="threshold"
             className={`absolute inset-0 z-20 w-full h-full object-cover opacity-85 ${
-              curtainPhase === 'threshold'
+              curtainPhase === 'thresholdExit'
                 ? direction === 'next'
-                  ? styles.curtainSweepLeftOut
-                  : styles.curtainSweepRightOut
+                  ? styles.thresholdExitLeft
+                  : styles.thresholdExitRight
                 : ''
             }`}
           />
         )}
 
-        {/* 黑色幕布：先横扫，期间阈值不存在 */}
-        {curtainPhase === 'black' && (
+        {/* 黑色幕布 */}
+        {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
           <div
             className={`absolute inset-0 z-30 bg-black ${
-              direction === 'next' ? styles.curtainSweepLeft : styles.curtainSweepRight
+              curtainPhase === 'blackEnter'
+                ? direction === 'next'
+                  ? styles.blackEnterLeft
+                  : styles.blackEnterRight
+                : curtainPhase === 'blackExit'
+                  ? direction === 'next'
+                    ? styles.blackExitLeft
+                    : styles.blackExitRight
+                  : ''
             }`}
           />
         )}
