@@ -177,7 +177,7 @@ export const MyCarousel = () => {
           ))}
         </Swiper>
 
-        {/* 阈值图：只在 blackExit / thresholdExit 挂载，黑色铺满后才贴上 */}
+        {/* 阈值图：clip-path 裁切退场，不会压缩 */}
         {(curtainPhase === 'blackExit' || curtainPhase === 'thresholdExit') && (
           <img
             src={thresholdSrc}
@@ -192,7 +192,7 @@ export const MyCarousel = () => {
           />
         )}
 
-        {/* 黑色幕布 */}
+        {/* 黑色幕布：clip-path 横扫，不会压缩 */}
         {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
           <div
             className={`absolute inset-0 z-30 bg-black ${

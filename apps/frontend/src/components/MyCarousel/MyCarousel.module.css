@@ -64,7 +64,7 @@
 }
 
 .textExit {
-  animation: textExit 1.2s ease-out forwards;
+  animation: textExit 0.3s ease-out forwards;
 }
 
 @keyframes textEnter {
@@ -81,22 +81,24 @@
   animation: textEnter 0.2s ease-out 0s forwards;
 }
 
-/* ===== 黑色进入：先快后慢 ease-out ===== */
+/* ===== 黑色进入：clip-path 横扫进入 ===== */
+/* next: 从右向左滑入 */
 @keyframes blackEnterLeft {
   from {
-    transform: translateX(100%);
+    clip-path: polygon(100% 0, 200% 0, 200% 100%, 100% 100%);
   }
   to {
-    transform: translateX(0);
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
   }
 }
 
+/* prev: 从左向右滑入 */
 @keyframes blackEnterRight {
   from {
-    transform: translateX(-100%);
+    clip-path: polygon(-100% 0, 0% 0, 0% 100%, -100% 100%);
   }
   to {
-    transform: translateX(0);
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
   }
 }
 
@@ -108,49 +110,53 @@
   animation: blackEnterRight 0.4s ease-out both;
 }
 
-/* ===== 黑色退出：快速 ease-in ===== */
+/* ===== 黑色退出：clip-path 横扫退出 ===== */
+/* next: 向左滑出 */
 @keyframes blackExitLeft {
   from {
-    transform: translateX(0);
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
   }
   to {
-    transform: translateX(-100%);
+    clip-path: polygon(-100% 0, 0% 0, 0% 100%, -100% 100%);
   }
 }
 
+/* prev: 向右滑出 */
 @keyframes blackExitRight {
   from {
-    transform: translateX(0);
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
   }
   to {
-    transform: translateX(100%);
+    clip-path: polygon(100% 0, 200% 0, 200% 100%, 100% 100%);
   }
 }
 
 .blackExitLeft {
-  animation: blackExitLeft 0.15s ease-in both;
+  animation: blackExitLeft 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .blackExitRight {
-  animation: blackExitRight 0.15s ease-in both;
+  animation: blackExitRight 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* ===== 阈值退出：快速 ===== */
+/* ===== 阈值退场：clip-path 裁切收缩 ===== */
+/* next: 从右向左收缩 */
 @keyframes thresholdExitLeft {
   from {
-    transform: translateX(0);
+    clip-path: inset(0 0 0 0);
   }
   to {
-    transform: translateX(-100%);
+    clip-path: inset(0 100% 0 0);
   }
 }
 
+/* prev: 从左向右收缩 */
 @keyframes thresholdExitRight {
   from {
-    transform: translateX(0);
+    clip-path: inset(0 0 0 0);
   }
   to {
-    transform: translateX(100%);
+    clip-path: inset(0 0 0 100%);
   }
 }
 
