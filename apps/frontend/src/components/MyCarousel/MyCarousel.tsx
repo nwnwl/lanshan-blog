@@ -198,7 +198,7 @@ export const MyCarousel = () => {
         {/* 黑色幕布：clip-path 横扫，不会压缩 */}
         {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
           <div
-            className={`absolute inset-0 z-30 bg-black ${
+            className={`absolute inset-0 z-30 bg-[#191919] ${
               curtainPhase === 'blackEnter'
                 ? direction === 'next'
                   ? styles.blackEnterLeft
