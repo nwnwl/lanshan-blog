@@ -80,6 +80,7 @@ export const MyCarousel = () => {
   const [current, setCurrent] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(0);
+  const [targetIndex, setTargetIndex] = useState(0);
   const [curtainPhase, setCurtainPhase] = useState<
     'idle' | 'blackEnter' | 'blackExit' | 'thresholdExit'
   >('idle');
@@ -101,26 +102,27 @@ export const MyCarousel = () => {
 
     setDirection('next');
     setPrevIndex(currentIndex);
+    setTargetIndex(newIndex);
     setThresholdSrc(images_1[newIndex].thresholdSrc);
     setCurtainPhase('blackEnter');
 
-    // 400ms：黑色铺满，swiper 切图，阈值就位，黑色开始退场
+    // 350ms：黑色铺满，swiper 切图，阈值就位，黑色开始退场
     setTimeout(() => {
       swiper.slideTo(newIndex, 0); // 原图已被遮住，安全切换
       setCurtainPhase('blackExit');
-    }, 400);
+    }, 350);
 
-    // 650ms：黑色已完全退场，阈值完整显示一瞬后开始退场
+    // 500ms：黑色已完全退场，阈值短暂显示后开始退场
     setTimeout(() => {
       setCurtainPhase('thresholdExit');
-    }, 650);
+    }, 500);
 
-    // 1050ms：阈值退场完毕，最终状态
+    // 900ms：阈值退场完毕，最终状态
     setTimeout(() => {
       setCurtainPhase('idle');
       setCurrent(newIndex + 1);
       setCurrentIndex(newIndex);
-    }, 1050);
+    }, 900);
   }, [isAnimating, swiper, currentIndex, total]);
 
   const goPrev = useCallback(() => {
@@ -134,23 +136,24 @@ export const MyCarousel = () => {
 
     setDirection('prev');
     setPrevIndex(currentIndex);
+    setTargetIndex(newIndex);
     setThresholdSrc(images_1[newIndex].thresholdSrc);
     setCurtainPhase('blackEnter');
 
     setTimeout(() => {
       swiper.slideTo(newIndex, 0);
       setCurtainPhase('blackExit');
-    }, 400);
+    }, 350);
 
     setTimeout(() => {
       setCurtainPhase('thresholdExit');
-    }, 650);
+    }, 500);
 
     setTimeout(() => {
       setCurtainPhase('idle');
       setCurrent(newIndex + 1);
       setCurrentIndex(newIndex);
-    }, 1050);
+    }, 900);
   }, [isAnimating, swiper, currentIndex, total]);
 
   return (
@@ -258,8 +261,8 @@ export const MyCarousel = () => {
         </div>
       </div>
 
-      {/* 数字指示器 - 退场层 */}
-      {curtainPhase !== 'idle' && (
+      {/* 数字指示器 - 退场层：黑色阶段 */}
+      {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
         <div
           className={`${styles.textExit} absolute -bottom-14 z-10 pointer-events-none text-[10px] font-bold`}
         >
@@ -267,30 +270,28 @@ export const MyCarousel = () => {
         </div>
       )}
 
-      {/* 数字指示器 - 进场层 */}
-      {curtainPhase === 'idle' && (
+      {/* 数字指示器 - 进场层：阈值退场及之后 */}
+      {(curtainPhase === 'thresholdExit' || curtainPhase === 'idle') && (
         <div
           className={`${styles.textEnter} absolute -bottom-14 z-10 pointer-events-none text-[10px] font-bold`}
         >
-          {current} / {total}
+          {targetIndex + 1} / {total}
         </div>
       )}
 
-      {/* 信息栏 - 退场层 */}
-      {curtainPhase !== 'idle' && (
+      {/* 信息栏 - 退场层：黑色阶段 */}
+      {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
         <div className={`${styles.textExit} absolute w-[811.375px] -bottom-30 left-6`}>
           <div className="text-[29.9333px] font-semibold">{textData_1[prevIndex]?.title}</div>
           <div className="text-[18.7083px] font-medium">{textData_1[prevIndex]?.description}</div>
         </div>
       )}
 
-      {/* 信息栏 - 进场层 */}
-      {curtainPhase === 'idle' && (
+      {/* 信息栏 - 进场层：阈值退场及之后 */}
+      {(curtainPhase === 'thresholdExit' || curtainPhase === 'idle') && (
         <div className={`${styles.textEnter} absolute w-[811.375px] -bottom-30 left-6`}>
-          <div className="text-[29.9333px] font-semibold">{textData_1[currentIndex]?.title}</div>
-          <div className="text-[18.7083px] font-medium">
-            {textData_1[currentIndex]?.description}
-          </div>
+          <div className="text-[29.9333px] font-semibold">{textData_1[targetIndex]?.title}</div>
+          <div className="text-[18.7083px] font-medium">{textData_1[targetIndex]?.description}</div>
         </div>
       )}
     </div>

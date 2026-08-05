@@ -64,7 +64,7 @@
 }
 
 .textExit {
-  animation: textExit 0.3s ease-out forwards;
+  animation: textExit 0.5s ease-out forwards;
 }
 
 @keyframes textEnter {
@@ -103,11 +103,11 @@
 }
 
 .blackEnterLeft {
-  animation: blackEnterLeft 0.4s ease-out both;
+  animation: blackEnterLeft 0.35s ease-out both;
 }
 
 .blackEnterRight {
-  animation: blackEnterRight 0.4s ease-out both;
+  animation: blackEnterRight 0.35s ease-out both;
 }
 
 /* ===== 黑色退出：clip-path 横扫退出 ===== */
