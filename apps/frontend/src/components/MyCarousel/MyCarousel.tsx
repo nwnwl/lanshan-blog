@@ -39,6 +39,27 @@ const images_1: ImageItem[] = [
   },
 ];
 
+const images_2: ImageItem[] = [
+  {
+    id: 4,
+    src: '/picture/studio-4.png',
+    alt: 'studio desk',
+    thresholdSrc: '/picture/studio-threshold-4.png',
+  },
+  {
+    id: 5,
+    src: '/picture/studio-5.png',
+    alt: 'studio picture',
+    thresholdSrc: '/picture/studio-threshold-5.png',
+  },
+  {
+    id: 6,
+    src: '/picture/studio-6.png',
+    alt: 'Content coverage',
+    thresholdSrc: '/picture/studio-threshold-6.png',
+  },
+];
+
 const textData_1: ImageDescription[] = [
   {
     title: '了解工作室',
@@ -71,7 +92,7 @@ const textData_2: ImageDescription[] = [
   {
     title: '学姐学长互助',
     description:
-      '学姐学长倾情传授互联网行业知识，为你答疑解惑。大厂工作的学姐学长会传授工作经验，更有内推资源等你来',
+      '学姐学长倾情传授互联网行业知识，为你答疑解惑，大厂工作的学姐学长会传授工作经验，更有内推资源等你来。',
   },
 ];
 

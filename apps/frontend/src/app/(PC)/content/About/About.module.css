@@ -5,13 +5,13 @@
 .aboutDecoration::before {
   content: '';
   position: absolute;
-  background: url('/picture/header-decoration.png') no-repeat;
-  height: 3rem;
-  width: 3rem;
+  background: url('/picture/header-decoration.svg') no-repeat;
+  height: 5rem;
+  width: 5rem;
   background-size: contain;
   pointer-events: none;
   filter: brightness(0) invert(0.5);
-  bottom: 1.2rem;
+  top: -0.4rem;
 }
 
 .aboutHeader {
@@ -22,11 +22,11 @@
   content: '';
   position: absolute;
   background: url('/picture/decoration-1.svg') no-repeat;
-  height: 4rem;
-  width: 4rem;
+  height: 4.5rem;
+  width: 4.5rem;
   background-size: contain;
   opacity: 1;
-  top: 6rem;
+  top: 5rem;
   pointer-events: none;
   filter: brightness(0) invert(0.65);
 }
@@ -39,16 +39,9 @@
   width: 4rem;
   background-size: contain;
   opacity: 1;
-  top: 9rem;
+  top: 7.5rem;
   left: 0.3rem;
   pointer-events: none;
-}
-
-@media (min-width: 1280px) {
-  .aboutHeader::before {
-    height: 5rem;
-    width: 5rem;
-  }
 }
 
 .aboutRight {
@@ -64,5 +57,5 @@
   background-size: contain;
   z-index: 1;
   bottom: 1.4rem;
-  left: 1.7rem;
+  left: 1.2rem;
 }

@@ -13,17 +13,17 @@
   background-image: linear-gradient(
     -45deg,
     transparent,
-    transparent 13.9512529279%,
+    transparent 8%,
     black 0,
-    black 36.0487470721%,
+    black 42%,
     transparent 0,
-    transparent 63.9512529279%,
+    transparent 58%,
     black 0,
-    black 86.0487470721%,
+    black 92%,
     transparent 0,
     transparent
   );
-  background-size: 0.5rem 0.5rem;
+  background-size: 0.3rem 0.3rem;
   background-repeat: repeat;
   opacity: 0.05;
 }
