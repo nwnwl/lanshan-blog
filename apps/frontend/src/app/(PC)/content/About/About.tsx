@@ -1,7 +1,13 @@
 'use client';
 import { Icon } from '@/components/Icon';
 import styles from './About.module.css';
-import { MyCarousel } from '@/components/MyCarousel/MyCarousel';
+import {
+  MyCarousel,
+  images_1,
+  images_2,
+  textData_1,
+  textData_2,
+} from '@/components/MyCarousel/MyCarousel';
 
 export const PC_AboutSection = () => {
   return (
@@ -39,7 +45,10 @@ export const PC_AboutSection = () => {
 
           {/* 左侧装饰 */}
           <div className="p-2 bg-[#D9D9D9] w-fit">
-            <Icon name="gameplay" className="__05-Gameplay_icon__Yiqki md:w-15 md:h-15 h-10 w-10 p-1" />
+            <Icon
+              name="gameplay"
+              className="__05-Gameplay_icon__Yiqki md:w-15 md:h-15 h-10 w-10 p-1"
+            />
           </div>
         </div>
 
@@ -47,7 +56,7 @@ export const PC_AboutSection = () => {
         <div className="pl-20 flex">
           {/* 右侧图片 */}
           <div className="relative">
-            <MyCarousel />
+            <MyCarousel images={images_1} textData={textData_1} />
           </div>
           {/* 蓝色装饰 */}
           <div className={`bg-[#00D4FF] w-[189.573px] py-4 pl-4 ${styles.aboutRight}`}>
@@ -74,7 +83,7 @@ export const PC_AboutSection = () => {
           </div>
           {/* 左侧图片 */}
           <div className="relative">
-            <MyCarousel />
+            <MyCarousel images={images_2} textData={textData_2} />
           </div>
         </div>
 
@@ -104,7 +113,9 @@ export const PC_AboutSection = () => {
               </div>
               <span className="lg:text-base text-xs font-medium pl-1 ">BENEFITS</span>
             </div>
-            <div className="font-bold lg:text-2xl md:text-2xl text-xl tracking-tight -mt-1">成员权益</div>
+            <div className="font-bold lg:text-2xl md:text-2xl text-xl tracking-tight -mt-1">
+              成员权益
+            </div>
           </div>
 
           {/* 左侧装饰 */}

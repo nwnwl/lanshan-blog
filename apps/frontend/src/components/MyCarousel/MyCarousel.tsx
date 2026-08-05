@@ -18,7 +18,7 @@ interface ImageDescription {
   description: string;
 }
 
-const images_1: ImageItem[] = [
+export const images_1: ImageItem[] = [
   {
     id: 1,
     src: '/picture/studio-1.png',
@@ -39,28 +39,28 @@ const images_1: ImageItem[] = [
   },
 ];
 
-const images_2: ImageItem[] = [
+export const images_2: ImageItem[] = [
   {
     id: 4,
-    src: '/picture/studio-4.png',
+    src: '/picture/studio-4.webp',
     alt: 'studio desk',
     thresholdSrc: '/picture/studio-threshold-4.png',
   },
   {
     id: 5,
-    src: '/picture/studio-5.png',
+    src: '/picture/studio-5.webp',
     alt: 'studio picture',
     thresholdSrc: '/picture/studio-threshold-5.png',
   },
   {
     id: 6,
-    src: '/picture/studio-6.png',
+    src: '/picture/studio-6.webp',
     alt: 'Content coverage',
     thresholdSrc: '/picture/studio-threshold-6.png',
   },
 ];
 
-const textData_1: ImageDescription[] = [
+export const textData_1: ImageDescription[] = [
   {
     title: '了解工作室',
     description:
@@ -78,7 +78,7 @@ const textData_1: ImageDescription[] = [
   },
 ];
 
-const textData_2: ImageDescription[] = [
+export const textData_2: ImageDescription[] = [
   {
     title: '工位申请',
     description:
@@ -96,7 +96,12 @@ const textData_2: ImageDescription[] = [
   },
 ];
 
-export const MyCarousel = () => {
+interface MyCarouselProps {
+  images: ImageItem[];
+  textData: ImageDescription[];
+}
+
+export const MyCarousel = ({ images, textData }: MyCarouselProps) => {
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const [current, setCurrent] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -107,7 +112,7 @@ export const MyCarousel = () => {
   >('idle');
   const [thresholdSrc, setThresholdSrc] = useState('');
   const [direction, setDirection] = useState<'next' | 'prev'>('next');
-  const total = images_1.length;
+  const total = images.length;
 
   const isAnimating = curtainPhase !== 'idle';
 
@@ -117,14 +122,14 @@ export const MyCarousel = () => {
 
     // 预加载 next 图 + 阈值图
     const preloadNext = new Image();
-    preloadNext.src = images_1[newIndex].src;
+    preloadNext.src = images[newIndex].src;
     const preloadThreshold = new Image();
-    preloadThreshold.src = images_1[newIndex].thresholdSrc;
+    preloadThreshold.src = images[newIndex].thresholdSrc;
 
     setDirection('next');
     setPrevIndex(currentIndex);
     setTargetIndex(newIndex);
-    setThresholdSrc(images_1[newIndex].thresholdSrc);
+    setThresholdSrc(images[newIndex].thresholdSrc);
     setCurtainPhase('blackEnter');
 
     // 350ms：黑色铺满，swiper 切图，阈值就位，黑色开始退场
@@ -151,14 +156,14 @@ export const MyCarousel = () => {
     const newIndex = currentIndex <= 0 ? total - 1 : currentIndex - 1;
 
     const preloadNext = new Image();
-    preloadNext.src = images_1[newIndex].src;
+    preloadNext.src = images[newIndex].src;
     const preloadThreshold = new Image();
-    preloadThreshold.src = images_1[newIndex].thresholdSrc;
+    preloadThreshold.src = images[newIndex].thresholdSrc;
 
     setDirection('prev');
     setPrevIndex(currentIndex);
     setTargetIndex(newIndex);
-    setThresholdSrc(images_1[newIndex].thresholdSrc);
+    setThresholdSrc(images[newIndex].thresholdSrc);
     setCurtainPhase('blackEnter');
 
     setTimeout(() => {
@@ -190,7 +195,7 @@ export const MyCarousel = () => {
           allowTouchMove={false}
           onSwiper={setSwiper}
         >
-          {images_1.map((img) => (
+          {images.map((img) => (
             <SwiperSlide key={img.id}>
               <img
                 src={img.src}
@@ -303,16 +308,16 @@ export const MyCarousel = () => {
       {/* 信息栏 - 退场层：黑色阶段 */}
       {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
         <div className={`${styles.textExit} absolute w-[811.375px] -bottom-30 left-6`}>
-          <div className="text-[29.9333px] font-semibold">{textData_1[prevIndex]?.title}</div>
-          <div className="text-[18.7083px] font-medium">{textData_1[prevIndex]?.description}</div>
+          <div className="text-[29.9333px] font-semibold">{textData[prevIndex]?.title}</div>
+          <div className="text-[18.7083px] font-medium">{textData[prevIndex]?.description}</div>
         </div>
       )}
 
       {/* 信息栏 - 进场层：阈值退场及之后 */}
       {(curtainPhase === 'thresholdExit' || curtainPhase === 'idle') && (
         <div className={`${styles.textEnter} absolute w-[811.375px] -bottom-30 left-6`}>
-          <div className="text-[29.9333px] font-semibold">{textData_1[targetIndex]?.title}</div>
-          <div className="text-[18.7083px] font-medium">{textData_1[targetIndex]?.description}</div>
+          <div className="text-[29.9333px] font-semibold">{textData[targetIndex]?.title}</div>
+          <div className="text-[18.7083px] font-medium">{textData[targetIndex]?.description}</div>
         </div>
       )}
     </div>
