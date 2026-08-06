@@ -1,5 +1,5 @@
 'use client';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import styles from './MyCarousel.module.css';
@@ -99,9 +99,10 @@ export const textData_2: ImageDescription[] = [
 interface MyCarouselProps {
   images: ImageItem[];
   textData: ImageDescription[];
+  shouldEnter?: boolean;
 }
 
-export const MyCarousel = ({ images, textData }: MyCarouselProps) => {
+export const MyCarousel = ({ images, textData, shouldEnter = true }: MyCarouselProps) => {
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const [current, setCurrent] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -112,7 +113,13 @@ export const MyCarousel = ({ images, textData }: MyCarouselProps) => {
   >('idle');
   const [thresholdSrc, setThresholdSrc] = useState('');
   const [direction, setDirection] = useState<'next' | 'prev'>('next');
+  const [hasEntered, setHasEntered] = useState(false);
   const total = images.length;
+
+  useEffect(() => {
+    const timer = setTimeout(() => setHasEntered(true), 650);
+    return () => clearTimeout(timer);
+  }, []);
 
   const isAnimating = curtainPhase !== 'idle';
 
@@ -241,7 +248,7 @@ export const MyCarousel = ({ images, textData }: MyCarouselProps) => {
 
       {/* 按钮放到 overflow-hidden 外面，不受裁剪 */}
       <div
-        className={`${styles.carouselBg} absolute w-fit left-6 bottom-8 z-50 bg-black/60 rounded-full flex gap-8 p-0.5`}
+        className={`${styles.carouselBg} ${shouldEnter ? styles.carouselBgEnter : 'opacity-0'} absolute w-fit left-6 bottom-8 z-50 bg-black/60 rounded-full flex gap-8 p-0.5`}
       >
         <div className="p-0.5 bg-[#FAFAFA] rounded-full z-1 group">
           <button
@@ -299,7 +306,7 @@ export const MyCarousel = ({ images, textData }: MyCarouselProps) => {
       {/* 数字指示器 - 进场层：阈值退场及之后 */}
       {(curtainPhase === 'thresholdExit' || curtainPhase === 'idle') && (
         <div
-          className={`${styles.textEnter} absolute -bottom-14 z-10 pointer-events-none text-[10px] font-bold`}
+          className={`${curtainPhase === 'idle' && !hasEntered ? styles.fadeInUp : curtainPhase === 'thresholdExit' ? styles.textEnter : ''} absolute -bottom-14 z-10 pointer-events-none text-[10px] font-bold`}
         >
           {targetIndex + 1} / {total}
         </div>
@@ -315,7 +322,9 @@ export const MyCarousel = ({ images, textData }: MyCarouselProps) => {
 
       {/* 信息栏 - 进场层：阈值退场及之后 */}
       {(curtainPhase === 'thresholdExit' || curtainPhase === 'idle') && (
-        <div className={`${styles.textEnter} absolute w-[811.375px] -bottom-30 left-6`}>
+        <div
+          className={`${curtainPhase === 'idle' && !hasEntered ? styles.fadeInUp : curtainPhase === 'thresholdExit' ? styles.textEnter : ''} absolute w-[811.375px] -bottom-30 left-6`}
+        >
           <div className="text-[29.9333px] font-semibold">{textData[targetIndex]?.title}</div>
           <div className="text-[18.7083px] font-medium">{textData[targetIndex]?.description}</div>
         </div>

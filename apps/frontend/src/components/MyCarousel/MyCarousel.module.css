@@ -2,6 +2,25 @@
   position: relative;
 }
 
+.carouselBgEnter {
+  opacity: 0;
+  animation: fadeInUp 0.35s linear 0.3s forwards;
+}
+
+.fadeInUp {
+  opacity: 0;
+  animation: fadeInUp 0.35s linear 0.3s forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .carouselBg::before {
   content: '';
   position: absolute;

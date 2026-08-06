@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useRef, useState } from 'react';
 import { Icon } from '@/components/Icon';
 import styles from './About.module.css';
 import {
@@ -10,6 +11,30 @@ import {
 } from '@/components/MyCarousel/MyCarousel';
 
 export const PC_AboutSection = () => {
+  const part2Ref = useRef<HTMLDivElement>(null);
+  const [part2Visible, setPart2Visible] = useState(false);
+
+  useEffect(() => {
+    const el = part2Ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setPart2Visible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        rootMargin: '-12.5% 0px 0px 0px',
+        threshold: 0,
+      },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section id="about" className="min-h-screen w-full">
       {/* 第一部分 */}
@@ -24,27 +49,35 @@ export const PC_AboutSection = () => {
             className={`flex flex-col
             ${styles.aboutDecoration}`}
           >
-            <div className="flex items-center">
-              <div
-                className="flex 
-              md:w-14
-              h-4 w-10  
-               bg-[#D9D9D9] justify-end items-center pr-1"
-              >
-                <Icon
-                  name="arrow"
-                  className="SectionTitle_arrow__qXHl 
-                w-3 h-3
-                "
-                />
+            {/* OVERVIEW 遮罩行：由白色遮罩揭示，不淡入 */}
+            <div className={`relative overflow-hidden w-fit ${styles.maskWrapper}`}>
+              <div className={styles.whiteMask} />
+              <div className="flex items-center">
+                <div
+                  className="flex 
+                md:w-14
+                h-4 w-10  
+                 bg-[#D9D9D9] justify-end items-center pr-1"
+                >
+                  <Icon
+                    name="arrow"
+                    className="SectionTitle_arrow__qXHl 
+                  w-3 h-3
+                  "
+                  />
+                </div>
+                <span className="lg:text-base text-xs font-medium pl-1">OVERVIEW</span>
               </div>
-              <span className="lg:text-base text-xs font-medium pl-1">OVERVIEW</span>
             </div>
-            <div className="font-bold md:text-2xl text-xl tracking-tight -mt-1">工作室概况</div>
+            <div
+              className={`font-bold md:text-2xl text-xl tracking-tight -mt-1 ${styles.fadeInUp}`}
+            >
+              工作室概况
+            </div>
           </div>
 
           {/* 左侧装饰 */}
-          <div className="p-2 bg-[#D9D9D9] w-fit">
+          <div className={`p-2 bg-[#D9D9D9] w-fit ${styles.fadeInUp}`}>
             <Icon
               name="gameplay"
               className="__05-Gameplay_icon__Yiqki md:w-15 md:h-15 h-10 w-10 p-1"
@@ -57,6 +90,8 @@ export const PC_AboutSection = () => {
           {/* 右侧图片 */}
           <div className="relative">
             <MyCarousel images={images_1} textData={textData_1} />
+            {/* 统一遮罩：覆盖图片右侧 1/4 + 蓝色条 */}
+            <div className={styles.unifiedMask} />
           </div>
           {/* 蓝色装饰 */}
           <div className={`bg-[#00D4FF] w-[189.573px] py-4 pl-4 ${styles.aboutRight}`}>
@@ -70,7 +105,7 @@ export const PC_AboutSection = () => {
       </div>
 
       {/* 第二部分 */}
-      <div className="w-full min-h-0 flex ml-30 mt-16">
+      <div ref={part2Ref} className="w-full min-h-0 flex ml-30 mt-20">
         {/* 左侧 */}
         <div className="pr-20 flex">
           {/* 灰色装饰 */}
@@ -83,7 +118,9 @@ export const PC_AboutSection = () => {
           </div>
           {/* 左侧图片 */}
           <div className="relative">
-            <MyCarousel images={images_2} textData={textData_2} />
+            <MyCarousel images={images_2} textData={textData_2} shouldEnter={part2Visible} />
+            {/* 统一遮罩：覆盖图片右侧 1/4 + 灰色条 */}
+            {part2Visible && <div className={styles.unifiedMask2} />}
           </div>
         </div>
 
@@ -97,29 +134,35 @@ export const PC_AboutSection = () => {
             className={`flex flex-col justify-center
             ${styles.aboutDecoration}`}
           >
-            <div className="flex items-center">
-              <div
-                className="flex 
-              md:w-14
-              h-4 w-10  
-               bg-[#D9D9D9] justify-end items-center pr-1"
-              >
-                <Icon
-                  name="arrow"
-                  className="SectionTitle_arrow__qXHl 
-                w-3 h-3
-                "
-                />
+            {/* BENEFITS 遮罩行 */}
+            <div className={`relative overflow-hidden w-fit ${styles.maskWrapper}`}>
+              {part2Visible && <div className={styles.whiteMask} />}
+              <div className="flex items-center">
+                <div
+                  className="flex 
+                md:w-14
+                h-4 w-10  
+                 bg-[#D9D9D9] justify-end items-center pr-1"
+                >
+                  <Icon
+                    name="arrow"
+                    className="SectionTitle_arrow__qXHl 
+                  w-3 h-3
+                  "
+                  />
+                </div>
+                <span className="lg:text-base text-xs font-medium pl-1">BENEFITS</span>
               </div>
-              <span className="lg:text-base text-xs font-medium pl-1 ">BENEFITS</span>
             </div>
-            <div className="font-bold lg:text-2xl md:text-2xl text-xl tracking-tight -mt-1">
+            <div
+              className={`font-bold lg:text-2xl md:text-2xl text-xl tracking-tight -mt-1 ${part2Visible ? styles.fadeInUp : 'opacity-0'}`}
+            >
               成员权益
             </div>
           </div>
 
           {/* 左侧装饰 */}
-          <div className="p-2 bg-[#D9D9D9] w-fit">
+          <div className={`p-2 bg-[#D9D9D9] w-fit ${part2Visible ? styles.fadeInUp : 'opacity-0'}`}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 57 47"
