@@ -38,7 +38,12 @@ export const PC_AboutSection = () => {
   return (
     <section id="about" className="min-h-screen w-full">
       {/* 第一部分 */}
-      <div className="w-full min-h-0 flex ml-30 mt-12 pb-40">
+      <div
+        className="w-full min-h-0 flex
+       3xl:ml-30
+       xl:ml-22 lg:ml-18
+       mt-12 pb-40"
+      >
         {/* 左侧 */}
         <div
           className={`header_about flex flex-col justify-between
@@ -57,7 +62,9 @@ export const PC_AboutSection = () => {
                   className="flex 
                 md:w-14
                 h-4 w-10  
-                 bg-[#D9D9D9] justify-end items-center pr-1"
+                 bg-[#D9D9D9] justify-end items-center pr-0.5
+                 2xl:pr-1
+                 xl:pb-0 lg:pb-0.5"
                 >
                   <Icon
                     name="arrow"
@@ -70,7 +77,7 @@ export const PC_AboutSection = () => {
               </div>
             </div>
             <div
-              className={`font-bold md:text-2xl text-xl tracking-tight -mt-1 ${styles.fadeInUp}`}
+              className={`font-bold 2xl:text-[30px] xl:text-2xl lg:text-xl tracking-tight -mt-1 ${styles.fadeInUp}`}
             >
               工作室概况
             </div>
@@ -80,13 +87,21 @@ export const PC_AboutSection = () => {
           <div className={`p-2 bg-[#D9D9D9] w-fit ${styles.fadeInUp}`}>
             <Icon
               name="gameplay"
-              className="__05-Gameplay_icon__Yiqki md:w-15 md:h-15 h-10 w-10 p-1"
+              className="__05-Gameplay_icon__Yiqki
+              2xl:w-16 2xl:h-16
+              xl:w-15 xl:h-15
+              lg:w-14 lg:h-14
+              h-10 w-10 
+              p-0.5"
             />
           </div>
         </div>
 
         {/* 右侧 */}
-        <div className="pl-20 flex">
+        <div
+          className="xl:pl-21 lg:pl-14
+         flex"
+        >
           {/* 右侧图片 */}
           <div className="relative">
             <MyCarousel images={images_1} textData={textData_1} />
@@ -94,9 +109,13 @@ export const PC_AboutSection = () => {
             <div className={styles.unifiedMask} />
           </div>
           {/* 蓝色装饰 */}
-          <div className={`bg-[#00D4FF] w-[189.573px] py-4 pl-4 ${styles.aboutRight}`}>
+          <div
+            className={`bg-[#00D4FF] 
+            3xl:w-[189.573px] 2xl:w-[182.635px] xl:w-[152.469px] lg:w-[121.833px]
+            py-3 pl-4 ${styles.aboutRight}`}
+          >
             <div className="bg-white h-full w-4 relative">
-              <span className="absolute top-1 [writing-mode:vertical-rl] md:text-4xl text-2xl font-semibold tracking-wider">
+              <span className="absolute top-1 [writing-mode:vertical-rl] xl:text-4xl lg:text-3xl text-2xl font-semibold tracking-wider">
                 OVERVIEW
               </span>
             </div>
@@ -105,13 +124,26 @@ export const PC_AboutSection = () => {
       </div>
 
       {/* 第二部分 */}
-      <div ref={part2Ref} className="w-full min-h-0 flex ml-30 mt-20">
+      <div
+        ref={part2Ref}
+        className="w-full min-h-0 flex
+      3xl:ml-30
+      xl:ml-22 lg:ml-18
+      3xl:mt-14 lg:mt-20"
+      >
         {/* 左侧 */}
-        <div className="pr-20 flex">
+        <div
+          className="lg:pr-10
+         flex relative"
+        >
           {/* 灰色装饰 */}
-          <div className={`bg-[#EDEDED] w-[189.573px] py-4 pl-4 ${styles.aboutRight}`}>
+          <div
+            className={`bg-[#EDEDED]
+             3xl:w-[189.573px] 2xl:w-[182.635px] xl:w-[152.469px] lg:w-[121.833px]
+            py-3 pl-4 ${styles.aboutRight}`}
+          >
             <div className="bg-white h-full w-4 relative">
-              <span className="absolute top-2 [writing-mode:vertical-rl] md:text-4xl text-2xl font-semibold tracking-wider">
+              <span className="absolute top-1 [writing-mode:vertical-rl]  xl:text-4xl lg:text-3xl text-2xl font-semibold tracking-wider">
                 BENEFITS
               </span>
             </div>
@@ -119,9 +151,9 @@ export const PC_AboutSection = () => {
           {/* 左侧图片 */}
           <div className="relative">
             <MyCarousel images={images_2} textData={textData_2} shouldEnter={part2Visible} />
-            {/* 统一遮罩：覆盖图片右侧 1/4 + 灰色条 */}
-            {part2Visible && <div className={styles.unifiedMask2} />}
           </div>
+          {/* 统一遮罩：覆盖灰色条 + 整张图片 */}
+          {part2Visible && <div className={styles.unifiedMask2} />}
         </div>
 
         {/* 右侧 */}
@@ -142,7 +174,9 @@ export const PC_AboutSection = () => {
                   className="flex 
                 md:w-14
                 h-4 w-10  
-                 bg-[#D9D9D9] justify-end items-center pr-1"
+                 bg-[#D9D9D9] justify-end items-center pr-0.5
+                 2xl:pr-1
+                 xl:pb-0 lg:pb-0.5"
                 >
                   <Icon
                     name="arrow"
@@ -155,19 +189,23 @@ export const PC_AboutSection = () => {
               </div>
             </div>
             <div
-              className={`font-bold lg:text-2xl md:text-2xl text-xl tracking-tight -mt-1 ${part2Visible ? styles.fadeInUp : 'opacity-0'}`}
+              className={`font-bold xl:text-2xl lg:text-xl tracking-tight -mt-1 ${part2Visible ? styles.fadeInUp : 'opacity-0'}`}
             >
               成员权益
             </div>
           </div>
 
-          {/* 左侧装饰 */}
+          {/* 右侧装饰 */}
           <div className={`p-2 bg-[#D9D9D9] w-fit ${part2Visible ? styles.fadeInUp : 'opacity-0'}`}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 57 47"
-              className="__08-AIC_icon__lIZuJ p-1 md:w-15 md:h-15 h-10 w-10
-              text-[#A6A6A6]"
+              className="__08-AIC_icon__lIZuJ
+              xl:w-15 xl:h-15
+              lg:w-14 lg:h-14 
+              h-10 w-10
+              text-[#A6A6A6]
+              3xl:p-1.5 p-1"
             >
               <path
                 fillRule="evenodd"

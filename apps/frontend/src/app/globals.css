@@ -5,9 +5,10 @@
   --foreground: #171717;
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --breakpoint-3xl: 105rem;
 }
 
 @media (prefers-color-scheme: dark) {

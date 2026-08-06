@@ -11,9 +11,16 @@
   background-size: contain;
   pointer-events: none;
   filter: brightness(0) invert(0.5);
-  top: -0.4rem;
+  top: -0.3rem;
   opacity: 0;
   animation: fadeInUp 0.35s linear 0.15s forwards;
+}
+
+@media (max-width: 1280px) {
+  .aboutDecoration::before {
+    height: 4rem;
+    width: 4rem;
+  }
 }
 
 .aboutHeader {
@@ -34,12 +41,19 @@
   animation: fadeInUp 0.35s linear 0.4s forwards;
 }
 
+@media (max-width: 1280px) {
+  .aboutHeader::before {
+    height: 4rem;
+    width: 4rem;
+  }
+}
+
 .aboutHeader::after {
   content: '';
   position: absolute;
   background: url('/picture/decoration-2.png') no-repeat;
-  height: 4rem;
-  width: 4rem;
+  height: 3.5rem;
+  width: 3.5rem;
   background-size: contain;
   opacity: 0;
   top: 7.5rem;
@@ -62,6 +76,14 @@
   z-index: 1;
   bottom: 1.4rem;
   left: 1.2rem;
+}
+
+@media (max-width: 1280px) {
+  .aboutRight::before {
+    height: 4.5rem;
+    width: 4.5rem;
+    left: 1.24rem;
+  }
 }
 
 /* ===== 初次登场遮罩与淡入 ===== */
@@ -107,13 +129,10 @@
   animation: whiteMaskShrink 0.35s ease-out 0.2s forwards;
 }
 
-/* 第二部分：统一遮罩覆盖灰色条 + 图片左侧 1/4 */
+/* 第二部分：统一遮罩覆盖灰色条 + 整张图片 */
 .unifiedMask2 {
   position: absolute;
-  left: -189.573px;
-  top: 0;
-  bottom: 0;
-  width: calc(189.573px + 25%);
+  inset: 0;
   background-color: #fff;
   z-index: 40;
   transform-origin: left;
