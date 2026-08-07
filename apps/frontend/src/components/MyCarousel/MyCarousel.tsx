@@ -202,7 +202,8 @@ export const MyCarousel = ({
     3xl:w-[922px] 3xl:h-[543px]
     2xl:w-[889px] 2xl:h-[523px] 
     xl:w-[740px] xl:h-[435px]
-    lg:w-[589px] lg:h-[347px]"
+    lg:w-[589px] lg:h-[347px]
+    w-[595px] h-[334px]"
     >
       {/* 图片区：overflow-hidden 截断幕布，不溢出全屏 */}
       <div className="relative w-full h-full overflow-hidden">
@@ -225,6 +226,7 @@ export const MyCarousel = ({
                 2xl:w-[889px] 2xl:h-[523px]  
                 xl:w-[740px] xl:h-[435px]
                 lg:w-[589px] lg:h-[347px]
+                w-[595px] h-[334px]
                 object-cover"
               />
             </SwiperSlide>

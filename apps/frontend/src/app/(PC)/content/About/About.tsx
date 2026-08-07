@@ -36,7 +36,10 @@ export const PC_AboutSection = () => {
   }, []);
 
   return (
-    <section id="about" className="min-h-screen w-full">
+    <section
+      id="about"
+      className="min-h-screen w-full flex flex-col  3xl:gap-12 2xl:gap-16 lg:gap-20"
+    >
       {/* 第一部分 */}
       <div
         className="w-full min-h-0 flex
@@ -129,7 +132,7 @@ export const PC_AboutSection = () => {
         className="w-full min-h-0 flex
       3xl:ml-30
       xl:ml-22 lg:ml-18
-      3xl:mt-14 lg:mt-20"
+      pb-40"
       >
         {/* 左侧 */}
         <div
