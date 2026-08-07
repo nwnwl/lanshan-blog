@@ -139,7 +139,7 @@ export const iconDefs: Record<string, IconDef> = {
   },
 
   // ===== Graduation 区块图标 =====
-  rowfont: {
+  mos: {
     viewBox: '0 0 277.46 14.2',
     paths: [
       { fill: '#858585', d: 'M26.68,4.32V0h66.69v4.32H26.68Z' },
@@ -163,7 +163,7 @@ export const iconDefs: Record<string, IconDef> = {
       { fill: '#858585', d: 'M267.51,14.2v-4.32h9.95v4.32h-9.95Z' },
     ],
   },
-  mos: {
+  rowfont: {
     viewBox: '0 0 205.46 11.06',
     paths: [
       { fill: '#858585', d: 'M0,0h10.63l-5.32,9L0,0Z' },

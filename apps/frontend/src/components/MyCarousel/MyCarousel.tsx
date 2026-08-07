@@ -107,8 +107,8 @@ export const MyCarousel = () => {
         <div className="p-0.5 bg-[#FAFAFA] rounded-full z-1 group">
           <button
             className={`${styles.carouselBtn} swiper-custom-prev rounded-full p-2.5 border-2 border-[#E6E6E6]
-            transition-all duration-500 ease-out 
-            group-hover:bg-[#00d5ffca]
+            transition-all duration-500 ease-out
+            group-hover:bg-[#00d5ffca] cursor-pointer
             `}
           >
             <svg
@@ -129,7 +129,7 @@ export const MyCarousel = () => {
           <button
             className={`${styles.carouselBtn} swiper-custom-next rounded-full p-2.5 border-2 border-[#E6E6E6]
             transition-all duration-500 ease-out
-            group-hover:bg-[#00d5ffca]`}
+            group-hover:bg-[#00d5ffca] cursor-pointer`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

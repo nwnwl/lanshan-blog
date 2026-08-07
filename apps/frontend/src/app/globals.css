@@ -23,6 +23,11 @@
 @utility font-noto {
   font-family: var(--font-noto-sans);
 }
+/* 斜杠零字体：Consolas / Menlo / DejaVu Sans Mono 默认 zero 即带斜杠 */
+@utility font-mono-slash {
+  font-family: Consolas, Menlo, 'DejaVu Sans Mono', monospace;
+  font-variant-numeric: slashed-zero;
+}
 
 * {
   flex-shrink: 0;
@@ -203,4 +208,85 @@ html::-webkit-scrollbar {
 
 .anim-lottie-fade {
   animation: lottie-fade 2s linear forwards;
+}
+
+@keyframes blink {
+  /* 0-45.5%：渐显（5/11 ≈ 45.5%） */
+  0%,
+  10% {
+    opacity: 0;
+  }
+  45.5% {
+    opacity: 1;
+  }
+  /* 45.5%-72.7%：渐隐（3/11 ≈ 27.2%） */
+  72.7% {
+    opacity: 0;
+  }
+  /* 72.7%-100%：渐显（3/11 ≈ 27.2%） */
+  100% {
+    opacity: 1;
+  }
+}
+
+.heightGrow {
+  height: 0;
+  transition: height 0.6s ease-out 0.5s;
+}
+.heightGrowSon {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease-in-out 0.6s;
+}
+.widthGrow {
+  width: 40%;
+  transition: width 0.5s ease-in-out;
+}
+.widthGrowSon1 {
+  transform: rotate(-45deg);
+  transition: transform 0.3s ease-in-out 0.5s;
+}
+.widthGrowSon3 {
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all 0.5s ease-in-out 0.8s;
+}
+.borderEl {
+  width: 0;
+  transition: width 0.8s ease-in-out 0.8s;
+}
+.tableEl {
+  opacity: 0;
+  transform: translateX(57rem);
+  transition: all 0.3s ease-out 0.5s;
+}
+.tableEl.play {
+  opacity: 100;
+  transform: translateX(0);
+}
+.borderEl.play {
+  width: 100%;
+}
+.widthGrowSon3.play {
+  opacity: 100;
+  transform: translateY(0);
+}
+.widthGrowSon2 {
+  opacity: 0;
+}
+.widthGrowSon2.play {
+  animation: blink 0.2s ease-in-out 0.5s forwards;
+}
+.widthGrowSon1.play {
+  transform: rotate(0deg);
+}
+.widthGrow.play {
+  width: 100%;
+}
+.heightGrowSon.play {
+  opacity: 100;
+  transform: translateY(0);
+}
+.heightGrow.play {
+  height: 100%;
 }

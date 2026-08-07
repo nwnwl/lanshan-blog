@@ -54,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" className={` ${harmonyOSSans.variable} ${notoSans.variable} antialiased`}>
-      <body className="font-sans">
+      <body>
         {children}
         <RouteTransition />
       </body>
