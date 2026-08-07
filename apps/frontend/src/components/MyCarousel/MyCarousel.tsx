@@ -274,6 +274,7 @@ export const MyCarousel = ({
       >
         <div className="p-0.5 bg-[#FAFAFA] rounded-full z-1 group">
           <button
+            onClick={goPrev}
             className={`${styles.carouselBtn} swiper-custom-prev rounded-full p-2.5 border-2 border-[#E6E6E6]
             transition-all duration-500 ease-out
             group-hover:bg-[#00d5ffca] cursor-pointer
@@ -295,6 +296,7 @@ export const MyCarousel = ({
         {/* 右按钮 */}
         <div className="p-0.5 bg-[#FAFAFA]  rounded-full z-1 group">
           <button
+            onClick={goNext}
             className={`${styles.carouselBtn} swiper-custom-next rounded-full p-2.5 border-2 border-[#E6E6E6]
             transition-all duration-500 ease-out
             group-hover:bg-[#00d5ffca] cursor-pointer`}
