@@ -34,7 +34,7 @@ function ProjectRow({ id, title, subTitle, borderT, onHover, onLeave }: ProjectP
       transition-colors duration-600 ease-in-out"
       >
         <span className="md:text-5xl sm:text-4xl text-2xl font-black tracking-normal">{title}</span>
-        <span className="sm:text-xl text-sm font-normal pl-4">+ {subTitle} +</span>
+        <span className="sm:text-xl text-sm font-bold pl-4">+ {subTitle} +</span>
       </div>
       <div
         className="z-[-1] absolute -top-[2px] -bottom-[2px] left-0 right-0

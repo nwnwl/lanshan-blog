@@ -1,33 +1,35 @@
 'use client';
-import { createContext, useContext, useState, useCallback, useRef, type ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
+
+type Phase = 'idle' | 'in' | 'out';
 
 interface TransitionCtx {
   navigate: (href: string) => void;
-  showOverlay: boolean;
+  phase: Phase;
 }
 
-const ctx = createContext<TransitionCtx>({ navigate: () => {}, showOverlay: false });
+const ctx = createContext<TransitionCtx>({ navigate: () => {}, phase: 'idle' });
 export const useTransition = () => useContext(ctx);
 
 export function TransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const [showOverlay, setShowOverlay] = useState(false);
-  const pendingRef = useRef<string | null>(null);
+  const [phase, setPhase] = useState<Phase>('idle');
 
   const navigate = useCallback(
     (href: string) => {
-      pendingRef.current = href;
-      setShowOverlay(true); // 遮罩滑入
-      // 等遮罩动画结束后再跳转
+      setPhase('in');
+      // 0.5s 后遮罩完全覆盖，切换路由
       setTimeout(() => {
         router.push(href);
-        // 给新页面一点渲染时间，然后滑出遮罩
-        setTimeout(() => setShowOverlay(false), 100);
       }, 500);
+      // 2.5s 后开始滑出（中间留 2s 给 Lottie）
+      setTimeout(() => setPhase('out'), 2500);
+      // 3s 后动画结束，移除遮罩
+      setTimeout(() => setPhase('idle'), 3000);
     },
     [router],
   );
 
-  return <ctx.Provider value={{ navigate, showOverlay }}>{children}</ctx.Provider>;
+  return <ctx.Provider value={{ navigate, phase }}>{children}</ctx.Provider>;
 }

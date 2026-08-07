@@ -1,6 +1,11 @@
-import Link from 'next/link';
+'use client';
+import { useRouter } from 'next/navigation';
+import { useTransitionStore } from '@/store/transitionStore';
 
 export const ScrollIndicator = () => {
+  const router = useRouter();
+  const navigate = useTransitionStore((s) => s.navigate);
+
   return (
     <>
       <style>{`
@@ -24,14 +29,14 @@ export const ScrollIndicator = () => {
           <polygon points="16,10 0,2 0,18" fill="white" />
         </svg>
         {/* 中间文字 */}
-        <Link
-          href="/content"
-          className="font-bold text-white text-sm tracking-wider 
-        select-none pointer-events-auto 
+        <span
+          onClick={() => navigate('/content', router.push)}
+          className="font-bold text-white text-sm tracking-wider
+        select-none pointer-events-auto cursor-pointer
         hover:opacity-80 transition-opacity duration-300 ease-in-out"
         >
           HOME
-        </Link>
+        </span>
         {/* 右三角 */}
         <svg
           style={{ animation: 'driftRight 1.5s ease-in-out infinite' }}

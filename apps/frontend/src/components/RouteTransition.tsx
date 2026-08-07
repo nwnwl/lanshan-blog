@@ -1,10 +1,10 @@
 'use client';
-import { useTransition } from '../lib/TransitionContext';
+import { useTransitionStore } from '@/store/transitionStore';
 import Lottie from 'lottie-react';
-import animationData from '../../../../public/lottie/data.json';
+import animationData from '../../public/lottie/data.json';
 
 export const RouteTransition = () => {
-  const { phase } = useTransition();
+  const phase = useTransitionStore((s) => s.phase);
 
   if (phase === 'idle') return null;
 
@@ -12,12 +12,10 @@ export const RouteTransition = () => {
 
   return (
     <>
-      {/* scaleX 遮罩背景，不包含 Lottie，避免挤压 */}
       <div
         className={`fixed inset-0 z-[1000] bg-[#00d4ff]
           ${isIn ? 'anim-loading-in' : 'anim-loading-out'}`}
       />
-      {/* Lottie 独立层，只在中间 1s 渐显 */}
       <div className="fixed inset-0 z-[1001] flex items-center justify-center pointer-events-none anim-lottie-fade">
         <Lottie animationData={animationData} loop autoplay />
       </div>
