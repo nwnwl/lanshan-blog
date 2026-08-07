@@ -77,7 +77,7 @@ export const PC_AboutSection = () => {
               </div>
             </div>
             <div
-              className={`font-bold 2xl:text-[30px] xl:text-2xl lg:text-xl tracking-tight -mt-1 ${styles.fadeInUp}`}
+              className={`font-bold 2xl:text-[30px] xl:text-2xl lg:text-xl tracking-tight -mt-1 ${styles.blinkTitle}`}
             >
               工作室概况
             </div>
@@ -104,7 +104,7 @@ export const PC_AboutSection = () => {
         >
           {/* 右侧图片 */}
           <div className="relative">
-            <MyCarousel images={images_1} textData={textData_1} />
+            <MyCarousel images={images_1} textData={textData_1} blink />
             {/* 统一遮罩：覆盖图片右侧 1/4 + 蓝色条 */}
             <div className={styles.unifiedMask} />
           </div>
@@ -150,7 +150,7 @@ export const PC_AboutSection = () => {
           </div>
           {/* 左侧图片 */}
           <div className="relative">
-            <MyCarousel images={images_2} textData={textData_2} shouldEnter={part2Visible} />
+            <MyCarousel images={images_2} textData={textData_2} shouldEnter={part2Visible} blink />
           </div>
           {/* 统一遮罩：覆盖灰色条 + 整张图片 */}
           {part2Visible && <div className={styles.unifiedMask2} />}
@@ -189,7 +189,7 @@ export const PC_AboutSection = () => {
               </div>
             </div>
             <div
-              className={`font-bold xl:text-2xl lg:text-xl tracking-tight -mt-1 ${part2Visible ? styles.fadeInUp : 'opacity-0'}`}
+              className={`font-bold xl:text-2xl lg:text-xl tracking-tight -mt-1 ${part2Visible ? styles.blinkTitle : 'opacity-0'}`}
             >
               成员权益
             </div>

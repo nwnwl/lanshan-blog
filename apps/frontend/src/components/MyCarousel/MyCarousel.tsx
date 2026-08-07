@@ -100,9 +100,15 @@ interface MyCarouselProps {
   images: ImageItem[];
   textData: ImageDescription[];
   shouldEnter?: boolean;
+  blink?: boolean;
 }
 
-export const MyCarousel = ({ images, textData, shouldEnter = true }: MyCarouselProps) => {
+export const MyCarousel = ({
+  images,
+  textData,
+  shouldEnter = true,
+  blink = false,
+}: MyCarouselProps) => {
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const [current, setCurrent] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -117,9 +123,10 @@ export const MyCarousel = ({ images, textData, shouldEnter = true }: MyCarouselP
   const total = images.length;
 
   useEffect(() => {
-    const timer = setTimeout(() => setHasEntered(true), 650);
+    if (!shouldEnter) return;
+    const timer = setTimeout(() => setHasEntered(true), 1800);
     return () => clearTimeout(timer);
-  }, []);
+  }, [shouldEnter]);
 
   const isAnimating = curtainPhase !== 'idle';
 
@@ -260,7 +267,7 @@ export const MyCarousel = ({ images, textData, shouldEnter = true }: MyCarouselP
       {/* 按钮放到 overflow-hidden 外面，不受裁剪 */}
       {/* 左按钮 */}
       <div
-        className={`${styles.carouselBg} ${shouldEnter ? styles.carouselBgEnter : 'opacity-0'} absolute w-fit 
+        className={`${styles.carouselBg} ${shouldEnter ? (blink ? styles.blinkBtn : styles.carouselBgEnter) : 'opacity-0'} absolute w-fit 
         xl:left-6 lg:left-4
          bottom-8 z-50 bg-black/60 rounded-full flex gap-8 
          2xl:p-0.75 p-0.5`}
@@ -324,7 +331,13 @@ export const MyCarousel = ({ images, textData, shouldEnter = true }: MyCarouselP
       {/* 数字指示器 - 进场层：阈值退场及之后 */}
       {(curtainPhase === 'thresholdExit' || curtainPhase === 'idle') && (
         <div
-          className={`${curtainPhase === 'idle' && !hasEntered ? styles.fadeInUp : curtainPhase === 'thresholdExit' ? styles.textEnter : ''} absolute
+          className={`${
+            curtainPhase === 'idle' && !hasEntered
+              ? styles.blinkTitle
+              : curtainPhase === 'thresholdExit'
+                ? styles.textEnter
+                : ''
+          } absolute
            2xl:-bottom-10.5 lg:-bottom-10 z-10 
            pointer-events-none
           2xl:text-[9px] xl:text-[8px] lg:text-[6px]
@@ -361,21 +374,27 @@ export const MyCarousel = ({ images, textData, shouldEnter = true }: MyCarouselP
       {/* 信息栏 - 进场层：阈值退场及之后 */}
       {(curtainPhase === 'thresholdExit' || curtainPhase === 'idle') && (
         <div
-          className={`${curtainPhase === 'idle' && !hasEntered ? styles.fadeInUp : curtainPhase === 'thresholdExit' ? styles.textEnter : ''} absolute 
+          className={`${
+            curtainPhase === 'idle' && !hasEntered
+              ? ''
+              : curtainPhase === 'thresholdExit'
+                ? styles.textEnter
+                : ''
+          } absolute 
           2xl:w-[552.719px] lg:w-[456.760px] 
           top-[calc(100%+0.5rem)] 
           2xl:left-5 xl:left-6 lg:left-5 
           mt-4`}
         >
           <div
-            className="2xl:text-[28.833px] xl:text-[24.073px] lg:text-[19.260px] 
-          font-medium"
+            className={`2xl:text-[28.833px] xl:text-[24.073px] lg:text-[19.260px] 
+          font-medium ${curtainPhase === 'idle' && !hasEntered ? styles.blinkTitle : ''}`}
           >
             {textData[targetIndex]?.title}
           </div>
           <div
-            className="2xl:text-[18px] xl:text-[15px] lg:text-[12px]   xl:pl-1
-           font-medium"
+            className={`2xl:text-[18px] xl:text-[15px] lg:text-[12px]   xl:pl-1
+           font-medium ${curtainPhase === 'idle' && !hasEntered ? styles.blinkDesc : ''}`}
           >
             {textData[targetIndex]?.description}
           </div>
