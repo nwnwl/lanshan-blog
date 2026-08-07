@@ -52,7 +52,7 @@ export const PC_GraduationSection = () => {
   return (
     <section id="graduation" className="h-screen w-full">
       <div className="w-full h-full flex items-center justify-center xl:justify-end">
-        <div className="w-[50rem] md:w-[55rem] xl:w-[70rem] 2xl:w-[82rem]  h-[40rem] flex gap-[3.5rem] items-end">
+        <div className="w-[50rem] md:w-[55rem] xl:w-[70rem] 2xl:w-9/10  h-[40rem] flex gap-[3.5rem] items-end">
           <div className="relative h-full">
             <div className="animationEl heightGrow w-[4.5rem] self-start overflow-hidden">
               <div
