@@ -72,7 +72,7 @@ export const PC_HeroSection = () => {
   useEffect(() => {
     const removeTimer = setTimeout(() => {
       setShowTrans(true);
-    }, 5000);
+    }, 2000);
     return () => {
       clearTimeout(removeTimer);
     };

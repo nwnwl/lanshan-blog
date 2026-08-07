@@ -121,7 +121,7 @@ export class ParticleSystem {
     });
     this.resizeObserver.observe(hostElement);
 
-    await this.resampleParticles('/picture/lm.png');
+    await this.resampleParticles('/picture/lm-1.png');
   }
 
   setParam(key: keyof ParticleParams, value: number): void {
@@ -253,7 +253,7 @@ export class ParticleSystem {
     if (this.needsResample && !this.isResampling) {
       this.needsResample = false;
       this.isResampling = true;
-      this.resampleParticles('/picture/lm.png').finally(() => {
+      this.resampleParticles('/picture/lm-1.png').finally(() => {
         this.isResampling = false;
       });
       return;

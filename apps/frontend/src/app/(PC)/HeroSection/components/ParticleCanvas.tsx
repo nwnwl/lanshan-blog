@@ -14,7 +14,7 @@ interface ParticleCanvasProps {
 }
 
 const ParticleCanvas = forwardRef<ParticleCanvasHandle, ParticleCanvasProps>(
-  function ParticleCanvas({ imageUrl = '/picture/lm.png', className, style }, ref) {
+  function ParticleCanvas({ imageUrl = '/picture/lm-1.png', className, style }, ref) {
     const containerRef = useRef<HTMLDivElement>(null);
     const psRef = useRef<ParticleSystem | null>(null);
 

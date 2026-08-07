@@ -1,0 +1,101 @@
+.destinationGrid::after {
+  content: '';
+  position: absolute;
+  left: -1rem;
+  right: -1rem;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  background-image: url('/picture/test-2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* CohortCarousel：非激活表格 0.8 缩放 + 暗色遮罩，激活表格还原 */
+.cohortSwiper {
+  height: 100%;
+}
+
+.cohortSwiper :global(.swiper-wrapper) {
+  height: 100%;
+}
+
+.cohortSwiper :global(.swiper-slide) {
+  height: 100%;
+  transform: scale(0.8);
+  transform-origin: center center;
+  transition: transform 0.7s ease;
+}
+
+.cohortSwiper :global(.swiper-slide-active) {
+  transform: scale(1);
+}
+
+.cohortSwiper :global(.swiper-slide) .cohortOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 1;
+  transition: opacity 0.7s ease;
+  pointer-events: none;
+}
+
+.cohortSwiper :global(.swiper-slide-active) .cohortOverlay {
+  opacity: 0;
+}
+
+/* 切换胶囊（复制自 MyCarousel 的 carouselBg） */
+.carouselBg {
+  position: relative;
+}
+
+.carouselBg::before {
+  content: '';
+  position: absolute;
+  inset: 0.2rem;
+  border-radius: 2.25rem;
+  background-image: linear-gradient(
+    -45deg,
+    transparent,
+    transparent 13.9512529279%,
+    black 0,
+    black 36.0487470721%,
+    transparent 0,
+    transparent 63.9512529279%,
+    black 0,
+    black 86.0487470721%,
+    transparent 0,
+    transparent
+  );
+  background-size: 0.25rem 0.25rem;
+  background-repeat: repeat;
+  opacity: 0.06;
+}
+
+/* 切换按钮（复制自 MyCarousel 的 carouselBtn） */
+.carouselBtn {
+  position: relative;
+}
+
+.carouselBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: url('/picture/btn-decoration.png') no-repeat;
+  background-position: 50%;
+  background-size: cover;
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+  z-index: 1;
+}
+
+.carouselBtn:hover::before {
+  opacity: 1;
+}

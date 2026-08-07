@@ -11,7 +11,7 @@
   left: 0;
   width: 24rem;
   height: 24rem;
-  background: url('/picture/bg-1.png') no-repeat bottom left / contain;
+  background: url('/picture/contour-Line-top.png') no-repeat bottom left / contain;
   pointer-events: none;
   z-index: 1;
 }
@@ -26,7 +26,7 @@
   bottom: -6rem;
   left: 0;
   right: 0;
-  background: url('/picture/decoration-2.webp') no-repeat;
+  background: url('/picture/diagonal-dashed-2.webp') no-repeat;
   opacity: 1;
   pointer-events: none;
   z-index: 1;

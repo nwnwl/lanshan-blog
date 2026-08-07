@@ -18,6 +18,30 @@ export default function ContentPage() {
   const setReversed = useMarqueeStore((state) => state.setReversed);
 
   useEffect(() => {
+    let blinkObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('play');
+            blinkObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        root: document.querySelector('.contain') || null,
+        rootMargin: '0px',
+        threshold: 0,
+      },
+    );
+    document.querySelectorAll('.animationEl').forEach((el) => {
+      blinkObserver.observe(el);
+    });
+    return () => {
+      blinkObserver.disconnect();
+    };
+  });
+
+  useEffect(() => {
     const container = document.querySelector('.contain') as HTMLElement | null;
     if (!container) return;
 

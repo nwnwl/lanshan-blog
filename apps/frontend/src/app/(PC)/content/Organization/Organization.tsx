@@ -158,7 +158,7 @@ export const PC_OrganizationSection = () => {
           <div className="flex-1 flex items-center justify-center">
             <div className="flex flex-col font-bold select-none tracking-widest">
               <div className="h-[2rem] overflow-hidden">
-                <span className="text-[3rem] text-[#00d4ff] leading-none">03</span>
+                <span className="font-mono-slash text-[3rem] text-[#00d4ff] leading-none">03</span>
               </div>
               <div className=" leading-none text-end">
                 <span className="align-top text-white text-[0.8rem]">DEPT.</span>
