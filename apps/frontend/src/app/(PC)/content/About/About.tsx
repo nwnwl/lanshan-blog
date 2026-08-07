@@ -1,13 +1,162 @@
 'use client';
+import { useEffect, useRef, useState } from 'react';
 import { Icon } from '@/components/Icon';
 import styles from './About.module.css';
-import { MyCarousel } from '@/components/MyCarousel/MyCarousel';
+import {
+  MyCarousel,
+  images_1,
+  images_2,
+  textData_1,
+  textData_2,
+} from '@/components/MyCarousel/MyCarousel';
 
 export const PC_AboutSection = () => {
+  const part2Ref = useRef<HTMLDivElement>(null);
+  const [part2Visible, setPart2Visible] = useState(false);
+
+  useEffect(() => {
+    const el = part2Ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setPart2Visible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        rootMargin: '-12.5% 0px 0px 0px',
+        threshold: 0,
+      },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section id="about" className="min-h-screen w-full">
-      <div className="w-full min-h-0 flex ml-30 mt-12">
+      {/* 第一部分 */}
+      <div
+        className="w-full min-h-0 flex
+       3xl:ml-30
+       xl:ml-22 lg:ml-18
+       mt-12 pb-40"
+      >
         {/* 左侧 */}
+        <div
+          className={`header_about flex flex-col justify-between
+          ${styles.aboutHeader}`}
+        >
+          {/* header部分 */}
+          <div
+            className={`flex flex-col
+            ${styles.aboutDecoration}`}
+          >
+            {/* OVERVIEW 遮罩行：由白色遮罩揭示，不淡入 */}
+            <div className={`relative overflow-hidden w-fit ${styles.maskWrapper}`}>
+              <div className={styles.whiteMask} />
+              <div className="flex items-center">
+                <div
+                  className="flex 
+                md:w-14
+                h-4 w-10  
+                 bg-[#D9D9D9] justify-end items-center pr-0.5
+                 2xl:pr-1
+                 xl:pb-0 lg:pb-0.5"
+                >
+                  <Icon
+                    name="arrow"
+                    className="SectionTitle_arrow__qXHl 
+                  w-3 h-3
+                  "
+                  />
+                </div>
+                <span className="lg:text-base text-xs font-medium pl-1">OVERVIEW</span>
+              </div>
+            </div>
+            <div
+              className={`font-bold 2xl:text-[30px] xl:text-2xl lg:text-xl tracking-tight -mt-1 ${styles.fadeInUp}`}
+            >
+              工作室概况
+            </div>
+          </div>
+
+          {/* 左侧装饰 */}
+          <div className={`p-2 bg-[#D9D9D9] w-fit ${styles.fadeInUp}`}>
+            <Icon
+              name="gameplay"
+              className="__05-Gameplay_icon__Yiqki
+              2xl:w-16 2xl:h-16
+              xl:w-15 xl:h-15
+              lg:w-14 lg:h-14
+              h-10 w-10 
+              p-0.5"
+            />
+          </div>
+        </div>
+
+        {/* 右侧 */}
+        <div
+          className="xl:pl-21 lg:pl-14
+         flex"
+        >
+          {/* 右侧图片 */}
+          <div className="relative">
+            <MyCarousel images={images_1} textData={textData_1} />
+            {/* 统一遮罩：覆盖图片右侧 1/4 + 蓝色条 */}
+            <div className={styles.unifiedMask} />
+          </div>
+          {/* 蓝色装饰 */}
+          <div
+            className={`bg-[#00D4FF] 
+            3xl:w-[189.573px] 2xl:w-[182.635px] xl:w-[152.469px] lg:w-[121.833px]
+            py-3 pl-4 ${styles.aboutRight}`}
+          >
+            <div className="bg-white h-full w-4 relative">
+              <span className="absolute top-1 [writing-mode:vertical-rl] xl:text-4xl lg:text-3xl text-2xl font-semibold tracking-wider">
+                OVERVIEW
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 第二部分 */}
+      <div
+        ref={part2Ref}
+        className="w-full min-h-0 flex
+      3xl:ml-30
+      xl:ml-22 lg:ml-18
+      3xl:mt-14 lg:mt-20"
+      >
+        {/* 左侧 */}
+        <div
+          className="lg:pr-10
+         flex relative"
+        >
+          {/* 灰色装饰 */}
+          <div
+            className={`bg-[#EDEDED]
+             3xl:w-[189.573px] 2xl:w-[182.635px] xl:w-[152.469px] lg:w-[121.833px]
+            py-3 pl-4 ${styles.aboutRight}`}
+          >
+            <div className="bg-white h-full w-4 relative">
+              <span className="absolute top-1 [writing-mode:vertical-rl]  xl:text-4xl lg:text-3xl text-2xl font-semibold tracking-wider">
+                BENEFITS
+              </span>
+            </div>
+          </div>
+          {/* 左侧图片 */}
+          <div className="relative">
+            <MyCarousel images={images_2} textData={textData_2} shouldEnter={part2Visible} />
+          </div>
+          {/* 统一遮罩：覆盖灰色条 + 整张图片 */}
+          {part2Visible && <div className={styles.unifiedMask2} />}
+        </div>
+
+        {/* 右侧 */}
         <div
           className={`header_about flex flex-col justify-between
           ${styles.aboutHeader}`}
@@ -17,71 +166,56 @@ export const PC_AboutSection = () => {
             className={`flex flex-col justify-center
             ${styles.aboutDecoration}`}
           >
-            <div className="flex items-center">
-              <div
-                className="flex 
-              md:h-5 md:w-16
-              h-4 w-10  
-               bg-[#D9D9D9] justify-end items-center pr-1"
-              >
-                <Icon
-                  name="arrow"
-                  className="SectionTitle_arrow__qXHl 
-                md:w-4 md:h-4
-                w-3 h-3
-                "
-                />
+            {/* BENEFITS 遮罩行 */}
+            <div className={`relative overflow-hidden w-fit ${styles.maskWrapper}`}>
+              {part2Visible && <div className={styles.whiteMask} />}
+              <div className="flex items-center">
+                <div
+                  className="flex 
+                md:w-14
+                h-4 w-10  
+                 bg-[#D9D9D9] justify-end items-center pr-0.5
+                 2xl:pr-1
+                 xl:pb-0 lg:pb-0.5"
+                >
+                  <Icon
+                    name="arrow"
+                    className="SectionTitle_arrow__qXHl 
+                  w-3 h-3
+                  "
+                  />
+                </div>
+                <span className="lg:text-base text-xs font-medium pl-1">BENEFITS</span>
               </div>
-              <span className="lg:text-lg text-xs font-medium pl-1">ABOUT US</span>
             </div>
-            <div className="font-bold lg:text-3xl md:text-2xl text-xl tracking-tight">关于我们</div>
-          </div>
-
-          {/* 左侧装饰 */}
-          <div className="p-2 bg-[#D9D9D9] w-fit">
-            <Icon name="gameplay" className="__05-Gameplay_icon__Yiqki md:w-15 md:h-15 h-10 w-10" />
-          </div>
-        </div>
-
-        {/* 右侧图片 */}
-        <div className="pl-16 flex">
-          <div className="relative">
-            {/* <img
-              src="/picture/studio-1.png"
-              alt="studio picture"
-              className="w-[1305.420px] h-[767.891px]"
-            /> */}
-            <MyCarousel />
-
-            {/* 下侧信息栏 */}
-            {/* <div className="absolute w-[811.375px] mt-10 left-6">
-              <div className="text-[29.9333px] font-semibold">
-                <span>探索工作室</span>
-              </div>
-              <div className="text-[18.7083px] font-medium ">
-                蓝山工作室是由教育信息化办公室/信息中心指导的，从事互联网产品、教育信息化产品开发运营和服务全体师生的校级学生组织。
-              </div>
-            </div> */}
-          </div>
-          {/* 蓝色装饰 */}
-          <div className={`bg-[#00D4FF] w-[189.573px] py-4 pl-6 ${styles.aboutRight}`}>
-            <div className="bg-white h-full w-4 relative">
-              <span className="absolute top-2 [writing-mode:vertical-rl] md:text-4xl text-2xl font-semibold tracking-wider">
-                ABOUT US
-              </span>
+            <div
+              className={`font-bold xl:text-2xl lg:text-xl tracking-tight -mt-1 ${part2Visible ? styles.fadeInUp : 'opacity-0'}`}
+            >
+              成员权益
             </div>
+          </div>
+
+          {/* 右侧装饰 */}
+          <div className={`p-2 bg-[#D9D9D9] w-fit ${part2Visible ? styles.fadeInUp : 'opacity-0'}`}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 57 47"
+              className="__08-AIC_icon__lIZuJ
+              xl:w-15 xl:h-15
+              lg:w-14 lg:h-14 
+              h-10 w-10
+              text-[#A6A6A6]
+              3xl:p-1.5 p-1"
+            >
+              <path
+                fillRule="evenodd"
+                fill="currentColor"
+                d="M27.127,12.817 C21.471,12.817 16.885,17.503 16.885,23.282 C16.885,29.065 21.471,33.751 27.127,33.751 C27.557,33.751 27.981,33.721 28.397,33.668 L28.397,46.516 L14.001,46.516 L0.876,23.282 L14.001,0.052 L40.253,0.052 L50.379,17.969 L35.953,17.969 C34.170,14.886 30.886,12.817 27.127,12.817 ZM40.479,26.382 L36.055,21.862 L46.634,21.862 L46.631,30.607 L46.631,31.722 L56.119,41.418 L50.711,46.944 L41.223,37.249 L31.572,37.249 L31.572,26.443 L35.995,30.963 L40.479,26.382 Z"
+              ></path>
+            </svg>
           </div>
         </div>
       </div>
     </section>
   );
 };
-
-/* 装饰文字 */
-
-{
-  /* <div className="flex flex-col gap-4 xl:tracking-wider">
-                <p className="xl:text-2xl lg:text-xl text-sm">TOWARD THE FUTURE</p>
-                <p className="pr-15 xl:text-sm text-xs">BEYOND LANSHAN</p>
-              </div> */
-}

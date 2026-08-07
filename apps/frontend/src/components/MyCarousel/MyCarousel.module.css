@@ -2,6 +2,25 @@
   position: relative;
 }
 
+.carouselBgEnter {
+  opacity: 0;
+  animation: fadeInUp 0.35s linear 0.3s forwards;
+}
+
+.fadeInUp {
+  opacity: 0;
+  animation: fadeInUp 0.35s linear 0.3s forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .carouselBg::before {
   content: '';
   position: absolute;
@@ -10,13 +29,13 @@
   background-image: linear-gradient(
     -45deg,
     transparent,
-    transparent 13.9512529279%,
+    transparent 8%,
     black 0,
-    black 36.0487470721%,
+    black 42%,
     transparent 0,
-    transparent 63.9512529279%,
+    transparent 58%,
     black 0,
-    black 86.0487470721%,
+    black 92%,
     transparent 0,
     transparent
   );
@@ -47,4 +66,120 @@
 
 .carouselBtn:hover::before {
   opacity: 1;
+}
+
+@keyframes textExit {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+}
+
+.textExit {
+  animation: textExit 0.5s ease-out forwards;
+}
+
+@keyframes textEnter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.textEnter {
+  opacity: 0;
+  animation: textEnter 0.2s ease-out 0s forwards;
+}
+
+/* ===== 黑色进入：clip-path 横扫进入 ===== */
+/* next: 从右向左滑入 */
+@keyframes blackEnterLeft {
+  from {
+    clip-path: polygon(100% 0, 200% 0, 200% 100%, 100% 100%);
+  }
+  to {
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+}
+
+/* prev: 从左向右滑入 */
+@keyframes blackEnterRight {
+  from {
+    clip-path: polygon(-100% 0, 0% 0, 0% 100%, -100% 100%);
+  }
+  to {
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+}
+
+.blackEnterLeft {
+  animation: blackEnterLeft 0.35s ease-out both;
+}
+
+.blackEnterRight {
+  animation: blackEnterRight 0.35s ease-out both;
+}
+
+/* ===== 黑色退出：clip-path 横扫退出 ===== */
+/* next: 向左滑出 */
+@keyframes blackExitLeft {
+  from {
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  to {
+    clip-path: polygon(-100% 0, 0% 0, 0% 100%, -100% 100%);
+  }
+}
+
+/* prev: 向右滑出 */
+@keyframes blackExitRight {
+  from {
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  to {
+    clip-path: polygon(100% 0, 200% 0, 200% 100%, 100% 100%);
+  }
+}
+
+.blackExitLeft {
+  animation: blackExitLeft 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.blackExitRight {
+  animation: blackExitRight 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ===== 阈值退场：clip-path 裁切收缩 ===== */
+/* next: 从右向左收缩 */
+@keyframes thresholdExitLeft {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+/* prev: 从左向右收缩 */
+@keyframes thresholdExitRight {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 100%);
+  }
+}
+
+.thresholdExitLeft {
+  animation: thresholdExitLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.thresholdExitRight {
+  animation: thresholdExitRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

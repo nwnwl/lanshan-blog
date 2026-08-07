@@ -1,17 +1,16 @@
 'use client';
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import styles from './MyCarousel.module.css';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { title } from 'process';
-
 interface ImageItem {
   id: number;
   src: string;
   alt: string;
+  thresholdSrc: string;
 }
 
 interface ImageDescription {
@@ -19,13 +18,49 @@ interface ImageDescription {
   description: string;
 }
 
-const images_1: ImageItem[] = [
-  { id: 1, src: '/picture/studio-1.png', alt: 'studio picture' },
-  { id: 2, src: '/picture/studio-2.png', alt: 'studio picture' },
-  { id: 3, src: '/picture/studio-3.png', alt: 'graduate employment status' },
+export const images_1: ImageItem[] = [
+  {
+    id: 1,
+    src: '/picture/studio-1.png',
+    alt: 'studio picture',
+    thresholdSrc: '/picture/studio-threshold-1.png',
+  },
+  {
+    id: 2,
+    src: '/picture/studio-2.png',
+    alt: 'studio picture',
+    thresholdSrc: '/picture/studio-threshold-2.png',
+  },
+  {
+    id: 3,
+    src: '/picture/studio-3.png',
+    alt: 'graduate employment status',
+    thresholdSrc: '/picture/studio-threshold-3.png',
+  },
 ];
 
-const textData_1: ImageDescription[] = [
+export const images_2: ImageItem[] = [
+  {
+    id: 4,
+    src: '/picture/studio-4.webp',
+    alt: 'studio desk',
+    thresholdSrc: '/picture/studio-threshold-4.png',
+  },
+  {
+    id: 5,
+    src: '/picture/studio-5.webp',
+    alt: 'studio picture',
+    thresholdSrc: '/picture/studio-threshold-5.png',
+  },
+  {
+    id: 6,
+    src: '/picture/studio-6.webp',
+    alt: 'Content coverage',
+    thresholdSrc: '/picture/studio-threshold-6.png',
+  },
+];
+
+export const textData_1: ImageDescription[] = [
   {
     title: '了解工作室',
     description:
@@ -39,11 +74,11 @@ const textData_1: ImageDescription[] = [
   {
     title: '成员发展去向',
     description:
-      '多年来，工作室孕育了一大批优秀的IT互联网人才，进入腾讯、阿里巴巴、字节跳动、美团等知名互联网企业。蓝山工作室，从不止步于蓝山，我们期待志同道合的你。',
+      '多年来，工作室孕育了一大批优秀的IT互联网人才，进入腾讯、阿里巴巴、字节跳动、美团等知名互联网企业。',
   },
 ];
 
-const textData_2: ImageDescription[] = [
+export const textData_2: ImageDescription[] = [
   {
     title: '工位申请',
     description:
@@ -57,52 +92,178 @@ const textData_2: ImageDescription[] = [
   {
     title: '学姐学长互助',
     description:
-      '学姐学长倾情传授互联网行业知识，为你答疑解惑。大厂工作的学姐学长会传授工作经验，更有内推资源等你来',
+      '学姐学长倾情传授互联网行业知识，为你答疑解惑，大厂工作的学姐学长会传授工作经验，更有内推资源等你来。',
   },
 ];
 
-export const MyCarousel = () => {
+interface MyCarouselProps {
+  images: ImageItem[];
+  textData: ImageDescription[];
+  shouldEnter?: boolean;
+}
+
+export const MyCarousel = ({ images, textData, shouldEnter = true }: MyCarouselProps) => {
+  const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const [current, setCurrent] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [textVisible, setTextVisible] = useState(true);
-  const total = images_1.length;
+  const [prevIndex, setPrevIndex] = useState(0);
+  const [targetIndex, setTargetIndex] = useState(0);
+  const [curtainPhase, setCurtainPhase] = useState<
+    'idle' | 'blackEnter' | 'blackExit' | 'thresholdExit'
+  >('idle');
+  const [thresholdSrc, setThresholdSrc] = useState('');
+  const [direction, setDirection] = useState<'next' | 'prev'>('next');
+  const [hasEntered, setHasEntered] = useState(false);
+  const total = images.length;
+
+  useEffect(() => {
+    const timer = setTimeout(() => setHasEntered(true), 650);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const isAnimating = curtainPhase !== 'idle';
+
+  const goNext = useCallback(() => {
+    if (isAnimating || !swiper) return;
+    const newIndex = currentIndex >= total - 1 ? 0 : currentIndex + 1;
+
+    // 预加载 next 图 + 阈值图
+    const preloadNext = new Image();
+    preloadNext.src = images[newIndex].src;
+    const preloadThreshold = new Image();
+    preloadThreshold.src = images[newIndex].thresholdSrc;
+
+    setDirection('next');
+    setPrevIndex(currentIndex);
+    setTargetIndex(newIndex);
+    setThresholdSrc(images[newIndex].thresholdSrc);
+    setCurtainPhase('blackEnter');
+
+    // 350ms：黑色铺满，swiper 切图，阈值就位，黑色开始退场
+    setTimeout(() => {
+      swiper.slideTo(newIndex, 0); // 原图已被遮住，安全切换
+      setCurtainPhase('blackExit');
+    }, 350);
+
+    // 500ms：黑色已完全退场，阈值短暂显示后开始退场
+    setTimeout(() => {
+      setCurtainPhase('thresholdExit');
+    }, 500);
+
+    // 900ms：阈值退场完毕，最终状态
+    setTimeout(() => {
+      setCurtainPhase('idle');
+      setCurrent(newIndex + 1);
+      setCurrentIndex(newIndex);
+    }, 900);
+  }, [isAnimating, swiper, currentIndex, total]);
+
+  const goPrev = useCallback(() => {
+    if (isAnimating || !swiper) return;
+    const newIndex = currentIndex <= 0 ? total - 1 : currentIndex - 1;
+
+    const preloadNext = new Image();
+    preloadNext.src = images[newIndex].src;
+    const preloadThreshold = new Image();
+    preloadThreshold.src = images[newIndex].thresholdSrc;
+
+    setDirection('prev');
+    setPrevIndex(currentIndex);
+    setTargetIndex(newIndex);
+    setThresholdSrc(images[newIndex].thresholdSrc);
+    setCurtainPhase('blackEnter');
+
+    setTimeout(() => {
+      swiper.slideTo(newIndex, 0);
+      setCurtainPhase('blackExit');
+    }, 350);
+
+    setTimeout(() => {
+      setCurtainPhase('thresholdExit');
+    }, 500);
+
+    setTimeout(() => {
+      setCurtainPhase('idle');
+      setCurrent(newIndex + 1);
+      setCurrentIndex(newIndex);
+    }, 900);
+  }, [isAnimating, swiper, currentIndex, total]);
 
   return (
-    <div className="relative w-[922.312px] h-[542.542px]">
-      <Swiper
-        modules={[Navigation]}
-        loop={true}
-        slidesPerView={1}
-        spaceBetween={30}
-        navigation={{
-          nextEl: '.swiper-custom-next',
-          prevEl: '.swiper-custom-prev',
-        }}
-        onSlideChange={(swiper: SwiperType) => {
-          const realIndex = swiper.realIndex;
-          setTextVisible(false);
-          setTimeout(() => {
-            setCurrent(realIndex + 1);
-            setCurrentIndex(realIndex);
-            setTextVisible(true);
-          }, 400);
-        }}
-      >
-        {images_1.map((img) => (
-          <SwiperSlide key={img.id}>
-            <img
-              src={img.src}
-              alt={img.alt}
-              style={{ width: '922.312px', height: '542.542px', objectFit: 'cover' }}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <div
+      className="relative 
+    3xl:w-[922px] 3xl:h-[543px]
+    2xl:w-[889px] 2xl:h-[523px] 
+    xl:w-[740px] xl:h-[435px]
+    lg:w-[589px] lg:h-[347px]"
+    >
+      {/* 图片区：overflow-hidden 截断幕布，不溢出全屏 */}
+      <div className="relative w-full h-full overflow-hidden">
+        <Swiper
+          modules={[Navigation]}
+          loop={true}
+          slidesPerView={1}
+          spaceBetween={30}
+          speed={0}
+          allowTouchMove={false}
+          onSwiper={setSwiper}
+        >
+          {images.map((img) => (
+            <SwiperSlide key={img.id}>
+              <img
+                src={img.src}
+                alt={img.alt}
+                className="
+                3xl:w-[922px] 3xl:h-[543px]
+                2xl:w-[889px] 2xl:h-[523px]  
+                xl:w-[740px] xl:h-[435px]
+                lg:w-[589px] lg:h-[347px]
+                object-cover"
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-      {/* 自定义按钮 — 放 Swiper 外面或里面都可以 */}
+        {/* 阈值图：clip-path 裁切退场，不会压缩 */}
+        {(curtainPhase === 'blackExit' || curtainPhase === 'thresholdExit') && (
+          <img
+            src={thresholdSrc}
+            alt="threshold"
+            className={`absolute inset-0 z-20 w-full h-full object-cover opacity-85 ${
+              curtainPhase === 'thresholdExit'
+                ? direction === 'next'
+                  ? styles.thresholdExitLeft
+                  : styles.thresholdExitRight
+                : ''
+            }`}
+          />
+        )}
+
+        {/* 黑色幕布：clip-path 横扫，不会压缩 */}
+        {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
+          <div
+            className={`absolute inset-0 z-30 bg-[#191919] ${
+              curtainPhase === 'blackEnter'
+                ? direction === 'next'
+                  ? styles.blackEnterLeft
+                  : styles.blackEnterRight
+                : curtainPhase === 'blackExit'
+                  ? direction === 'next'
+                    ? styles.blackExitLeft
+                    : styles.blackExitRight
+                  : ''
+            }`}
+          />
+        )}
+      </div>
+
+      {/* 按钮放到 overflow-hidden 外面，不受裁剪 */}
       {/* 左按钮 */}
       <div
-        className={`${styles.carouselBg} absolute w-fit left-6 bottom-8 z-20 bg-black/60 rounded-full  flex gap-8 p-0.5`}
+        className={`${styles.carouselBg} ${shouldEnter ? styles.carouselBgEnter : 'opacity-0'} absolute w-fit 
+        xl:left-6 lg:left-4
+         bottom-8 z-50 bg-black/60 rounded-full flex gap-8 
+         2xl:p-0.75 p-0.5`}
       >
         <div className="p-0.5 bg-[#FAFAFA] rounded-full z-1 group">
           <button
@@ -146,24 +307,78 @@ export const MyCarousel = () => {
         </div>
       </div>
 
-      {/* 自定义数字指示器容器 */}
-      <div
-        className={`custom-pagination absolute -bottom-14 z-10 pointer-events-none text-[10px] font-bold
-          transition-all duration-500 ease-out
-        ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-x-2'}`}
-      >
-        {current} / {total}
-      </div>
-
-      {/* 下侧信息栏 */}
-      <div
-        className={`absolute w-[811.375px] -bottom-30 left-6 transition-all duration-500 ease-out ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-x-2'}`}
-      >
-        <div className="text-[29.9333px] font-semibold">
-          <span>{textData_1[currentIndex]?.title}</span>
+      {/* 数字指示器 - 退场层：黑色阶段 */}
+      {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
+        <div
+          className={`${styles.textExit} absolute
+          2xl:-bottom-10.5 lg:-bottom-10 z-10
+           pointer-events-none
+          2xl:text-[9px] xl:text-[8px] lg:text-[6px] font-bold`}
+        >
+          {current} / {total}
         </div>
-        <div className="text-[18.7083px] font-medium">{textData_1[currentIndex]?.description}</div>
-      </div>
+      )}
+
+      {/* 数字指示器 - 进场层：阈值退场及之后 */}
+      {(curtainPhase === 'thresholdExit' || curtainPhase === 'idle') && (
+        <div
+          className={`${curtainPhase === 'idle' && !hasEntered ? styles.fadeInUp : curtainPhase === 'thresholdExit' ? styles.textEnter : ''} absolute
+           2xl:-bottom-10.5 lg:-bottom-10 z-10 
+           pointer-events-none
+          2xl:text-[9px] xl:text-[8px] lg:text-[6px]
+           font-bold`}
+        >
+          {targetIndex + 1} / {total}
+        </div>
+      )}
+
+      {/* 信息栏 - 退场层：黑色阶段 */}
+      {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
+        <div
+          className={`${styles.textExit} absolute
+         2xl:w-[552.719px] lg:w-[456.760px] 
+          top-[calc(100%+0.5rem)] 
+           2xl:left-5 xl:left-6 lg:left-5 
+           mt-4`}
+        >
+          <div
+            className="2xl:text-[28.833px] xl:text-[24.073px] lg:text-[19.260px]
+           font-medium"
+          >
+            {textData[prevIndex]?.title}
+          </div>
+          <div
+            className="2xl:text-[18px] xl:text-[15px] lg:text-[12px] xl:pl-1
+           font-medium"
+          >
+            {textData[prevIndex]?.description}
+          </div>
+        </div>
+      )}
+
+      {/* 信息栏 - 进场层：阈值退场及之后 */}
+      {(curtainPhase === 'thresholdExit' || curtainPhase === 'idle') && (
+        <div
+          className={`${curtainPhase === 'idle' && !hasEntered ? styles.fadeInUp : curtainPhase === 'thresholdExit' ? styles.textEnter : ''} absolute 
+          2xl:w-[552.719px] lg:w-[456.760px] 
+          top-[calc(100%+0.5rem)] 
+          2xl:left-5 xl:left-6 lg:left-5 
+          mt-4`}
+        >
+          <div
+            className="2xl:text-[28.833px] xl:text-[24.073px] lg:text-[19.260px] 
+          font-medium"
+          >
+            {textData[targetIndex]?.title}
+          </div>
+          <div
+            className="2xl:text-[18px] xl:text-[15px] lg:text-[12px]   xl:pl-1
+           font-medium"
+          >
+            {textData[targetIndex]?.description}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
