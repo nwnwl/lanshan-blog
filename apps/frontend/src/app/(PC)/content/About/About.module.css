@@ -116,6 +116,59 @@
   animation: fadeInUp 0.35s linear 0.3s forwards;
 }
 
+/* 首次挂载闪烁（blink） */
+.blinkTitle {
+  opacity: 0;
+  animation: blinkIn 0.4s ease-out 0.3s forwards;
+}
+
+.blinkDesc {
+  opacity: 0;
+  animation: fadeInThenBlink 0.6s ease-out 0.7s forwards;
+}
+
+@keyframes fadeInThenBlink {
+  0% {
+    opacity: 0;
+  }
+  33% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 0.2;
+  }
+  60% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes blinkIn {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 0.2;
+  }
+  70% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 /* 统一遮罩：覆盖整张图片 + 蓝色条，从左边缘开始 */
 .unifiedMask {
   position: absolute;
