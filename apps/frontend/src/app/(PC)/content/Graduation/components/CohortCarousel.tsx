@@ -35,6 +35,7 @@ export const CohortCarousel = ({ current }: CohortCarouselProps) => {
           <div
             key={cohort}
             className="relative h-full w-[50rem]
+            pt-4
               transition-transform duration-700 ease-out"
             style={{
               transform: `translateX(${visualStart(i) - layoutX(i) - rowOffset}rem) scale(${scale})`,
