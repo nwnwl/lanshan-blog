@@ -1,0 +1,31 @@
+<svg viewBox="0 0 1200 260" width="1200" height="260" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="260" fill="#ffffff" />
+  <defs>
+    <pattern id="hatch" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="4" x2="4" y2="0" stroke="#191919" stroke-width="1" />
+      <line x1="-1" y1="1" x2="1" y2="-1" stroke="#191919" stroke-width="1" />
+      <line x1="3" y1="5" x2="5" y2="3" stroke="#191919" stroke-width="1" />
+    </pattern>
+    <clipPath id="textClip">
+      <text
+        x="600"
+        y="210"
+        text-anchor="middle"
+        font-family="'HarmonySans', 'HarmonyOS Sans', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif"
+        font-weight="900"
+        font-size="220"
+        letter-spacing="-4"
+      >
+        LANSHAN
+      </text>
+    </clipPath>
+  </defs>
+  <rect
+    x="0"
+    y="0"
+    width="1200"
+    height="260"
+    fill="url(#hatch)"
+    clip-path="url(#textClip)"
+  />
+</svg>

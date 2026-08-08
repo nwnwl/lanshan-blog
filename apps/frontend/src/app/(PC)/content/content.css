@@ -6,7 +6,7 @@
   display: none;
 }
 
-/* ====== Siderbar 组件样式 ====== */
+/* ====== SiderbarPC 组件样式 ====== */
 .siderbar {
   animation: moveInto linear;
   animation-timeline: view();
@@ -21,12 +21,32 @@
     transform: translateX(0);
   }
 }
-
+.siderbarMB::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 1px 10px -2px rgba(0, 0, 0, 0.1);
+  z-index: -2;
+}
+.siderFix::before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: calc(100% - 10.8rem);
+  background-image: url('/picture/siderBg.svg');
+  background-size: 8rem 8rem;
+  opacity: 0.1;
+  background-position: center bottom 2px;
+}
 .siderbar::after {
   content: '';
   position: absolute;
   left: 0;
-  width: 3.6rem;
+  width: 4rem;
   height: 100%;
   background-color: #ffffff;
   transition: width 0.3s;
@@ -36,7 +56,7 @@
   z-index: -2;
 }
 .siderbar:hover::after {
-  width: 10.8rem;
+  width: 12.5rem;
 }
 .siderbar:hover .navItem::after {
   pointer-events: auto;
@@ -58,8 +78,8 @@
 .navItem::after {
   content: '';
   position: absolute;
-  left: 0.6rem;
-  width: 9.4rem;
+  left: 0.8rem;
+  width: 11.2rem;
   height: 100%;
   background-color: #e6e6e6;
   opacity: 0;
@@ -81,8 +101,8 @@
 .navSelected::after {
   content: '';
   position: absolute;
-  left: 3.6rem;
-  width: 6.4rem;
+  left: 4rem;
+  width: 6rem;
   height: 100%;
   background-color: #e6e6e600;
   opacity: 0;

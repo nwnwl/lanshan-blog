@@ -1,0 +1,179 @@
+.joinSection {
+  position: relative;
+  background-color: #ffffff;
+}
+
+/* 网格背景：长宽 3rem 网格，实线 #ddd，向下渐变至透明 */
+.joinSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, transparent 2.9rem, #ddd 3rem),
+    linear-gradient(to bottom, transparent 2.9rem, #ddd 3rem);
+  background-size: 3rem 3rem;
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%);
+}
+/* 返回按钮 */
+.homeButton {
+  background-color: #191919;
+}
+.homeButton::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #00d4ff;
+  border: 1px solid #00d4ff;
+  clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%);
+  transform: translateX(-100%);
+  transition: transform 0.4s ease-in-out;
+}
+.homeButton:hover::before {
+  transform: translateX(0);
+}
+
+/* 组名：后方叠影伪元素（复制文字，hover/active 时变青并右移） */
+.groupName {
+  position: relative;
+}
+.groupName::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  color: #00000000; /* 默认只描边不填充 */
+  -webkit-text-stroke: 1px #000000;
+  transform: translateX(3px);
+  transition:
+    color 0.3s ease,
+    -webkit-text-stroke 0.3s ease,
+    transform 0.3s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+.groupName:hover::before,
+.groupName.active::before {
+  color: #00d4ff; /* hover 开始填充 */
+  transform: translateX(4px);
+}
+
+/* 切换动画 —— 参考 slideOutLeft / slideInLeft / slideOutRight / slideInRight，X 改为 Y */
+.slideOutUp {
+  animation: slideOutUp 300ms ease-in-out forwards;
+  will-change: transform, opacity;
+}
+.slideInUp {
+  animation: slideInUp 300ms ease-in-out forwards;
+  will-change: transform, opacity;
+}
+.slideOutDown {
+  animation: slideOutDown 300ms ease-in-out forwards;
+  will-change: transform, opacity;
+}
+.slideInDown {
+  animation: slideInDown 300ms ease-in-out forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes slideOutUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-15px);
+    opacity: 0;
+  }
+}
+@keyframes slideInUp {
+  0% {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutDown {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+}
+@keyframes slideInDown {
+  0% {
+    transform: translateY(-15px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* <xl：上下排布局改横向滑动；组名横排在底部，向右切新内容从右进、旧内容向左出 */
+@keyframes slideOutLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-15px);
+    opacity: 0;
+  }
+}
+@keyframes slideInRight {
+  0% {
+    transform: translateX(15px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(15px);
+    opacity: 0;
+  }
+}
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-15px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1279px) {
+  .slideOutUp {
+    animation: slideOutLeft 300ms ease-in-out forwards;
+  }
+  .slideInUp {
+    animation: slideInRight 300ms ease-in-out forwards;
+  }
+  .slideOutDown {
+    animation: slideOutRight 300ms ease-in-out forwards;
+  }
+  .slideInDown {
+    animation: slideInLeft 300ms ease-in-out forwards;
+  }
+}

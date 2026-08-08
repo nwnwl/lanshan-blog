@@ -186,7 +186,8 @@ export const DestinationArchive = ({ cohort }: { cohort: string }) => {
 
   return (
     <div
-      className="flex h-full w-full flex-col"
+      className="h-full w-full
+      flex flex-col"
       style={{
         backgroundImage:
           'radial-gradient(circle, #707070 0, #707070 1.5px, transparent 1.6px), linear-gradient(90deg, #191919 0%, #000000 50%,#191919 100%)',
@@ -194,23 +195,18 @@ export const DestinationArchive = ({ cohort }: { cohort: string }) => {
       }}
     >
       <div
-        className="h-[2rem] 
-      flex items-center justify-between
-      text-white"
+        className="absolute -translate-y-[0.5rem] z-5
+            text-black tracking-[.16em]
+            flex flex-col justify-end gap-[0.2rem]"
       >
-        <div
-          className="h-full w-[calc(100%/1.618)] [clip-path:polygon(0_0,100%_0,80%_100%,0_100%)] bg-white 
-        text-black tracking-[.16em]
-        flex flex-col gap-[0.2rem]"
-        >
-          <div className="text-[#808080] text-[0.5rem] font-medium leading-none">
-            <span>//RECORDS： {String(records.length).padStart(2, '0')}</span>
-          </div>
-          <div className="flex-1 leading-none">
-            <span className=" font-semibold text-[1.2rem] ">「20{cohort}届」</span>
-          </div>
+        <div className="text-[#808080] text-[0.5rem] font-medium leading-none">
+          <span>//RECORDS： {String(records.length).padStart(2, '0')}</span>
+        </div>
+        <div className="leading-none">
+          <span className=" font-semibold text-[1.2rem] ">「20{cohort}届」</span>
         </div>
       </div>
+      <div className="-translate-x-[1px] -translate-y-[1px] h-[2rem] w-[62%] [clip-path:polygon(0_0,100%_0,80%_100%,0_100%)] bg-white "></div>
 
       {/* 所有页常驻 DOM、围绕一个环站一圈；非当前页转到背面/容器外被裁掉 */}
       <div
@@ -312,7 +308,7 @@ export const DestinationArchive = ({ cohort }: { cohort: string }) => {
           <span>ARCHIVE SYSTEM</span>
         </div>
 
-        <div className="flex items-center gap-1">
+        <div className="text-[#191919] flex items-center gap-1">
           <button
             aria-label="上一页"
             disabled={pageCount <= 1}
@@ -322,11 +318,15 @@ export const DestinationArchive = ({ cohort }: { cohort: string }) => {
             flex justify-center items-center 
             disabled:cursor-auto disabled:opacity-[0.3]"
           >
-            <svg viewBox="0 0 6 18" className="w-[0.4rem] h-[0.8rem]" fill="currentColor">
-              <path d="M9 0 L9 3 L5 9 L9 15 L9 18 L3 9 Z" />
+            <svg
+              viewBox="0 0 12 18"
+              className="w-[0.6rem] h-[0.8rem] rotate-180 "
+              fill="currentColor"
+            >
+              <path d="M0 0 L0 3 L4 9 L0 15 L0 18 L6 9 Z" />
             </svg>
           </button>
-          <span>
+          <span className="text-[1rem]">
             <span className="font-mono-slash">{String(current + 1).padStart(2, '0')}</span> /{' '}
             <span className="font-mono-slash">{String(pageCount).padStart(2, '0')}</span>
           </span>
@@ -339,12 +339,8 @@ export const DestinationArchive = ({ cohort }: { cohort: string }) => {
             flex justify-center items-center 
             disabled:cursor-auto disabled:opacity-[0.3]"
           >
-            <svg
-              viewBox="0 0 6 18"
-              className="w-[0.4rem] h-[0.8rem] rotate-180"
-              fill="currentColor"
-            >
-              <path d="M9 0 L9 3 L5 9 L9 15 L9 18 L3 9 Z" />
+            <svg viewBox="0 0 12 18" className="w-[0.6rem] h-[0.8rem]" fill="currentColor">
+              <path d="M0 0 L0 3 L4 9 L0 15 L0 18 L6 9 Z" />
             </svg>
           </button>
         </div>

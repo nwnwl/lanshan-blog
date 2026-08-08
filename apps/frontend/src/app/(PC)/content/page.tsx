@@ -4,7 +4,8 @@ import { PC_GraduationSection } from './Graduation/Graduation';
 import { PC_ProjectSection } from './Project/Project';
 import { PC_OrganizationSection } from './Organization/Organization';
 import { PC_ContactSection } from './Contact/Contact';
-import { Siderbar } from '@/components/Siderbar';
+import { SiderbarPC } from '@/components/SiderbarPC';
+import { SiderbarMB } from '@/components/SiderbarMB';
 import { PC_EndSection } from './End';
 import { Marquee } from '@/components/Marquee';
 import { useMarqueeStore } from '@/lib/MarqueeStore';
@@ -22,8 +23,19 @@ export default function ContentPage() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('play');
-            blinkObserver.unobserve(entry.target);
+            // entrance-anchor 是区块入场锚点：一旦进入视野，整个 section 内所有 .animationEl 一起入场
+            if (entry.target.classList.contains('entrance-anchor')) {
+              const section = entry.target.closest('section');
+              if (section) {
+                section.querySelectorAll('.animationEl').forEach((el) => {
+                  el.classList.add('play');
+                  blinkObserver.unobserve(el);
+                });
+              }
+            } else {
+              entry.target.classList.add('play');
+              blinkObserver.unobserve(entry.target);
+            }
           }
         });
       },
@@ -59,12 +71,19 @@ export default function ContentPage() {
   return (
     <div className="contain flex h-screen w-full flex-col overflow-y-auto">
       <div className="flex w-full ">
-        <div className="sticky top-0 h-screen w-[3.6rem] z-50">
-          <Siderbar />
+        <div
+          className="lg:hidden fixed top-0 w-screen h-[6rem] z-50
+
+        "
+        >
+          <SiderbarMB />
+        </div>
+        <div className="max-lg:hidden fixed top-0 left-0 h-screen w-[4rem] z-50">
+          <SiderbarPC />
         </div>
 
         <div
-          className="flex-1 flex flex-col overflow-hidden"
+          className="flex-1 flex flex-col overflow-hidden z-40"
           style={{ timelineScope: '--org-appears' } as React.CSSProperties}
         >
           <PC_AboutSection />
