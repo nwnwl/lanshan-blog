@@ -51,12 +51,12 @@ export const PC_GraduationSection = () => {
 
   return (
     <section id="graduation" className="h-screen w-full">
-      <div className="w-full h-full flex items-center justify-center xl:justify-end">
-        <div className="w-[50rem] md:w-[55rem] xl:w-[70rem] 2xl:w-[82rem]  h-[40rem] flex gap-[3.5rem] items-end">
+      <div className="relative w-full h-full flex items-center justify-center xl:justify-end">
+        <div className="absolute left-1/10 w-[50rem] md:w-[55rem] xl:w-[82rem] h-[42rem] flex gap-[3.5rem] items-end">
           <div className="relative h-full">
             <div className="animationEl heightGrow w-[4.5rem] self-start overflow-hidden">
               <div
-                className="w-[4.5rem] h-[40rem] bg-[#00d4ff] 
+                className="w-[4.5rem] h-[42rem] bg-[#00d4ff] 
           flex flex-col items-center justify-end"
               >
                 <div className="animationEl heightGrowSon absolute top-0 w-[12rem] -translate-x-[0.8rem]">
@@ -93,8 +93,8 @@ export const PC_GraduationSection = () => {
                 <div className="flex items-center">
                   <div className="h-4 w-10 md:h-5 md:w-15   ">
                     <div
-                      className="animationEl widthGrow
-                    pr-1 bg-[#D9D9D9] 
+                      className="animationEl entrance-anchor widthGrow
+                    pr-1 bg-[#D9D9D9]
                     flex h-full
                     overflow-hidden justify-end items-center "
                     >

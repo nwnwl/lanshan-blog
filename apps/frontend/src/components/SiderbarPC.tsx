@@ -13,7 +13,7 @@ const links = [
   { name: 'contact' as const, href: '#contact', cn_name: '联系我们' },
 ];
 
-export const Siderbar = () => {
+export const SiderbarPC = () => {
   const router = useRouter();
   const navigate = useTransitionStore((s) => s.navigate);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -62,7 +62,7 @@ export const Siderbar = () => {
       group
         `}
     >
-      {/* 蓝色logo */}
+      {/* 蓝山logo */}
       <div className="absolute w-[2.5rem] left-1/2 -translate-x-1/2 top-[1rem] pointer-events-none">
         <img src="/picture/logoB.png" alt="logo" />
       </div>
@@ -70,8 +70,8 @@ export const Siderbar = () => {
       <div className="w-full flex flex-col gap-[3px] relative mt-[6rem]">
         <div
           className="box-content absolute left-0 
-          w-[2.7rem] h-[2.5rem]
-          group-hover:w-[9.6rem]
+          w-[3rem] h-[2.5rem]
+          group-hover:w-[11.5rem]
           border-l-8 border-[#191919] bg-[#e6e6e6]
           transition-top duration-300 ease-out"
           style={{ top: `calc(${activeIndex} * (2.5rem + 3px))` }}
@@ -89,7 +89,7 @@ export const Siderbar = () => {
                 className={`${activeIndex === index ? 'text-[#191919]' : 'text-[#d9d9d9] navicon'} `}
               />
               <div
-                className={`navText absolute left-[3.6rem] 
+                className={`navText absolute left-[4rem]
                 whitespace-nowrap text-[0.6rem] font-medium`}
               >
                 <span>{cn_name}</span>
@@ -102,10 +102,10 @@ export const Siderbar = () => {
       <div
         onClick={() => navigate('/join', router.push)}
         className={`stripe absolute
-          left-[0.8rem] bottom-[4rem]
-          w-[2rem] h-[5rem]
+          left-[0.8rem] bottom-[5rem]
+          w-[2.4rem] h-[5.4rem]
           flex flex-col items-center justify-center gap-[8px]
-          group-hover:w-[9.2rem] group-hover:h-[2rem]
+          group-hover:w-[10.9rem] group-hover:h-[2.2rem]
           transition-all duration-300 ease-in-out
           overflow-hidden cursor-pointer `}
       >
@@ -115,42 +115,40 @@ export const Siderbar = () => {
           w-full h-full rounded-[4px]
           bg-[#00e5ff]
           opacity-0 hover:opacity-100
-          transition-opacity duration-100 z-0"
+          transition-opacity duration-200 z-0"
         ></div>
         <Icon
           name="joinus"
-          size="1rem"
+          size="1.2rem"
           className={`
           pointer-events-none
-          absolute top-[0.5rem] left-[0.5rem]
+          absolute top-[0.5rem] left-[0.6rem]
           text-[#ffffff]
-          transition-colors duration-300 ease-in-out
+          group-hover:top-[0.5rem]
+          transition-[top,color] duration-300 ease-in-out
           `}
         />
         <div
-          className={`joinLine
-            absolute h-[2px] w-[1.4rem]
+          className={`
+            absolute h-[2px] w-[1.5rem]
             bg-[#ffffff4d]
-            top-[2rem] left-[0.3rem]
-            group-hover:top-[5rem]
-            transition-[top,background-color] duration-300 ease-in-out
+            top-[2.4rem] left-[0.45rem]
             pointer-events-none`}
         />
         <div
-          className={`joinText
+          className={`
           absolute
-          top-[2.5rem] left-0
+          top-[3rem] left-[0.2rem]
           w-[2rem]
-          text-center text-[0.7rem] text-[#ffffff] font-bold
-          group-hover:top-[5.5rem]
-          transition-[top,color] duration-300 ease-in-out pointer-events-none`}
+          text-center text-[0.65rem] text-[#ffffff] font-bold`}
         >
-          <span>加入我们</span>
+          <span>加入</span>
+          <span>我们</span>
         </div>
         {/* 横向 */}
         <div
           className={`joinLine
-            absolute bottom-[0.3rem] left-[2.5rem]
+            absolute bottom-[0.4rem] left-[3rem]
             w-[2px] h-[1.4rem] bg-[#ffffff4d]
             opacity-0 group-hover:opacity-100
             transition-[opacity,background-color] duration-300 ease-in-out
@@ -159,7 +157,7 @@ export const Siderbar = () => {
         <div
           className={`joinText
           absolute
-          bottom-[0.5rem] left-[4.5rem]
+          bottom-[0.6rem] left-[5rem]
           w-[2rem]
           text-center text-[0.7rem] text-[#ffffff] font-bold whitespace-nowrap
           opacity-0 group-hover:opacity-100
@@ -168,12 +166,57 @@ export const Siderbar = () => {
           <span>加入我们</span>
         </div>
       </div>
+      {/* 社交媒体图标：折叠时只显示 tz，展开后显示平台图标 */}
+      <div
+        className=" w-[2.4rem] group-hover:w-[10.9rem] h-[1.5rem] rounded-[4px]
+        absolute left-[0.8rem] bottom-[3rem]
+         flex items-center justify-center
+         transition-all duration-300 ease-in-out
+         bg-[#e5e5e5]"
+      >
+        <Icon
+          name="tz"
+          size="1rem"
+          className="absolute left-[0.7rem]
+          transition-opacity duration-100 group-hover:opacity-0"
+        />
+        <div className="absolute left-[3.5rem] flex flex-row items-center gap-[0.5rem] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <a href="https://xhslink.cn/m/6worIanti1C" target="_blank" rel="noopener noreferrer">
+            <Icon
+              name="xhs"
+              size="1rem"
+              className="cursor-pointer text-[#b3b3b3] hover:text-[#191919]
+            transition-text duration-300 ease-in-out"
+            />
+          </a>
+          <a href=" https://b23.tv/Nb6Bd5s" target="_blank" rel="noopener noreferrer">
+            <Icon
+              name="blbl"
+              size="1rem"
+              className="cursor-pointer text-[#b3b3b3] hover:text-[#191919]
+            transition-text duration-300 ease-in-out"
+            />
+          </a>
+          <a
+            href="https://juejin.cn/user/4075207411898764?share_token=cfaf5964-6764-4fa2-9546-25dac9ada184"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon
+              name="juejin"
+              size="1rem"
+              className="cursor-pointer text-[#b3b3b3] hover:text-[#191919]
+            transition-text duration-300 ease-in-out"
+            />
+          </a>
+        </div>
+      </div>
       <div
         className={`
         absolute bottom-[0.5rem] left-1/2 -translate-x-1/2 
         flex flex-col items-center
         w-[2rem] h-[2rem]
-        group-hover:left-[9.3rem]
+        group-hover:left-[10.8rem]
         transition-all duration-300 ease-in-out`}
       >
         <Icon
