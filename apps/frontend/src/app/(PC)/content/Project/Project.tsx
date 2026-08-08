@@ -119,11 +119,8 @@ export const PC_ProjectSection = () => {
   }, [cardEnabled]);
 
   return (
-    <section
-      id="project"
-      className="h-[120vh] w-full px-20 mt-20 mb-30 relative bg-white text-black"
-    >
-      <div ref={containerRef} className="relative z-1 h-full w-full grid grid-rows-4">
+    <section id="project" className="w-full px-12 mt-30 mb-30 relative bg-white text-black">
+      <div ref={containerRef} className="relative z-1 w-full flex flex-col">
         {projects.map((project, index) => (
           <ProjectRow
             key={project.id}
