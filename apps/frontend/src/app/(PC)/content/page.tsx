@@ -78,7 +78,7 @@ export default function ContentPage() {
         >
           <SiderbarMB />
         </div>
-        <div className="max-lg:hidden fixed top-0 left-0 h-screen w-[4rem] z-50">
+        <div className="max-lg:hidden sticky top-0 left-0 h-screen w-[4rem] z-50">
           <SiderbarPC />
         </div>
 
