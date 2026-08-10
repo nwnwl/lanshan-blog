@@ -39,5 +39,6 @@
   .contactDecoration::before {
     height: 4rem;
     width: 4rem;
+    top: -0.6rem;
   }
 }

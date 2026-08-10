@@ -1,23 +1,44 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Icon } from '@/components/Icon';
 import styles from './Contact.module.css';
 import FallingText from './components/FallingText';
 import DecryptedText from './components/DecryptedText';
 import VariableProximity from '@/components/VariableProximity/VariableProximity';
 
+const FULL =
+  'HTML CSS JavaScript React Node.js Java Go Python MySQL Docker Git•Github Codex Sketch Figma Linux TailwindCSS VSCode DeepSeek Claude•Code ChatGPT';
+const SHORT =
+  'HTML CSS JavaScript React Node.js Java Go Python MySQL Docker Git•Github Figma DeepSeek Claude•Code ChatGPT';
+const MINI = 'HTML CSS JavaScript Java Go Python Git•Github Claude•Code';
+
 export const PC_ContactSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const [toolkit, setToolkit] = useState(FULL);
+
+  useEffect(() => {
+    const check = () => {
+      const w = window.innerWidth;
+      setToolkit(w >= 1280 ? FULL : w >= 768 ? SHORT : MINI);
+    };
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   return (
     <section
       ref={sectionRef}
       id="contact"
-      className="min-h-screen w-full flex flex-col 
-      2xl:gap-24 xl:gap-36 lg:gap-46
-       text-black bg-[#fafafa]"
+      className="min-h-0 w-full flex flex-col 
+      2xl:gap-24 gap-36
+       text-black bg-[#fafafa]
+       "
     >
       {/* 上部 */}
-      <div className="min-h-0 flex justify-between ml-20 xl:mt-20 lg:mt-30">
+      <div
+        className="min-h-0 flex justify-between ml-20 
+      xl:mt-20 mt-30"
+      >
         {/* 左侧 */}
         <div className="flex flex-col gap-12">
           <div className={`${styles.contactDecoration}`}>
@@ -37,10 +58,15 @@ export const PC_ContactSection = () => {
                   "
                 />
               </div>
-              <span className="xl:text-base lg:text-sm text-xs font-medium pl-1">CONTACT US</span>
+              <span className="xl:text-base lg:text-sm text-[0.92rem] font-medium pl-1">
+                CONTACT US
+              </span>
             </div>
 
-            <div className="font-bold 2xl:text-[30px] xl:text-2xl lg:text-xl tracking-tight -mt-1">
+            <div
+              className="font-bold 
+            2xl:text-[30px] xl:text-2xl lg:text-xl text-[1.4rem] tracking-tight -mt-1"
+            >
               联系我们
             </div>
           </div>
@@ -97,7 +123,7 @@ export const PC_ContactSection = () => {
         {/* 右侧 */}
         <div className="mr-20 flex flex-col gap-6  text-right">
           <div className="tracking-widest">
-            <div className="2xl:text-8xl xl:text-[5rem] lg:text-[4rem] font-extrabold">
+            <div className="2xl:text-8xl xl:text-[5rem] lg:text-[4rem] text-[3.8rem] font-extrabold">
               <VariableProximity
                 label="CONTACT"
                 containerRef={sectionRef}
@@ -108,9 +134,9 @@ export const PC_ContactSection = () => {
               />
             </div>
             <div
-              className="2xl:text-7xl xl:text-[4rem] lg:text-[3rem]
+              className="2xl:text-7xl xl:text-[4rem] lg:text-[3rem] text-[2.6rem]
             font-extrabold text-[#00D4FF]
-            2xl:mt-0 xl:-mt-4 lg:-mt-6"
+            2xl:mt-0 xl:-mt-4 -mt-6"
             >
               <VariableProximity
                 label="US"
@@ -134,13 +160,17 @@ export const PC_ContactSection = () => {
       {/* 下部 */}
       <div
         className="flex justify-between ml-20 
-      items-end relative"
+      items-end relative mb-30"
       >
-        <div className="flex-1 border-2 rounded-2xl bg-[#1a1a1a] h-75 flex items-center justify-center mr-20 font-bold">
+        <div
+          className="flex-1 border-2 rounded-2xl bg-[#1a1a1a] 
+        xl:h-75 lg:h-85 md:h-100 h-120
+        flex items-center justify-center mr-20 font-bold"
+        >
           <FallingText
-            text="HTML CSS JavaScript React Node.js Java Go Python MySQL Docker Git•Github Adobe Sketch Figma Linux TailwindCSS VSCode DeepSeek Claude•Code ChatGPT"
+            text={toolkit}
             highlightWords={['HTML', 'JavaScript', 'Java', 'Go', 'Python', 'Docker', 'Figma']}
-            altWords={['DeepSeek', 'Claude•Code', 'ChatGPT']}
+            altWords={['DeepSeek', 'Claude•Code', 'ChatGPT', 'Codex']}
             altClass="alt"
             trigger="scroll"
             backgroundColor="transparent"
