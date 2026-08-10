@@ -1,11 +1,16 @@
+import { useRef } from 'react';
 import { Icon } from '@/components/Icon';
 import styles from './Contact.module.css';
 import FallingText from './components/FallingText';
 import DecryptedText from './components/DecryptedText';
+import VariableProximity from '@/components/VariableProximity/VariableProximity';
 
 export const PC_ContactSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+
   return (
     <section
+      ref={sectionRef}
       id="contact"
       className="min-h-screen w-full flex flex-col gap-24 text-black bg-[#fafafa]"
     >
@@ -65,7 +70,8 @@ export const PC_ContactSection = () => {
                   maxIterations={15}
                   sequential
                   useOriginalCharsOnly
-                />
+                />{' '}
+                ]
               </span>
             </div>
             <div>
@@ -88,9 +94,27 @@ export const PC_ContactSection = () => {
 
         {/* 右侧 */}
         <div className="mr-20 flex flex-col gap-6  text-right">
-          <div className="font-extrabold tracking-widest">
-            <div className="text-8xl">CONTACT</div>
-            <div className="text-7xl text-[#00D4FF]">US</div>
+          <div className="tracking-widest">
+            <div className="text-8xl font-extrabold">
+              <VariableProximity
+                label="CONTACT"
+                containerRef={sectionRef}
+                fromFontVariationSettings="'wght' 600, 'opsz' 9"
+                toFontVariationSettings="'wght' 1000, 'opsz' 40"
+                radius={150}
+                falloff="gaussian"
+              />
+            </div>
+            <div className="text-7xl font-extrabold text-[#00D4FF]">
+              <VariableProximity
+                label="US"
+                containerRef={sectionRef}
+                fromFontVariationSettings="'wght' 600, 'opsz' 9"
+                toFontVariationSettings="'wght' 1000, 'opsz' 40"
+                radius={150}
+                falloff="gaussian"
+              />
+            </div>
           </div>
 
           <div className="text-[#D9D9D9] font-semibold text-xs">
