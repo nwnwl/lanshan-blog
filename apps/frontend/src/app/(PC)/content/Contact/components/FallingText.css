@@ -15,11 +15,12 @@
 
 .word {
   display: inline-block;
-  margin: 0 2px;
+  margin: 0;
   user-select: none;
   background-color: white;
-  border-radius: 9999px;
-  padding: 0.5rem 1.25rem;
+  border-radius: 100px;
+  padding: 12px 20px;
+  letter-spacing: -0.01em;
 }
 
 .highlighted {

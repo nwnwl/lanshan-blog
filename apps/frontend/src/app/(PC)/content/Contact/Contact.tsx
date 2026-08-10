@@ -146,7 +146,7 @@ export const PC_ContactSection = () => {
             backgroundColor="transparent"
             wireframes={false}
             gravity={1}
-            fontSize="1.2rem"
+            fontSize="clamp(15px, 1.6vw, 21px)"
             mouseConstraintStiffness={0.9}
           />
         </div>
