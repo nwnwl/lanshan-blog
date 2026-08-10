@@ -165,6 +165,25 @@ const FallingText = ({
     Runner.run(runner, engine);
     Render.run(render);
 
+    const IDLE_SPEED = 0.1;
+    const IDLE_TIMEOUT = 2000;
+    let idleTimer: ReturnType<typeof setTimeout> | null = null;
+    let runnerRunning = true;
+
+    const resumeRunner = () => {
+      if (idleTimer) {
+        clearTimeout(idleTimer);
+        idleTimer = null;
+      }
+      if (!runnerRunning) {
+        runnerRunning = true;
+        Runner.run(runner, engine);
+      }
+    };
+
+    const onMouseEnterResume = () => resumeRunner();
+    el.addEventListener('mouseenter', onMouseEnterResume);
+
     const updateLoop = () => {
       wordBodies.forEach(({ body, elem }) => {
         const el = elem as HTMLElement;
@@ -173,12 +192,38 @@ const FallingText = ({
         el.style.top = `${y}px`;
         el.style.transform = `translate(-50%, -50%) rotate(${body.angle}rad)`;
       });
-      Matter.Engine.update(engine);
+
+      if (runnerRunning) {
+        const allIdle = wordBodies.every(
+          ({ body }) =>
+            Math.abs(body.velocity.x) < IDLE_SPEED &&
+            Math.abs(body.velocity.y) < IDLE_SPEED &&
+            Math.abs(body.angularVelocity) < IDLE_SPEED,
+        );
+        if (allIdle) {
+          if (!idleTimer) {
+            idleTimer = setTimeout(() => {
+              Runner.stop(runner);
+              runnerRunning = false;
+              idleTimer = null;
+            }, IDLE_TIMEOUT);
+          }
+        } else {
+          if (idleTimer) {
+            clearTimeout(idleTimer);
+            idleTimer = null;
+          }
+        }
+        Matter.Engine.update(engine);
+      }
+
       requestAnimationFrame(updateLoop);
     };
     updateLoop();
 
     return () => {
+      if (idleTimer) clearTimeout(idleTimer);
+      el.removeEventListener('mouseenter', onMouseEnterResume);
       Render.stop(render);
       Runner.stop(runner);
       if (render.canvas && canvasContainerRef.current) {
