@@ -73,15 +73,17 @@ export const PC_ContactSection = () => {
       {/* 下部 */}
       <div className="flex justify-between ml-20 mb-16 items-end relative">
         {/* 右侧 —— 宽度到内容区中间 */}
-        <div className="w-[80rem] border-2 rounded-2xl border-[#1a1a1a] h-75 flex items-center justify-center mr-20">
+        <div className="w-[80rem] border-2 rounded-2xl bg-[#1a1a1a] h-75 flex items-center justify-center mr-20 font-bold">
           <FallingText
-            text="HTML CSS JavaScript React Node.js Java Go Python MySQL Docker Git Adobe Sketch Figma Linux TailwindCSS VSCode"
+            text="HTML CSS JavaScript React Node.js Java Go Python MySQL Docker Git•Github Adobe Sketch Figma Linux TailwindCSS VSCode DeepSeek Claude•Code ChatGPT"
             highlightWords={['HTML', 'JavaScript', 'Java', 'Go', 'Python', 'Docker', 'Figma']}
+            altWords={['DeepSeek', 'Claude•Code', 'ChatGPT']}
+            altClass="alt"
             trigger="scroll"
             backgroundColor="transparent"
             wireframes={false}
             gravity={0.56}
-            fontSize="1.5rem"
+            fontSize="1.2rem"
             mouseConstraintStiffness={0.9}
           />
         </div>

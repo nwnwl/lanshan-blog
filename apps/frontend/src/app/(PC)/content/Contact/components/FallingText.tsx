@@ -7,6 +7,8 @@ interface FallingTextProps {
   text?: string;
   highlightWords?: string[];
   highlightClass?: string;
+  altWords?: string[];
+  altClass?: string;
   trigger?: 'auto' | 'scroll' | 'click' | 'hover';
   backgroundColor?: string;
   wireframes?: boolean;
@@ -25,6 +27,8 @@ const FallingText = ({
   text = '',
   highlightWords = [],
   highlightClass = 'highlighted',
+  altWords = [],
+  altClass = '',
   trigger = 'auto',
   backgroundColor = 'transparent',
   wireframes = false,
@@ -44,7 +48,9 @@ const FallingText = ({
     const newHTML = words
       .map((word) => {
         const isHighlighted = highlightWords.some((hw) => word.startsWith(hw));
-        return `<span class="word ${isHighlighted ? highlightClass : ''}">${word}</span>`;
+        const isAlt = altWords.some((aw) => word.startsWith(aw));
+        const extraClass = isHighlighted ? highlightClass : isAlt ? altClass : '';
+        return `<span class="word ${extraClass}">${word}</span>`;
       })
       .join(' ');
     textRef.current.innerHTML = newHTML;
