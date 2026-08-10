@@ -4,11 +4,14 @@ import FallingText from './components/FallingText';
 
 export const PC_ContactSection = () => {
   return (
-    <section id="contact" className="min-h-screen w-full flex flex-col gap-20 bg-white text-black">
+    <section
+      id="contact"
+      className="min-h-screen w-full flex flex-col gap-24 text-black bg-[#fafafa]"
+    >
       {/* 上部 */}
-      <div className="min-h-0 flex justify-between ml-12">
+      <div className="min-h-0 flex justify-between ml-20 mt-20">
         {/* 左侧 */}
-        <div className="flex flex-col gap-12 mt-16">
+        <div className="flex flex-col gap-12">
           <div className={`${styles.contactDecoration}`}>
             <div className="flex items-center">
               <div
@@ -34,30 +37,32 @@ export const PC_ContactSection = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 font-medium">
+          <div className="flex flex-col gap-4 font-medium">
             <div>
               <span className="pr-4 text-2xl">QQ.</span>
-              {'[  ' + '1065475643' + ' ]'}
+              <span className="text-lg">{'[  ' + '1065475643' + ' ]'}</span>
             </div>
             <div>
               <span className="pr-4 text-2xl">ADDR.</span>
-              {'[  ' + '重庆市南岸区南山街道崇文路2号 ]（重庆邮电大学内）400065' + ' ]'}
+              <span className="text-lg">
+                {'[  ' + '重庆市南岸区南山街道崇文路2号 ]（重庆邮电大学内）400065' + ' ]'}
+              </span>
             </div>
             <div>
               <span className="pr-4 text-2xl">MAIL.</span>
-              {'[  ' + 'lanshan@lanshan.email' + ' ]'}
+              <span className="text-lg">{'[  ' + 'lanshan@lanshan.email' + ' ]'}</span>
             </div>
           </div>
         </div>
 
         {/* 右侧 */}
-        <div className="pr-12 flex flex-col gap-16 mt-8  text-right">
+        <div className="mr-20 flex flex-col gap-6  text-right">
           <div className="font-extrabold tracking-widest">
             <div className="text-8xl">CONTACT</div>
             <div className="text-7xl text-[#00D4FF]">US</div>
           </div>
 
-          <div className="text-[#D9D9D9] font-semibold">
+          <div className="text-[#D9D9D9] font-semibold text-xs">
             29.535567°N
             <br />
             106.605065°E
@@ -66,9 +71,9 @@ export const PC_ContactSection = () => {
       </div>
 
       {/* 下部 */}
-      <div className="flex ml-12">
-        {/* 左侧 —— 宽度到内容区中间 */}
-        <div className="w-[60rem] border-2 rounded-3xl border-[#1a1a1a] min-h-75 flex items-center justify-center">
+      <div className="flex justify-between ml-20 mb-16 items-end relative">
+        {/* 右侧 —— 宽度到内容区中间 */}
+        <div className="w-[80rem] border-2 rounded-2xl border-[#1a1a1a] h-75 flex items-center justify-center mr-20">
           <FallingText
             text="HTML CSS JavaScript React Node.js Java Go Python MySQL Docker Git Adobe Sketch Figma Linux TailwindCSS VSCode"
             highlightWords={['HTML', 'JavaScript', 'Java', 'Go', 'Python', 'Docker', 'Figma']}
@@ -81,8 +86,10 @@ export const PC_ContactSection = () => {
           />
         </div>
 
-        {/* 右侧 */}
-        <div className="pr-12" />
+        <div className="absolute -top-8 right-26 text-xs flex items-center">
+          <span className={styles.blinkDot} />
+          Drag & throw — every tag here runs in production systems we operate
+        </div>
       </div>
     </section>
   );
