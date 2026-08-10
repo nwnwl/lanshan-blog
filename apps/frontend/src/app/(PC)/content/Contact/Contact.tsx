@@ -1,6 +1,7 @@
 import { Icon } from '@/components/Icon';
 import styles from './Contact.module.css';
 import FallingText from './components/FallingText';
+import DecryptedText from './components/DecryptedText';
 
 export const PC_ContactSection = () => {
   return (
@@ -40,17 +41,47 @@ export const PC_ContactSection = () => {
           <div className="flex flex-col gap-4 font-medium">
             <div>
               <span className="pr-4 text-2xl">QQ.</span>
-              <span className="text-lg">{'[  ' + '1065475643' + ' ]'}</span>
+              <span className="text-lg">
+                <DecryptedText
+                  text="[  1065475643"
+                  animateOn="hover"
+                  revealDirection="start"
+                  speed={30}
+                  maxIterations={10}
+                  sequential
+                  useOriginalCharsOnly
+                />{' '}
+                ]
+              </span>
             </div>
             <div>
               <span className="pr-4 text-2xl">ADDR.</span>
               <span className="text-lg">
-                {'[  ' + '重庆市南岸区南山街道崇文路2号 ]（重庆邮电大学内）400065' + ' ]'}
+                <DecryptedText
+                  text="[  重庆市南岸区南山街道崇文路2号 ]（重庆邮电大学内）400065"
+                  animateOn="hover"
+                  revealDirection="start"
+                  speed={30}
+                  maxIterations={15}
+                  sequential
+                  useOriginalCharsOnly
+                />
               </span>
             </div>
             <div>
               <span className="pr-4 text-2xl">MAIL.</span>
-              <span className="text-lg">{'[  ' + 'lanshan@lanshan.email' + ' ]'}</span>
+              <span className="text-lg">
+                <DecryptedText
+                  text="[  lanshan@lanshan.email"
+                  animateOn="hover"
+                  revealDirection="start"
+                  speed={30}
+                  maxIterations={10}
+                  sequential
+                  useOriginalCharsOnly
+                />{' '}
+                ]
+              </span>
             </div>
           </div>
         </div>
