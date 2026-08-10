@@ -80,67 +80,55 @@ const FallingText = ({
     if (!effectStarted || !containerRef.current || !textRef.current || !canvasContainerRef.current)
       return;
 
-    const { Engine, Render, World, Bodies, Runner, Mouse, MouseConstraint } = Matter;
+    const { Engine, Render, World, Bodies, Mouse, MouseConstraint } = Matter;
 
-    const containerRect = containerRef.current.getBoundingClientRect();
-    const width = containerRect.width;
-    const height = containerRect.height;
-
-    if (width <= 0 || height <= 0) return;
+    const r = containerRef.current.getBoundingClientRect();
+    const W = r.width;
+    const H = r.height;
+    if (W <= 0 || H <= 0) return;
 
     const engine = Engine.create();
-    engine.world.gravity.y = gravity;
+    engine.gravity.y = gravity;
 
     const render = Render.create({
       element: canvasContainerRef.current,
       engine,
-      options: {
-        width,
-        height,
-        background: backgroundColor,
-        wireframes,
-      },
+      options: { width: W, height: H, background: backgroundColor, wireframes },
     });
 
-    const boundaryOptions = {
-      isStatic: true,
-      render: { fillStyle: 'transparent' },
-    };
-    const floor = Bodies.rectangle(width / 2, height + 25, width, 50, boundaryOptions);
-    const leftWall = Bodies.rectangle(-25, height / 2, 50, height, boundaryOptions);
-    const rightWall = Bodies.rectangle(width + 25, height / 2, 50, height, boundaryOptions);
-    const ceiling = Bodies.rectangle(width / 2, -25, width, 50, boundaryOptions);
+    const wo = { isStatic: true, render: { visible: false } };
+    const T = 220;
+    const makeWalls = (w: number, h: number) => [
+      Bodies.rectangle(w / 2, h + T / 2, w + T * 2, T, wo),
+      Bodies.rectangle(-T / 2, h / 2, T, h * 3, wo),
+      Bodies.rectangle(w + T / 2, h / 2, T, h * 3, wo),
+      Bodies.rectangle(w / 2, -T / 2 - h, w + T * 2, T, wo),
+    ];
+    let walls = makeWalls(W, H);
 
-    const wordSpans = textRef.current.querySelectorAll('.word');
-    const wordBodies: WordBody[] = [...wordSpans].map((elem, i) => {
-      const rect = elem.getBoundingClientRect();
-
-      const x = rect.left - containerRect.left + rect.width / 2;
-      const wordH = rect.height;
-      // 初始位置：容器底部散布，hover 触发后再由鼠标拖拽散开
-      const y = height - wordH / 2 - 10 - i * 0.5;
-
-      const body = Bodies.rectangle(x, y, rect.width, rect.height, {
-        render: { fillStyle: 'transparent' },
-        restitution: 0,
-        frictionAir: 0.05,
-        friction: 0.5,
+    const pills = textRef.current.querySelectorAll('.word');
+    const items: { el: HTMLElement; body: Matter.Body }[] = [];
+    pills.forEach((el, i) => {
+      const htmlEl = el as HTMLElement;
+      const pw = htmlEl.offsetWidth;
+      const ph = htmlEl.offsetHeight;
+      const x = 70 + Math.random() * Math.max(1, W - 140);
+      const y = -10 - i * 15 - Math.random() * 20;
+      const body = Bodies.rectangle(x, y, pw, ph, {
+        restitution: 0.45,
+        friction: 0.35,
+        frictionAir: 0.012,
+        chamfer: { radius: ph / 2 },
       });
-
-      return { elem, body };
-    });
-
-    wordBodies.forEach(({ elem, body }) => {
-      const el = elem as HTMLElement;
-      el.style.position = 'absolute';
-      el.style.left = `${body.position.x}px`;
-      el.style.top = `${body.position.y}px`;
-      el.style.transform = 'translate(-50%, -50%)';
-      el.style.visibility = 'visible';
+      Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.06);
+      htmlEl.style.position = 'absolute';
+      htmlEl.style.top = '0';
+      htmlEl.style.left = '0';
+      htmlEl.style.visibility = 'visible';
+      items.push({ el: htmlEl, body });
     });
 
     const mouse = Mouse.create(containerRef.current);
-    // Matter.js Mouse 默认拦截 wheel / touch 事件导致页面无法滚动
     const el = containerRef.current;
     const m = mouse as unknown as Record<string, EventListener>;
     el.removeEventListener('wheel', m.mousewheel);
@@ -148,93 +136,87 @@ const FallingText = ({
     el.removeEventListener('touchmove', m.mousemove);
     el.addEventListener('touchstart', m.mousedown, { passive: true });
     el.addEventListener('touchmove', m.mousemove, { passive: true });
-
-    const mouseConstraint = MouseConstraint.create(engine, {
+    const mc = MouseConstraint.create(engine, {
       mouse,
-      constraint: {
-        stiffness: mouseConstraintStiffness,
-        render: { visible: false },
-      },
+      constraint: { stiffness: mouseConstraintStiffness, render: { visible: false } },
     });
     render.mouse = mouse;
 
-    World.add(engine.world, [
-      floor,
-      leftWall,
-      rightWall,
-      ceiling,
-      mouseConstraint,
-      ...wordBodies.map((wb) => wb.body),
-    ]);
+    World.add(engine.world, [...walls, mc, ...items.map((it) => it.body)]);
 
-    const runner = Runner.create();
-    Runner.run(runner, engine);
-    Render.run(render);
+    // resize — CS style
+    const resizeObserver = new ResizeObserver(() => {
+      const br = containerRef.current?.getBoundingClientRect();
+      if (!br || br.width <= 0 || br.height <= 0) return;
+      Matter.Body.setPosition(walls[0], { x: br.width / 2, y: br.height + T / 2 });
+      Matter.Body.setPosition(walls[1], { x: -T / 2, y: br.height / 2 });
+      Matter.Body.setPosition(walls[2], { x: br.width + T / 2, y: br.height / 2 });
+      Matter.Body.setPosition(walls[3], { x: br.width / 2, y: -T / 2 - br.height });
+    });
+    resizeObserver.observe(containerRef.current);
 
-    const IDLE_SPEED = 0.1;
-    const IDLE_TIMEOUT = 2000;
+    // CS-style loop
+    const IDLE_SPEED = 0.08;
+    const IDLE_TIMEOUT = 2200;
     let idleTimer: ReturnType<typeof setTimeout> | null = null;
-    let runnerRunning = true;
+    let active = true;
 
-    const resumeRunner = () => {
+    const wake = () => {
       if (idleTimer) {
         clearTimeout(idleTimer);
         idleTimer = null;
       }
-      if (!runnerRunning) {
-        runnerRunning = true;
-        Runner.run(runner, engine);
-      }
+      active = true;
     };
+    el.addEventListener('mouseenter', wake);
 
-    const onMouseEnterResume = () => resumeRunner();
-    el.addEventListener('mouseenter', onMouseEnterResume);
+    const loop = () => {
+      const box = containerRef.current;
+      if (!box) {
+        requestAnimationFrame(loop);
+        return;
+      }
+      const br = box.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const visible = br.bottom > -120 && br.top < vh + 120;
 
-    const updateLoop = () => {
-      wordBodies.forEach(({ body, elem }) => {
-        const el = elem as HTMLElement;
-        const { x, y } = body.position;
-        el.style.left = `${x}px`;
-        el.style.top = `${y}px`;
-        el.style.transform = `translate(-50%, -50%) rotate(${body.angle}rad)`;
-      });
-
-      if (runnerRunning) {
-        const allIdle = wordBodies.every(
-          ({ body }) =>
-            Math.abs(body.velocity.x) < IDLE_SPEED &&
-            Math.abs(body.velocity.y) < IDLE_SPEED &&
-            Math.abs(body.angularVelocity) < IDLE_SPEED,
+      if (visible && active) {
+        Engine.update(engine, 1000 / 60);
+        const allIdle = items.every(
+          (it) =>
+            Math.abs(it.body.velocity.x) < IDLE_SPEED &&
+            Math.abs(it.body.velocity.y) < IDLE_SPEED &&
+            Math.abs(it.body.angularVelocity) < IDLE_SPEED,
         );
         if (allIdle) {
-          if (!idleTimer) {
+          if (!idleTimer)
             idleTimer = setTimeout(() => {
-              Runner.stop(runner);
-              runnerRunning = false;
+              active = false;
               idleTimer = null;
             }, IDLE_TIMEOUT);
-          }
         } else {
           if (idleTimer) {
             clearTimeout(idleTimer);
             idleTimer = null;
           }
         }
-        Matter.Engine.update(engine);
       }
 
-      requestAnimationFrame(updateLoop);
+      if (visible) {
+        for (let i = 0; i < items.length; i++) {
+          const it = items[i];
+          it.el.style.transform = `translate(${(it.body.position.x - it.el.offsetWidth / 2).toFixed(1)}px,${(it.body.position.y - it.el.offsetHeight / 2).toFixed(1)}px) rotate(${it.body.angle.toFixed(3)}rad)`;
+        }
+      }
+
+      requestAnimationFrame(loop);
     };
-    updateLoop();
+    loop();
 
     return () => {
+      resizeObserver.disconnect();
       if (idleTimer) clearTimeout(idleTimer);
-      el.removeEventListener('mouseenter', onMouseEnterResume);
-      Render.stop(render);
-      Runner.stop(runner);
-      if (render.canvas && canvasContainerRef.current) {
-        canvasContainerRef.current.removeChild(render.canvas);
-      }
+      el.removeEventListener('mouseenter', wake);
       el.removeEventListener('touchstart', m.mousedown);
       el.removeEventListener('touchmove', m.mousemove);
       World.clear(engine.world, false);

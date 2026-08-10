@@ -12,10 +12,12 @@ export const PC_ContactSection = () => {
     <section
       ref={sectionRef}
       id="contact"
-      className="min-h-screen w-full flex flex-col gap-24 text-black bg-[#fafafa]"
+      className="min-h-screen w-full flex flex-col 
+      2xl:gap-24 xl:gap-36 lg:gap-46
+       text-black bg-[#fafafa]"
     >
       {/* 上部 */}
-      <div className="min-h-0 flex justify-between ml-20 mt-20">
+      <div className="min-h-0 flex justify-between ml-20 xl:mt-20 lg:mt-30">
         {/* 左侧 */}
         <div className="flex flex-col gap-12">
           <div className={`${styles.contactDecoration}`}>
@@ -35,7 +37,7 @@ export const PC_ContactSection = () => {
                   "
                 />
               </div>
-              <span className="lg:text-base text-xs font-medium pl-1">CONTACT US</span>
+              <span className="xl:text-base lg:text-sm text-xs font-medium pl-1">CONTACT US</span>
             </div>
 
             <div className="font-bold 2xl:text-[30px] xl:text-2xl lg:text-xl tracking-tight -mt-1">
@@ -45,8 +47,8 @@ export const PC_ContactSection = () => {
 
           <div className="flex flex-col gap-4 font-medium">
             <div>
-              <span className="pr-4 text-2xl">QQ.</span>
-              <span className="text-lg">
+              <span className="pr-4 xl:text-2xl lg:text-lg">QQ.</span>
+              <span className="xl:text-lg lg:text-sm">
                 <DecryptedText
                   text="[  1065475643"
                   animateOn="hover"
@@ -60,8 +62,8 @@ export const PC_ContactSection = () => {
               </span>
             </div>
             <div>
-              <span className="pr-4 text-2xl">ADDR.</span>
-              <span className="text-lg">
+              <span className="pr-4 xl:text-2xl lg:text-lg">ADDR.</span>
+              <span className="xl:text-lg lg:text-sm">
                 <DecryptedText
                   text="[  重庆市南岸区南山街道崇文路2号 ]（重庆邮电大学内）400065"
                   animateOn="hover"
@@ -75,8 +77,8 @@ export const PC_ContactSection = () => {
               </span>
             </div>
             <div>
-              <span className="pr-4 text-2xl">MAIL.</span>
-              <span className="text-lg">
+              <span className="pr-4 xl:text-2xl lg:text-lg">MAIL.</span>
+              <span className="xl:text-lg lg:text-sm">
                 <DecryptedText
                   text="[  lanshan@lanshan.email"
                   animateOn="hover"
@@ -95,7 +97,7 @@ export const PC_ContactSection = () => {
         {/* 右侧 */}
         <div className="mr-20 flex flex-col gap-6  text-right">
           <div className="tracking-widest">
-            <div className="text-8xl font-extrabold">
+            <div className="2xl:text-8xl xl:text-[5rem] lg:text-[4rem] font-extrabold">
               <VariableProximity
                 label="CONTACT"
                 containerRef={sectionRef}
@@ -105,7 +107,11 @@ export const PC_ContactSection = () => {
                 falloff="gaussian"
               />
             </div>
-            <div className="text-7xl font-extrabold text-[#00D4FF]">
+            <div
+              className="2xl:text-7xl xl:text-[4rem] lg:text-[3rem]
+            font-extrabold text-[#00D4FF]
+            2xl:mt-0 xl:-mt-4 lg:-mt-6"
+            >
               <VariableProximity
                 label="US"
                 containerRef={sectionRef}
@@ -117,7 +123,7 @@ export const PC_ContactSection = () => {
             </div>
           </div>
 
-          <div className="text-[#D9D9D9] font-semibold text-xs">
+          <div className="text-[#D9D9D9] font-semibold lg:text-xs">
             29.535567°N
             <br />
             106.605065°E
@@ -126,9 +132,11 @@ export const PC_ContactSection = () => {
       </div>
 
       {/* 下部 */}
-      <div className="flex justify-between ml-20 mb-16 items-end relative">
-        {/* 右侧 —— 宽度到内容区中间 */}
-        <div className="w-[80rem] border-2 rounded-2xl bg-[#1a1a1a] h-75 flex items-center justify-center mr-20 font-bold">
+      <div
+        className="flex justify-between ml-20 
+      items-end relative"
+      >
+        <div className="flex-1 border-2 rounded-2xl bg-[#1a1a1a] h-75 flex items-center justify-center mr-20 font-bold">
           <FallingText
             text="HTML CSS JavaScript React Node.js Java Go Python MySQL Docker Git•Github Adobe Sketch Figma Linux TailwindCSS VSCode DeepSeek Claude•Code ChatGPT"
             highlightWords={['HTML', 'JavaScript', 'Java', 'Go', 'Python', 'Docker', 'Figma']}
@@ -137,7 +145,7 @@ export const PC_ContactSection = () => {
             trigger="scroll"
             backgroundColor="transparent"
             wireframes={false}
-            gravity={0.56}
+            gravity={1}
             fontSize="1.2rem"
             mouseConstraintStiffness={0.9}
           />
