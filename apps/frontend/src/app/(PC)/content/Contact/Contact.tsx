@@ -1,6 +1,6 @@
 import { Icon } from '@/components/Icon';
 import styles from './Contact.module.css';
-import { MountainCanvas } from './MountainCanvas';
+import FallingText from './components/FallingText';
 
 export const PC_ContactSection = () => {
   return (
@@ -12,16 +12,16 @@ export const PC_ContactSection = () => {
           <div className={`${styles.contactDecoration}`}>
             <div className="flex items-center">
               <div
-                className="flex 
+                className="flex
                 md:w-14
-                h-4 w-10  
+                h-4 w-10
                  bg-[#D9D9D9] justify-end items-center pr-0.5
                  2xl:pr-1
                  xl:pb-0 lg:pb-0.5"
               >
                 <Icon
                   name="arrow"
-                  className="SectionTitle_arrow__qXHl 
+                  className="SectionTitle_arrow__qXHl
                   w-3 h-3
                   "
                 />
@@ -66,8 +66,23 @@ export const PC_ContactSection = () => {
       </div>
 
       {/* 下部 */}
-      <div className="mt-12 mx-auto max-w-[700px] w-full">
-        <MountainCanvas />
+      <div className="flex ml-12">
+        {/* 左侧 —— 宽度到内容区中间 */}
+        <div className="w-[60rem] border-2 rounded-3xl border-[#1a1a1a] min-h-75 flex items-center justify-center">
+          <FallingText
+            text="HTML CSS JavaScript React Node.js Java Go Python MySQL Docker Git Adobe Sketch Figma Linux TailwindCSS VSCode"
+            highlightWords={['HTML', 'JavaScript', 'Java', 'Go', 'Python', 'Docker', 'Figma']}
+            trigger="scroll"
+            backgroundColor="transparent"
+            wireframes={false}
+            gravity={0.56}
+            fontSize="1.5rem"
+            mouseConstraintStiffness={0.9}
+          />
+        </div>
+
+        {/* 右侧 */}
+        <div className="pr-12" />
       </div>
     </section>
   );
