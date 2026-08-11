@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, type CSSProperties } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Matter from 'matter-js';
 import './FallingText.css';
 
@@ -15,11 +15,6 @@ interface FallingTextProps {
   gravity?: number;
   mouseConstraintStiffness?: number;
   fontSize?: string;
-}
-
-interface WordBody {
-  elem: Element;
-  body: Matter.Body;
 }
 
 const FallingText = ({
