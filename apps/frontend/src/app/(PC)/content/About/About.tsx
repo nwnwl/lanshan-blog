@@ -38,19 +38,39 @@ export const PC_AboutSection = () => {
   return (
     <section
       id="about"
-      className="min-h-0 w-full flex flex-col  3xl:gap-12 2xl:gap-16 lg:gap-20 mb-20"
+      className="min-h-0 w-full flex flex-col  2xl:gap-20 xl:gap-16 lg:gap-14 mb-20 relative"
     >
+      {/* 蓝色装饰 */}
+      <div
+        className={`!absolute top-0 left-0
+           bg-[#00D4FF] 
+            3xl:w-[189.573px] 2xl:w-[182.635px] xl:w-[152.469px] lg:w-[121.833px]
+            w-[61.667px] h-[825.979px]
+            py-3 pl-4 ${styles.aboutRight}
+            `}
+      >
+        <div className="bg-white h-full w-4 relative">
+          <span className="absolute top-1 [writing-mode:vertical-rl] xl:text-4xl lg:text-3xl text-2xl font-semibold tracking-wider">
+            OVERVIEW
+          </span>
+        </div>
+      </div>
+
       {/* 第一部分 */}
       <div
-        className="w-full min-h-0 flex
+        className="w-full min-h-0 flex 
+        lg:flex-row flex-col
        3xl:ml-30
-       xl:ml-22 lg:ml-18
-       mt-12 pb-40"
+       xl:ml-22 lg:ml-16
+       lg:mt-12 
+       pb-40
+       "
       >
         {/* 左侧 */}
         <div
-          className={`header_about flex flex-col justify-between
-          ${styles.aboutHeader}`}
+          className={`header_about flex lg:flex-col lg:justify-between
+          ${styles.aboutHeader}
+          lg:flex-initial flex-1`}
         >
           {/* header部分 */}
           <div
@@ -102,11 +122,11 @@ export const PC_AboutSection = () => {
 
         {/* 右侧 */}
         <div
-          className="xl:pl-21 lg:pl-14
+          className="3xl:pl-30 2xl:pl-24 xl:pl-16 lg:pl-14
          flex"
         >
           {/* 右侧图片 */}
-          <div className="relative">
+          <div className="relative lg:mx-0 mx-auto">
             <MyCarousel images={images_1} textData={textData_1} blink />
             {/* 统一遮罩：覆盖图片右侧 1/4 + 蓝色条 */}
             <div className={styles.unifiedMask} />
@@ -115,7 +135,8 @@ export const PC_AboutSection = () => {
           <div
             className={`bg-[#00D4FF] 
             3xl:w-[189.573px] 2xl:w-[182.635px] xl:w-[152.469px] lg:w-[121.833px]
-            py-3 pl-4 ${styles.aboutRight}`}
+            py-3 pl-4 ${styles.aboutRight}
+            lg:block hidden`}
           >
             <div className="bg-white h-full w-4 relative">
               <span className="absolute top-1 [writing-mode:vertical-rl] xl:text-4xl lg:text-3xl text-2xl font-semibold tracking-wider">
@@ -129,10 +150,12 @@ export const PC_AboutSection = () => {
       {/* 第二部分 */}
       <div
         ref={part2Ref}
-        className="w-full min-h-0 flex
-      3xl:ml-30
-      xl:ml-22 lg:ml-18
-      pb-40"
+        className="w-full min-h-0 
+        flex flex-col-reverse
+        3xl:ml-32 2xl:ml-18
+        xl:ml-16 lg:ml-14
+        lg:flex-row
+        pb-40"
       >
         {/* 左侧 */}
         <div
@@ -141,8 +164,9 @@ export const PC_AboutSection = () => {
         >
           {/* 灰色装饰 */}
           <div
-            className={`bg-[#EDEDED]
+            className={`lg:bg-[#EDEDED] bg-[#00D4FF]
              3xl:w-[189.573px] 2xl:w-[182.635px] xl:w-[152.469px] lg:w-[121.833px]
+             w-[61.667px] h-[825.979px]
             py-3 pl-4 ${styles.aboutRight}`}
           >
             <div className="bg-white h-full w-4 relative">
@@ -152,7 +176,7 @@ export const PC_AboutSection = () => {
             </div>
           </div>
           {/* 左侧图片 */}
-          <div className="relative">
+          <div className="relative lg:mx-0 mx-auto">
             <MyCarousel images={images_2} textData={textData_2} shouldEnter={part2Visible} blink />
           </div>
           {/* 统一遮罩：覆盖灰色条 + 整张图片 */}
@@ -161,7 +185,8 @@ export const PC_AboutSection = () => {
 
         {/* 右侧 */}
         <div
-          className={`header_about flex flex-col justify-between
+          className={`header_about flex 
+          lg:flex-col lg:justify-between
           ${styles.aboutHeader}`}
         >
           {/* header部分 */}
