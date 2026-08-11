@@ -38,7 +38,7 @@ export const PC_AboutSection = () => {
   return (
     <section
       id="about"
-      className="min-h-screen w-full flex flex-col  3xl:gap-12 2xl:gap-16 lg:gap-20"
+      className="min-h-0 w-full flex flex-col  3xl:gap-12 2xl:gap-16 lg:gap-20 mb-20"
     >
       {/* 第一部分 */}
       <div

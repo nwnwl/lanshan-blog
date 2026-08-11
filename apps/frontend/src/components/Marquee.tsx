@@ -80,9 +80,12 @@ export const Marquee = ({ text, bgColor, textColor, direction = 'left' }: Marque
 
   return (
     <div className={`${bgColor} ${textColor} overflow-hidden w-full`}>
-      <div ref={trackRef} className="flex w-full whitespace-nowrap font-medium tracking-widest">
-        <span className="text-8xl">{text}</span>
-        <span className="text-8xl">{text}</span>
+      <div
+        ref={trackRef}
+        className="flex w-full whitespace-nowrap font-medium tracking-widest leading-none"
+      >
+        <span className="lg:text-8xl text-[5.5rem]">{text}</span>
+        <span className="lg:text-8xl text-[5.5rem]">{text}</span>
       </div>
     </div>
   );
