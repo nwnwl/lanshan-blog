@@ -70,7 +70,9 @@ export const PC_ContactSection = () => {
             </div>
           </div>
 
-          <div className="flex flex-col sm:gap-4 gap-6 font-medium">
+          <div
+            className={`flex flex-col sm:gap-4 gap-6 font-medium relative ${styles.coordinatesDecoration}`}
+          >
             <div>
               <span className="sm:pr-11.5 pr-9.5 lg:text-2xl text-[1.2rem]">QQ.</span>
               <span
@@ -118,7 +120,7 @@ export const PC_ContactSection = () => {
         </div>
 
         {/* 右侧 */}
-        <div className="mr-20 flex-col md:gap-6 sm:gap-16 text-right hidden sm:flex">
+        <div className="mr-20 flex-col md:gap-6 sm:gap-16 text-right hidden md:flex">
           <div className="tracking-widest">
             <div className="2xl:text-[6rem] xl:text-[5.4rem] lg:text-[4rem] text-[3.8rem] font-extrabold leading-none">
               <VariableProximity
@@ -151,7 +153,7 @@ export const PC_ContactSection = () => {
             106.605065°E
           </div>
         </div>
-        <div className="hidden sm:block sm:absolute right-20 bottom-0 text-right">
+        <div className="hidden md:block md:absolute right-20 bottom-0 text-right">
           <SplitText
             text={'29.535567°N\n106.605065°E'}
             className="text-[#D9D9D9] font-semibold text-xs whitespace-pre-line"

@@ -25,6 +25,85 @@
   animation: blink 1.2s step-end infinite;
 }
 
+.coordinatesDecoration {
+  position: relative;
+}
+
+.coordinatesDecoration::before {
+  content: '';
+  position: absolute;
+  width: 18rem;
+  height: 18rem;
+  background: url('/picture/Coordinates.png') no-repeat;
+  background-size: contain;
+  top: -3rem;
+  left: 16rem;
+}
+
+@media (max-width: 376px) {
+  .coordinatesDecoration::before {
+    content: none;
+  }
+}
+
+@media (min-width: 376px) {
+  .coordinatesDecoration::before {
+    width: 16rem;
+    height: 16rem;
+    top: -1rem;
+    left: 14rem;
+  }
+}
+
+@media (min-width: 430px) {
+  .coordinatesDecoration::before {
+    width: 16rem;
+    height: 16rem;
+    left: 18rem;
+  }
+}
+
+@media (min-width: 500px) {
+  .coordinatesDecoration::before {
+    width: 16rem;
+    height: 16rem;
+    left: 24rem;
+  }
+}
+
+@media (min-width: 540px) {
+  .coordinatesDecoration::before {
+    width: 18rem;
+    height: 18rem;
+    left: 28rem;
+    top: -2rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .coordinatesDecoration::before {
+    width: 18rem;
+    height: 18rem;
+    top: -6rem;
+    left: 38rem;
+  }
+}
+
+@media (min-width: 740px) {
+  .coordinatesDecoration::before {
+    width: 18rem;
+    height: 18rem;
+    top: -4rem;
+    left: 48rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .coordinatesDecoration::before {
+    content: none;
+  }
+}
+
 @keyframes blink {
   0%,
   100% {
