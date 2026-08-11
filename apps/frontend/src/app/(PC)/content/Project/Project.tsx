@@ -62,7 +62,10 @@ export const PC_ProjectSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
-  const [cardEnabled] = useState(() => navigator.maxTouchPoints <= 0);
+  const [cardEnabled, setCardEnabled] = useState(false);
+  useEffect(() => {
+    setCardEnabled(navigator.maxTouchPoints <= 0);
+  }, []);
 
   // Preload all images on mount
   useEffect(() => {

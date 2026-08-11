@@ -18,15 +18,14 @@ function ProjectRow({ id, title, subTitle, borderT, onHover }: ProjectProps) {
       onMouseEnter={onHover}
     >
       <div
-        className="text-white 
-        lg:[-webkit-text-stroke:2px_black]
-        2xl:[-webkit-text-stroke:3px_black]
-        lg:text-[4.4rem] xl:text-[4.9rem] 
+        className={`${styles.number} text-white
+        text-[3.4rem] md:text-[4rem]
+        lg:text-[4.4rem] xl:text-[4.9rem]
         2xl:text-[5.2rem] 3xl:text-[5.6rem]
         font-bold
-        group-hover:text-[#00D4FF] 
-        group-hover:[-webkit-text-stroke:0]
-        transition-all duration-400 ease-in-out z-10"
+        group-hover:text-[#00D4FF]
+        group-hover:[text-shadow:none]
+        transition-all duration-400 ease-in-out z-10`}
       >
         {id}
       </div>
@@ -35,10 +34,13 @@ function ProjectRow({ id, title, subTitle, borderT, onHover }: ProjectProps) {
         group-hover:text-white
         transition-colors duration-400 ease-in-out"
       >
-        <span className="2xl:text-[3.6rem] lg:text-[2.8rem] md:text-5xl sm:text-4xl text-2xl font-black indent-3">
+        <span className="2xl:text-[3.6rem] lg:text-[2.8rem] md:text-[2.6rem] sm:text-[2.2rem] text-[1.8rem] font-black indent-3">
           {title}
         </span>
-        <span className="2xl:text-base lg:text-sm sm:text-xl text-sm font-semibold pl-4 whitespace-pre-wrap">
+        <span
+          className="2xl:text-base lg:text-sm md:text-[1rem] text-[0.8rem] font-semibold pl-4 whitespace-pre-wrap 
+        max-[1024px]:-mt-2"
+        >
           {'+  ' + subTitle + '  +'}
         </span>
       </div>

@@ -44,3 +44,24 @@
   width: 100%;
   object-fit: cover;
 }
+
+/* Number stroke via text-shadow — smoothly transitionable */
+@media (min-width: 0px) {
+  .number {
+    text-shadow:
+      2px 0 0 #000,
+      -2px 0 0 #000,
+      0 2px 0 #000,
+      0 -2px 0 #000;
+  }
+}
+
+@media (min-width: 1536px) {
+  .number {
+    text-shadow:
+      3px 0 0 #000,
+      -3px 0 0 #000,
+      0 3px 0 #000,
+      0 -3px 0 #000;
+  }
+}
