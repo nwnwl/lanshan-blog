@@ -3,6 +3,7 @@ import { Icon } from '@/components/Icon';
 import styles from './Contact.module.css';
 import FallingText from './components/FallingText';
 import VariableProximity from '@/components/VariableProximity/VariableProximity';
+import SplitText from '@/components/SplitText/SplitText';
 
 const FULL =
   'HTML CSS JavaScript React Node.js Java Go Python MySQL Docker Git•Github Codex Sketch Figma Linux TailwindCSS VSCode DeepSeek Claude•Code ChatGPT';
@@ -150,10 +151,14 @@ export const PC_ContactSection = () => {
             106.605065°E
           </div>
         </div>
-        <div className="hidden sm:block sm:absolute right-20 bottom-0 text-right text-[#D9D9D9] font-semibold text-xs pointer-events-none">
-          29.535567°N
-          <br />
-          106.605065°E
+        <div className="hidden sm:block sm:absolute right-20 bottom-0 text-right">
+          <SplitText
+            text={'29.535567°N\n106.605065°E'}
+            className="text-[#D9D9D9] font-semibold text-xs whitespace-pre-line"
+            tag="div"
+            delay={30}
+            threshold={0}
+          />
         </div>
       </div>
 
