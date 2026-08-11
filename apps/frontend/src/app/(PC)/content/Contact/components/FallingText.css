@@ -1,0 +1,46 @@
+.falling-text-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  text-align: center;
+  padding-top: 2em;
+}
+
+.falling-text-target {
+  display: inline-block;
+  visibility: hidden;
+}
+
+.word {
+  display: inline-block;
+  margin: 0;
+  user-select: none;
+  background-color: white;
+  border-radius: 100px;
+  padding: clamp(8px, 2vw, 12px) clamp(14px, 3vw, 20px);
+  letter-spacing: -0.01em;
+}
+
+.highlighted {
+  background-color: #00d4ff;
+}
+
+.alt {
+  color: #00d4ff;
+  border: 2px solid #00d4ff;
+  background-color: #000;
+}
+
+.falling-text-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.falling-text-canvas canvas {
+  pointer-events: none;
+}

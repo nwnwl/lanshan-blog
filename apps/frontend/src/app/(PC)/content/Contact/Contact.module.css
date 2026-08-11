@@ -1,0 +1,44 @@
+.contactDecoration {
+  position: relative;
+}
+
+.contactDecoration::before {
+  content: '';
+  position: absolute;
+  background: url('/picture/header-decoration.svg') no-repeat;
+  height: 5rem;
+  width: 5rem;
+  background-size: contain;
+  pointer-events: none;
+  filter: brightness(0) invert(0.5);
+  top: -0.3rem;
+  opacity: 1;
+}
+
+.blinkDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #000;
+  margin-right: 6px;
+  animation: blink 1.2s step-end infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1280px) {
+  .contactDecoration::before {
+    height: 4rem;
+    width: 4rem;
+    top: -0.6rem;
+  }
+}
