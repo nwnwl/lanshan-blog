@@ -139,6 +139,23 @@ const FallingText = ({
 
     World.add(engine.world, [...walls, mc, ...items.map((it) => it.body)]);
 
+    // document mousemove — release dragged body when cursor leaves container bounds
+    // use canvas container for bounds bc el.getBoundingClientRect includes transformed children
+    const onDocMove = (e: MouseEvent) => {
+      if (!mc.body) return;
+      const br = canvasContainerRef.current?.getBoundingClientRect();
+      if (!br) return;
+      if (
+        e.clientX < br.left ||
+        e.clientX > br.right ||
+        e.clientY < br.top ||
+        e.clientY > br.bottom
+      ) {
+        (m.mouseup as unknown as (e: MouseEvent) => void)(e);
+      }
+    };
+    document.addEventListener('mousemove', onDocMove);
+
     // resize — CS style
     const resizeObserver = new ResizeObserver(() => {
       const br = containerRef.current?.getBoundingClientRect();
@@ -212,6 +229,7 @@ const FallingText = ({
       resizeObserver.disconnect();
       if (idleTimer) clearTimeout(idleTimer);
       el.removeEventListener('mouseenter', wake);
+      document.removeEventListener('mousemove', onDocMove);
       el.removeEventListener('touchstart', m.mousedown);
       el.removeEventListener('touchmove', m.mousemove);
       World.clear(engine.world, false);
