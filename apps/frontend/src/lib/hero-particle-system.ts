@@ -68,6 +68,7 @@ export class ParticleSystem {
   private centerY = 0;
   private needsResample = false;
   private isResampling = false;
+  private imageUrl = '/picture/lm-1.png';
   private currentFloat = 0;
   private smoothMX = 0;
   private smoothMY = 0;
@@ -77,7 +78,8 @@ export class ParticleSystem {
     this.params = { ...PARTICLE_DEFAULTS };
   }
 
-  async init(hostElement: HTMLElement): Promise<void> {
+  async init(hostElement: HTMLElement, imageUrl?: string): Promise<void> {
+    if (imageUrl) this.imageUrl = imageUrl;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     this.app = new Application();
     await this.app.init({
@@ -121,7 +123,7 @@ export class ParticleSystem {
     });
     this.resizeObserver.observe(hostElement);
 
-    await this.resampleParticles('/picture/lm-1.png');
+    await this.resampleParticles(this.imageUrl);
   }
 
   setParam(key: keyof ParticleParams, value: number): void {
@@ -253,7 +255,7 @@ export class ParticleSystem {
     if (this.needsResample && !this.isResampling) {
       this.needsResample = false;
       this.isResampling = true;
-      this.resampleParticles('/picture/lm-1.png').finally(() => {
+      this.resampleParticles(this.imageUrl).finally(() => {
         this.isResampling = false;
       });
       return;

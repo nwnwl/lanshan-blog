@@ -44,25 +44,41 @@ export const IconParticleCanvas = ({
   const [canvasOffset, setCanvasOffset] = useState(0);
   const [ready, setReady] = useState(false);
   const [responsiveScale, setResponsiveScale] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
+  const [inView, setInView] = useState(false);
+  // 初次进入（滚动进入视口时内容已展示 = 移动端自动进入）或视口从大屏跨入小屏：文字入场延迟 -1s；点击切换恢复完整延迟
+  // 渲染期派生（非 setState）：transition 在「面板首次可见的那帧」就按当时的 delay 排程，事后改 className 不会重启已排程的过渡
+  // 用真实视口宽度而非防抖后的 isMobile：showContent 只在 width<1024 时通过自动进入变 true，首帧即正确
+  const initialEntrance = showContent && typeof window !== 'undefined' && window.innerWidth < 1024;
 
   const responsiveRef = useRef(responsiveScale);
   responsiveRef.current = responsiveScale;
 
-  // 响应式缩放更新（轻量，不重采样）
+  // 响应式缩放更新（轻量，不重采样）+ lg 以下移动端标记
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
       if (w >= 1280) setResponsiveScale(1);
       else if (w >= 1024) setResponsiveScale(0.7);
-      else setResponsiveScale(0.5);
+      else setResponsiveScale(0.8);
+      setIsMobile(w < 1024);
     };
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
+    update(); // 首载立即应用
+    let timer: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      clearTimeout(timer);
+      timer = setTimeout(update, 150); // 防抖：停止拉伸 150ms 后再应用
+    };
+    window.addEventListener('resize', onResize);
+    return () => {
+      window.removeEventListener('resize', onResize);
+      clearTimeout(timer);
+    };
   }, []);
 
-  // 初始化粒子系统
+  // 初始化粒子系统（进入视口后才创建，粒子从随机位置飞入 + 淡入）
   useEffect(() => {
+    if (!inView) return;
     const container = containerRef.current;
     if (!container) return;
     let destroyed = false;
@@ -87,7 +103,7 @@ export const IconParticleCanvas = ({
       psRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [inView]);
 
   // 同步 currentIcon → 粒子系统
   useEffect(() => {
@@ -121,16 +137,17 @@ export const IconParticleCanvas = ({
     psRef.current.setParam('gap', baseGap / gapDiv);
   }, [responsiveScale, ready, currentIcon]);
 
-  // 入场动画
+  // 进入视口一次性触发：粒子初始化（全端）+ 按钮列入场（仅 ≥lg）
+  // 观察 canvas 容器而非按钮列：按钮列 max-lg:hidden，移动端 display:none 永远不会触发
   useEffect(() => {
-    const el = buttonColRef.current;
+    const el = containerRef.current;
     if (!el) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setButtonsVisible(true);
-          obs.disconnect(); // 只触发一次，之后不再监听
-        }
+        if (!entry.isIntersecting) return;
+        setInView(true); // 粒子进入视口才初始化
+        if (window.innerWidth >= 1024) setButtonsVisible(true); // 小屏按钮显隐由自动切换/返回控制
+        obs.disconnect(); // 只触发一次，之后不再监听
       },
       { threshold: 0.5 },
     );
@@ -146,11 +163,18 @@ export const IconParticleCanvas = ({
     if (!parent) return;
 
     const update = () => setCanvasOffset(parent.offsetWidth / 2);
-    update();
+    update(); // 首载立即计算
 
-    const ro = new ResizeObserver(update);
+    let timer: ReturnType<typeof setTimeout>;
+    const ro = new ResizeObserver(() => {
+      clearTimeout(timer);
+      timer = setTimeout(update, 150); // 防抖：停止拉伸 150ms 后再计算偏移
+    });
     ro.observe(parent);
-    return () => ro.disconnect();
+    return () => {
+      ro.disconnect();
+      clearTimeout(timer);
+    };
   }, []);
 
   // 重采样
@@ -172,14 +196,14 @@ export const IconParticleCanvas = ({
   }, [currentIcon]);
 
   return (
-    <div className="relative w-full h-full flex justify-center 2xl:justify-evenly">
+    <div className="relative w-full h-full flex max-lg:flex-col max-lg:justify-end justify-center 2xl:justify-evenly">
       {/* 按钮列 — 退出后折叠 */}
       <div
         ref={buttonColRef}
-        className={`w-[300px] lg:w-[400px] xl:w-[530px] h-full 
+        className={`max-lg:hidden w-[260px] lg:w-[400px] xl:w-[530px] h-full 
           flex flex-col justify-center 
           z-20 
-          pb-[6.7vw]
+          pb-[calc((100vw-1rem)*1/15+1rem)]
           transition-all
            ${
              buttonsVisible
@@ -196,7 +220,7 @@ export const IconParticleCanvas = ({
               key={key}
               onClick={() => handleIconChange(key)}
               style={{ transitionDelay: `${i * 50}ms` }}
-              className={`h-[80px] min-[1920px]:text-2xl text-left pl-8
+              className={`h-[3.8rem] xl:h-[4rem] min-[1920px]:text-2xl text-left pl-8
             relative flex items-end 
             bg-transparent border-0 border-b border-white
             group cursor-pointer
@@ -226,34 +250,40 @@ export const IconParticleCanvas = ({
                 group-hover:text-white
                 font-bold"
               >
-                <span className="text-[1.6rem]">{cn}</span>
-                <span className="text-[0.8rem] ml-4">{en}</span>
+                <span className="text-[1.6rem] xl:text-[1.8rem]">{cn}</span>
+                <span className="text-[0.8rem] xl:text-[1rem] ml-4">{en}</span>
               </div>
             </div>
           );
         })}
       </div>
-      <div className="h-full w-[300px] lg:w-[400px] xl:w-[530px]   px-0 lg:pr-20">
+      <div className="h-1/2 max-lg:w-full lg:h-full lg:w-[400px] xl:w-[530px] pb-[calc((100vw-1rem)*1/15+1rem)]  px-0 lg:pr-20">
         <DepartmentPanel
           deptKey={panelDeptKey}
           direction={direction}
           visible={showContent}
+          inView={inView}
+          initialEntrance={initialEntrance}
           isToggle={isToggle}
         />
       </div>
 
-      {/* canvas 粒子 — 内容时左移，默认在右 */}
+      {/* canvas 粒子 — 内容时左移，默认在右（仅 ≥lg 生效；lg 以下直接居中） */}
       {/* 使用 transform 而非 left 做动画：GPU 合成线程执行，避免重排卡顿 */}
       <div
         ref={containerRef}
-        className="absolute top-0 h-[calc(100%*14/15)]  w-[400px] sm:w-[500px] lg:w-[600px] 2xl:w-[700px] bg-transparent will-change-transform"
-        style={{
-          left: '25%',
-          transform: showContent
-            ? 'translateX(-50%)'
-            : `translateX(calc(-50% + ${canvasOffset}px))`,
-          transition: `transform 1000ms ease-in-out`,
-        }}
+        className="absolute top-0 h-4/5 lg:h-[calc(100vh-((100vw-1rem)*1/15+1rem))] max-lg:w-full lg:w-[400px] xl:w-[530px] bg-transparent will-change-transform"
+        style={
+          isMobile
+            ? { left: '50%', transform: 'translateX(-50%)' }
+            : {
+                left: '25%',
+                transform: showContent
+                  ? 'translateX(-50%)'
+                  : `translateX(calc(-50% + ${canvasOffset}px))`,
+                transition: `transform 1000ms ease-in-out`,
+              }
+        }
       />
     </div>
   );

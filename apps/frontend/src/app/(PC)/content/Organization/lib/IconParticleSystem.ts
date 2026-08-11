@@ -297,13 +297,17 @@ export class IconParticleSystem {
   ): Promise<void> {
     if (!this.container || !this.app || !this.whiteTexture) return;
 
+    // 同步更新参数：避免 init 后外部 setParam 因 gap/scale 变化再次触发重复重采样
+    this.params.gap = gapOverride ?? this.params.gap;
+    this.params.scale = scaleOverride ?? this.params.scale;
+
     const MAX_DIM = 200;
     const imageData = await svgIconToImageData(iconDef, MAX_DIM);
     this.imgWidth = imageData.width;
     this.imgHeight = imageData.height;
 
-    const gap = gapOverride ?? this.params.gap;
-    const scale = scaleOverride ?? this.params.scale;
+    const gap = this.params.gap;
+    const scale = this.params.scale;
     const samples = sampleIcon(imageData, gap, scale);
 
     for (const p of this.particles) p.sprite.destroy();
@@ -345,14 +349,19 @@ export class IconParticleSystem {
     if (this.isResampling) return;
     this.isResampling = true;
 
+    // 同步更新参数：changeIcon 已按新 gap/scale 完成重采样，
+    // 让后续 setParam('gap'/'scale') 不再触发 needsResample → 避免 interval 再 forceResample 一次造成粒子跳变
+    this.params.gap = gapOverride ?? this.params.gap;
+    this.params.scale = scaleOverride ?? this.params.scale;
+
     const MAX_DIM = 200;
     const imageData = await svgIconToImageData(iconDef, MAX_DIM);
     this.imgWidth = imageData.width;
     this.imgHeight = imageData.height;
 
     // 采样新图标
-    const gap = gapOverride ?? this.params.gap;
-    const scale = scaleOverride ?? this.params.scale;
+    const gap = this.params.gap;
+    const scale = this.params.scale;
     let samples = sampleIcon(imageData, gap, scale);
 
     // 粒子数以最多的那个为准：只增不减，保证细节不丢失
