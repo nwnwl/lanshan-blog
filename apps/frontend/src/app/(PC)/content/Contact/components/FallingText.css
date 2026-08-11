@@ -19,7 +19,7 @@
   user-select: none;
   background-color: white;
   border-radius: 100px;
-  padding: 12px 20px;
+  padding: clamp(8px, 2vw, 12px) clamp(14px, 3vw, 20px);
   letter-spacing: -0.01em;
 }
 

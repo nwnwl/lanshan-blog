@@ -2,14 +2,13 @@ import { useRef, useState, useEffect } from 'react';
 import { Icon } from '@/components/Icon';
 import styles from './Contact.module.css';
 import FallingText from './components/FallingText';
-import DecryptedText from './components/DecryptedText';
 import VariableProximity from '@/components/VariableProximity/VariableProximity';
 
 const FULL =
   'HTML CSS JavaScript React Node.js Java Go Python MySQL Docker Git•Github Codex Sketch Figma Linux TailwindCSS VSCode DeepSeek Claude•Code ChatGPT';
 const SHORT =
   'HTML CSS JavaScript React Node.js Java Go Python MySQL Docker Git•Github Figma DeepSeek Claude•Code ChatGPT';
-const MINI = 'HTML CSS JavaScript Java Go Python Git•Github Claude•Code';
+const MINI = 'HTML Codex JavaScript Java Go Python Git•Github Claude•Code';
 
 export const PC_ContactSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -29,24 +28,23 @@ export const PC_ContactSection = () => {
     <section
       ref={sectionRef}
       id="contact"
-      className="min-h-0 w-full flex flex-col 
-      2xl:gap-24 gap-36
+      className="min-h-0 w-full flex flex-col
+      2xl:gap-24 xl:gap-36 gap-42
        text-black bg-[#fafafa]
        "
     >
       {/* 上部 */}
       <div
-        className="min-h-0 flex justify-between ml-20 
-      xl:mt-20 mt-30"
+        className="min-h-0 flex justify-between ml-20
+      xl:mt-20 mt-30 relative"
       >
         {/* 左侧 */}
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-12 min-w-0">
           <div className={`${styles.contactDecoration}`}>
             <div className="flex items-center">
               <div
                 className="flex
-                md:w-14
-                h-4 w-10
+                h-4 w-14
                  bg-[#D9D9D9] justify-end items-center pr-0.5
                  2xl:pr-1
                  xl:pb-0 lg:pb-0.5"
@@ -64,66 +62,64 @@ export const PC_ContactSection = () => {
             </div>
 
             <div
-              className="font-bold 
-            2xl:text-[30px] xl:text-2xl lg:text-xl text-[1.4rem] tracking-tight -mt-1"
+              className="font-bold
+            2xl:text-[30px] lg:text-[2rem] text-[1.6rem] tracking-tight -mt-1"
             >
               联系我们
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 font-medium">
+          <div className="flex flex-col sm:gap-4 gap-6 font-medium">
             <div>
-              <span className="pr-4 xl:text-2xl lg:text-lg">QQ.</span>
-              <span className="xl:text-lg lg:text-sm">
-                <DecryptedText
-                  text="[  1065475643"
-                  animateOn="hover"
-                  revealDirection="start"
-                  speed={30}
-                  maxIterations={10}
-                  sequential
-                  useOriginalCharsOnly
-                />{' '}
-                ]
+              <span className="sm:pr-11.5 pr-9.5 lg:text-2xl text-[1.2rem]">QQ.</span>
+              <span
+                className="text-lg
+              cursor-pointer
+              md:bg-[length:0%_2px]
+              md:hover:bg-[length:100%_2px]
+              bg-[length:0%_1px]
+              hover:bg-[length:100%_1px] bg-no-repeat bg-left-bottom pb-0.5 transition-[background-size] duration-300 bg-gradient-to-r from-black to-black"
+              >
+                [ 1065475643 ]
+              </span>
+            </div>
+            <div className="relative">
+              <span className="lg:text-2xl text-[1.2rem] absolute top-1.75 sm:relative sm:inline sm:top-0">
+                ADDR.
+              </span>
+              <span
+                className="max-[640px]:pl-18.5 pl-4 text-lg cursor-pointer
+              bg-origin-content
+              md:bg-[length:0%_2px]
+              md:hover:bg-[length:100%_2px]
+              bg-[length:0%_1px]
+              hover:bg-[length:100%_1px]
+              bg-no-repeat bg-left-bottom pb-0.5 transition-[background-size] duration-300 bg-gradient-to-r from-black to-black"
+              >
+                [ 重庆市南岸区南山街道崇文路2号 <br className="sm:hidden" />
+                （重庆邮电大学内）400065 ]
               </span>
             </div>
             <div>
-              <span className="pr-4 xl:text-2xl lg:text-lg">ADDR.</span>
-              <span className="xl:text-lg lg:text-sm">
-                <DecryptedText
-                  text="[  重庆市南岸区南山街道崇文路2号 ]（重庆邮电大学内）400065"
-                  animateOn="hover"
-                  revealDirection="start"
-                  speed={30}
-                  maxIterations={15}
-                  sequential
-                  useOriginalCharsOnly
-                />{' '}
-                ]
-              </span>
-            </div>
-            <div>
-              <span className="pr-4 xl:text-2xl lg:text-lg">MAIL.</span>
-              <span className="xl:text-lg lg:text-sm">
-                <DecryptedText
-                  text="[  lanshan@lanshan.email"
-                  animateOn="hover"
-                  revealDirection="start"
-                  speed={30}
-                  maxIterations={10}
-                  sequential
-                  useOriginalCharsOnly
-                />{' '}
-                ]
+              <span className="sm:pr-6.5 pr-6 lg:text-2xl text-[1.2rem]">MAIL.</span>
+              <span
+                className="text-lg cursor-pointer
+              md:bg-[length:0%_2px]
+              md:hover:bg-[length:100%_2px]
+              bg-[length:0%_1px]
+              hover:bg-[length:100%_1px]
+              bg-no-repeat bg-left-bottom pb-0.5 transition-[background-size] duration-300 bg-gradient-to-r from-black to-black"
+              >
+                [ lanshan@lanshan.email ]
               </span>
             </div>
           </div>
         </div>
 
         {/* 右侧 */}
-        <div className="mr-20 flex flex-col gap-6  text-right">
+        <div className="mr-20 flex-col md:gap-6 sm:gap-16 text-right hidden sm:flex">
           <div className="tracking-widest">
-            <div className="2xl:text-8xl xl:text-[5rem] lg:text-[4rem] text-[3.8rem] font-extrabold">
+            <div className="2xl:text-[6rem] xl:text-[5.4rem] lg:text-[4rem] text-[3.8rem] font-extrabold leading-none">
               <VariableProximity
                 label="CONTACT"
                 containerRef={sectionRef}
@@ -134,9 +130,8 @@ export const PC_ContactSection = () => {
               />
             </div>
             <div
-              className="2xl:text-7xl xl:text-[4rem] lg:text-[3rem] text-[2.6rem]
-            font-extrabold text-[#00D4FF]
-            2xl:mt-0 xl:-mt-4 -mt-6"
+              className="2xl:text-[4.5rem] xl:text-[4rem] lg:text-[3rem] text-[2.6rem]
+            font-extrabold text-[#00D4FF] leading-none"
             >
               <VariableProximity
                 label="US"
@@ -149,27 +144,32 @@ export const PC_ContactSection = () => {
             </div>
           </div>
 
-          <div className="text-[#D9D9D9] font-semibold lg:text-xs">
+          <div className="invisible font-semibold text-xs pointer-events-none" aria-hidden>
             29.535567°N
             <br />
             106.605065°E
           </div>
         </div>
+        <div className="hidden sm:block sm:absolute right-20 bottom-0 text-right text-[#D9D9D9] font-semibold text-xs pointer-events-none">
+          29.535567°N
+          <br />
+          106.605065°E
+        </div>
       </div>
 
       {/* 下部 */}
       <div
-        className="flex justify-between ml-20 
+        className="flex justify-between ml-20
       items-end relative mb-30"
       >
         <div
-          className="flex-1 border-2 rounded-2xl bg-[#1a1a1a] 
+          className="flex-1 border-2 rounded-2xl bg-[#1a1a1a]
         xl:h-75 lg:h-85 md:h-100 h-120
         flex items-center justify-center mr-20 font-bold"
         >
           <FallingText
             text={toolkit}
-            highlightWords={['HTML', 'JavaScript', 'Java', 'Go', 'Python', 'Docker', 'Figma']}
+            highlightWords={['React', 'JavaScript', 'Java', 'Go', 'Python', 'Docker', 'Figma']}
             altWords={['DeepSeek', 'Claude•Code', 'ChatGPT', 'Codex']}
             altClass="alt"
             trigger="scroll"
@@ -181,7 +181,7 @@ export const PC_ContactSection = () => {
           />
         </div>
 
-        <div className="absolute -top-8 right-26 text-xs flex items-center">
+        <div className="absolute sm:-top-8 right-26 sm:text-xs text-lg -top-16  flex items-center">
           <span className={styles.blinkDot} />
           Drag & throw — every tag here runs in production systems we operate
         </div>
