@@ -1,11 +1,6 @@
 'use client';
 import { useState, useCallback, useEffect } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
 import styles from './MyCarousel.module.css';
-import type { Swiper as SwiperType } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/navigation';
 interface ImageItem {
   id: number;
   src: string;
@@ -109,7 +104,6 @@ export const MyCarousel = ({
   shouldEnter = true,
   blink = false,
 }: MyCarouselProps) => {
-  const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const [current, setCurrent] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(0);
@@ -131,7 +125,7 @@ export const MyCarousel = ({
   const isAnimating = curtainPhase !== 'idle';
 
   const goNext = useCallback(() => {
-    if (isAnimating || !swiper) return;
+    if (isAnimating) return;
     const newIndex = currentIndex >= total - 1 ? 0 : currentIndex + 1;
 
     // 预加载 next 图 + 阈值图
@@ -146,9 +140,9 @@ export const MyCarousel = ({
     setThresholdSrc(images[newIndex].thresholdSrc);
     setCurtainPhase('blackEnter');
 
-    // 350ms：黑色铺满，swiper 切图，阈值就位，黑色开始退场
+    // 350ms：黑色铺满，切图，黑色开始退场
     setTimeout(() => {
-      swiper.slideTo(newIndex, 0); // 原图已被遮住，安全切换
+      setCurrentIndex(newIndex); // 原图已被遮住，安全切换
       setCurtainPhase('blackExit');
     }, 350);
 
@@ -161,12 +155,11 @@ export const MyCarousel = ({
     setTimeout(() => {
       setCurtainPhase('idle');
       setCurrent(newIndex + 1);
-      setCurrentIndex(newIndex);
     }, 900);
-  }, [isAnimating, swiper, currentIndex, total]);
+  }, [isAnimating, currentIndex, total]);
 
   const goPrev = useCallback(() => {
-    if (isAnimating || !swiper) return;
+    if (isAnimating) return;
     const newIndex = currentIndex <= 0 ? total - 1 : currentIndex - 1;
 
     const preloadNext = new Image();
@@ -181,7 +174,7 @@ export const MyCarousel = ({
     setCurtainPhase('blackEnter');
 
     setTimeout(() => {
-      swiper.slideTo(newIndex, 0);
+      setCurrentIndex(newIndex);
       setCurtainPhase('blackExit');
     }, 350);
 
@@ -192,30 +185,23 @@ export const MyCarousel = ({
     setTimeout(() => {
       setCurtainPhase('idle');
       setCurrent(newIndex + 1);
-      setCurrentIndex(newIndex);
     }, 900);
-  }, [isAnimating, swiper, currentIndex, total]);
+  }, [isAnimating, currentIndex, total]);
 
   return (
     <div className="relative w-[51.25em] h-[30em]">
       {/* 图片区：overflow-hidden 截断幕布，不溢出全屏 */}
       <div className="relative w-full h-full overflow-hidden">
-        <Swiper
-          className="h-full"
-          modules={[Navigation]}
-          slidesPerView={1}
-          speed={0}
-          allowTouchMove={false}
-          observer={true}
-          observeParents={true}
-          onSwiper={setSwiper}
-        >
-          {images.map((img) => (
-            <SwiperSlide key={img.id} className="!w-full">
-              <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {images.map((img, i) => (
+          <img
+            key={img.id}
+            src={img.src}
+            alt={img.alt}
+            className={`absolute inset-0 w-full h-full object-cover ${
+              i === currentIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        ))}
 
         {/* 阈值图：clip-path 裁切退场，不会压缩 */}
         {(curtainPhase === 'blackExit' || curtainPhase === 'thresholdExit') && (
@@ -253,21 +239,21 @@ export const MyCarousel = ({
       {/* 按钮放到 overflow-hidden 外面，不受裁剪 */}
       {/* 左按钮 */}
       <div
-        className={`${styles.carouselBg} ${shouldEnter ? (blink ? styles.blinkBtn : styles.carouselBgEnter) : 'opacity-0'} absolute w-fit 
-        xl:left-6 lg:left-4 md:left-52
-        lg:bottom-8 md:-bottom-56
-         z-50 
-        lg:bg-black/60 bg-[#E6E6E6] 
-        rounded-full flex 
-        lg:gap-8 md:gap-14 
-        2xl:p-0.75 lg:p-0.5 md:p-1`}
+        className={`${styles.carouselBg} ${shouldEnter ? (blink ? styles.blinkBtn : styles.carouselBgEnter) : 'opacity-0'} absolute w-fit
+        left-[1.5em]
+        bottom-[2em]
+         z-50
+        lg:bg-black/60 bg-[#E6E6E6]
+        rounded-full flex
+        gap-[2em]
+        p-[0.1875em]`}
       >
         <div className="p-0.5 bg-[#FAFAFA] rounded-full z-1 group">
           <button
             onClick={goPrev}
-            className={`${styles.carouselBtn} swiper-custom-prev rounded-full 
-            xl:p-2.5 lg:p-2 md:p-4 
-            xl:border-2 lg:border md:border-2
+            className={`${styles.carouselBtn} rounded-full
+            p-[0.625em]
+            border-2
             border-[#E6E6E6]
             transition-all duration-500 ease-out
             group-hover:bg-[#00d5ffca] cursor-pointer
@@ -290,9 +276,9 @@ export const MyCarousel = ({
         <div className="p-0.5 bg-[#FAFAFA]  rounded-full z-1 group">
           <button
             onClick={goNext}
-            className={`${styles.carouselBtn} swiper-custom-next rounded-full 
-            xl:p-2.5 lg:p-2 md:p-4
-            xl:border-2 lg:border md:border-2
+            className={`${styles.carouselBtn} rounded-full
+            p-[0.625em]
+            border-2
             border-[#E6E6E6]
             transition-all duration-500 ease-out
             group-hover:bg-[#00d5ffca] cursor-pointer`}
@@ -316,13 +302,12 @@ export const MyCarousel = ({
       {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
         <div
           className={`${styles.textExit} absolute
-          2xl:-bottom-10.5 lg:-bottom-10
-          md:-bottom-11
+          -bottom-[10.5em]
           z-10
           pointer-events-none
-          2xl:text-[9px] xl:text-[8px] lg:text-[6px] md:text-[7px]
+          text-[0.5em]
           font-bold
-          lg:left-0 md:left-48`}
+          left-0`}
         >
           {current} / {total}
         </div>
@@ -338,15 +323,13 @@ export const MyCarousel = ({
                 ? styles.textEnter
                 : ''
           } absolute
-           2xl:-bottom-10.5 lg:-bottom-10 
-           md:-bottom-11
-           z-10 
+           -bottom-[10.5em]
+           z-10
            pointer-events-none
-          2xl:text-[9px] xl:text-[8px] lg:text-[6px]
-          md:text-[7px]
+          text-[0.5em]
            font-bold
-           lg:left-0 md:left-48
-           
+           left-0
+
            `}
         >
           {targetIndex + 1} / {total}
@@ -357,22 +340,17 @@ export const MyCarousel = ({
       {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
         <div
           className={`${styles.textExit} absolute
-         2xl:w-[35rem] lg:w-[30rem] w-[339.177px] 
-          top-[calc(100%+0.5rem)] 
-           2xl:left-5 xl:left-6 lg:left-5 
-           mt-4
-           md:left-54
+         w-[35em] 
+          top-[calc(100%+0.5em)]
+           left-[1.25em]
+           mt-[1em]
            `}
         >
-          <div
-            className="2xl:text-[1.6rem] xl:text-[1.5rem] lg:text-[1.35rem]
-            md:text-[1.8rem] md:font-[550]
-            lg:font-medium "
-          >
+          <div className="text-[1.6em] font-[550] lg:font-medium ">
             {textData[prevIndex]?.title}
           </div>
           <div
-            className="2xl:text-[1.05rem] xl:text-[1rem] lg:text-[0.9rem] md:text-[1.2rem]  xl:pl-1
+            className="text-[1.05em]
            font-medium"
           >
             {textData[prevIndex]?.description}
@@ -391,22 +369,20 @@ export const MyCarousel = ({
                 : ''
           } 
           absolute 
-          2xl:w-[35rem] lg:w-[30rem] w-[339.177px]
-          top-[calc(100%+0.5rem)] 
-          2xl:left-5 xl:left-6 lg:left-5 
-          mt-4
-          md:left-54
+          w-[35em]
+          top-[calc(100%+0.5em)]
+          left-[1.25em]
+          mt-[1em]
           `}
         >
           <div
-            className={`2xl:text-[1.6rem] xl:text-[1.5rem] lg:text-[1.35rem] md:text-[1.8rem] md:font-[550]
-            lg:font-medium 
+            className={`text-[1.6em] font-[550] lg:font-medium
           ${curtainPhase === 'idle' && !hasEntered ? styles.blinkTitle : ''}`}
           >
             {textData[targetIndex]?.title}
           </div>
           <div
-            className={`2xl:text-[1.05rem] xl:text-[1rem] lg:text-[0.9rem] md:text-[1.2rem]  xl:pl-1
+            className={`text-[1.05em]
            font-medium ${curtainPhase === 'idle' && !hasEntered ? styles.blinkDesc : ''}`}
           >
             {textData[targetIndex]?.description}

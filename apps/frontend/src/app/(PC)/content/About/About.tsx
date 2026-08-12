@@ -50,18 +50,16 @@ export const PC_AboutSection = () => {
       >
         <div className={`flex flex-col ${styles.aboutDecoration}`}>
           <div className="flex items-center">
-            <div className="h-4 w-16 md:h-5 md:w-[4rem]">
+            <div className="h-[1.25em] w-[4em]">
               <div className="animationEl entrance-anchor widthGrow pr-1 bg-[#D9D9D9] flex h-full overflow-hidden justify-end items-center">
-                <Icon name="arrow" className="animationEl widthGrowSon1 md:w-3 md:h-3 w-2 h-2" />
+                <Icon name="arrow" className="animationEl widthGrowSon1 w-[0.75em] h-[0.75em]" />
               </div>
             </div>
-            <span className="animationEl widthGrowSon2 lg:text-xl md:text-[1.4rem] text-sm font-medium pl-1">
+            <span className="animationEl widthGrowSon2 text-[1.25em] font-medium pl-1">
               OVERVIEW
             </span>
           </div>
-          <div className="font-bold 2xl:text-[30px] xl:text-2xl lg:text-xl md:text-[1.8rem] tracking-tight">
-            工作室概况
-          </div>
+          <div className="font-bold text-[1.875em] tracking-tight leading-none">工作室概况</div>
         </div>
       </div>
 
@@ -114,7 +112,7 @@ export const PC_AboutSection = () => {
       {/* ============================== Part 2: BENEFITS ============================== */}
 
       {/* gameplayAlbum = [灰条][轮播] */}
-      <div ref={part2Ref} className="absolute" style={{ top: '43em', left: 'calc(50% - 37em)' }}>
+      <div ref={part2Ref} className="absolute" style={{ top: '44em', left: 'calc(50% - 37em)' }}>
         <div
           className="lg:bg-[#EDEDED] bg-[#00D4FF] py-3 pl-4"
           style={{ position: 'absolute', left: '0', top: '0', width: '10.5em', height: '30em' }}
@@ -140,22 +138,20 @@ export const PC_AboutSection = () => {
       {/* pageTitle + decoLeft — 右侧 */}
       <div
         className={`header_about absolute flex flex-col justify-center ${styles.aboutHeader}`}
-        style={{ top: '43em', left: 'calc(50% + 27em)' }}
+        style={{ top: '44em', left: 'calc(50% + 27em)' }}
       >
         <div className={`flex flex-col ${styles.aboutDecoration}`}>
           <div className="flex items-center">
-            <div className="h-4 w-16 md:h-5 md:w-[4rem]">
+            <div className="h-[1.25em] w-[4em]">
               <div className="animationEl entrance-anchor widthGrow pr-1 bg-[#D9D9D9] flex h-full overflow-hidden justify-end items-center">
-                <Icon name="arrow" className="animationEl widthGrowSon1 md:w-3 md:h-3 w-2 h-2" />
+                <Icon name="arrow" className="animationEl widthGrowSon1 w-[0.75em] h-[0.75em]" />
               </div>
             </div>
-            <span className="animationEl widthGrowSon2 lg:text-xl md:text-[1.4rem] text-sm font-medium pl-1">
+            <span className="animationEl widthGrowSon2 text-[1.25em] font-medium pl-1">
               BENEFITS
             </span>
           </div>
-          <div className="font-bold 2xl:text-[30px] xl:text-2xl lg:text-xl md:text-[1.8rem] tracking-tight">
-            成员权益
-          </div>
+          <div className="font-bold text-[1.875em] leading-none tracking-tight">成员权益</div>
         </div>
       </div>
 
