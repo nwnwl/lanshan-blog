@@ -197,41 +197,24 @@ export const MyCarousel = ({
   }, [isAnimating, swiper, currentIndex, total]);
 
   return (
-    <div
-      className="relative 
-    3xl:w-[922px] 3xl:h-[543px]
-    2xl:w-[889px] 2xl:h-[523px] 
-    xl:w-[740px] xl:h-[435px]
-    lg:w-[589px] lg:h-[347px]
-    sm:w-[598px] sm:h-[336px]
-    w-[521px] h-[293px]"
-    >
+    <div className="relative w-[51.25em] h-[30em]">
       {/* 图片区：overflow-hidden 截断幕布，不溢出全屏 */}
       <div className="relative w-full h-full overflow-hidden">
         <Swiper
+          className="h-full"
           modules={[Navigation]}
           loop={true}
           slidesPerView={1}
           spaceBetween={30}
           speed={0}
           allowTouchMove={false}
+          observer={true}
+          observeParents={true}
           onSwiper={setSwiper}
         >
           {images.map((img) => (
             <SwiperSlide key={img.id}>
-              <img
-                src={img.src}
-                alt={img.alt}
-                className="
-                3xl:w-[922px] 3xl:h-[543px]
-                2xl:w-[889px] 2xl:h-[523px]  
-                xl:w-[740px] xl:h-[435px]
-                lg:w-[589px] lg:h-[347px]
-                sm:w-[598px] sm:h-[336px]
-                w-[521px] h-[293px]
-                object-cover
-                "
-              />
+              <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
             </SwiperSlide>
           ))}
         </Swiper>

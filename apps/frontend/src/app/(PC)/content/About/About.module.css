@@ -6,36 +6,35 @@
   content: '';
   position: absolute;
   background: url('/picture/header-decoration.svg') no-repeat;
-  height: 5rem;
-  width: 5rem;
+  height: 5em;
+  width: 5em;
   background-size: contain;
   pointer-events: none;
   filter: brightness(0) invert(0.5);
-  top: -0.3rem;
+  top: -0.4em;
   opacity: 0;
   animation: fadeInUp 0.35s linear 0.15s forwards;
 }
 
 @media (max-width: 1280px) {
   .aboutDecoration::before {
-    height: 4rem;
-    width: 4rem;
+    height: 4em;
+    width: 4em;
   }
 }
 
 .aboutHeader {
-  position: relative;
 }
 
 .aboutHeader::before {
   content: '';
   position: absolute;
   background: url('/picture/decoration-1.svg') no-repeat;
-  height: 4.5rem;
-  width: 4.5rem;
+  height: 5em;
+  width: 5em;
   background-size: contain;
   opacity: 0;
-  top: 5rem;
+  top: 5em;
   pointer-events: none;
   filter: brightness(0) invert(0.65);
   animation: fadeInUp 0.35s linear 0.4s forwards;
@@ -43,16 +42,16 @@
 
 @media (max-width: 1280px) {
   .aboutHeader::before {
-    height: 4rem;
-    width: 4rem;
+    height: 4em;
+    width: 4em;
   }
 }
 
 @media (max-width: 1280px) {
   .aboutHeader::before {
-    height: 5rem;
-    width: 5rem;
-    left: 0rem;
+    height: 5em;
+    width: 5em;
+    left: 0em;
   }
 }
 
@@ -60,12 +59,12 @@
   content: '';
   position: absolute;
   background: url('/picture/decoration-2.png') no-repeat;
-  height: 3.5rem;
-  width: 3.5rem;
+  height: 3.5em;
+  width: 3.5em;
   background-size: contain;
   opacity: 0;
-  top: 7.5rem;
-  left: 0.3rem;
+  top: 8em;
+  left: 0.3em;
   pointer-events: none;
   animation: fadeInUp 0.35s linear 0.5s forwards;
 }
@@ -73,39 +72,6 @@
 @media (max-width: 1024px) {
   .aboutHeader::after {
     content: none;
-  }
-}
-
-.aboutRight {
-  position: relative;
-}
-
-.aboutRight::before {
-  position: absolute;
-  content: '';
-  background: url('/picture/decoration-4.png') no-repeat;
-  height: 5.4rem;
-  width: 5.4rem;
-  background-size: contain;
-  z-index: 1;
-  bottom: 1.4rem;
-  left: 1.2rem;
-}
-
-@media (max-width: 1280px) {
-  .aboutRight::before {
-    height: 4.5rem;
-    width: 4.5rem;
-    left: 1.24rem;
-  }
-}
-
-@media (max-width: 1024px) {
-  .aboutRight::before {
-    height: 6.5rem;
-    width: 6.5rem;
-    left: 1rem;
-    bottom: 4rem;
   }
 }
 
@@ -198,7 +164,7 @@
   left: 0;
   top: 0;
   bottom: 0;
-  width: calc(100% + 189.573px);
+  width: calc(100% + 10.5em);
   background-color: #fff;
   z-index: 40;
   transform-origin: right;
@@ -208,7 +174,10 @@
 /* 第二部分：统一遮罩覆盖灰色条 + 整张图片 */
 .unifiedMask2 {
   position: absolute;
-  inset: 0;
+  left: -10.5em;
+  top: 0;
+  right: 0;
+  bottom: 0;
   background-color: #fff;
   z-index: 40;
   transform-origin: left;
