@@ -203,9 +203,7 @@ export const MyCarousel = ({
         <Swiper
           className="h-full"
           modules={[Navigation]}
-          loop={true}
           slidesPerView={1}
-          spaceBetween={30}
           speed={0}
           allowTouchMove={false}
           observer={true}
@@ -213,7 +211,7 @@ export const MyCarousel = ({
           onSwiper={setSwiper}
         >
           {images.map((img) => (
-            <SwiperSlide key={img.id}>
+            <SwiperSlide key={img.id} className="!w-full">
               <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
             </SwiperSlide>
           ))}

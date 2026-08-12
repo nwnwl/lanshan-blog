@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Icon } from '@/components/Icon';
 import styles from './About.module.css';
 import {
@@ -11,21 +11,8 @@ import {
 } from '@/components/MyCarousel/MyCarousel';
 
 export const PC_AboutSection = () => {
-  const sectionRef = useRef<HTMLElement>(null);
   const part2Ref = useRef<HTMLDivElement>(null);
   const [part2Visible, setPart2Visible] = useState(false);
-
-  // useLayoutEffect 在首次绘制前执行，避免打断 CSS 入场动画
-  useLayoutEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const apply = () => {
-      el.style.fontSize = window.innerWidth / 95 + 'px';
-    };
-    apply();
-    window.addEventListener('resize', apply);
-    return () => window.removeEventListener('resize', apply);
-  }, []);
 
   useEffect(() => {
     const el = part2Ref.current;
@@ -45,10 +32,14 @@ export const PC_AboutSection = () => {
 
   return (
     <section
-      ref={sectionRef}
       id="about"
       className="relative w-full"
-      style={{ height: '78em', marginTop: '2.5em', marginBottom: '11.5em' }}
+      style={{
+        fontSize: 'calc(100vw / 95)',
+        height: '78em',
+        marginTop: '2.5em',
+        marginBottom: '11.5em',
+      }}
     >
       {/* ============================== Part 1: OVERVIEW ============================== */}
 
