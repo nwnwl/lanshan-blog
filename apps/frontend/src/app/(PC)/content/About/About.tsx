@@ -38,24 +38,9 @@ export const PC_AboutSection = () => {
   return (
     <section
       id="about"
-      className="min-h-0 w-full flex flex-col  2xl:gap-20 xl:gap-16 lg:gap-14 mb-20 relative"
+      className="min-h-0 w-full  flex flex-col  2xl:gap-20 xl:gap-16 lg:gap-14
+      mb-20"
     >
-      {/* 蓝色装饰 */}
-      <div
-        className={`!absolute top-0 left-0
-           bg-[#00D4FF] 
-            3xl:w-[189.573px] 2xl:w-[182.635px] xl:w-[152.469px] lg:w-[121.833px]
-            w-[61.667px] h-[825.979px]
-            py-3 pl-4 ${styles.aboutRight}
-            `}
-      >
-        <div className="bg-white h-full w-4 relative">
-          <span className="absolute top-1 [writing-mode:vertical-rl] xl:text-4xl lg:text-3xl text-2xl font-semibold tracking-wider">
-            OVERVIEW
-          </span>
-        </div>
-      </div>
-
       {/* 第一部分 */}
       <div
         className="w-full min-h-0 flex 
@@ -63,44 +48,62 @@ export const PC_AboutSection = () => {
        3xl:ml-30
        xl:ml-22 lg:ml-16
        lg:mt-12 
-       pb-40
+       lg:gap-0 md:gap-6
+       pb-80 
+       lg:mb-0 md:mb-20  
        "
       >
+        {/* 移动端样式 */}
+        <div className="lg:hidden text-[6rem] font-[1000] mt-26 ml-84 tracking-tighter">
+          // LANSHAN
+        </div>
+
         {/* 左侧 */}
         <div
           className={`header_about flex lg:flex-col lg:justify-between
           ${styles.aboutHeader}
-          lg:flex-initial flex-1`}
+          lg:flex-initial flex-1
+          md:justify-around
+          lg:ml-0
+          md:ml-84
+          w-fit
+          lg:pb-0 md:pb-10
+          lg:gap-0 md:gap-60
+          `}
         >
           {/* header部分 */}
           <div
             className={`flex flex-col
+            justify-center
             ${styles.aboutDecoration}`}
           >
             {/* OVERVIEW 遮罩行：由白色遮罩揭示，不淡入 */}
-            <div className={`relative overflow-hidden w-fit ${styles.maskWrapper}`}>
+            <div className={`relative overflow-hidden ${styles.maskWrapper}`}>
               <div className={styles.whiteMask} />
               <div className="flex items-center">
                 <div
                   className="flex 
-                md:w-14
-                h-4 w-10  
-                 bg-[#D9D9D9] justify-end items-center pr-0.5
+                md:w-16
+                lg:h-4 md:h-5 
+                w-10  
+                 bg-[#D9D9D9] justify-end items-center 
+                 lg:pr-0.5 md:pr-1
                  2xl:pr-1
                  xl:pb-0 lg:pb-0.5"
                 >
                   <Icon
                     name="arrow"
                     className="SectionTitle_arrow__qXHl 
-                  w-3 h-3
-                  "
+                    md:w-4 md:h-4 
+                    w-3 h-3
+                    "
                   />
                 </div>
-                <span className="lg:text-base text-xs font-medium pl-1">OVERVIEW</span>
+                <span className="lg:text-base md:text-[1.2rem] font-medium pl-1">OVERVIEW</span>
               </div>
             </div>
             <div
-              className={`font-bold 2xl:text-[30px] xl:text-2xl lg:text-xl tracking-tight -mt-1 ${styles.blinkTitle}`}
+              className={`font-bold 2xl:text-[30px] xl:text-2xl lg:text-xl md:text-[1.8rem] tracking-tight -mt-1 ${styles.blinkTitle}`}
             >
               工作室概况
             </div>
@@ -114,8 +117,9 @@ export const PC_AboutSection = () => {
               2xl:w-16 2xl:h-16
               xl:w-15 xl:h-15
               lg:w-14 lg:h-14
+              md:w-12 md:h-12
               h-10 w-10 
-              p-0.5"
+              lg:p-0.5"
             />
           </div>
         </div>
@@ -123,7 +127,8 @@ export const PC_AboutSection = () => {
         {/* 右侧 */}
         <div
           className="3xl:pl-30 2xl:pl-24 xl:pl-16 lg:pl-14
-         flex"
+         flex
+         relative"
         >
           {/* 右侧图片 */}
           <div className="relative lg:mx-0 mx-auto">
@@ -133,18 +138,34 @@ export const PC_AboutSection = () => {
           </div>
           {/* 蓝色装饰 */}
           <div
-            className={`bg-[#00D4FF] 
+            className={`max-md:absolute! 
+            md:left-48 md:-top-80  
+            lg:inset-y-0 lg:left-auto bg-[#00D4FF] 
             3xl:w-[189.573px] 2xl:w-[182.635px] xl:w-[152.469px] lg:w-[121.833px]
-            py-3 pl-4 ${styles.aboutRight}
-            lg:block hidden`}
+            w-[61.667px] max-[1024px]:h-[880px]
+            lg:py-3 md:py-12 
+            lg:pl-4 md:pl-3 
+            ${styles.aboutRight}
+            `}
           >
-            <div className="bg-white h-full w-4 relative">
-              <span className="absolute top-1 [writing-mode:vertical-rl] xl:text-4xl lg:text-3xl text-2xl font-semibold tracking-wider">
+            <div
+              className="bg-white h-full 
+            lg:w-4 md:w-5 relative"
+            >
+              <span
+                className="absolute top-1 [writing-mode:vertical-rl] xl:text-4xl lg:text-3xl md:text-4xl  
+              font-bold tracking-wider"
+              >
                 OVERVIEW
               </span>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* 移动端样式 */}
+      <div className="lg:hidden text-[6rem] font-[1000]  ml-84 mb-10 tracking-tighter">
+        // LANSHAN
       </div>
 
       {/* 第二部分 */}
@@ -155,7 +176,8 @@ export const PC_AboutSection = () => {
         3xl:ml-32 2xl:ml-18
         xl:ml-16 lg:ml-14
         lg:flex-row
-        pb-40"
+        lg:gap-0 md:gap-6
+        pb-60"
       >
         {/* 左侧 */}
         <div
@@ -164,13 +186,19 @@ export const PC_AboutSection = () => {
         >
           {/* 灰色装饰 */}
           <div
-            className={`lg:bg-[#EDEDED] bg-[#00D4FF]
-             3xl:w-[189.573px] 2xl:w-[182.635px] xl:w-[152.469px] lg:w-[121.833px]
-             w-[61.667px] h-[825.979px]
-            py-3 pl-4 ${styles.aboutRight}`}
+            className={`max-md:absolute! 
+            inset-y-0 lg:left-0 
+            md:left-48 md:-top-80 lg:top-0   
+            lg:bg-[#EDEDED] bg-[#00D4FF]
+            3xl:w-[189.573px] 2xl:w-[182.635px] xl:w-[152.469px] lg:w-[121.833px]
+            w-[61.667px] 
+            lg:
+            lg:h-auto md:h-[825.979px]
+            lg:py-3 md:py-12 
+            lg:pl-4 md:pl-3 ${styles.aboutRight}`}
           >
             <div className="bg-white h-full w-4 relative">
-              <span className="absolute top-1 [writing-mode:vertical-rl]  xl:text-4xl lg:text-3xl text-2xl font-semibold tracking-wider">
+              <span className="absolute top-1 [writing-mode:vertical-rl]  xl:text-4xl lg:text-3xl md:text-4xl font-bold tracking-wider">
                 BENEFITS
               </span>
             </div>
@@ -187,6 +215,12 @@ export const PC_AboutSection = () => {
         <div
           className={`header_about flex 
           lg:flex-col lg:justify-between
+           lg:flex-initial flex-1
+          md:justify-around
+          lg:ml-0 md:ml-84
+          w-fit
+          lg:pb-0 md:pb-10
+          lg:gap-0 md: gap-60
           ${styles.aboutHeader}`}
         >
           {/* header部分 */}
@@ -195,13 +229,17 @@ export const PC_AboutSection = () => {
             ${styles.aboutDecoration}`}
           >
             {/* BENEFITS 遮罩行 */}
-            <div className={`relative overflow-hidden w-fit ${styles.maskWrapper}`}>
+            <div
+              className={`relative overflow-hidden 
+              ${styles.maskWrapper}`}
+            >
               {part2Visible && <div className={styles.whiteMask} />}
               <div className="flex items-center">
                 <div
                   className="flex 
-                md:w-14
-                h-4 w-10  
+                md:w-16
+                lg:h-4 md:h-5 
+                w-10  
                  bg-[#D9D9D9] justify-end items-center pr-0.5
                  2xl:pr-1
                  xl:pb-0 lg:pb-0.5"
@@ -209,15 +247,19 @@ export const PC_AboutSection = () => {
                   <Icon
                     name="arrow"
                     className="SectionTitle_arrow__qXHl 
+                  md:w-4 md:h-4 
                   w-3 h-3
                   "
                   />
                 </div>
-                <span className="lg:text-base text-xs font-medium pl-1">BENEFITS</span>
+                <span className="lg:text-base md:text-[1.2rem] font-medium pl-1">BENEFITS</span>
               </div>
             </div>
             <div
-              className={`font-bold xl:text-2xl lg:text-xl tracking-tight -mt-1 ${part2Visible ? styles.blinkTitle : 'opacity-0'}`}
+              className={`font-bold 
+              2xl:text-[30px]
+              xl:text-2xl lg:text-xl
+              md:text-[1.8rem] tracking-tight -mt-1 ${part2Visible ? styles.blinkTitle : 'opacity-0'}`}
             >
               成员权益
             </div>
@@ -229,11 +271,13 @@ export const PC_AboutSection = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 57 47"
               className="__08-AIC_icon__lIZuJ
+              2xl:w-16 2xl:h-16
               xl:w-15 xl:h-15
-              lg:w-14 lg:h-14 
+              lg:w-14 lg:h-14
+              md:w-12 md:h-12 
               h-10 w-10
               text-[#A6A6A6]
-              3xl:p-1.5 p-1"
+              3xl:p-1.5 lg:p-1"
             >
               <path
                 fillRule="evenodd"

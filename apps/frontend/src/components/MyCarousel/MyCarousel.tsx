@@ -273,16 +273,20 @@ export const MyCarousel = ({
       {/* 左按钮 */}
       <div
         className={`${styles.carouselBg} ${shouldEnter ? (blink ? styles.blinkBtn : styles.carouselBgEnter) : 'opacity-0'} absolute w-fit 
-        xl:left-6 lg:left-4
-         bottom-8 z-50 bg-black/60 rounded-full flex gap-8 
-         2xl:p-0.75 p-0.5`}
+        xl:left-6 lg:left-4 md:left-52
+        lg:bottom-8 md:-bottom-56
+         z-50 
+        lg:bg-black/60 bg-[#E6E6E6] 
+        rounded-full flex 
+        lg:gap-8 md:gap-14 
+        2xl:p-0.75 lg:p-0.5 md:p-1`}
       >
         <div className="p-0.5 bg-[#FAFAFA] rounded-full z-1 group">
           <button
             onClick={goPrev}
             className={`${styles.carouselBtn} swiper-custom-prev rounded-full 
-            xl:p-2.5 p-2 
-            xl:border-2 border
+            xl:p-2.5 lg:p-2 md:p-4 
+            xl:border-2 lg:border md:border-2
             border-[#E6E6E6]
             transition-all duration-500 ease-out
             group-hover:bg-[#00d5ffca] cursor-pointer
@@ -306,8 +310,8 @@ export const MyCarousel = ({
           <button
             onClick={goNext}
             className={`${styles.carouselBtn} swiper-custom-next rounded-full 
-            xl:p-2.5 p-2
-            xl:border-2 border
+            xl:p-2.5 lg:p-2 md:p-4
+            xl:border-2 lg:border md:border-2
             border-[#E6E6E6]
             transition-all duration-500 ease-out
             group-hover:bg-[#00d5ffca] cursor-pointer`}
@@ -331,9 +335,13 @@ export const MyCarousel = ({
       {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
         <div
           className={`${styles.textExit} absolute
-          2xl:-bottom-10.5 lg:-bottom-10 z-10
-           pointer-events-none
-          2xl:text-[9px] xl:text-[8px] lg:text-[6px] font-bold`}
+          2xl:-bottom-10.5 lg:-bottom-10
+          md:-bottom-11
+          z-10
+          pointer-events-none
+          2xl:text-[9px] xl:text-[8px] lg:text-[6px] md:text-[7px]
+          font-bold
+          lg:left-0 md:left-48`}
         >
           {current} / {total}
         </div>
@@ -349,10 +357,16 @@ export const MyCarousel = ({
                 ? styles.textEnter
                 : ''
           } absolute
-           2xl:-bottom-10.5 lg:-bottom-10 z-10 
+           2xl:-bottom-10.5 lg:-bottom-10 
+           md:-bottom-11
+           z-10 
            pointer-events-none
           2xl:text-[9px] xl:text-[8px] lg:text-[6px]
-           font-bold`}
+          md:text-[7px]
+           font-bold
+           lg:left-0 md:left-48
+           
+           `}
         >
           {targetIndex + 1} / {total}
         </div>
@@ -365,16 +379,19 @@ export const MyCarousel = ({
          2xl:w-[35rem] lg:w-[30rem] w-[339.177px] 
           top-[calc(100%+0.5rem)] 
            2xl:left-5 xl:left-6 lg:left-5 
-           mt-4`}
+           mt-4
+           md:left-54
+           `}
         >
           <div
             className="2xl:text-[1.6rem] xl:text-[1.5rem] lg:text-[1.35rem]
-           font-medium"
+            md:text-[1.8rem] md:font-[550]
+            lg:font-medium "
           >
             {textData[prevIndex]?.title}
           </div>
           <div
-            className="2xl:text-[1.05rem] xl:text-[1rem] lg:text-[0.9rem] xl:pl-1
+            className="2xl:text-[1.05rem] xl:text-[1rem] lg:text-[0.9rem] md:text-[1.2rem]  xl:pl-1
            font-medium"
           >
             {textData[prevIndex]?.description}
@@ -391,20 +408,24 @@ export const MyCarousel = ({
               : curtainPhase === 'thresholdExit'
                 ? styles.textEnter
                 : ''
-          } absolute 
+          } 
+          absolute 
           2xl:w-[35rem] lg:w-[30rem] w-[339.177px]
           top-[calc(100%+0.5rem)] 
           2xl:left-5 xl:left-6 lg:left-5 
-          mt-4`}
+          mt-4
+          md:left-54
+          `}
         >
           <div
-            className={`2xl:text-[1.6rem] xl:text-[1.5rem] lg:text-[1.35rem] 
-          font-medium ${curtainPhase === 'idle' && !hasEntered ? styles.blinkTitle : ''}`}
+            className={`2xl:text-[1.6rem] xl:text-[1.5rem] lg:text-[1.35rem] md:text-[1.8rem] md:font-[550]
+            lg:font-medium 
+          ${curtainPhase === 'idle' && !hasEntered ? styles.blinkTitle : ''}`}
           >
             {textData[targetIndex]?.title}
           </div>
           <div
-            className={`2xl:text-[1.05rem] xl:text-[1rem] lg:text-[0.9rem]  xl:pl-1
+            className={`2xl:text-[1.05rem] xl:text-[1rem] lg:text-[0.9rem] md:text-[1.2rem]  xl:pl-1
            font-medium ${curtainPhase === 'idle' && !hasEntered ? styles.blinkDesc : ''}`}
           >
             {textData[targetIndex]?.description}

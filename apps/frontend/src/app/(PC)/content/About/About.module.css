@@ -48,6 +48,14 @@
   }
 }
 
+@media (max-width: 1280px) {
+  .aboutHeader::before {
+    height: 5rem;
+    width: 5rem;
+    left: 0rem;
+  }
+}
+
 .aboutHeader::after {
   content: '';
   position: absolute;
@@ -60,6 +68,12 @@
   left: 0.3rem;
   pointer-events: none;
   animation: fadeInUp 0.35s linear 0.5s forwards;
+}
+
+@media (max-width: 1024px) {
+  .aboutHeader::after {
+    content: none;
+  }
 }
 
 .aboutRight {
@@ -83,6 +97,15 @@
     height: 4.5rem;
     width: 4.5rem;
     left: 1.24rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .aboutRight::before {
+    height: 6.5rem;
+    width: 6.5rem;
+    left: 1rem;
+    bottom: 4rem;
   }
 }
 
