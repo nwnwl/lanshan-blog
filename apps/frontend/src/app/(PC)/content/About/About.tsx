@@ -59,7 +59,11 @@ export const PC_AboutSection = () => {
               OVERVIEW
             </span>
           </div>
-          <div className="font-bold text-[1.875em] tracking-tight leading-none">工作室概况</div>
+          <div
+            className={`font-bold text-[1.875em] tracking-tight leading-none ${styles.blinkTitle}`}
+          >
+            工作室概况
+          </div>
         </div>
       </div>
 
@@ -81,7 +85,7 @@ export const PC_AboutSection = () => {
           <div className={styles.unifiedMask} />
         </div>
         <div
-          className="bg-[#00D4FF] py-3 pl-4"
+          className="bg-[#00D4FF] py-[0.75em] pl-[1em]"
           style={{
             position: 'absolute',
             left: 'calc(51.25em - 1px)',
@@ -96,8 +100,8 @@ export const PC_AboutSection = () => {
             style={{ height: '5.4em', width: 'auto', bottom: '1.4em', left: '1.2em' }}
             alt=""
           />
-          <div className="bg-white h-full w-4 relative">
-            <span className="absolute top-1 [writing-mode:vertical-rl] -left-2 text-[2.4em] font-bold tracking-wider">
+          <div className="bg-white h-full w-[1em] relative">
+            <span className="absolute top-[0.25em] [writing-mode:vertical-rl] -left-[0.25em] text-[2.4em] font-bold tracking-wider">
               OVERVIEW
             </span>
           </div>
@@ -114,7 +118,7 @@ export const PC_AboutSection = () => {
       {/* gameplayAlbum = [灰条][轮播] */}
       <div ref={part2Ref} className="absolute" style={{ top: '44em', left: 'calc(50% - 37em)' }}>
         <div
-          className="lg:bg-[#EDEDED] bg-[#00D4FF] py-3 pl-4"
+          className="lg:bg-[#EDEDED] bg-[#00D4FF] py-[0.75em] pl-[1em]"
           style={{ position: 'absolute', left: '0', top: '0', width: '10.5em', height: '30em' }}
         >
           <img
@@ -123,8 +127,8 @@ export const PC_AboutSection = () => {
             style={{ height: '5.4em', width: 'auto', bottom: '1.4em', left: '1.2em' }}
             alt=""
           />
-          <div className="bg-white h-full w-4 relative">
-            <span className="absolute top-1 [writing-mode:vertical-rl] -left-2 text-[2.4em] font-bold tracking-wider">
+          <div className="bg-white h-full w-[1em] relative">
+            <span className="absolute top-[0.25em] [writing-mode:vertical-rl] -left-[0.25em] text-[2.4em] font-bold tracking-wider">
               BENEFITS
             </span>
           </div>
@@ -151,7 +155,11 @@ export const PC_AboutSection = () => {
               BENEFITS
             </span>
           </div>
-          <div className="font-bold text-[1.875em] leading-none tracking-tight">成员权益</div>
+          <div
+            className={`font-bold text-[1.875em] leading-none tracking-tight ${part2Visible ? styles.blinkTitle : 'opacity-0'}`}
+          >
+            成员权益
+          </div>
         </div>
       </div>
 

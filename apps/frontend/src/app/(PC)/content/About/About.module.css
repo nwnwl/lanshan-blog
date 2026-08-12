@@ -16,13 +16,6 @@
   animation: fadeInUp 0.35s linear 0.15s forwards;
 }
 
-@media (max-width: 1280px) {
-  .aboutDecoration::before {
-    height: 4em;
-    width: 4em;
-  }
-}
-
 .aboutHeader {
 }
 
@@ -38,21 +31,6 @@
   pointer-events: none;
   filter: brightness(0) invert(0.65);
   animation: fadeInUp 0.35s linear 0.4s forwards;
-}
-
-@media (max-width: 1280px) {
-  .aboutHeader::before {
-    height: 4em;
-    width: 4em;
-  }
-}
-
-@media (max-width: 1280px) {
-  .aboutHeader::before {
-    height: 5em;
-    width: 5em;
-    left: 0em;
-  }
 }
 
 .aboutHeader::after {
@@ -108,7 +86,7 @@
 /* 首次挂载闪烁（blink） */
 .blinkTitle {
   opacity: 0;
-  animation: blinkIn 0.4s ease-out 0.3s forwards;
+  animation: fadeInThenBlink 0.6s ease-out 0.3s forwards;
 }
 
 .blinkDesc {

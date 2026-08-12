@@ -302,7 +302,7 @@ export const MyCarousel = ({
       {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
         <div
           className={`${styles.textExit} absolute
-          -bottom-[10.5em]
+          -bottom-[6em]
           z-10
           pointer-events-none
           text-[0.5em]
@@ -323,7 +323,7 @@ export const MyCarousel = ({
                 ? styles.textEnter
                 : ''
           } absolute
-           -bottom-[10.5em]
+           -bottom-[6em]
            z-10
            pointer-events-none
           text-[0.5em]
@@ -342,8 +342,8 @@ export const MyCarousel = ({
           className={`${styles.textExit} absolute
          w-[35em] 
           top-[calc(100%+0.5em)]
-           left-[1.25em]
-           mt-[1em]
+           left-[1.5em]
+           mt-[1.5em]
            `}
         >
           <div className="text-[1.6em] font-[550] lg:font-medium ">
@@ -371,8 +371,8 @@ export const MyCarousel = ({
           absolute 
           w-[35em]
           top-[calc(100%+0.5em)]
-          left-[1.25em]
-          mt-[1em]
+          left-[1.5em]
+          mt-[1.5em]
           `}
         >
           <div
