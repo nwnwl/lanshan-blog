@@ -150,6 +150,7 @@ html::-webkit-scrollbar {
   top: 0;
   left: 0;
   width: 100%;
+  height: var(--progress, 0%);
   background-color: #00d4ff;
   transition: height 0.05s linear;
 }
@@ -162,6 +163,77 @@ html::-webkit-scrollbar {
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
+}
+
+/* 移动端完成扫屏层（默认隐藏，仅 <1024px 显示） */
+.progressWipe {
+  display: none;
+}
+
+/* ====== 移动端（< 1024px）适配 ====== */
+@media (max-width: 1023px) {
+  /* 分割线：左下角，距底 2rem */
+  .dividerBox {
+    right: auto;
+    left: 1rem;
+    top: auto;
+    bottom: 2rem;
+    translate: none;
+  }
+  /* 加载条：位于分割线上方，从左向右移动；progressText 跟随进度条末端 */
+  .progressBox {
+    top: auto;
+    left: 0;
+    bottom: 6rem; /* 分割线距底 2rem + 分割线高约 2.5rem + 间距 */
+    width: 100%;
+    height: 20px;
+  }
+  .progressBar {
+    width: var(--progress, 0%);
+    height: 100%;
+    max-width: calc(100% - 10rem); /* 为 progressText 预留宽度 */
+    transition: width 0.05s linear;
+  }
+  .progressText {
+    top: 50%;
+    transform: translateY(-45%);
+  }
+  /* logo 保持居中 */
+  .logoW {
+    width: 20rem;
+    right: auto;
+    left: 50%;
+    top: 40%;
+    translate: -50% -50%;
+  }
+  /* 进度满时的扫屏层：从左侧 scaleX 铺满全屏（0.5s）后渐隐（0.5s），共 1s */
+  .progressWipe {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00d4ff;
+    z-index: 90;
+    transform: scaleX(0);
+    transform-origin: left;
+    pointer-events: none;
+  }
+  .progressWipe.play {
+    animation: wipe-sweep 0.5s ease-out forwards;
+  }
+}
+
+/* 扫屏：只做铺满（scaleX），渐隐由 animeContain 整体淡出统一完成，
+   避免动画 opacity 与父级 opacity 相乘导致扫屏比内容先消失 */
+@keyframes wipe-sweep {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
 }
 
 @keyframes loading-in {

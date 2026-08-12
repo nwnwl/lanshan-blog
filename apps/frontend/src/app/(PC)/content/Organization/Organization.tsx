@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { Icon } from '@/components/Icon';
 import styles from './OrganizationSection.module.css';
 import { IconParticleCanvas } from './components/IconParticleCanvas';
@@ -26,6 +26,8 @@ export const PC_OrganizationSection = () => {
   const [isToggle, setIsToggle] = useState(false);
   const [lastDeptKey, setLastDeptKey] = useState<string | null>(null);
   const prevIconRef = useRef<string>('lanshan');
+  // 记录上一次检测时的视口是否为小屏（<1024px），用于只在小屏「刚进入」时触发自动切换
+  const autoSmallRef = useRef(false);
 
   const showContent = currentIcon !== 'lanshan';
   // 锚点使用的 key：内容展示时用当前，返回后用上次位置保持
@@ -52,7 +54,38 @@ export const PC_OrganizationSection = () => {
     },
     [showContent, isToggle, currentIcon],
   );
+  // 响应式自动进入「产品」页：
+  // - 移动端首载（<1024px）直接进入产品页
+  // - 视口从大屏缩到小屏时，若处于 lanshan 首页则同样自动进入
+  // - 仅在「跨入小屏」时触发一次，手动返回后不再重复触发（否则返回会被顶回）
+  useEffect(() => {
+    const applyResponsive = () => {
+      const small = window.innerWidth < 1024;
+      const crossedToSmall = small && !autoSmallRef.current;
+      autoSmallRef.current = small;
+      if (crossedToSmall && currentIcon === 'lanshan') {
+        prevIconRef.current = 'project';
+        setLastDeptKey('project');
+        setButtonsVisible(false); // 隐藏部门按钮列，与点击按钮一致
+        setIsToggle(true);
+        setCurrentIcon('project'); // 粒子立即切换
+        setTimeout(() => setDisplayDept('project'), 500); // 文案 500ms 后切换
+        setTimeout(() => setIsToggle(false), 1000);
+      }
+    };
 
+    applyResponsive(); // 首载立即检测一次
+    let timer: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      clearTimeout(timer);
+      timer = setTimeout(applyResponsive, 150); // 防抖：停止拉伸 150ms 后再执行
+    };
+    window.addEventListener('resize', onResize);
+    return () => {
+      window.removeEventListener('resize', onResize);
+      clearTimeout(timer);
+    };
+  }, [currentIcon]);
   const handleBack = useCallback(() => {
     prevIconRef.current = 'lanshan';
     setCurrentIcon('lanshan');
@@ -92,7 +125,9 @@ export const PC_OrganizationSection = () => {
           />
         </div>
         {/* 米字格线 — organizationBg2 之上，organizationBg1 之下，仅覆盖左侧面板区域 */}
-        <div className={`absolute top-0 left-0 h-full w-[calc(100%*14/15)] ${styles.miziBg}`} />
+        <div
+          className={`absolute top-0 left-0 h-full w-[calc((100%-1rem)*14/15-1rem)] ${styles.miziBg}`}
+        />
         <div className="absolute inset-0">
           <img src="/picture/organizationBg1.png" alt="" className="w-full h-full object-cover" />
         </div>
@@ -102,10 +137,10 @@ export const PC_OrganizationSection = () => {
         </div>
 
         {/* 内容层 */}
-        <div className="relative h-full w-full flex z-10">
+        <div className="relative h-full w-full pr-[1rem] flex z-10">
           {/* 左侧：按钮/文案面板 + canvas */}
           <div
-            className={`relative w-[calc(100%*14/15)] border-r-1 border-r-[#606060]
+            className={`relative w-[calc(100%*14/15-1rem)] mr-[1rem] border-r-1 border-r-[#606060]
             ${styles.miziGrid}
             `}
           >
@@ -168,20 +203,22 @@ export const PC_OrganizationSection = () => {
         </div>
 
         {/* 底部线 + 标签栏 + 返回按钮 */}
-        <div className="absolute bottom-[6.7vw] w-full z-20">
+        <div className="absolute bottom-[calc((100vw-1rem)*1/15+1rem)] w-full z-20">
           {/* 1px 底线 */}
           <div className="absolute bottom-0 w-full h-[1px] bg-[#606060]" />
-
           {/* ORGANIZATION 标题 */}
-          <div className="absolute top-full h-[4rem] overflow-hidden left-10rem text-[#242424] text-[4rem] leading-none z-[-1]">
+          <div
+            className="absolute top-full h-[4rem] overflow-hidden left-1/10
+          text-[#242424] text-[4rem] leading-none z-[-1]"
+          >
             <span className="-translate-y-[0.2em]">ORGANIZATION</span>
           </div>
 
           {/* 锚点标签栏 — 10px 高，返回后消失且不可交互 */}
           <div
             className={`absolute bottom-0 
-            h-[10px] w-[calc(100%-230px)]
-            mr-[230px]
+            h-[10px] max-lg:h-[5px] w-[calc(100%-230px)] max-lg:w-[calc((100%-1rem)*14/15-1rem)]
+            mr-[230px] max-lg:mr-0
             flex bg-[#606060]
             transition-all duration-500 ease-out
             ${showContent ? 'visible opacity-100' : 'invisible opacity-0'}`}
@@ -189,7 +226,7 @@ export const PC_OrganizationSection = () => {
           >
             {/* 滑动锚点指示器 */}
             <div
-              className="absolute top-0 h-[10px] bg-[#00d4ff] 
+              className="absolute top-0 h-[10px] max-lg:h-[5px] bg-[#00d4ff] 
               transition-all duration-500 ease-out 
               cursor-pointer 
               z-20"
@@ -224,6 +261,7 @@ export const PC_OrganizationSection = () => {
               transition-all duration-500 ease-out
               border-0 cursor-pointer
               font-bold
+              max-lg:hidden
               ${
                 showContent
                   ? 'translate-x-0 opacity-100'

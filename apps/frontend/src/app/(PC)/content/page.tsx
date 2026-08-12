@@ -99,7 +99,6 @@ export default function ContentPage() {
           </div>
           <PC_ProjectSection />
           <PC_OrganizationSection />
-
           <PC_ContactSection />
         </div>
       </div>

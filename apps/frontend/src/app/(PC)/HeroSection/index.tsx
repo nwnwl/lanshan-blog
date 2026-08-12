@@ -1,7 +1,7 @@
 'use client';
 
 import ParticleCanvas, { type ParticleCanvasHandle } from './components/ParticleCanvas';
-import { DotMatrixBg } from './components/DotMatrixBg';
+import PixelBlast from './components/PixelBlast';
 import { ScrollIndicator } from './components/ScrollIndicator';
 import { useEffect, useLayoutEffect, useState, useRef } from 'react';
 
@@ -21,8 +21,8 @@ const RESPONSIVE_BREAKPOINTS: [number, number, number, number, number][] = [
   [1330, 1.6, 2, 500, 500],
   [1200, 1.3, 3, 440, 440],
   [1110, 1.2, 3, 380, 380],
-  [1024, 1.1, 3, 320, 320],
-  [640, 1, 3, 320, 320],
+  [1024, 1.1, 3, 350, 350],
+  [640, 1, 3, 350, 350],
 ];
 
 const FALLBACK_CONFIG: ResponsiveConfig = { scale: 0.8, gap: 2, w: 260, h: 260 };
@@ -70,9 +70,14 @@ export const PC_HeroSection = () => {
   }, []);
 
   useEffect(() => {
-    const removeTimer = setTimeout(() => {
-      setShowTrans(true);
-    }, 2000);
+    // 移动端（<1024px）与开场动画同步 1.5s 出现文字；桌面保持 2s
+    const isMobile = window.matchMedia('(max-width: 1023px)').matches;
+    const removeTimer = setTimeout(
+      () => {
+        setShowTrans(true);
+      },
+      isMobile ? 1500 : 2000,
+    );
     return () => {
       clearTimeout(removeTimer);
     };
@@ -80,29 +85,48 @@ export const PC_HeroSection = () => {
 
   return (
     <div id="hero" className="part relative h-screen w-full overflow-hidden bg-[#191919]">
-      {/* 点阵数字背景 */}
-      <DotMatrixBg />
+      {/* 背景：PixelBlast bayer 抖动全屏效果 */}
+      <div className="absolute inset-0">
+        <PixelBlast
+          variant="square"
+          pixelSize={3}
+          color="#171717"
+          patternScale={3}
+          patternDensity={1}
+          pixelSizeJitter={0.6}
+          enableRipples={false}
+          liquid={true}
+          liquidStrength={0.05}
+          liquidRadius={0.5}
+          liquidWobbleSpeed={1}
+          speed={1}
+          edgeFade={0}
+          transparent
+        />
+      </div>
 
-      {/* 前景：左侧文字 + 右侧粒子容器 */}
-      <div className="relative z-20 flex h-screen w-full items-center justify-center 2xl:gap-40 xl:gap-20">
-        {/* 左侧文字 */}
-        <div className="select-none">
-          <div className="indent-[3px] text-[clamp(16px,4.8vw,24px)] leading-none text-[#00d4ff]">
+      {/* 前景：左侧文字 + 右侧粒子容器（pointer-events-none 让指针事件穿透到 z-0 的 PixelBlast 背景 canvas） */}
+      <div className="pointer-events-none relative flex h-screen w-full items-center justify-center lg:gap-20 max-lg:flex-col max-lg:gap-10">
+        {/* 左侧文字：max-lg 下所有文字居中排列 */}
+        <div className="select-none max-lg:text-center">
+          <div className="indent-[3px] text-[clamp(16px,4.8vw,24px)] leading-none text-[#00d4ff] max-lg:indent-0">
             <span
               className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'} transition-all delay-200 duration-700 ease-out`}
             >
               WEB DEVELOPOMENT CLUB
             </span>
           </div>
-          <div className="indent-[3px] text-[10px] text-[#d9d9d98f]">
+          <div className="indent-[3px] text-[10px] text-[#d9d9d98f] max-lg:indent-0 max-lg:mt-2">
             <span
               className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'} transition-all delay-300 duration-700 ease-out
               mb-[1rem] font-bold`}
             >
-              DIGITAL PRODUCTS · INTELLIGENT SYSTEMS · USER-CENTRIC DESIGN
+              DIGITAL PRODUCTS<span className="max-lg:hidden!"> · </span>
+              <br className="hidden max-lg:inline" />
+              INTELLIGENT SYSTEMS · USER-CENTRIC DESIGN
             </span>
           </div>
-          <div className="text-[clamp(3rem,5vw+5rem,10rem)] leading-none text-[#00d4ff]">
+          <div className="text-[clamp(3rem,5vw+5rem,10rem)] leading-none text-[#00d4ff] max-lg:mt-8 mb-4">
             <span
               className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'} 
               transition-all delay-100 duration-700 ease-out
@@ -122,7 +146,7 @@ export const PC_HeroSection = () => {
           </div>
         </div>
 
-        {/* 右侧粒子画布容器 */}
+        {/* 右侧粒子画布容器：max-lg 下 order-2 排在文案容器上方 */}
         <div className="relative z-10 rounded-lg" style={{ width: boxW, height: boxH }}>
           <ParticleCanvas ref={canvasRef} className="absolute inset-0" />
         </div>

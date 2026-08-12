@@ -14,7 +14,7 @@ interface ParticleCanvasProps {
 }
 
 const ParticleCanvas = forwardRef<ParticleCanvasHandle, ParticleCanvasProps>(
-  function ParticleCanvas({ imageUrl = '/picture/lm-1.png', className, style }, ref) {
+  function ParticleCanvas({ imageUrl = '/picture/lm.png', className, style }, ref) {
     const containerRef = useRef<HTMLDivElement>(null);
     const psRef = useRef<ParticleSystem | null>(null);
 
@@ -31,7 +31,7 @@ const ParticleCanvas = forwardRef<ParticleCanvasHandle, ParticleCanvasProps>(
       const ps = new ParticleSystem();
       psRef.current = ps;
 
-      ps.init(container).catch(() => {
+      ps.init(container, imageUrl).catch(() => {
         // 忽略初始化错误
       });
 

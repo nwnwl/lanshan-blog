@@ -55,8 +55,13 @@ export const LightDotsCanvas = () => {
       lineYRef.current = h - w * 0.067;
     };
 
-    resize();
-    window.addEventListener('resize', resize);
+    resize(); // 首载立即设置画布尺寸
+    let timer: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      clearTimeout(timer);
+      timer = setTimeout(resize, 150); // 防抖：停止拉伸 150ms 后再重置画布尺寸
+    };
+    window.addEventListener('resize', onResize);
 
     const spawnDot = () => {
       const w = widthRef.current;
@@ -127,7 +132,8 @@ export const LightDotsCanvas = () => {
 
     return () => {
       cancelAnimationFrame(rafRef.current);
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', onResize);
+      clearTimeout(timer);
       dotsRef.current = [];
     };
   }, []);
