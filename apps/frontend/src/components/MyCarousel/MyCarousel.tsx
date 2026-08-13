@@ -149,22 +149,22 @@ export const MyCarousel = ({
     setThresholdSrc(images[newIndex].thresholdSrc);
     setCurtainPhase('blackEnter');
 
-    // 350ms：黑色铺满，切图，黑色开始退场
+    // 250ms：黑色铺满，切图，黑色开始退场
     setTimeout(() => {
       setCurrentIndex(newIndex); // 原图已被遮住，安全切换
       setCurtainPhase('blackExit');
-    }, 350);
+    }, 250);
 
-    // 500ms：黑色已完全退场，阈值短暂显示后开始退场
+    // 500ms：黑色已完全退场，阈值开始退场
     setTimeout(() => {
       setCurtainPhase('thresholdExit');
     }, 500);
 
-    // 900ms：阈值退场完毕，最终状态
+    // 1000ms：阈值退场完毕，最终状态
     setTimeout(() => {
       setCurtainPhase('idle');
       setCurrent(newIndex + 1);
-    }, 900);
+    }, 1000);
   }, [isAnimating, currentIndex, total]);
 
   const goPrev = useCallback(() => {
@@ -185,7 +185,7 @@ export const MyCarousel = ({
     setTimeout(() => {
       setCurrentIndex(newIndex);
       setCurtainPhase('blackExit');
-    }, 350);
+    }, 250);
 
     setTimeout(() => {
       setCurtainPhase('thresholdExit');
@@ -194,7 +194,7 @@ export const MyCarousel = ({
     setTimeout(() => {
       setCurtainPhase('idle');
       setCurrent(newIndex + 1);
-    }, 900);
+    }, 1000);
   }, [isAnimating, currentIndex, total]);
 
   return (
@@ -315,7 +315,9 @@ export const MyCarousel = ({
       {/* 数字指示器 - 退场层：黑色阶段 */}
       {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
         <div
-          className={`${styles.textExit} absolute paginationInfo
+          className={`${
+            direction === 'next' ? styles.textExitLeft : styles.textExitRight
+          } absolute paginationInfo
           -bottom-[6em]
           z-10
           pointer-events-none
@@ -334,7 +336,9 @@ export const MyCarousel = ({
             curtainPhase === 'idle' && !hasEntered
               ? styles.blinkTitle
               : curtainPhase === 'thresholdExit'
-                ? styles.textEnter
+                ? direction === 'next'
+                  ? styles.textEnterRight
+                  : styles.textEnterLeft
                 : ''
           } absolute paginationInfo
            -bottom-[6em]
@@ -353,7 +357,9 @@ export const MyCarousel = ({
       {/* 信息栏 - 退场层：黑色阶段 */}
       {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
         <div
-          className={`${styles.textExit} absolute carouselInfo
+          className={`${
+            direction === 'next' ? styles.textExitLeft : styles.textExitRight
+          } absolute carouselInfo
          w-[35em]
           top-[calc(100%+0.5em)]
            left-[1.5em]
@@ -379,7 +385,9 @@ export const MyCarousel = ({
             curtainPhase === 'idle' && !hasEntered
               ? ''
               : curtainPhase === 'thresholdExit'
-                ? styles.textEnter
+                ? direction === 'next'
+                  ? styles.textEnterRight
+                  : styles.textEnterLeft
                 : ''
           }
           absolute carouselInfo

@@ -113,11 +113,21 @@ export const PC_JoinPage = () => {
                   aria-current={active ? 'true' : undefined}
                   data-text={navText}
                   className={`${styles.groupName} 
+                    relative group
                     cursor-pointer select-none
                     whitespace-nowrap text-left
                     text-[3rem] sm:text-[4rem] font-bold leading-none tracking-wide text-[#111111]
                     ${active ? styles.active : ''}`}
                 >
+                  <div
+                    className={`absolute right-full h-full w-[1rem] text-[1rem] ${active ? 'text-[#00D4FF]' : ''}
+                    group-hover:text-[#00D4FF] transition-text duration-300 ease-in-out
+                    flex flex-col justify-center items-center`}
+                  >
+                    <span>{g.sider[0]}</span>
+                    <span>×</span>
+                    <span>{g.sider[1]}</span>
+                  </div>
                   <span className="">{navText}</span>
                 </div>
               );
