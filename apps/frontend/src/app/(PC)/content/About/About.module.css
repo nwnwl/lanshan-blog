@@ -1,8 +1,8 @@
 .about {
   font-size: calc(100vw / 95);
-  height: 78em;
-  margin-top: 2.5em;
-  margin-bottom: 11.5em;
+  height: 86em;
+  margin-top: 4.5em;
+  margin-bottom: 6em;
   --carousel-w: 51.25em;
   --carousel-h: 30em;
 }

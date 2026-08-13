@@ -87,7 +87,6 @@ export default function ContentPage() {
           style={{ timelineScope: '--org-appears' } as React.CSSProperties}
         >
           <PC_AboutSection />
-          <div className="h-20" />
           <PC_GraduationSection />
           <div className="my-6">
             <Marquee text={text_1} bgColor={'bg-white'} textColor={'text-black'} direction="left" />

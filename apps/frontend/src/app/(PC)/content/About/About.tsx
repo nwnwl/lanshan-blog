@@ -98,7 +98,7 @@ export const PC_AboutSection = () => {
       {/* gameplayAlbum = [轮播][蓝条] */}
       <div className={`absolute ${styles.album1}`}>
         <div className={`relative ${styles.carousel1}`}>
-          <MyCarousel images={images_1} textData={textData_1} blink />
+          <MyCarousel images={images_1} textData={textData_1} blink revealFrom="left" />
           <div className={styles.unifiedMask} />
         </div>
         <div className={`bg-[#00D4FF] py-[0.75em] pl-[1em] absolute ${styles.bar1}`}>
@@ -154,7 +154,7 @@ export const PC_AboutSection = () => {
             textData={textData_2}
             shouldEnter={part2Visible}
             blink
-            revealFrom="left"
+            revealFrom="right"
           />
           {part2Visible && <div className={styles.unifiedMask2} />}
         </div>
