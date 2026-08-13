@@ -36,7 +36,7 @@ export const PC_ContactSection = () => {
     >
       {/* 上部 */}
       <div
-        className="min-h-0 flex justify-between ml-20
+        className="min-h-0 flex ml-20
       xl:mt-20 mt-30 relative"
       >
         {/* 左侧 */}
@@ -121,9 +121,9 @@ export const PC_ContactSection = () => {
         </div>
 
         {/* 右侧 */}
-        <div className="mr-20 flex-col md:gap-6 sm:gap-16 text-right hidden md:flex">
+        <div className="absolute right-20 top-0 flex-col md:gap-6 sm:gap-16 text-right hidden md:flex">
           <div className="tracking-widest">
-            <div className="2xl:text-[6rem] xl:text-[5.4rem] lg:text-[4rem] text-[3.8rem] font-extrabold leading-none">
+            <div className="xl:text-[6.8rem] lg:text-[5rem] text-[4.8rem] font-extrabold leading-none">
               <VariableProximity
                 label="CONTACT"
                 containerRef={sectionRef}
@@ -134,14 +134,14 @@ export const PC_ContactSection = () => {
               />
             </div>
             <div
-              className="2xl:text-[4.5rem] xl:text-[4rem] lg:text-[3rem] text-[2.6rem]
+              className="xl:text-[4.5rem] lg:text-[3.8rem] text-[3.2rem]
             font-extrabold text-[#00D4FF] leading-none"
             >
               <VariableProximity
                 label="US"
                 containerRef={sectionRef}
-                fromFontVariationSettings="'wght' 600, 'opsz' 9"
-                toFontVariationSettings="'wght' 1000, 'opsz' 40"
+                fromFontVariationSettings="'wght' 1000, 'opsz' 9"
+                toFontVariationSettings="'wght' 600, 'opsz' 40"
                 radius={150}
                 falloff="gaussian"
               />
