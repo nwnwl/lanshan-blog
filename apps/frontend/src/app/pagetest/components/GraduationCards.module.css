@@ -1,0 +1,36 @@
+/* 列表行翻页切换动画：淡入 + 轻微上滑 */
+@keyframes rowIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rowIn {
+  animation: rowIn 0.45s ease-out both;
+}
+
+/* 圆点（年份立标里的记录数字圆徽）垂直居中辅助 */
+.centeredCircle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* 半调背景：错位双网点（青 + 灰），低对比、不抢内容 */
+.halftone {
+  background-image:
+    radial-gradient(rgba(0, 168, 207, 0.13) 1.5px, transparent 1.6px),
+    radial-gradient(rgba(25, 25, 25, 0.07) 1.5px, transparent 1.6px);
+  background-size:
+    11px 11px,
+    11px 11px;
+  background-position:
+    0 0,
+    5.5px 5.5px;
+}

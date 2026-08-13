@@ -44,6 +44,8 @@ export const IconParticleCanvas = ({
   const [canvasOffset, setCanvasOffset] = useState(0);
   const [ready, setReady] = useState(false);
   const [responsiveScale, setResponsiveScale] = useState(1);
+  // 根字体缩放因子：html font-size / 16，跟随 fluid 缩放（useDesignScale）连续变化
+  const [fontScale, setFontScale] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
   const [inView, setInView] = useState(false);
   // 初次进入（滚动进入视口时内容已展示 = 移动端自动进入）或视口从大屏跨入小屏：文字入场延迟 -1s；点击切换恢复完整延迟
@@ -53,6 +55,8 @@ export const IconParticleCanvas = ({
 
   const responsiveRef = useRef(responsiveScale);
   responsiveRef.current = responsiveScale;
+  const fontRef = useRef(fontScale);
+  fontRef.current = fontScale;
 
   // 响应式缩放更新（轻量，不重采样）+ lg 以下移动端标记
   useEffect(() => {
@@ -62,6 +66,8 @@ export const IconParticleCanvas = ({
       else if (w >= 1024) setResponsiveScale(0.7);
       else setResponsiveScale(0.8);
       setIsMobile(w < 1024);
+      // 同步读取根字体 → 粒子尺寸跟着 fluid 缩放走
+      setFontScale(parseFloat(getComputedStyle(document.documentElement).fontSize) / 16);
     };
     update(); // 首载立即应用
     let timer: ReturnType<typeof setTimeout>;
@@ -86,7 +92,8 @@ export const IconParticleCanvas = ({
     psRef.current = ps;
     const iconDef = iconDefs[currentIcon] as unknown as IconSvgDef;
     if (!iconDef) return;
-    const scale = (ICON_SCALE_OVERRIDES[currentIcon] ?? 3) * responsiveRef.current;
+    const scale =
+      (ICON_SCALE_OVERRIDES[currentIcon] ?? 3) * responsiveRef.current * fontRef.current;
     const gapDiv = responsiveRef.current <= 0.5 ? 0.5 : 1;
     const gap = (ICON_GAP_OVERRIDES[currentIcon] ?? PARTICLE_DEFAULTS.gap) / gapDiv;
     ps.init(container, iconDef, gap, scale)
@@ -110,7 +117,8 @@ export const IconParticleCanvas = ({
     if (!mountedRef.current || !psRef.current) return;
     const iconDef = iconDefs[currentIcon] as unknown as IconSvgDef;
     if (!iconDef) return;
-    const scale = (ICON_SCALE_OVERRIDES[currentIcon] ?? 3) * responsiveRef.current;
+    const scale =
+      (ICON_SCALE_OVERRIDES[currentIcon] ?? 3) * responsiveRef.current * fontRef.current;
     const gapDiv = responsiveRef.current <= 0.5 ? 0.5 : 1;
     const gap = (ICON_GAP_OVERRIDES[currentIcon] ?? PARTICLE_DEFAULTS.gap) / gapDiv;
     psRef.current.changeIcon(iconDef, gap, scale).catch(() => {});
@@ -132,10 +140,10 @@ export const IconParticleCanvas = ({
     const baseScale = ICON_SCALE_OVERRIDES[currentIcon] ?? 3;
     const gapDiv = responsiveScale <= 0.5 ? 0.5 : 1;
     const baseGap = ICON_GAP_OVERRIDES[currentIcon] ?? PARTICLE_DEFAULTS.gap;
-    psRef.current.setParam('scale', baseScale * responsiveScale);
-    psRef.current.setParam('size', 2 * responsiveScale);
+    psRef.current.setParam('scale', baseScale * responsiveScale * fontScale);
+    psRef.current.setParam('size', 2 * responsiveScale * fontScale);
     psRef.current.setParam('gap', baseGap / gapDiv);
-  }, [responsiveScale, ready, currentIcon]);
+  }, [responsiveScale, ready, currentIcon, fontScale]);
 
   // 进入视口一次性触发：粒子初始化（全端）+ 按钮列入场（仅 ≥lg）
   // 观察 canvas 容器而非按钮列：按钮列 max-lg:hidden，移动端 display:none 永远不会触发
@@ -188,7 +196,7 @@ export const IconParticleCanvas = ({
             iconDef,
             (ICON_GAP_OVERRIDES[currentIcon] ?? PARTICLE_DEFAULTS.gap) /
               (responsiveRef.current <= 0.5 ? 0.5 : 1),
-            (ICON_SCALE_OVERRIDES[currentIcon] ?? 3) * responsiveRef.current,
+            (ICON_SCALE_OVERRIDES[currentIcon] ?? 3) * responsiveRef.current * fontRef.current,
           );
       }
     }, 200);
@@ -200,7 +208,7 @@ export const IconParticleCanvas = ({
       {/* 按钮列 — 退出后折叠 */}
       <div
         ref={buttonColRef}
-        className={`max-lg:hidden w-[260px] lg:w-[400px] xl:w-[530px] h-full 
+        className={`max-lg:hidden w-[16.25rem] lg:w-[25rem] xl:w-[33.125rem] h-full
           flex flex-col justify-center 
           z-20 
           pb-[calc((100vw-1rem)*1/15+1rem)]
@@ -257,7 +265,7 @@ export const IconParticleCanvas = ({
           );
         })}
       </div>
-      <div className="h-1/2 max-lg:w-full lg:h-full lg:w-[400px] xl:w-[530px] pb-[calc((100vw-1rem)*1/15+1rem)]  px-0 lg:pr-20">
+      <div className="h-1/2 max-lg:w-full lg:h-full lg:w-[25rem] xl:w-[33.125rem] pb-[calc((100vw-1rem)*1/15+1rem)]  px-0 lg:pr-20">
         <DepartmentPanel
           deptKey={panelDeptKey}
           direction={direction}
@@ -272,7 +280,7 @@ export const IconParticleCanvas = ({
       {/* 使用 transform 而非 left 做动画：GPU 合成线程执行，避免重排卡顿 */}
       <div
         ref={containerRef}
-        className="absolute top-0 h-4/5 lg:h-[calc(100vh-((100vw-1rem)*1/15+1rem))] max-lg:w-full lg:w-[400px] xl:w-[530px] bg-transparent will-change-transform"
+        className="absolute top-0 h-4/5 lg:h-[calc(100vh-((100vw-1rem)*1/15+1rem))] max-lg:w-full w-[33.125rem] bg-transparent will-change-transform"
         style={
           isMobile
             ? { left: '50%', transform: 'translateX(-50%)' }

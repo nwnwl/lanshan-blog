@@ -9,12 +9,8 @@
   pointer-events: none;
   z-index: 20;
   background-image:
-    linear-gradient(to bottom, black 0%, transparent 120px),
-    linear-gradient(to top, black 0%, transparent 120px);
-}
-
-.overlay {
-  view-timeline-name: --org-appears;
+    linear-gradient(to bottom, black 0%, transparent 7.5rem),
+    linear-gradient(to top, black 0%, transparent 7.5rem);
 }
 
 .overlay::before {
@@ -85,12 +81,12 @@
         transparent calc(75% + 0.5px)
       );
   background-size:
-    354px 354px,
-    354px 354px,
-    177px 177px,
-    177px 177px,
-    354px 354px,
-    354px 354px;
+    22.125rem 22.125rem,
+    22.125rem 22.125rem,
+    11.0625rem 11.0625rem,
+    11.0625rem 11.0625rem,
+    22.125rem 22.125rem,
+    22.125rem 22.125rem;
   background-position: 100% 0;
 }
 .textChineseLeft {
@@ -136,7 +132,7 @@
 }
 @keyframes slideInLeft {
   0% {
-    transform: translateX(15px);
+    transform: translateX(0.9375rem);
     opacity: 0;
   }
   100% {
@@ -150,7 +146,7 @@
     opacity: 1;
   }
   100% {
-    transform: translateX(15px);
+    transform: translateX(0.9375rem);
     opacity: 0;
   }
 }

@@ -82,10 +82,7 @@ export default function ContentPage() {
           <SiderbarPC />
         </div>
 
-        <div
-          className="flex-1 flex flex-col overflow-hidden z-40"
-          style={{ timelineScope: '--org-appears' } as React.CSSProperties}
-        >
+        <div className="flex-1 flex flex-col overflow-hidden z-40">
           <PC_AboutSection />
           <PC_GraduationSection />
           <div className="my-6">

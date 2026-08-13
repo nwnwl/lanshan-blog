@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useRef, type CSSProperties } from 'react';
-
+import Image from 'next/image';
 export const LaunchAnimation = () => {
   const [progress, setProgress] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -42,8 +42,8 @@ export const LaunchAnimation = () => {
     >
       {/* logoW 图片 */}
       <div className="w-full h-screen relative z-20">
-        <div className="logoW absolute right-1/5 top-2/5 w-[10rem]">
-          <img src="/picture/logoW.png" alt="logo" />
+        <div className="logoW absolute right-1/5 top-2/5 w-[10rem] h-[10rem]">
+          <Image src="/picture/logoW.png" alt="logo" fill sizes="10rem" priority={true} />
         </div>
         {/* 分隔线 + 标语 */}
         <div className="dividerBox absolute bottom-1/4 right-1/4 translate-x-1/2 w-1/2">

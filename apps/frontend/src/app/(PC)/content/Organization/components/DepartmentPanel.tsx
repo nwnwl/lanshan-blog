@@ -34,7 +34,7 @@ export const DepartmentPanel = ({
       className={`flex flex-col justify-center h-full text-white
         transition-[width] max-lg:transition-none
         ${isToggle ? '' : 'overflow-hidden'}
-       ${visible ? 'max-lg:px-16 max-lg:w-full lg:w-[350px] xl:w-[400px] delay-[500ms] duration-1000' : 'opacity-0 w-0'}`}
+       ${visible ? 'max-lg:px-16 max-lg:w-full lg:w-[21.875rem] xl:w-[25rem] delay-[500ms] duration-1000' : 'opacity-0 w-0'}`}
     >
       <div className="w-full flex flex-col">
         {/* 中文标题 */}
@@ -71,13 +71,13 @@ export const DepartmentPanel = ({
         className="max-lg:hidden w-full h-[1px] my-2"
         style={{
           backgroundImage:
-            'repeating-linear-gradient(to right, rgba(255,255,255,0.5) 0, rgba(255,255,255,0.5) 4px, transparent 4px, transparent 8px)',
+            'repeating-linear-gradient(to right, rgba(255,255,255,0.5) 0, rgba(255,255,255,0.5) 0.25rem, transparent 0.25rem, transparent 0.5rem)',
         }}
       />
 
       {/* 正文 */}
       <div
-        className={`max-lg:mt-6 max-lg:w-full lg:w-[350px] xl:w-[400px] max-lg:h-[4.4rem] lg:h-[3.6rem] overflow-hidden
+        className={`max-lg:mt-6 max-lg:w-full lg:w-[21.875rem] xl:w-[25rem] max-lg:h-[4.4rem] lg:h-[3.6rem] overflow-hidden
       ${isToggle ? styles[`text${dir}`] : ''}`}
       >
         <span

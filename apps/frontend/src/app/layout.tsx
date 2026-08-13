@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import { RouteTransition } from '@/components/RouteTransition';
+import { DesignScale } from '@/components/DesignScale';
 
 const harmonyOSSans = localFont({
   src: [
@@ -56,6 +57,7 @@ export default function RootLayout({
     <html lang="zh-CN" className={` ${harmonyOSSans.variable} ${notoSans.variable} antialiased`}>
       <body>
         {children}
+        <DesignScale />
         <RouteTransition />
       </body>
     </html>

@@ -72,7 +72,7 @@ export const SiderbarPC = () => {
           className="box-content absolute left-0 
           w-[3rem] h-[2.5rem]
           group-hover:w-[11.5rem]
-          border-l-8 border-[#191919] bg-[#e6e6e6]
+          border-l-[0.5rem] border-[#191919] bg-[#e6e6e6]
           transition-top duration-300 ease-out"
           style={{ top: `calc(${activeIndex} * (2.5rem + 3px))` }}
         ></div>
