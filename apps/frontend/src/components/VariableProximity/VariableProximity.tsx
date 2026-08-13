@@ -9,6 +9,8 @@ const robotoFlex = Roboto_Flex({
   display: 'swap',
 });
 
+const SMOOTHING = 0.15;
+
 interface VariableProximityProps {
   label: string;
   fromFontVariationSettings?: string;
@@ -66,11 +68,9 @@ const VariableProximity = forwardRef<HTMLSpanElement, VariableProximityProps>((p
   } = props;
 
   const letterRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const interpolatedSettingsRef = useRef<string[]>(
-    Array.from({ length: label.length }, () => fromFontVariationSettings),
-  );
+  const falloffRef = useRef<number[]>(Array.from({ length: label.length }, () => 0));
   const mousePositionRef = useMousePositionRef(containerRef);
-  const lastPositionRef = useRef({ x: -1, y: -1 });
+  const selfRef = useRef<HTMLSpanElement | null>(null);
 
   const parsedSettings = useMemo(() => {
     const parseSettings = (settingsStr: string) =>
@@ -116,50 +116,44 @@ const VariableProximity = forwardRef<HTMLSpanElement, VariableProximityProps>((p
   );
 
   const updateLetters = useCallback(() => {
-    if (!containerRef?.current) return;
+    const self = selfRef.current;
+    if (!self || !containerRef?.current) return;
     const containerRect = containerRef.current.getBoundingClientRect();
     const { x, y } = mousePositionRef.current;
-    if (lastPositionRef.current.x === x && lastPositionRef.current.y === y) return;
-    lastPositionRef.current = { x, y };
+
+    const selfRect = self.getBoundingClientRect();
+    const inside =
+      x >= selfRect.left - containerRect.left &&
+      x <= selfRect.right - containerRect.left &&
+      y >= selfRect.top - containerRect.top &&
+      y <= selfRect.bottom - containerRect.top;
 
     letterRefs.current.forEach((letterRef, index) => {
       if (!letterRef) return;
 
-      const rect = letterRef.getBoundingClientRect();
-      const letterCenterX = rect.left + rect.width / 2 - containerRect.left;
-      const letterCenterY = rect.top + rect.height / 2 - containerRect.top;
-      const distance = calculateDistance(x, y, letterCenterX, letterCenterY);
-
-      if (distance >= radius) {
-        if (interpolatedSettingsRef.current[index] !== fromFontVariationSettings) {
-          interpolatedSettingsRef.current[index] = fromFontVariationSettings;
-          letterRef.style.fontVariationSettings = fromFontVariationSettings;
-        }
-        return;
+      let target = 0;
+      if (inside) {
+        const rect = letterRef.getBoundingClientRect();
+        const letterCenterX = rect.left + rect.width / 2 - containerRect.left;
+        const letterCenterY = rect.top + rect.height / 2 - containerRect.top;
+        const distance = calculateDistance(x, y, letterCenterX, letterCenterY);
+        target = distance >= radius ? 0 : calculateFalloff(distance);
       }
 
-      const falloffValue = calculateFalloff(distance);
+      const current = falloffRef.current[index];
+      const next = current + (target - current) * SMOOTHING;
+      const settled = Math.abs(next - target) < 0.001 ? target : next;
+      falloffRef.current[index] = settled;
+
       const newSettings = parsedSettings
         .map(({ axis, fromValue, toValue }) => {
-          const v = fromValue + (toValue - fromValue) * falloffValue;
+          const v = fromValue + (toValue - fromValue) * settled;
           return `'${axis}' ${v}`;
         })
         .join(', ');
-
-      if (interpolatedSettingsRef.current[index] !== newSettings) {
-        interpolatedSettingsRef.current[index] = newSettings;
-        letterRef.style.fontVariationSettings = newSettings;
-      }
+      letterRef.style.fontVariationSettings = newSettings;
     });
-  }, [
-    containerRef,
-    mousePositionRef,
-    fromFontVariationSettings,
-    calculateDistance,
-    calculateFalloff,
-    parsedSettings,
-    radius,
-  ]);
+  }, [containerRef, mousePositionRef, calculateDistance, calculateFalloff, parsedSettings, radius]);
 
   useEffect(() => {
     let frameId: number;
@@ -176,7 +170,14 @@ const VariableProximity = forwardRef<HTMLSpanElement, VariableProximityProps>((p
 
   return (
     <span
-      ref={ref}
+      ref={(el) => {
+        selfRef.current = el;
+        if (typeof ref === 'function') {
+          ref(el);
+        } else if (ref) {
+          (ref as { current: HTMLSpanElement | null }).current = el;
+        }
+      }}
       className={`${robotoFlex.className} variable-proximity ${className}`}
       onClick={onClick}
       style={{ display: 'inline', ...style }}
@@ -194,7 +195,7 @@ const VariableProximity = forwardRef<HTMLSpanElement, VariableProximityProps>((p
                 }}
                 style={{
                   display: 'inline-block',
-                  fontVariationSettings: interpolatedSettingsRef.current[idx],
+                  fontVariationSettings: fromFontVariationSettings,
                 }}
                 aria-hidden="true"
               >
