@@ -116,7 +116,7 @@ export const PC_JoinPage = () => {
                     relative group
                     cursor-pointer select-none
                     whitespace-nowrap text-left
-                    text-[3rem] sm:text-[4rem] font-bold leading-none tracking-wide text-[#111111]
+                    text-[3rem] sm:text-[4rem] font-bold lg:leading-none tracking-wide text-[#111111]
                     ${active ? styles.active : ''}`}
                 >
                   <div
