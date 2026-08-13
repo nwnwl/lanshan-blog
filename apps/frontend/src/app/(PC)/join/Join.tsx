@@ -80,9 +80,9 @@ export const PC_JoinPage = () => {
           </svg>
         </div>
       </div>
-      {/* 二维码占位（纯色块） */}
-      <div className="absolute right-[1rem] md:right-[10rem] bottom-[1rem] md:bottom-[2rem] xl:bottom-[4rem] flex flex-col gap-3">
-        <div className="h-[7rem] w-[7rem] bg-[#191919]" />
+      {/* 二维码 */}
+      <div className="absolute right-[1rem] md:right-[10rem] bottom-[1rem] md:bottom-[2rem] xl:bottom-[4rem]">
+        <img src="/picture/ewm.jpg" alt="二维码" className="h-[7rem] w-[7rem] object-cover" />
       </div>
       {/* 水平两栏布局，各占一半 */}
       <div
@@ -138,6 +138,7 @@ export const PC_JoinPage = () => {
         {/* 右侧：对应招募文案 */}
         <div
           className="
+          h-[20rem]
           xl:flex-1
           max-xl:w-4/5
           max-sm:w-full
