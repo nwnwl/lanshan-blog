@@ -50,7 +50,7 @@ export const PC_GraduationSection = () => {
   }, []);
 
   return (
-    <section id="graduation" className="h-screen w-full">
+    <section id="graduation" className="min-h-[650px] h-screen w-full">
       <div className="relative w-full h-full flex items-center justify-center xl:justify-end">
         <div className="absolute left-1/10 w-[50rem] md:w-[55rem] xl:w-[82rem] h-[42rem] flex gap-[3.5rem] items-end">
           <div className="relative h-full">

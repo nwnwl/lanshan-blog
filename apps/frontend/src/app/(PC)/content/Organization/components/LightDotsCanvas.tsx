@@ -33,8 +33,6 @@ export const LightDotsCanvas = () => {
   const spawnTimerRef = useRef(0);
   const widthRef = useRef(0);
   const heightRef = useRef(0);
-  // 根字体缩放因子：html font-size / 16，跟随 fluid 缩放（useDesignScale）连续变化
-  const fsRef = useRef(1);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -49,7 +47,6 @@ export const LightDotsCanvas = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       widthRef.current = w;
       heightRef.current = h;
-      fsRef.current = parseFloat(getComputedStyle(document.documentElement).fontSize) / 16;
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       canvas.style.width = `${w}px`;
@@ -115,7 +112,7 @@ export const LightDotsCanvas = () => {
           continue;
         }
 
-        const r = (PARAMS.sizeBase + opacity * 1.6) * fsRef.current;
+        const r = PARAMS.sizeBase + opacity * 1.6;
         const glow = ctx.createRadialGradient(dot.x, dot.y, 0, dot.x, dot.y, r * 2.5);
         glow.addColorStop(0, `rgba(255,255,255,${opacity.toFixed(3)})`);
         glow.addColorStop(0.15, `rgba(220,220,220,${(opacity * 0.6).toFixed(3)})`);

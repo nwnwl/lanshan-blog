@@ -57,7 +57,7 @@ export const SiderbarPC = () => {
 
   return (
     <div
-      className={`siderbar h-screen w-full relative
+      className={`siderbar min-h-[450px] h-screen w-full relative
 	    flex flex-col items-center justify-between
       group
         `}

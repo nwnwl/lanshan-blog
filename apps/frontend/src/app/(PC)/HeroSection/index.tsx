@@ -106,7 +106,7 @@ export const PC_HeroSection = () => {
       </div>
 
       {/* 前景：左侧文字 + 右侧粒子容器（pointer-events-none 让指针事件穿透到 z-0 的 PixelBlast 背景 canvas） */}
-      <div className="pointer-events-none relative flex h-screen w-full items-center justify-center lg:gap-20 max-lg:flex-col max-lg:gap-10">
+      <div className="pointer-events-none relative flex min-h-[650px] h-screen w-full items-center justify-center lg:gap-20 max-lg:flex-col max-lg:gap-10">
         {/* 左侧文字：max-lg 下所有文字居中排列 */}
         <div className="select-none max-lg:text-center">
           <div className="indent-[3px] text-[clamp(16px,4.8vw,24px)] leading-none text-[#00d4ff] max-lg:indent-0">

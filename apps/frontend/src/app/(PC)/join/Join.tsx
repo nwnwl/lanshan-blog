@@ -44,7 +44,7 @@ export const PC_JoinPage = () => {
 
   return (
     <section
-      className={`relative h-screen w-full 
+      className={`relative min-h-[650px] h-screen w-full 
     ${styles.joinSection}`}
     >
       {/* 顶部标题 */}

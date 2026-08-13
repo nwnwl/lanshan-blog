@@ -109,7 +109,7 @@ export const PC_OrganizationSection = () => {
   }, [isToggle, currentIcon, handleIconChange]);
 
   return (
-    <section id="organization" className={`h-screen w-full ${styles.section_org}`}>
+    <section id="organization" className={`min-h-[650px] h-screen w-full ${styles.section_org}`}>
       <div
         className={`${styles.overlay}
         relative
@@ -217,16 +217,16 @@ export const PC_OrganizationSection = () => {
           {/* 锚点标签栏 — 10px 高，返回后消失且不可交互 */}
           <div
             className={`absolute bottom-0 
-            h-[0.625rem] max-lg:h-[0.3125rem] w-[calc(100%-14.375rem)] max-lg:w-[calc((100%-1rem)*14/15-1rem)]
-            mr-[14.375rem] max-lg:mr-0
+            h-[10px] max-lg:h-[5px] w-[calc(100%-230px)] max-lg:w-[calc((100%-1rem)*14/15-1rem)]
+            mr-[230px] max-lg:mr-0
             flex bg-[#606060]
             transition-all duration-500 ease-out
             ${showContent ? 'visible opacity-100' : 'invisible opacity-0'}`}
-            style={{ right: showContent ? '14.375rem' : 0, left: 0 }}
+            style={{ right: showContent ? '230px' : 0, left: 0 }}
           >
             {/* 滑动锚点指示器 */}
             <div
-              className="absolute top-0 h-[0.625rem] max-lg:h-[0.3125rem] bg-[#00d4ff]
+              className="absolute top-0 h-[10px] max-lg:h-[5px] bg-[#00d4ff] 
               transition-all duration-500 ease-out 
               cursor-pointer 
               z-20"
@@ -254,7 +254,7 @@ export const PC_OrganizationSection = () => {
           <div
             onClick={handleBack}
             className={`absolute right-0 top-0 -translate-y-1/2
-              w-[14.375rem] h-[3.125rem] z-30
+              w-[230px] h-[50px] z-30
               bg-[#585858] text-[#ffffff]
               hover:bg-white hover:text-black
               flex flex items-center justify-evenly

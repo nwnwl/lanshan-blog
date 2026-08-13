@@ -69,7 +69,7 @@ export default function ContentPage() {
   }, [setReversed]);
 
   return (
-    <div className="contain flex h-screen w-full flex-col overflow-y-auto">
+    <div className="contain flex min-h-[650px] h-screen w-full flex-col overflow-y-auto">
       <div className="flex w-full ">
         <div
           className="lg:hidden fixed top-0 w-screen h-[6rem] z-50
