@@ -121,3 +121,32 @@
     top: -0.6rem;
   }
 }
+
+.blinkTitle {
+  opacity: 0;
+}
+
+.blinkTitle:global(.play) {
+  animation: fadeInThenBlink 0.6s ease-out 0.3s forwards;
+}
+
+@keyframes fadeInThenBlink {
+  0% {
+    opacity: 0;
+  }
+  33% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 0.2;
+  }
+  60% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

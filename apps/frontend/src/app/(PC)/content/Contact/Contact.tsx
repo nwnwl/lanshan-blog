@@ -43,28 +43,29 @@ export const PC_ContactSection = () => {
         <div className="flex flex-col gap-12 min-w-0">
           <div className={`${styles.contactDecoration}`}>
             <div className="flex items-center">
-              <div
-                className="flex
-                h-4 w-14
-                 bg-[#D9D9D9] justify-end items-center pr-0.5
+              <div className="h-4 w-14">
+                <div
+                  className="animationEl entrance-anchor widthGrow flex h-full
+                bg-[#D9D9D9] justify-end items-center pr-0.5 overflow-hidden
                  2xl:pr-1
                  xl:pb-0 lg:pb-0.5"
-              >
-                <Icon
-                  name="arrow"
-                  className="SectionTitle_arrow__qXHl
-                  w-3 h-3
-                  "
-                />
+                >
+                  <Icon
+                    name="arrow"
+                    className="animationEl widthGrowSon1
+                    w-3 h-3
+                    "
+                  />
+                </div>
               </div>
-              <span className="xl:text-base lg:text-sm text-[0.92rem] font-medium pl-1">
+              <span className="animationEl widthGrowSon2 xl:text-base lg:text-sm text-[0.92rem] font-medium pl-1">
                 CONTACT US
               </span>
             </div>
 
             <div
-              className="font-bold
-            2xl:text-[30px] lg:text-[2rem] text-[1.6rem] tracking-tight -mt-1"
+              className={`animationEl ${styles.blinkTitle} font-bold
+            2xl:text-[30px] lg:text-[2rem] text-[1.6rem] tracking-tight -mt-1`}
             >
               联系我们
             </div>
