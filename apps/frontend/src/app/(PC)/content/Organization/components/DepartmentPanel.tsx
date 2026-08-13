@@ -26,9 +26,9 @@ export const DepartmentPanel = ({
   const animateIn = visible && inView;
   // 初次进入（滚动进入视口）或视口从大屏跨入小屏时延迟 -1s，点击切换恢复完整延迟
 
-  const cnDelay = initialEntrance ? 'delay-[100ms]' : 'delay-[1000ms]';
-  const enDelay = initialEntrance ? 'delay-[150ms]' : 'delay-[1100ms]';
-  const bodyDelay = initialEntrance ? 'delay-[250ms]' : 'delay-[1200ms]';
+  const cnDelay = initialEntrance ? 'delay-[600ms]' : 'delay-[1000ms]';
+  const enDelay = initialEntrance ? 'delay-[750ms]' : 'delay-[1100ms]';
+  const bodyDelay = initialEntrance ? 'delay-[850ms]' : 'delay-[1200ms]';
   return (
     <div
       className={`flex flex-col justify-center h-full text-white
@@ -39,13 +39,13 @@ export const DepartmentPanel = ({
       <div className="w-full flex flex-col">
         {/* 中文标题 */}
         <div
-          className={`max-lg:h-[4.2rem] h-[3.5rem] overflow-hidden
+          className={`h-[3.5rem] overflow-hidden
           ${isToggle ? styles[`textChinese${dir}`] : ''}`}
         >
           <span
-            className={`max-lg:text-[3.8rem] text-[2.8rem] font-bold leading-[3.5rem]
+            className={`max-lg:text-[3rem] text-[2.8rem] font-bold leading-[3.5rem] whitespace-nowrap
             transition-all duration-800 ease-in-out
-            ${animateIn ? `${cnDelay} translate-y-0` : 'translate-y-[4.4rem] lg:translate-y-[3.5rem]'}`}
+            ${animateIn ? `${cnDelay} translate-y-0 ` : 'translate-y-[3.5rem]'}`}
           >
             {dept?.cn ?? ''}
           </span>
@@ -53,13 +53,13 @@ export const DepartmentPanel = ({
 
         {/* 英文副标题 */}
         <div
-          className={`max-lg:h-[2.2rem] h-[1.8rem] overflow-hidden
+          className={`max-lg:h-[2rem] h-[1.8rem] overflow-hidden 
           ${isToggle ? styles[`textEnglish${dir}`] : ''}`}
         >
           <span
-            className={`max-lg:text-[1.9rem] text-[1.4rem] font-bold leading-[1.8rem]
+            className={`max-lg:text-[1.5rem] text-[1.4rem] font-bold leading-[1.8rem] whitespace-nowrap
             transition-all duration-800 ease-in-out
-            ${animateIn ? `${enDelay} translate-y-0` : 'translate-y-[2.2rem] lg:translate-y-[1.8rem]'}`}
+            ${animateIn ? `${enDelay} translate-y-0 ` : 'translate-y-[1.8rem] lg:translate-y-[1.8rem]'}`}
           >
             {dept?.en ?? ''}
           </span>

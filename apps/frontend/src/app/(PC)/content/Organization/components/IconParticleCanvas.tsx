@@ -203,7 +203,8 @@ export const IconParticleCanvas = ({
         className={`max-lg:hidden w-[260px] lg:w-[400px] xl:w-[530px] h-full 
           flex flex-col justify-center 
           z-20 
-          pb-[calc((100vw-1rem)*1/15+1rem)]
+          pb-[calc((100vw)*2/15)]
+          lg:pb-[calc((100vw-1rem)*1/15+1rem)]
           transition-all
            ${
              buttonsVisible
@@ -257,7 +258,7 @@ export const IconParticleCanvas = ({
           );
         })}
       </div>
-      <div className="h-1/2 max-lg:w-full lg:h-full lg:w-[400px] xl:w-[530px] pb-[calc((100vw-1rem)*1/15+1rem)]  px-0 lg:pr-20">
+      <div className="h-1/2 max-lg:w-full lg:h-full lg:w-[400px] xl:w-[530px] pb-[calc((100vw)*2/15)] lg:pb-[calc((100vw-1rem)*1/15+1rem)]  px-0 lg:pr-20">
         <DepartmentPanel
           deptKey={panelDeptKey}
           direction={direction}

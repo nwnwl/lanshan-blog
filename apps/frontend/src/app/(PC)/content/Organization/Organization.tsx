@@ -126,7 +126,7 @@ export const PC_OrganizationSection = () => {
         </div>
         {/* 米字格线 — organizationBg2 之上，organizationBg1 之下，仅覆盖左侧面板区域 */}
         <div
-          className={`absolute top-0 left-0 h-full w-[calc((100%-1rem)*14/15-1rem)] ${styles.miziBg}`}
+          className={`absolute top-0 left-0 h-full w-[calc((100%-2rem)*14/15-2rem)] lg:w-[calc((100%-1rem)*14/15-1rem)] ${styles.miziBg}`}
         />
         <div className="absolute inset-0">
           <img src="/picture/organizationBg1.png" alt="" className="w-full h-full object-cover" />
@@ -137,10 +137,10 @@ export const PC_OrganizationSection = () => {
         </div>
 
         {/* 内容层 */}
-        <div className="relative h-full w-full pr-[1rem] flex z-10">
+        <div className="relative h-full w-full pr-[2rem] lg:pr-[1rem] flex z-10">
           {/* 左侧：按钮/文案面板 + canvas */}
           <div
-            className={`relative w-[calc(100%*14/15-1rem)] mr-[1rem] border-r-1 border-r-[#606060]
+            className={`relative w-[calc(100%*14/15-2rem)] mr-[2rem] lg:w-[calc(100%*14/15-1rem)] lg:mr-[1rem] border-r-1 border-r-[#606060]
             ${styles.miziGrid}
             `}
           >
@@ -203,7 +203,7 @@ export const PC_OrganizationSection = () => {
         </div>
 
         {/* 底部线 + 标签栏 + 返回按钮 */}
-        <div className="absolute bottom-[calc((100vw-1rem)*1/15+1rem)] w-full z-20">
+        <div className="absolute bottom-[calc((100vw)*2/15)] lg:bottom-[calc((100vw-1rem)*1/15+1rem)] w-full z-20">
           {/* 1px 底线 */}
           <div className="absolute bottom-0 w-full h-[1px] bg-[#606060]" />
           {/* ORGANIZATION 标题 */}
@@ -217,7 +217,7 @@ export const PC_OrganizationSection = () => {
           {/* 锚点标签栏 — 10px 高，返回后消失且不可交互 */}
           <div
             className={`absolute bottom-0 
-            h-[10px] max-lg:h-[5px] w-[calc(100%-230px)] max-lg:w-[calc((100%-1rem)*14/15-1rem)]
+            h-[10px] max-lg:h-[5px] w-[calc(100%-230px)] max-lg:w-[calc((100%-2rem)*14/15-2rem)]
             mr-[230px] max-lg:mr-0
             flex bg-[#606060]
             transition-all duration-500 ease-out

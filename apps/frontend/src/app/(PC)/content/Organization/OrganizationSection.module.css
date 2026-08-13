@@ -132,7 +132,7 @@
 }
 @keyframes slideInLeft {
   0% {
-    transform: translateX(0.9375rem);
+    transform: translateX(15px);
     opacity: 0;
   }
   100% {
@@ -146,7 +146,7 @@
     opacity: 1;
   }
   100% {
-    transform: translateX(0.9375rem);
+    transform: translateX(15px);
     opacity: 0;
   }
 }
