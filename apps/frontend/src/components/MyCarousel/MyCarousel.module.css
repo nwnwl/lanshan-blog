@@ -73,33 +73,72 @@
   opacity: 1;
 }
 
-@keyframes textExit {
-  from {
-    opacity: 1;
+/* ===== 文字退场：向滑动方向滑出 ===== */
+/* next: 向左滑出 */
+@keyframes slideOutLeft {
+  0% {
     transform: translateX(0);
+    opacity: 1;
   }
-  to {
+  100% {
+    transform: translateX(-15px);
     opacity: 0;
-    transform: translateX(40px);
   }
 }
 
-.textExit {
-  animation: textExit 0.5s ease-out forwards;
-}
-
-@keyframes textEnter {
-  from {
+/* prev: 向右滑出 */
+@keyframes slideOutRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(15px);
     opacity: 0;
   }
-  to {
+}
+
+.textExitLeft {
+  animation: slideOutLeft 0.5s ease-out forwards;
+}
+
+.textExitRight {
+  animation: slideOutRight 0.5s ease-out forwards;
+}
+
+/* ===== 文字进场：从滑动方向滑入 ===== */
+/* next: 从右侧滑入 */
+@keyframes slideInRight {
+  0% {
+    transform: translateX(15px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
     opacity: 1;
   }
 }
 
-.textEnter {
+/* prev: 从左侧滑入 */
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-15px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.textEnterRight {
   opacity: 0;
-  animation: textEnter 0.2s ease-out 0s forwards;
+  animation: slideInRight 0.5s ease-out 0s forwards;
+}
+
+.textEnterLeft {
+  opacity: 0;
+  animation: slideInLeft 0.5s ease-out 0s forwards;
 }
 
 /* ===== 首次挂载闪烁（blink）===== */
@@ -177,11 +216,11 @@
 }
 
 .blackEnterLeft {
-  animation: blackEnterLeft 0.35s ease-out both;
+  animation: blackEnterLeft 0.25s ease-out both;
 }
 
 .blackEnterRight {
-  animation: blackEnterRight 0.35s ease-out both;
+  animation: blackEnterRight 0.25s ease-out both;
 }
 
 /* ===== 黑色退出：clip-path 横扫退出 ===== */
@@ -206,11 +245,11 @@
 }
 
 .blackExitLeft {
-  animation: blackExitLeft 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: blackExitLeft 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .blackExitRight {
-  animation: blackExitRight 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: blackExitRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* ===== 阈值退场：clip-path 裁切收缩 ===== */
@@ -235,11 +274,11 @@
 }
 
 .thresholdExitLeft {
-  animation: thresholdExitLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: thresholdExitLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .thresholdExitRight {
-  animation: thresholdExitRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: thresholdExitRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* ===== 入场揭示：clip-path + translateX 滑动 ===== */

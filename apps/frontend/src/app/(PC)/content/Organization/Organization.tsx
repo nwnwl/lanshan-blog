@@ -109,7 +109,7 @@ export const PC_OrganizationSection = () => {
   }, [isToggle, currentIcon, handleIconChange]);
 
   return (
-    <section id="organization" className={`h-screen w-full ${styles.section_org}`}>
+    <section id="organization" className={`min-h-[650px] h-screen w-full ${styles.section_org}`}>
       <div
         className={`${styles.overlay}
         relative

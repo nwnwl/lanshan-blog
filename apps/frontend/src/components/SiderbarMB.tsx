@@ -60,7 +60,7 @@ export const SiderbarMB = () => {
       <div
         className={`fixed z-30 pointer-events-none
         transition-all duration-300 ease-in-out
-        ${isOpen ? 'left-[calc(50%-16rem)] top-[calc(50%-30rem)] w-[9rem]' : 'left-[1rem] top-[1rem] w-[4rem]'}`}
+        ${isOpen ? 'left-[calc(50%-16rem)] top-[calc(50%-28rem)] w-[9rem]' : 'left-[1rem] top-[1rem] w-[4rem]'}`}
       >
         <img src="/picture/logoB.png" alt="logo" />
       </div>
@@ -106,7 +106,7 @@ export const SiderbarMB = () => {
         </svg>
       </div>
       <div
-        className={`siderFix fixed inset-0 bg-white z-20 overflow-hidden
+        className={`siderFix fixed inset-0 bg-white z-20 overflow-hidden pointer-events-none
         transition-transform duration-300 ease-in-out
         ${isOpen ? '-translate-x-0' : '-translate-x-full'}`}
       >
@@ -121,19 +121,21 @@ export const SiderbarMB = () => {
               <div
                 key={name}
                 onClick={() => scrollToSection(href, index)}
-                className={`flex items-center justify-center 
-                w-full h-[5rem] text-[#191919]
-                cursor-pointer transition-colors duration-300
+                className={`flex items-center justify-center pointer-events-auto
+                w-full h-[4.5rem] text-[#191919]
+                cursor-pointer transition-colors duration-500 ease-in-out
                 ${activeIndex === index ? 'bg-[#00d4ff]' : 'bg-[#f2f2f2]'}`}
               >
                 <Icon
                   name={name}
-                  size="2.5rem"
+                  size="2rem"
                   className={`${activeIndex === index ? '' : 'text-[#bfbfbf]'}
-                  w-[3rem] mx-[2rem]`}
+                  w-[2.5rem] mx-[2rem] transition-colors duration-300`}
                 />
-                <div className="h-[3.8rem] w-[2px] bg-black"></div>
-                <div className="flex-1 text-[2rem] ">
+                <div
+                  className={`${activeIndex === index ? 'bg-black' : 'bg-[#bfbfbf]'} h-[3.3rem] w-[0.2rem] transition-colors duration-300`}
+                ></div>
+                <div className="flex-1 text-[1.5rem] ">
                   <span className="indent-8 font-medium">{cn_name}</span>
                 </div>
                 <div className="mx-[1rem]">
@@ -154,9 +156,9 @@ export const SiderbarMB = () => {
           </div>
 
           {/* 分割线 */}
-          <div className="mt-[2rem] w-full h-[1px] bg-[#191919]" />
+          <div className="mt-[1rem] w-full h-[0.1rem] bg-[#191919]" />
           {/* 社交媒体（无背景） */}
-          <div className=" flex items-center gap-[2rem]">
+          <div className="flex items-center gap-[2rem] text-[#bfbfbf] pointer-events-auto">
             <a href="https://xhslink.cn/m/6worIanti1C" target="_blank" rel="noopener noreferrer">
               <Icon name="xhs" size="3rem" className="cursor-pointer" />
             </a>
@@ -173,7 +175,7 @@ export const SiderbarMB = () => {
           </div>
         </div>
         {/* LANSHAN */}
-        <div className="absolute left-1/2  bottom-0 -translate-x-1/2 translate-y-1/3">
+        <div className="absolute left-1/2  bottom-0 -translate-x-1/2 translate-y-1/3 pointer-events-none">
           <img src="/picture/hatchLanshan.svg" alt="LANSHAN" className="opacity-50 min-w-[900px]" />
         </div>
       </div>

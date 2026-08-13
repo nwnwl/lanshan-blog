@@ -201,6 +201,7 @@ html::-webkit-scrollbar {
   /* logo 保持居中 */
   .logoW {
     width: 20rem;
+    height: 20rem;
     right: auto;
     left: 50%;
     top: 40%;

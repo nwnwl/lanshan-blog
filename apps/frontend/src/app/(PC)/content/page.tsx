@@ -69,7 +69,7 @@ export default function ContentPage() {
   }, [setReversed]);
 
   return (
-    <div className="contain flex h-screen w-full flex-col overflow-y-auto">
+    <div className="contain flex min-h-[650px] h-screen w-full flex-col overflow-y-auto">
       <div className="flex w-full ">
         <div
           className="hide-nav-desktop fixed top-0 w-screen h-[6rem] z-50
@@ -82,10 +82,7 @@ export default function ContentPage() {
           <SiderbarPC />
         </div>
 
-        <div
-          className="flex-1 flex flex-col overflow-hidden z-40"
-          style={{ timelineScope: '--org-appears' } as React.CSSProperties}
-        >
+        <div className="flex-1 flex flex-col overflow-hidden z-40">
           <PC_AboutSection />
           <PC_GraduationSection />
           <div className="my-6">

@@ -2,7 +2,7 @@ export const PC_EndSection = () => {
   return (
     <div
       id="end"
-      className="h-[435px] w-full flex items-center justify-center bg-[#252726] text-[#ffffff]"
+      className="shrink-0 h-[435px] w-full flex items-center justify-center bg-[#252726] text-[#ffffff]"
     >
       {/* Logo */}
       <img
