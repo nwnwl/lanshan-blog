@@ -189,7 +189,10 @@ export const MyCarousel = ({
   }, [isAnimating, currentIndex, total]);
 
   return (
-    <div className="relative w-[51.25em] h-[30em]">
+    <div
+      className="relative"
+      style={{ width: 'var(--carousel-w, 51.25em)', height: 'var(--carousel-h, 30em)' }}
+    >
       {/* 图片区：overflow-hidden 截断幕布，不溢出全屏 */}
       <div className="relative w-full h-full overflow-hidden">
         {images.map((img, i) => (
@@ -239,7 +242,7 @@ export const MyCarousel = ({
       {/* 按钮放到 overflow-hidden 外面，不受裁剪 */}
       {/* 左按钮 */}
       <div
-        className={`${styles.carouselBg} ${shouldEnter ? (blink ? styles.blinkBtn : styles.carouselBgEnter) : 'opacity-0'} absolute w-fit
+        className={`${styles.carouselBg} ${shouldEnter ? (blink ? styles.blinkBtn : styles.carouselBgEnter) : 'opacity-0'} absolute w-fit carouselInfo carouselBtnBox
         left-[1.5em]
         bottom-[2em]
          z-50
@@ -251,7 +254,7 @@ export const MyCarousel = ({
         <div className="p-0.5 bg-[#FAFAFA] rounded-full z-1 group">
           <button
             onClick={goPrev}
-            className={`${styles.carouselBtn} rounded-full
+            className={`${styles.carouselBtn} rounded-full carouselBtnItem
             p-[0.625em]
             border-2
             border-[#E6E6E6]
@@ -276,7 +279,7 @@ export const MyCarousel = ({
         <div className="p-0.5 bg-[#FAFAFA]  rounded-full z-1 group">
           <button
             onClick={goNext}
-            className={`${styles.carouselBtn} rounded-full
+            className={`${styles.carouselBtn} rounded-full carouselBtnItem
             p-[0.625em]
             border-2
             border-[#E6E6E6]
@@ -301,7 +304,7 @@ export const MyCarousel = ({
       {/* 数字指示器 - 退场层：黑色阶段 */}
       {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
         <div
-          className={`${styles.textExit} absolute
+          className={`${styles.textExit} absolute paginationInfo
           -bottom-[6em]
           z-10
           pointer-events-none
@@ -322,7 +325,7 @@ export const MyCarousel = ({
               : curtainPhase === 'thresholdExit'
                 ? styles.textEnter
                 : ''
-          } absolute
+          } absolute paginationInfo
            -bottom-[6em]
            z-10
            pointer-events-none
@@ -339,19 +342,19 @@ export const MyCarousel = ({
       {/* 信息栏 - 退场层：黑色阶段 */}
       {(curtainPhase === 'blackEnter' || curtainPhase === 'blackExit') && (
         <div
-          className={`${styles.textExit} absolute
-         w-[35em] 
+          className={`${styles.textExit} absolute carouselInfo
+         w-[35em]
           top-[calc(100%+0.5em)]
            left-[1.5em]
            mt-[1.5em]
            `}
         >
-          <div className="text-[1.6em] font-[550] lg:font-medium ">
+          <div className="text-[1.6em] font-[550] lg:font-medium carouselTitle">
             {textData[prevIndex]?.title}
           </div>
           <div
             className="text-[1.05em]
-           font-medium"
+           font-medium carouselDesc"
           >
             {textData[prevIndex]?.description}
           </div>
@@ -367,8 +370,8 @@ export const MyCarousel = ({
               : curtainPhase === 'thresholdExit'
                 ? styles.textEnter
                 : ''
-          } 
-          absolute 
+          }
+          absolute carouselInfo
           w-[35em]
           top-[calc(100%+0.5em)]
           left-[1.5em]
@@ -376,14 +379,14 @@ export const MyCarousel = ({
           `}
         >
           <div
-            className={`text-[1.6em] font-[550] lg:font-medium
+            className={`text-[1.6em] font-[550] lg:font-medium carouselTitle
           ${curtainPhase === 'idle' && !hasEntered ? styles.blinkTitle : ''}`}
           >
             {textData[targetIndex]?.title}
           </div>
           <div
             className={`text-[1.05em]
-           font-medium ${curtainPhase === 'idle' && !hasEntered ? styles.blinkDesc : ''}`}
+           font-medium carouselDesc ${curtainPhase === 'idle' && !hasEntered ? styles.blinkDesc : ''}`}
           >
             {textData[targetIndex]?.description}
           </div>
