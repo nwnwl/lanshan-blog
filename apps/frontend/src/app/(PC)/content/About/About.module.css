@@ -1,3 +1,300 @@
+.about {
+  font-size: calc(100vw / 95);
+  height: 86em;
+  margin-top: 4.5em;
+  margin-bottom: 6em;
+  --carousel-w: 51.25em;
+  --carousel-h: 30em;
+}
+
+/* ===== PC 端定位 ===== */
+.title1 {
+  top: 0.5em;
+  left: calc(50% - 37em);
+}
+.icon1 {
+  top: 25em;
+  left: calc(50% - 37em);
+  width: 5.25em;
+  height: 5.25em;
+}
+.album1 {
+  top: 0em;
+  left: calc(50% - 21em);
+}
+.bar1 {
+  left: calc(51.25em - 1px);
+  top: 0;
+  width: 10.5em;
+  height: 30em;
+}
+
+.album2 {
+  top: 44em;
+  left: calc(50% - 37em);
+}
+.bar2 {
+  left: 0;
+  top: 0;
+  width: 10.5em;
+  height: 30em;
+}
+.carousel2 {
+  left: 10.5em;
+  top: 0;
+}
+.title2 {
+  top: 44em;
+  left: calc(50% + 27em);
+}
+.icon2 {
+  top: 67.75em;
+  left: calc(50% + 27em);
+  width: 5.25em;
+  height: 5.25em;
+}
+
+.h5DecoLine {
+  display: none;
+}
+
+.h5Text1,
+.h5Text2,
+.h5Deco1,
+.h5Deco2 {
+  display: none;
+}
+
+.h5Icon {
+  display: none;
+}
+
+.h5Icon2 {
+  display: none;
+}
+
+/* ===== 移动端（<1024px）竖屏版式 ===== */
+@media (max-width: 1024px) {
+  .about {
+    font-size: calc(100vw / 112.5);
+    height: 242em;
+    margin-top: 0;
+    margin-bottom: 0;
+    --carousel-w: 90em;
+    --carousel-h: 50.625em;
+  }
+  .title1 {
+    top: 27.0625em;
+    left: calc(50% - 16.1875em);
+  }
+  .icon1 {
+    top: 27.0625em;
+    left: calc(50% + 24.25em);
+  }
+  .album1 {
+    top: 43.125em;
+    left: 50%;
+  }
+  .carousel1 {
+    transform: translateX(-50%);
+  }
+  .bar1 {
+    display: none;
+  }
+
+  .album2 {
+    top: 165.625em;
+    left: 50%;
+  }
+  .carousel2 {
+    left: 0;
+    top: 0;
+    transform: translateX(-50%);
+  }
+  .bar2 {
+    display: none;
+  }
+  .title2 {
+    top: 149.5625em;
+    left: calc(50% - 18.1875em);
+  }
+  .icon2 {
+    top: 149.5625em;
+    left: calc(50% + 24.25em);
+  }
+  .h5DecoLine {
+    display: block;
+    top: 0;
+    left: calc(50% - 31.25em);
+    width: 8.25em;
+    height: calc(100% + 14em);
+    background-color: #00d4ff;
+    z-index: -1;
+    overflow: hidden;
+  }
+  .h5DecoLine::before {
+    content: '';
+    position: absolute;
+    left: 1em;
+    top: 12em;
+    height: 118em;
+    width: 2.25em;
+    background-color: #fff;
+  }
+  .h5DecoLine::after {
+    content: '';
+    position: absolute;
+    left: 1em;
+    top: 134em;
+    height: 120em;
+    width: 2.25em;
+    background-color: #fff;
+  }
+  .h5Text1,
+  .h5Text2 {
+    display: block;
+    position: absolute;
+    color: #191919;
+    font-weight: 700;
+    white-space: nowrap;
+    font-size: 3.8em;
+    z-index: 5;
+    transform: rotate(90deg);
+    transform-origin: left top;
+  }
+  .h5Text1 {
+    top: 4em;
+    left: calc(50% - 6.6em);
+  }
+  .h5Text2 {
+    top: 36em;
+    left: calc(50% - 6.6em);
+  }
+  .h5Deco1,
+  .h5Deco2 {
+    display: block;
+    position: absolute;
+    left: calc(50% - 30em);
+    width: 1.6em;
+    height: auto;
+    z-index: 5;
+  }
+  .h5Deco1 {
+    top: 114em;
+  }
+  .h5Deco2 {
+    top: 238em;
+  }
+  .h5Icon {
+    display: block;
+    top: 14em;
+    left: calc(50% - 16.6875em);
+    height: 7.5em;
+    width: auto;
+  }
+  .h5Icon span {
+    font-size: 10em;
+    font-weight: 1000;
+    letter-spacing: -0.05em;
+    color: #191919;
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .h5Icon2 {
+    display: block;
+    top: 136.5em;
+    left: calc(50% - 16.6875em);
+    height: 7.5em;
+    width: auto;
+  }
+  .h5Icon2 span {
+    font-size: 10em;
+    font-weight: 1000;
+    letter-spacing: -0.05em;
+    color: #191919;
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .titleSub {
+    font-size: 2em;
+  }
+  .titleText {
+    font-size: 3.2em;
+  }
+  .icon1,
+  .icon2 {
+    width: 7em;
+    height: 7em;
+  }
+  .icon1 svg,
+  .icon2 svg {
+    width: 4.5em;
+  }
+  .arrowBox {
+    height: 1.8em;
+    width: 6.5em;
+  }
+  .arrowIcon {
+    width: 1em;
+    height: 1em;
+  }
+  :global(.carouselInfo) {
+    left: 28.8em;
+  }
+  :global(.paginationInfo) {
+    left: 33em;
+    bottom: -4.6em;
+    font-size: 0.8em;
+  }
+  :global(.carouselBtnBox) {
+    bottom: -18em;
+    gap: 4.5em;
+    padding: 0.4em;
+  }
+  :global(.carouselBtnItem) {
+    padding: 1.5em;
+    border-width: 1px;
+  }
+  :global(.carouselTitle) {
+    font-size: 2.5em;
+  }
+  :global(.carouselDesc) {
+    font-size: 1.6em;
+  }
+}
+
+@media (max-width: 640px) {
+  .about {
+    margin-top: 3em;
+    height: 245em;
+  }
+}
+
+@media (max-width: 500px) {
+  .about {
+    margin-top: 6em;
+    height: 248em;
+  }
+  :global(.carouselArrow) {
+    width: 0.7rem;
+    height: 0.7rem;
+  }
+}
+
+@media (max-width: 450px) {
+  :global(.carouselArrow) {
+    width: 0.6rem;
+    height: 0.6rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .about {
+    margin-top: 9em;
+    height: 251em;
+  }
+}
+
 .aboutDecoration {
   position: relative;
 }
@@ -136,7 +433,30 @@
   }
 }
 
-/* 统一遮罩：覆盖整张图片 + 蓝色条，从左边缘开始 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 移动端 before 装饰（放在文件末尾，确保覆盖默认规则） */
+@media (max-width: 1024px) {
+  .aboutHeader::before {
+    height: 10em;
+    width: 10em;
+    top: 9em;
+  }
+  .aboutDecoration::before {
+    height: 7em;
+    width: 7em;
+    left: -0.5em;
+  }
+}
+
+/* ===== 统一遮罩：PC 端图片 + 蓝色条一起揭开 ===== */
 .unifiedMask {
   position: absolute;
   left: 0;
@@ -149,7 +469,6 @@
   animation: whiteMaskShrink 0.35s ease-out 0.2s forwards;
 }
 
-/* 第二部分：统一遮罩覆盖灰色条 + 整张图片 */
 .unifiedMask2 {
   position: absolute;
   left: -10.5em;
@@ -162,11 +481,9 @@
   animation: whiteMaskShrink 0.35s ease-out 0.2s forwards;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
+@media (max-width: 1024px) {
+  .unifiedMask,
+  .unifiedMask2 {
+    display: none;
   }
 }

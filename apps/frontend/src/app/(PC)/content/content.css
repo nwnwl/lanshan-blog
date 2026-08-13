@@ -1,3 +1,15 @@
+/* ====== 导航栏断点（PC ≥1025px，移动端 ≤1024px） ====== */
+@media (min-width: 1025px) {
+  .hide-nav-desktop {
+    display: none;
+  }
+}
+@media (max-width: 1024px) {
+  .hide-nav-mobile {
+    display: none;
+  }
+}
+
 /* ====== 滚动容器 ====== */
 .contain {
   scrollbar-width: none;
