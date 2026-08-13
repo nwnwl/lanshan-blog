@@ -21,6 +21,11 @@
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
+/* hover 去掉数字描边（放 unlayered，覆盖 Tailwind @layer 优先级问题） */
+.row:hover .number {
+  text-shadow: none;
+}
+
 /* ===== Floating card: hidden by default, GSAP controls transform ===== */
 .card {
   position: fixed;

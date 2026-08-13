@@ -24,7 +24,6 @@ function ProjectRow({ id, title, subTitle, borderT, onHover }: ProjectProps) {
         2xl:text-[5.2rem] 3xl:text-[5.6rem]
         font-bold
         group-hover:text-[#00D4FF]
-        group-hover:[text-shadow:none]
         transition-all duration-400 ease-in-out z-10`}
       >
         {id}
