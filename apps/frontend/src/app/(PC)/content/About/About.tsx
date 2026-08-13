@@ -149,7 +149,13 @@ export const PC_AboutSection = () => {
           </div>
         </div>
         <div className={`absolute ${styles.carousel2}`}>
-          <MyCarousel images={images_2} textData={textData_2} shouldEnter={part2Visible} blink />
+          <MyCarousel
+            images={images_2}
+            textData={textData_2}
+            shouldEnter={part2Visible}
+            blink
+            revealFrom="left"
+          />
           {part2Visible && <div className={styles.unifiedMask2} />}
         </div>
       </div>

@@ -96,6 +96,7 @@ interface MyCarouselProps {
   textData: ImageDescription[];
   shouldEnter?: boolean;
   blink?: boolean;
+  revealFrom?: 'left' | 'right';
 }
 
 export const MyCarousel = ({
@@ -103,6 +104,7 @@ export const MyCarousel = ({
   textData,
   shouldEnter = true,
   blink = false,
+  revealFrom = 'right',
 }: MyCarouselProps) => {
   const [current, setCurrent] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -114,11 +116,18 @@ export const MyCarousel = ({
   const [thresholdSrc, setThresholdSrc] = useState('');
   const [direction, setDirection] = useState<'next' | 'prev'>('next');
   const [hasEntered, setHasEntered] = useState(false);
+  const [revealed, setRevealed] = useState(false);
   const total = images.length;
 
   useEffect(() => {
     if (!shouldEnter) return;
     const timer = setTimeout(() => setHasEntered(true), 1800);
+    return () => clearTimeout(timer);
+  }, [shouldEnter]);
+
+  useEffect(() => {
+    if (!shouldEnter) return;
+    const timer = setTimeout(() => setRevealed(true), 200);
     return () => clearTimeout(timer);
   }, [shouldEnter]);
 
@@ -194,7 +203,9 @@ export const MyCarousel = ({
       style={{ width: 'var(--carousel-w, 51.25em)', height: 'var(--carousel-h, 30em)' }}
     >
       {/* 图片区：overflow-hidden 截断幕布，不溢出全屏 */}
-      <div className="relative w-full h-full overflow-hidden">
+      <div
+        className={`relative w-full h-full overflow-hidden ${revealFrom === 'left' ? styles.revealLeft : styles.revealRight} ${revealed ? styles.revealEntered : ''}`}
+      >
         {images.map((img, i) => (
           <img
             key={img.id}
@@ -265,7 +276,7 @@ export const MyCarousel = ({
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 18 27"
-              className="Pagination_arrow__xgX6n w-3.5 h-3.5"
+              className="Pagination_arrow__xgX6n w-3.5 h-3.5 carouselArrow"
             >
               <path
                 fillRule="evenodd"
@@ -289,7 +300,7 @@ export const MyCarousel = ({
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 18 27"
-              className="Pagination_arrow__xgX6n Pagination_right__NDQb6 w-3.5 h-3.5 rotate-180"
+              className="Pagination_arrow__xgX6n Pagination_right__NDQb6 w-3.5 h-3.5 rotate-180 carouselArrow"
             >
               <path
                 fillRule="evenodd"

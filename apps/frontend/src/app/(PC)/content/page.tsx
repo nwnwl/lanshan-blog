@@ -72,13 +72,13 @@ export default function ContentPage() {
     <div className="contain flex h-screen w-full flex-col overflow-y-auto">
       <div className="flex w-full ">
         <div
-          className="lg:hidden fixed top-0 w-screen h-[6rem] z-50
+          className="hide-nav-desktop fixed top-0 w-screen h-[6rem] z-50
 
         "
         >
           <SiderbarMB />
         </div>
-        <div className="max-lg:hidden sticky top-0 left-0 h-screen w-[4rem] z-50">
+        <div className="hide-nav-mobile sticky top-0 left-0 h-screen w-[4rem] z-50">
           <SiderbarPC />
         </div>
 

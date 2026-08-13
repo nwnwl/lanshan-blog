@@ -122,12 +122,6 @@
     top: 149.5625em;
     left: calc(50% + 24.25em);
   }
-  .unifiedMask {
-    width: 100%;
-  }
-  .unifiedMask2 {
-    left: 0;
-  }
   .h5DecoLine {
     display: block;
     top: 0;
@@ -269,6 +263,38 @@
   }
 }
 
+@media (max-width: 640px) {
+  .about {
+    margin-top: 3em;
+    height: 245em;
+  }
+}
+
+@media (max-width: 500px) {
+  .about {
+    margin-top: 6em;
+    height: 248em;
+  }
+  :global(.carouselArrow) {
+    width: 0.7rem;
+    height: 0.7rem;
+  }
+}
+
+@media (max-width: 450px) {
+  :global(.carouselArrow) {
+    width: 0.6rem;
+    height: 0.6rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .about {
+    margin-top: 9em;
+    height: 251em;
+  }
+}
+
 .aboutDecoration {
   position: relative;
 }
@@ -407,32 +433,6 @@
   }
 }
 
-/* 统一遮罩：覆盖整张图片 + 蓝色条，从左边缘开始 */
-.unifiedMask {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: calc(100% + 10.5em);
-  background-color: #fff;
-  z-index: 40;
-  transform-origin: right;
-  animation: whiteMaskShrink 0.35s ease-out 0.2s forwards;
-}
-
-/* 第二部分：统一遮罩覆盖灰色条 + 整张图片 */
-.unifiedMask2 {
-  position: absolute;
-  left: -10.5em;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #fff;
-  z-index: 40;
-  transform-origin: left;
-  animation: whiteMaskShrink 0.35s ease-out 0.2s forwards;
-}
-
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -453,5 +453,37 @@
     height: 7em;
     width: 7em;
     left: -0.5em;
+  }
+}
+
+/* ===== 统一遮罩：PC 端图片 + 蓝色条一起揭开 ===== */
+.unifiedMask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: calc(100% + 10.5em);
+  background-color: #fff;
+  z-index: 40;
+  transform-origin: right;
+  animation: whiteMaskShrink 0.35s ease-out 0.2s forwards;
+}
+
+.unifiedMask2 {
+  position: absolute;
+  left: -10.5em;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  z-index: 40;
+  transform-origin: left;
+  animation: whiteMaskShrink 0.35s ease-out 0.2s forwards;
+}
+
+@media (max-width: 1024px) {
+  .unifiedMask,
+  .unifiedMask2 {
+    display: none;
   }
 }

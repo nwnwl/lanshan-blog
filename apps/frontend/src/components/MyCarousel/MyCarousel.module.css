@@ -241,3 +241,34 @@
 .thresholdExitRight {
   animation: thresholdExitRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* ===== 入场揭示：clip-path + translateX 滑动 ===== */
+.revealRight {
+  clip-path: inset(0 0 0 100%);
+  transform: translateX(3em);
+  transition:
+    clip-path 0.65s cubic-bezier(0.22, 0.8, 0.2, 1),
+    transform 0.65s cubic-bezier(0.22, 0.8, 0.2, 1);
+}
+
+.revealLeft {
+  clip-path: inset(0 100% 0 0);
+  transform: translateX(-3em);
+  transition:
+    clip-path 0.65s cubic-bezier(0.22, 0.8, 0.2, 1),
+    transform 0.65s cubic-bezier(0.22, 0.8, 0.2, 1);
+}
+
+.revealEntered {
+  clip-path: inset(0 0 0 0);
+  transform: translateX(0);
+}
+
+/* PC 端不裁切：入场交给 unifiedMask 白色遮罩 */
+@media (min-width: 1025px) {
+  .revealRight,
+  .revealLeft {
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+  }
+}
