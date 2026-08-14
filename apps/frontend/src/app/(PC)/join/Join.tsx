@@ -5,7 +5,7 @@ import styles from './Join.module.css';
 import { JOIN_GROUPS } from './data/groups';
 import { useTransitionStore } from '@/store/transitionStore';
 import { useRouter } from 'next/navigation';
-const EXIT_MS = 200;
+const EXIT_MS = 300;
 
 export const PC_JoinPage = () => {
   const router = useRouter();
