@@ -1,11 +1,11 @@
 'use client';
 
 import { forwardRef, useMemo, useRef, useEffect, useCallback } from 'react';
-import { Roboto_Flex } from 'next/font/google';
+import localFont from 'next/font/local';
 import './VariableProximity.css';
 
-const robotoFlex = Roboto_Flex({
-  subsets: ['latin'],
+const robotoFlex = localFont({
+  src: '../../../public/fonts/RobotoFlex/RobotoFlex-Variable.ttf',
   display: 'swap',
 });
 
