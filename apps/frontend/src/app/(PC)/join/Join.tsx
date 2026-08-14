@@ -5,7 +5,7 @@ import styles from './Join.module.css';
 import { JOIN_GROUPS } from './data/groups';
 import { useTransitionStore } from '@/store/transitionStore';
 import { useRouter } from 'next/navigation';
-const EXIT_MS = 300;
+const EXIT_MS = 200;
 
 export const PC_JoinPage = () => {
   const router = useRouter();
@@ -32,7 +32,7 @@ export const PC_JoinPage = () => {
     }, EXIT_MS);
     window.setTimeout(() => {
       isTransitioning.current = false;
-    }, EXIT_MS + 400);
+    }, EXIT_MS + 300);
   };
 
   const group = JOIN_GROUPS[displayIdx];
@@ -81,7 +81,7 @@ export const PC_JoinPage = () => {
         </div>
       </div>
       {/* 二维码 */}
-      <div className="absolute right-[1rem] md:right-[10rem] bottom-[1rem] md:bottom-[2rem] xl:bottom-[4rem]">
+      <div className="z-100 absolute right-[1rem] md:right-[10rem] bottom-[1rem] md:bottom-[2rem] xl:bottom-[4rem]">
         <img src="/picture/ewm.jpg" alt="二维码" className="h-[7rem] w-[7rem] object-cover" />
       </div>
       {/* 水平两栏布局，各占一半 */}
@@ -122,7 +122,8 @@ export const PC_JoinPage = () => {
                   <div
                     className={`absolute right-full h-full w-[1rem] text-[1rem] ${active ? 'text-[#00D4FF]' : ''}
                     group-hover:text-[#00D4FF] transition-text duration-300 ease-in-out
-                    flex flex-col justify-center items-center`}
+                    flex flex-col justify-center items-center
+                    leading-none`}
                   >
                     <span>{g.sider[0]}</span>
                     <span>×</span>

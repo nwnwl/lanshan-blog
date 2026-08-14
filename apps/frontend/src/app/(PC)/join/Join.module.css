@@ -64,19 +64,19 @@
 
 /* 切换动画 —— 参考 slideOutLeft / slideInLeft / slideOutRight / slideInRight，X 改为 Y */
 .slideOutUp {
-  animation: slideOutUp 300ms ease-in-out forwards;
+  animation: slideOutUp 200ms ease-in-out forwards;
   will-change: transform, opacity;
 }
 .slideInUp {
-  animation: slideInUp 300ms ease-in-out forwards;
+  animation: slideInUp 200ms ease-in-out forwards;
   will-change: transform, opacity;
 }
 .slideOutDown {
-  animation: slideOutDown 300ms ease-in-out forwards;
+  animation: slideOutDown 200ms ease-in-out forwards;
   will-change: transform, opacity;
 }
 .slideInDown {
-  animation: slideInDown 300ms ease-in-out forwards;
+  animation: slideInDown 200ms ease-in-out forwards;
   will-change: transform, opacity;
 }
 
@@ -165,15 +165,15 @@
 
 @media (max-width: 1279px) {
   .slideOutUp {
-    animation: slideOutLeft 300ms ease-in-out forwards;
+    animation: slideOutLeft 200ms ease-in-out forwards;
   }
   .slideInUp {
-    animation: slideInRight 300ms ease-in-out forwards;
+    animation: slideInRight 200ms ease-in-out forwards;
   }
   .slideOutDown {
-    animation: slideOutRight 300ms ease-in-out forwards;
+    animation: slideOutRight 200ms ease-in-out forwards;
   }
   .slideInDown {
-    animation: slideInLeft 300ms ease-in-out forwards;
+    animation: slideInLeft 200ms ease-in-out forwards;
   }
 }
