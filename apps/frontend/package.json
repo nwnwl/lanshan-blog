@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "sideEffects": [],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
