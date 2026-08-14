@@ -9,6 +9,7 @@ import { SiderbarMB } from '@/components/SiderbarMB';
 import { PC_EndSection } from './End';
 import { Marquee } from '@/components/Marquee';
 import { useMarqueeStore } from '@/lib/MarqueeStore';
+import { useTransitionStore } from '@/store/transitionStore';
 import { useEffect } from 'react';
 import './content.css';
 
@@ -17,8 +18,11 @@ const text_2 = '\\\\ UI DESIGN \\\\PRODUCT  \\\\OPERATION \\\\SECURITY  \\\\FRON
 
 export default function ContentPage() {
   const setReversed = useMarqueeStore((state) => state.setReversed);
+  const phase = useTransitionStore((state) => state.phase);
 
   useEffect(() => {
+    // 路由跳转遮罩切入期间（phase 'in'）不观察，等遮罩切出后再触发入场动画
+    if (phase === 'in') return;
     let blinkObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -50,7 +54,7 @@ export default function ContentPage() {
     return () => {
       blinkObserver.disconnect();
     };
-  });
+  }, [phase]);
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {

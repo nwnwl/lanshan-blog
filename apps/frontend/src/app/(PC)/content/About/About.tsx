@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { Icon } from '@/components/Icon';
+import { useTransitionStore } from '@/store/transitionStore';
 import styles from './About.module.css';
 import {
   MyCarousel,
@@ -15,6 +16,14 @@ export const PC_AboutSection = () => {
   const [part2Visible, setPart2Visible] = useState(false);
   const title2Ref = useRef<HTMLDivElement>(null);
   const [title2Visible, setTitle2Visible] = useState(false);
+  const phase = useTransitionStore((s) => s.phase);
+  const [part1Visible, setPart1Visible] = useState(false);
+
+  useEffect(() => {
+    if (phase === 'out' || phase === 'idle') {
+      setPart1Visible(true);
+    }
+  }, [phase]);
 
   useEffect(() => {
     const el = part2Ref.current;
@@ -98,8 +107,14 @@ export const PC_AboutSection = () => {
       {/* gameplayAlbum = [轮播][蓝条] */}
       <div className={`absolute ${styles.album1}`}>
         <div className={`relative ${styles.carousel1}`}>
-          <MyCarousel images={images_1} textData={textData_1} blink revealFrom="left" />
-          <div className={styles.unifiedMask} />
+          <MyCarousel
+            images={images_1}
+            textData={textData_1}
+            blink
+            revealFrom="left"
+            shouldEnter={part1Visible}
+          />
+          {part1Visible && <div className={styles.unifiedMask} />}
         </div>
         <div className={`bg-[#00D4FF] py-[0.75em] pl-[1em] absolute ${styles.bar1}`}>
           <img
