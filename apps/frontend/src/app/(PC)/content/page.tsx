@@ -40,7 +40,6 @@ export default function ContentPage() {
         });
       },
       {
-        root: document.querySelector('.contain') || null,
         rootMargin: '0px',
         threshold: 0,
       },
@@ -54,9 +53,6 @@ export default function ContentPage() {
   });
 
   useEffect(() => {
-    const container = document.querySelector('.contain') as HTMLElement | null;
-    if (!container) return;
-
     const handleWheel = (e: WheelEvent) => {
       const next = e.deltaY > 0;
       if (useMarqueeStore.getState().isReversed !== next) {
@@ -64,18 +60,14 @@ export default function ContentPage() {
       }
     };
 
-    container.addEventListener('wheel', handleWheel, { passive: true });
-    return () => container.removeEventListener('wheel', handleWheel);
+    window.addEventListener('wheel', handleWheel, { passive: true });
+    return () => window.removeEventListener('wheel', handleWheel);
   }, [setReversed]);
 
   return (
-    <div className="contain flex min-h-[650px] h-screen w-full flex-col overflow-y-auto">
+    <div className="contain flex min-h-screen w-full flex-col">
       <div className="flex w-full ">
-        <div
-          className="hide-nav-desktop fixed top-0 w-screen h-[6rem] z-50
-
-        "
-        >
+        <div className="hide-nav-desktop fixed top-0 w-screen h-[6rem] z-50">
           <SiderbarMB />
         </div>
         <div className="hide-nav-mobile sticky top-0 left-0 h-screen w-[4rem] z-50">

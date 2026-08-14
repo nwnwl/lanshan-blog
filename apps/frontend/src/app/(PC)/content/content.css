@@ -10,14 +10,6 @@
   }
 }
 
-/* ====== 滚动容器 ====== */
-.contain {
-  scrollbar-width: none;
-}
-.contain::-webkit-scrollbar {
-  display: none;
-}
-
 /* ====== SiderbarPC 组件样式 ====== */
 .siderbarMB::after {
   content: '';
