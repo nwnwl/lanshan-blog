@@ -53,14 +53,15 @@ export const PC_GraduationSection = () => {
     <section id="graduation" className="min-h-[650px] h-screen w-full">
       <div className="relative w-full h-full flex items-center justify-center xl:justify-end">
         <div className="absolute left-1/10 w-[50rem] md:w-[55rem] xl:w-[82rem] h-[42rem] flex gap-[3.5rem] items-end">
+          {/* 左侧蓝色条 */}
           <div className="relative h-full">
             <div className="animationEl heightGrow w-[4.5rem] self-start overflow-hidden">
               <div
                 className="w-[4.5rem] h-[42rem] bg-[#00d4ff] 
-          flex flex-col items-center justify-end"
+                 flex flex-col items-center justify-end"
               >
-                <div className="animationEl heightGrowSon absolute top-0 w-[12rem] -translate-x-[0.8rem]">
-                  <img src="/picture/cdlm.png" alt="cdlm" />
+                <div className="animationEl heightGrowSon absolute top-0 w-[12rem] -translate-x-[1.6rem]">
+                  <img src="/picture/LanShan_ID_badge_tilted.png" alt="cdlm" />
                 </div>
                 <div
                   className="animationEl heightGrowSon2 
@@ -81,6 +82,7 @@ export const PC_GraduationSection = () => {
             </div>
           </div>
 
+          {/* header部分 */}
           <div className="flex-1 h-full flex flex-col">
             <div
               className="w-full h-[6rem] pt-[1rem] mb-[1rem] 
@@ -110,7 +112,7 @@ export const PC_GraduationSection = () => {
                     className="animationEl widthGrowSon2
                   lg:text-xl text-xs font-medium pl-2"
                   >
-                    GO
+                    GRADUATION
                   </span>
                 </div>
                 <div
@@ -121,11 +123,9 @@ export const PC_GraduationSection = () => {
                   <span>毕业去向</span>
                 </div>
               </div>
-              <div
-                className="animationEl borderEl
-              h-[2px] w-full bg-[#d9d9d9]"
-              ></div>
             </div>
+
+            {/* 轮播图 */}
             <div className="w-full h-[30rem] flex">
               <div
                 ref={carouselRef}
@@ -137,11 +137,13 @@ export const PC_GraduationSection = () => {
                 <CohortCarousel current={current} />
               </div>
             </div>
-            {/* 切换 */}
+
+            {/* 按钮 */}
             <div
               className="animationEl widthGrowSon3
             h-[4rem] flex items-center"
             >
+              {/* 左 */}
               <div
                 className={`${styles.carouselBg} w-fit flex gap-8 p-0.5 rounded-full bg-[#e6e6e6]`}
               >
@@ -168,6 +170,7 @@ export const PC_GraduationSection = () => {
                     </svg>
                   </button>
                 </div>
+                {/* 右 */}
                 <div className="p-0.5 bg-[#FAFAFA] rounded-full z-1 group">
                   <button
                     aria-label="下一届"

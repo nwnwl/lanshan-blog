@@ -1,13 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../GraduationSection.module.css';
 import { DESTINATIONS } from '../data/destinations';
-import { useMouseFollower } from '@/hooks/useMouseFollower';
-
-const PAGE_SIZE = 8;
-const RING_RADIUS = 30; // 环半径(rem)
-const RING_PERSPECTIVE = '1500px';
 
 const ACADEMY_SVG_CLASS = 'h-3 w-3 fill-none stroke-current stroke-[1.8] [stroke-linecap:square]';
 
@@ -155,38 +150,45 @@ function CollegeIcon({ college }: { college: string }) {
   );
 }
 
-export const DestinationArchive = ({ cohort }: { cohort: string }) => {
-  const [current, setCurrent] = useState(0);
-  const [rot, setRot] = useState(180); // 环累计转角（不回落，CSS 自行处理大角度）
-  const [busy, setBusy] = useState(false);
-  // 鼠标跟随（排斥 + 纯惯性版，无弹簧）：检测范围 = 整块档案区(destinationGrid)，目标 = 当前正面那一页的网格
-  // 注意：网格上不再加 will-change-transform——它在 3D 环里会被强制提升成合成层、每帧重投影，正是"只有第一页卡"的元凶
-  const { containerRef, targetRef } = useMouseFollower({
-    maxOffset: 1, // 幅度(rem)
-    friction: 0.96, // 摩擦力：速度每帧保留 96%，鼠标停后余速磨没得更慢、惯性更大（0.94~0.97 区间）
-    returnEase: 0.01, // 回程缓动：鼠标移出后滑回中心的速度，越小回得越慢（0.02 更慢、更悠）
-  });
+export const DestinationArchive = ({
+  cohort,
+  index,
+  total,
+}: {
+  cohort: string;
+  index: number;
+  total: number;
+}) => {
   const records = DESTINATIONS.filter((item) => item.cohort === cohort);
-  const pageCount = Math.max(1, Math.ceil(records.length / PAGE_SIZE));
-  const pages = Array.from({ length: pageCount }, (_, i) =>
-    records.slice(i * PAGE_SIZE, i * PAGE_SIZE + PAGE_SIZE),
-  );
-  // 环上相邻页夹角 = 360/N（按页数动态），每次切换转过同样的角，转满一圈回到第 1 页；
-  // N≥3 时转角 <180°，途中两页同时可见、重叠衔接；N=2 只能各占 180° 对面
-  const SWING = pageCount > 1 ? 360 / pageCount : 360;
+  const PAGE_SIZE = 8;
+  const pages: (typeof records)[] = [];
+  for (let i = 0; i < records.length; i += PAGE_SIZE) {
+    pages.push(records.slice(i, i + PAGE_SIZE));
+  }
 
-  // 切换：整环旋转把目标页转到正面；环是闭环，可一直转（取模回绕），单页时不动
-  const go = (dir: -1 | 1) => {
-    if (busy || pageCount <= 1) return; // 转动中阻止再次切换
-    setBusy(true);
-    setCurrent((c) => (c + dir + pageCount) % pageCount);
-    setRot((r) => r + dir * SWING); // 下一页 → 当前页向左出、新页从右侧提前进
-    setTimeout(() => setBusy(false), 600); // 与环旋转时长一致
-  };
+  const [scrolled, setScrolled] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      if (el.scrollTop > 0) setScrolled(true);
+    };
+    el.addEventListener('scroll', onScroll, { passive: true });
+
+    // 动画循环 4 次后自动消失：1.5s 延迟 + 4 × 1.35s 时长
+    const timer = setTimeout(() => setScrolled(true), 1500 + 4 * 1350);
+
+    return () => {
+      el.removeEventListener('scroll', onScroll);
+      clearTimeout(timer);
+    };
+  }, []);
 
   return (
     <div
-      className="h-full w-full
+      className="relative h-full w-full
       flex flex-col"
       style={{
         backgroundImage:
@@ -208,142 +210,86 @@ export const DestinationArchive = ({ cohort }: { cohort: string }) => {
       </div>
       <div className="-translate-x-[1px] -translate-y-[1px] h-[2rem] w-[62%] [clip-path:polygon(0_0,100%_0,80%_100%,0_100%)] bg-white "></div>
 
-      {/* 所有页常驻 DOM、围绕一个环站一圈；非当前页转到背面/容器外被裁掉 */}
+      {/* 每页 4 行，下滑吸附翻页 */}
       <div
-        ref={containerRef}
-        className={`${styles.destinationGrid} relative isolate flex-1 overflow-hidden text-white`}
+        ref={scrollRef}
+        className={`${styles.destinationGrid} relative isolate flex-1 overflow-y-auto overflow-x-hidden text-white snap-y snap-proximity overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
       >
-        <div className="relative h-full w-full" style={{ perspective: RING_PERSPECTIVE }}>
+        {pages.map((pageRows, pageIdx) => (
           <div
-            className="relative h-full w-full transition-transform duration-[0.6s] ease-in-out"
-            style={{
-              transformStyle: 'preserve-3d',
-              // 环心前移 +R，页面向环心（内侧）；rot 保证当前页停在观察者正面
-              transform: `translateZ(${RING_RADIUS}rem) rotateY(${rot}deg)`,
-            }}
+            key={pageIdx}
+            className="h-full snap-start grid grid-cols-2 content-start gap-y-4 py-10 px-12"
           >
-            {pages.map((pageRows, i) => (
-              <div
-                key={i}
-                className="absolute inset-0"
-                style={{
-                  backfaceVisibility: 'hidden',
-                  // 页站在环上、面朝环心（内侧），观察者在环外看内壁；-i*SWING 使整环向前旋转时当前页从左侧离开
-                  transform: `rotateY(${-i * SWING}deg) translateZ(${RING_RADIUS}rem) rotateY(180deg)`,
-                }}
-              >
+            {pageRows.map((row, index) => (
+              <div key={row.name} className="max-h-[5rem] flex flex-col mx-4">
                 <div
-                  ref={(el) => {
-                    if (el && i === current) targetRef.current = el;
-                  }}
-                  className="grid h-full w-full grid-cols-2 place-content-center gap-y-4 py-10 px-12 perspective-[600px]"
+                  className={`flex-3 flex ${index % 2 === 1 ? 'flex-row-reverse' : ''} gap-[1rem] px-[1rem]`}
                 >
-                  {pageRows.map((row, index) => (
+                  {/* 顶部：姓名 + 拼音缩写 */}
+                  <div className="relative flex flex-col gap-[0.3rem] pb-[0.3rem] w-[6rem]">
                     <div
-                      key={row.name}
-                      className="max-h-[5rem]
-                    flex flex-col mx-4"
-                      style={{ transform: index % 2 === 0 ? 'rotateY(10deg)' : 'rotateY(-10deg)' }}
+                      className={`${index % 2 === 1 ? 'text-end' : ''} text-[0.5rem] leading-none`}
                     >
-                      <div
-                        className={`flex-3 flex ${index % 2 === 1 ? 'flex-row-reverse' : ''} justify-evenly`}
-                      >
-                        {/* 顶部：姓名 + 拼音缩写 */}
-                        <div className="relative flex flex-col gap-[0.3rem] pb-[0.3rem]">
-                          <div
-                            className={`${index % 2 === 1 ? 'text-end' : ''} text-[0.6rem] leading-none`}
-                          >
-                            <span className={`${index % 2 === 1 ? 'pr-1' : 'pl-1'} font-semibold`}>
-                              {row.initials}
-                            </span>
-                          </div>
-                          <div className="h-[2rem] text-[2rem] font-bold leading-none tracking-[-0.1em]">
-                            {row.name}
-                          </div>
-                          {/* 底部：学院图标 + 学院 */}
-                          <div
-                            className={`absolute top-full pt-[0.3rem]
-                            flex items-center gap-[0.3rem]
-                            ${index % 2 === 1 ? 'flex-row-reverse' : ''}
-                            whitespace-nowrap text-ellipsis text-[0.625rem] font-bold`}
-                          >
-                            <div
-                              className="h-full
-                            flex items-center"
-                            >
-                              <CollegeIcon college={row.college} />
-                            </div>
-                            <span>{row.college}</span>
-                          </div>
-                        </div>
-                        {/* 所去公司：内联展示，不单独放盒子 */}
-                        <div
-                          className={`flex items-end pb-[0.3rem] gap-[0.3rem] text-[0.7rem] font-bold leading-none ${index % 2 === 1 ? 'flex-row-reverse' : ''}`}
-                        >
-                          <span>{index % 2 === 1 ? '↙' : '↘'}</span>
-                          <span className="overflow-hidden whitespace-nowrap text-ellipsis">
-                            {row.destination}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div
-                        className={`flex-1 pt-[0.3rem]
-                        flex items-center gap-[0.3rem]
-                        border-t-4 border-white/50
-                         ${index % 2 === 1 ? 'flex-row-reverse' : ''}`}
-                      ></div>
+                      <span className={`${index % 2 === 1 ? 'pr-1' : 'pl-1'} font-semibold`}>
+                        {row.initials}
+                      </span>
                     </div>
-                  ))}
+                    <div
+                      className={`${index % 2 === 1 ? 'text-end' : ''} h-[2rem] text-[1.8rem] font-bold leading-none tracking-[-0.1em]`}
+                    >
+                      {row.name}
+                    </div>
+                    {/* 底部：学院图标 + 学院 */}
+                    <div
+                      className={`absolute top-full pt-[0.3rem]
+                    flex items-center gap-[0.3rem]
+                    ${index % 2 === 1 ? 'flex-row-reverse right-0' : ''}
+                    whitespace-nowrap text-ellipsis text-[0.5rem] font-bold`}
+                    >
+                      <div className="h-full flex items-center">
+                        <CollegeIcon college={row.college} />
+                      </div>
+                      <span>{row.college}</span>
+                    </div>
+                  </div>
+                  {/* 所去公司：内联展示，不单独放盒子 */}
+                  <div
+                    className={`flex items-end pb-[0.3rem] gap-[0.3rem] text-[0.7rem] font-bold leading-none flex-1 min-w-0 ${index % 2 === 1 ? 'flex-row-reverse' : ''}`}
+                  >
+                    <span>{index % 2 === 1 ? '↙' : '↘'}</span>
+                    <span className="min-w-0 overflow-hidden whitespace-nowrap text-ellipsis">
+                      {row.destination}
+                    </span>
+                  </div>
                 </div>
+
+                <div
+                  className={`flex-1 pt-[0.3rem]
+                flex items-center gap-[0.3rem]
+                border-t-4 border-white/50
+                 ${index % 2 === 1 ? 'flex-row-reverse' : ''}`}
+                ></div>
               </div>
             ))}
           </div>
-        </div>
+        ))}
       </div>
 
-      <div className="h-[2rem] flex items-center justify-between gap-3 bg-[#d9d9d9] px-5 py-3 text-[10px] tracking-wide md:px-6">
+      {pages.length > 1 && !scrolled && (
+        <img src="/picture/scroll-tip.webp" alt="下滑查看更多" className={styles.scrollTip} />
+      )}
+
+      <div className="relative h-[2rem] flex items-center justify-between gap-3 bg-[#d9d9d9] px-5 py-3 text-[10px] tracking-wide md:px-6">
         <div className="flex flex-col text-[0.4rem] text-[#808080]">
           <span className="">ACADEMIC CAREER OFFICE</span>
           <span>ARCHIVE SYSTEM</span>
         </div>
 
-        <div className="text-[#191919] flex items-center gap-1">
-          <button
-            aria-label="上一页"
-            disabled={pageCount <= 1}
-            onClick={() => go(-1)}
-            className="cursor-pointer h-[1rem] w-[0.8rem] 
-            text-[0.8rem] font-bold
-            flex justify-center items-center 
-            disabled:cursor-auto disabled:opacity-[0.3]"
-          >
-            <svg
-              viewBox="0 0 12 18"
-              className="w-[0.6rem] h-[0.8rem] rotate-180 "
-              fill="currentColor"
-            >
-              <path d="M0 0 L0 3 L4 9 L0 15 L0 18 L6 9 Z" />
-            </svg>
-          </button>
-          <span className="text-[1rem]">
-            <span className="font-mono-slash">{String(current + 1).padStart(2, '0')}</span> /{' '}
-            <span className="font-mono-slash">{String(pageCount).padStart(2, '0')}</span>
-          </span>
-          <button
-            aria-label="下一页"
-            disabled={pageCount <= 1}
-            onClick={() => go(1)}
-            className="cursor-pointer h-[1rem] w-[0.8rem] 
-            text-[0.8rem] font-bold
-            flex justify-center items-center 
-            disabled:cursor-auto disabled:opacity-[0.3]"
-          >
-            <svg viewBox="0 0 12 18" className="w-[0.6rem] h-[0.8rem]" fill="currentColor">
-              <path d="M0 0 L0 3 L4 9 L0 15 L0 18 L6 9 Z" />
-            </svg>
-          </button>
-        </div>
+        <span className="absolute left-1/2 -translate-x-1/2 text-[#191919]">
+          <span className="font-mono-slash text-[1rem]">{String(index + 1).padStart(2, '0')}</span>{' '}
+          / <span className="font-mono-slash text-[1rem]">{String(total).padStart(2, '0')}</span>
+        </span>
+
         <span>※ 已收集到的数据如上</span>
       </div>
     </div>

@@ -42,7 +42,7 @@ export const CohortCarousel = ({ current }: CohortCarouselProps) => {
               transformOrigin: 'left center',
             }}
           >
-            <DestinationArchive cohort={cohort} />
+            <DestinationArchive cohort={cohort} index={i} total={COHORTS.length} />
             {/* 非主表格暗色遮罩 */}
             <div
               className={`pointer-events-none absolute inset-0 bg-black/40 transition-opacity duration-700 ${

@@ -1,18 +1,3 @@
-.destinationGrid::after {
-  content: '';
-  position: absolute;
-  left: -1rem;
-  right: -1rem;
-  top: 0;
-  bottom: 0;
-  z-index: -1;
-  background-image: url('/picture/test-2.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  pointer-events: none;
-}
-
 /* CohortCarousel：非激活表格 0.8 缩放 + 暗色遮罩，激活表格还原 */
 .cohortSwiper {
   height: 100%;
@@ -98,4 +83,33 @@
 
 .carouselBtn:hover::before {
   opacity: 1;
+}
+
+/* 滚动提示指示符（复刻终末地 shVZNI / scroll-tip 动画） */
+@keyframes scrollTip {
+  0% {
+    opacity: 1;
+    transform: translate(-50%);
+  }
+  45.95% {
+    opacity: 0;
+    transform: translate(-50%, 1.25rem);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 1.25rem);
+  }
+}
+
+.scrollTip {
+  z-index: 10;
+  opacity: 0;
+  width: 2rem;
+  height: auto;
+  animation: 1.35s cubic-bezier(0.33, 0, 0.67, 1) 1.5s infinite scrollTip;
+  position: absolute;
+  bottom: 3.4rem;
+  left: 50%;
+  transform: translate(-50%);
+  pointer-events: none;
 }
