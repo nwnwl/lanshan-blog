@@ -141,7 +141,7 @@ export const PC_GraduationSection = () => {
             {/* 按钮 */}
             <div
               className="animationEl widthGrowSon3
-            h-[4rem] flex items-center"
+            h-[6rem] flex items-center"
             >
               {/* 左 */}
               <div

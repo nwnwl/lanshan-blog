@@ -38,8 +38,8 @@ export const CohortCarousel = ({ current }: CohortCarouselProps) => {
             pt-4
               transition-transform duration-700 ease-out"
             style={{
-              transform: `translateX(${visualStart(i) - layoutX(i) - rowOffset}rem) scale(${scale})`,
-              transformOrigin: 'left center',
+              transform: `translateX(${visualStart(i) - layoutX(i) - rowOffset - (TABLE_W * (1 - scale)) / 2}rem) scale(${scale})`,
+              transformOrigin: 'center center',
             }}
           >
             <DestinationArchive cohort={cohort} index={i} total={COHORTS.length} />
