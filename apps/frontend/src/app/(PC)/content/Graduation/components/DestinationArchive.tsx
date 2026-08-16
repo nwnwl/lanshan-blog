@@ -253,7 +253,7 @@ export const DestinationArchive = ({
                     </div>
                     <div
                       className={`${index % 2 === 1 ? 'lg:text-end' : ''} h-[1.8rem] 
-                      lg:text-[1.6rem] text-[1.2rem] 
+                      lg:text-[1.6rem] text-[1.2rem]
                       font-bold leading-none tracking-[-0.1em]`}
                     >
                       {row.name}
@@ -273,7 +273,8 @@ export const DestinationArchive = ({
                   </div>
                   {/* 所去公司：内联展示，不单独放盒子 */}
                   <div
-                    className={`flex items-end pb-[0.3rem] gap-[0.3rem] text-[0.7rem] font-bold leading-none flex-1 min-w-0 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+                    className={`flex items-end pb-[0.3rem] gap-[0.3rem]
+                      max-[400px]:text-[0.5rem] text-[0.7rem] font-bold leading-none flex-1 min-w-0 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
                   >
                     <span className={index % 2 === 1 ? 'lg:!hidden' : ''}>↘</span>
                     {index % 2 === 1 && <span className="!hidden lg:!inline">↙</span>}
@@ -296,7 +297,7 @@ export const DestinationArchive = ({
         ))}
       </div>
 
-      {isMobile && records.length > 8 && !scrolled && (
+      {!isMobile && pages.length > 1 && !scrolled && (
         <img src="/picture/scroll-tip.webp" alt="下滑查看更多" className={styles.scrollTip} />
       )}
 

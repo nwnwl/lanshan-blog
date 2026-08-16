@@ -64,10 +64,9 @@ export const PC_GraduationSection = () => {
   }, []);
 
   return (
-    <section id="graduation" className="min-h-[650px] h-screen w-full">
+    <section id="graduation" className="min-h-[650px] lg:h-screen w-full">
       <div
-        className="relative w-full flex items-center justify-center xl:justify-end"
-        style={{ minHeight: 'calc(425px + 22vw)' }}
+        className={`relative w-full flex items-center justify-center xl:justify-end ${styles.graduationWrap}`}
       >
         <div
           className={`absolute left-1/10 
@@ -156,7 +155,10 @@ export const PC_GraduationSection = () => {
             </div>
 
             {/* 轮播图 */}
-            <div className="w-full h-[40rem] lg:h-[30rem] flex">
+            <div
+              className="w-full
+             h-[40rem] lg:h-[30rem] flex"
+            >
               <div
                 ref={carouselRef}
                 className="

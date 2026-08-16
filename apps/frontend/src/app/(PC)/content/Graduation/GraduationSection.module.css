@@ -142,6 +142,11 @@
     --table-w: 22rem; /* ← 改：移动端表格宽（之前的一半） */
   }
 }
+@media (max-width: 400px) {
+  :root {
+    --table-w: 20rem; /* ← 改：移动端表格宽（之前的一半） */
+  }
+}
 
 .tableCard {
   width: var(--table-w);
@@ -196,5 +201,15 @@
   .badgeBox {
     width: 11rem; /* ← 改：移动端宽度 */
     margin-left: -1.2rem; /* ← 改：移动端左移 */
+  }
+}
+
+/* ⑦ 定位容器高度：PC 用 calc(425px+22vw)，移动端跟随内容块（53.5rem + bottom） */
+.graduationWrap {
+  min-height: calc(425px + 22vw);
+}
+@media (max-width: 1024px) {
+  .graduationWrap {
+    min-height: calc(100vw * 14 / 112.5 + 53.5rem + 6rem); /* 顶部对齐 + 内容块高度 + 底部余量 */
   }
 }
