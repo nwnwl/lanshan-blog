@@ -11,13 +11,27 @@ const SWITCH_FALLBACK_MS = SWITCH_MS + 250; // 兜底：万一 transitionend 没
 
 export const PC_GraduationSection = () => {
   const [current, setCurrent] = useState(0);
+  const [isSmall, setIsSmall] = useState(false);
   // 切换动画进行中：直接忽略点击（纯节流），避免连续点击叠加并发过渡 → 卡顿
   const busyRef = useRef(false);
   const fallbackTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 600px)');
+    const update = () => setIsSmall(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
   const cycle = (dir: number) => {
     if (busyRef.current) return; // 动画中：忽略本次点击
+    if (isSmall) {
+      // 小屏无横向过渡动画，直接切换不节流，避免快速点击被吞
+      setCurrent((c) => (c + dir + COHORTS.length) % COHORTS.length);
+      return;
+    }
     busyRef.current = true;
     if (fallbackTimer.current) clearTimeout(fallbackTimer.current); // 清掉上一轮兜底，防它提前误解锁
     setCurrent((c) => Math.min(Math.max(c + dir, 0), COHORTS.length - 1));
@@ -50,17 +64,33 @@ export const PC_GraduationSection = () => {
   }, []);
 
   return (
-    <section id="graduation" className="min-h-[650px] h-screen w-full">
-      <div className="relative w-full h-full flex items-center justify-center xl:justify-end">
-        <div className="absolute left-1/10 w-[50rem] md:w-[55rem] xl:w-[82rem] h-[42rem] flex gap-[3.5rem] items-end">
+    <section id="graduation" className="min-h-[650px] lg:h-screen w-full">
+      <div
+        className={`relative w-full flex items-center justify-center xl:justify-end ${styles.graduationWrap}`}
+      >
+        <div
+          className={`absolute left-1/10 
+          lg:bottom-0 bottom-6.5
+          w-[50rem] md:w-[55rem] xl:w-[82rem] h-[53.5rem] lg:h-[43rem] flex gap-[3.5rem] items-end ${styles.graduationBlock}`}
+        >
+          {/* 左侧蓝色条 */}
           <div className="relative h-full">
-            <div className="animationEl heightGrow w-[4.5rem] self-start overflow-hidden">
+            <div className={`animationEl heightGrow ${styles.blueBar} self-start overflow-hidden`}>
               <div
-                className="w-[4.5rem] h-[42rem] bg-[#00d4ff] 
-          flex flex-col items-center justify-end"
+                className={`${styles.blueBar} h-[53.5rem] lg:h-[43rem] bg-[#00d4ff]
+                 flex flex-col items-center justify-end`}
               >
-                <div className="animationEl heightGrowSon absolute top-0 w-[12rem] -translate-x-[0.8rem]">
-                  <img src="/picture/cdlm.png" alt="cdlm" />
+                <div className={`animationEl heightGrowSon absolute top-0 ${styles.badgeBox}`}>
+                  <img
+                    src="/picture/LanShan_ID_badge_tilted.png"
+                    alt="cdlm"
+                    className="hidden lg:block"
+                  />
+                  <img
+                    src="/picture/LanShan_ID_badge_tilted_2.png"
+                    alt="cdlm"
+                    className="lg:hidden"
+                  />
                 </div>
                 <div
                   className="animationEl heightGrowSon2 
@@ -81,6 +111,7 @@ export const PC_GraduationSection = () => {
             </div>
           </div>
 
+          {/* header部分 */}
           <div className="flex-1 h-full flex flex-col">
             <div
               className="w-full h-[6rem] pt-[1rem] mb-[1rem] 
@@ -110,23 +141,24 @@ export const PC_GraduationSection = () => {
                     className="animationEl widthGrowSon2
                   lg:text-xl text-xs font-medium pl-2"
                   >
-                    GO
+                    GRADUATION
                   </span>
                 </div>
                 <div
                   className="animationEl widthGrowSon3 
                 font-bold text-[1.5rem]
-                w-[6rem]"
+                w-auto"
                 >
                   <span>毕业去向</span>
                 </div>
               </div>
-              <div
-                className="animationEl borderEl
-              h-[2px] w-full bg-[#d9d9d9]"
-              ></div>
             </div>
-            <div className="w-full h-[30rem] flex">
+
+            {/* 轮播图 */}
+            <div
+              className="w-full
+             h-[40rem] lg:h-[30rem] flex"
+            >
               <div
                 ref={carouselRef}
                 className="
@@ -134,23 +166,25 @@ export const PC_GraduationSection = () => {
                 flex-1 overflow-hidden
                 flex gap-[2rem] items-center"
               >
-                <CohortCarousel current={current} />
+                <CohortCarousel current={current} isSmall={isSmall} />
               </div>
             </div>
-            {/* 切换 */}
+
+            {/* 按钮 */}
             <div
               className="animationEl widthGrowSon3
-            h-[4rem] flex items-center"
+            h-[6rem] flex items-center lg:mt-0 mt-2"
             >
+              {/* 左 */}
               <div
-                className={`${styles.carouselBg} w-fit flex gap-8 p-0.5 rounded-full bg-[#e6e6e6]`}
+                className={`${styles.carouselBg} w-fit flex lg:gap-8 gap-12 p-0.5 rounded-full bg-[#e6e6e6]`}
               >
                 <div className="p-0.5 bg-[#FAFAFA] rounded-full z-1 group">
                   <button
                     aria-label="上一届"
-                    disabled={current === 0}
+                    disabled={!isSmall && current === 0}
                     onClick={() => cycle(-1)}
-                    className={`${styles.carouselBtn} rounded-full p-2.5 border-2 border-[#E6E6E6]
+                    className={`${styles.carouselBtn} rounded-full lg:p-2.5 p-4 border-2 border-[#E6E6E6]
                     transition-all duration-300 ease-out
                     group-hover:enabled:bg-[#00d5ffca] cursor-pointer
                     disabled:opacity-40 disabled:cursor-auto`}
@@ -168,12 +202,13 @@ export const PC_GraduationSection = () => {
                     </svg>
                   </button>
                 </div>
+                {/* 右 */}
                 <div className="p-0.5 bg-[#FAFAFA] rounded-full z-1 group">
                   <button
                     aria-label="下一届"
-                    disabled={current === COHORTS.length - 1}
+                    disabled={!isSmall && current === COHORTS.length - 1}
                     onClick={() => cycle(1)}
-                    className={`${styles.carouselBtn} rounded-full p-2.5 border-2 border-[#E6E6E6]
+                    className={`${styles.carouselBtn} rounded-full lg:p-2.5 p-4 border-2 border-[#E6E6E6]
                     transition-all duration-300 ease-out
                     group-hover:enabled:bg-[#00d5ffca] cursor-pointer
                     disabled:opacity-40 disabled:cursor-auto`}
