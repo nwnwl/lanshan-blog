@@ -218,7 +218,7 @@ export const DestinationArchive = ({
         {pages.map((pageRows, pageIdx) => (
           <div
             key={pageIdx}
-            className="h-full snap-start grid grid-cols-2 content-start gap-y-4 py-10 px-12"
+            className="h-full snap-start grid grid-cols-2 content-start gap-y-4 py-16 px-12"
           >
             {pageRows.map((row, index) => (
               <div key={row.name} className="max-h-[5rem] flex flex-col mx-4">
@@ -226,7 +226,7 @@ export const DestinationArchive = ({
                   className={`flex-3 flex ${index % 2 === 1 ? 'flex-row-reverse' : ''} gap-[1rem] px-[1rem]`}
                 >
                   {/* 顶部：姓名 + 拼音缩写 */}
-                  <div className="relative flex flex-col gap-[0.3rem] pb-[0.3rem] w-[6rem]">
+                  <div className="relative flex flex-col gap-[0.2rem] pb-[0.2rem] w-[6rem]">
                     <div
                       className={`${index % 2 === 1 ? 'text-end' : ''} text-[0.5rem] leading-none`}
                     >
@@ -235,7 +235,7 @@ export const DestinationArchive = ({
                       </span>
                     </div>
                     <div
-                      className={`${index % 2 === 1 ? 'text-end' : ''} h-[2rem] text-[1.8rem] font-bold leading-none tracking-[-0.1em]`}
+                      className={`${index % 2 === 1 ? 'text-end' : ''} h-[1.8rem] text-[1.6rem] font-bold leading-none tracking-[-0.1em]`}
                     >
                       {row.name}
                     </div>
