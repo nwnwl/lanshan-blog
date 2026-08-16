@@ -8,6 +8,7 @@
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --breakpoint-lg: 1025px;
   --breakpoint-3xl: 105rem;
 }
 
@@ -363,4 +364,13 @@ html::-webkit-scrollbar {
 }
 .heightGrow.play {
   height: 100%;
+}
+
+/* 600px 以下去掉卡片（轮播图）出场动画，直接显示；其他元素动画保留 */
+@media (max-width: 600px) {
+  .tableEl {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

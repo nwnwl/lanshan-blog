@@ -113,3 +113,88 @@
   transform: translate(-50%);
   pointer-events: none;
 }
+
+/* 人员卡片占满 grid 列 */
+.archiveItem {
+  width: 100%;
+}
+
+/* ============================================================
+   【响应式长宽配置模板】断点：≤1024px = 移动端（包括 1024）
+   ------------------------------------------------------------
+   写法规则：
+   - PC 端值写在 @media 外面（默认）
+   - 移动端值写在 @media (max-width: 1024px) 里面（覆盖）
+   - 改长宽 = 改下面带「← 改」注释的数值
+   ============================================================ */
+
+/* ① 轮播表格（卡片）宽度：唯一来源 --table-w，JS 会自动读取 */
+:root {
+  --table-w: 50rem; /* ← 改：PC 表格宽 */
+}
+@media (max-width: 1024px) {
+  :root {
+    --table-w: 30rem; /* ← 改：移动端表格宽（之前的一半） */
+  }
+}
+@media (max-width: 600px) {
+  :root {
+    --table-w: 22rem; /* ← 改：移动端表格宽（之前的一半） */
+  }
+}
+
+.tableCard {
+  width: var(--table-w);
+}
+
+/* ② 人员卡片高度（每行一个人员） */
+.personCard {
+  max-height: 5rem; /* ← 改：PC 每行高度 */
+}
+@media (max-width: 1024px) {
+  .personCard {
+    max-height: 5rem; /* ← 改：移动端每行高度 */
+  }
+}
+
+/* ③ 人员网格：列数 / 列宽（人员卡片的宽度由这里决定） */
+.archiveGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* ← 改：PC 两列 */
+}
+@media (max-width: 1024px) {
+  .archiveGrid {
+    grid-template-columns: 1fr; /* ← 改：移动端一列 */
+    justify-content: center;
+  }
+}
+
+/* ④ 移动端蓝色条顶部对齐 About 蓝色条底部（=14em，About height=242em 时蓝色条高 calc(100%+14em) 超出 14em） */
+@media (max-width: 1024px) {
+  .graduationBlock {
+    left: calc(50% - 27.78vw);
+    top: calc(100vw * 14 / 112.5); /* = 12.44vw，纯线性，随视口等比 */
+  }
+}
+
+/* ⑤ 蓝色条宽度：PC 4.5rem，移动端对齐 About（8.25em = 100vw*8.25/112.5） */
+.blueBar {
+  width: 4.5rem; /* ← 改：PC 蓝色条宽 */
+}
+@media (max-width: 1024px) {
+  .blueBar {
+    width: calc(100vw * 8.25 / 112.5); /* ← 改：移动端蓝色条宽（和 About 8.25em 一致） */
+  }
+}
+
+/* ⑥ 工牌图装饰大小：PC 默认，移动端（≤1024px）改大小
+   注意：左移用 margin-left，不能用 transform（会被 heightGrowSon 的 transform 覆盖） */
+.badgeBox {
+  width: 12rem; /* ← 改：PC 宽度 */
+  margin-left: -3rem; /* ← 改：PC 左移 */
+}
+@media (max-width: 1024px) {
+  .badgeBox {
+    width: 11rem; /* ← 改：移动端宽度 */
+    margin-left: -1.2rem; /* ← 改：移动端左移 */
+  }
+}

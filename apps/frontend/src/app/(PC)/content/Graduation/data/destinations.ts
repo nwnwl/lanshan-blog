@@ -211,7 +211,7 @@ export const DESTINATIONS: Destination[] = [
     cohort: '23',
     name: '姜家乐',
     initials: 'JJL',
-    destination: '字节',
+    destination: '字节跳动',
     college: '先进制造工程学院',
   },
   // 24 届
@@ -220,7 +220,7 @@ export const DESTINATIONS: Destination[] = [
     cohort: '24',
     name: '邓先阆',
     initials: 'DXL',
-    destination: '字节',
+    destination: '字节跳动',
     college: '网络安全与空间法学院',
   },
   {

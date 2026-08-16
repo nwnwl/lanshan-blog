@@ -160,10 +160,20 @@ export const DestinationArchive = ({
   total: number;
 }) => {
   const records = DESTINATIONS.filter((item) => item.cohort === cohort);
-  const PAGE_SIZE = 8;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 1024px)');
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  const pageSize = isMobile ? records.length : 8;
   const pages: (typeof records)[] = [];
-  for (let i = 0; i < records.length; i += PAGE_SIZE) {
-    pages.push(records.slice(i, i + PAGE_SIZE));
+  for (let i = 0; i < records.length; i += pageSize) {
+    pages.push(records.slice(i, i + pageSize));
   }
 
   const [scrolled, setScrolled] = useState(false);
@@ -191,9 +201,7 @@ export const DestinationArchive = ({
       className="relative h-full w-full
       flex flex-col"
       style={{
-        backgroundImage:
-          'radial-gradient(circle, #707070 0, #707070 1.5px, transparent 1.6px), linear-gradient(90deg, #191919 0%, #000000 50%,#191919 100%)',
-        backgroundSize: '3rem 3rem, 100% 100%',
+        backgroundImage: 'linear-gradient(90deg, #191919 0%, #000000 50%,#191919 100%)',
       }}
     >
       <div
@@ -210,40 +218,51 @@ export const DestinationArchive = ({
       </div>
       <div className="-translate-x-[1px] -translate-y-[1px] h-[2rem] w-[62%] [clip-path:polygon(0_0,100%_0,80%_100%,0_100%)] bg-white "></div>
 
-      {/* 每页 4 行，下滑吸附翻页 */}
+      {/* PC 分页（下滑翻页）/ 移动端单页滚动 */}
       <div
         ref={scrollRef}
-        className={`${styles.destinationGrid} relative isolate flex-1 overflow-y-auto overflow-x-hidden text-white snap-y snap-proximity overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
+        className={`${styles.destinationGrid} relative isolate flex-1 overflow-y-auto overflow-x-hidden text-white snap-y snap-mandatory lg:snap-proximity [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
       >
         {pages.map((pageRows, pageIdx) => (
           <div
             key={pageIdx}
-            className="h-full snap-start grid grid-cols-2 content-start gap-y-4 py-16 px-12"
+            className={`${isMobile ? '' : 'h-full snap-start'} grid content-start gap-x-[2rem] gap-y-5 lg:py-16 py-20 px-12 ${styles.archiveGrid}`}
           >
             {pageRows.map((row, index) => (
-              <div key={row.name} className="max-h-[5rem] flex flex-col mx-4">
+              <div
+                key={row.name}
+                className={`max-h-[5rem] flex flex-col mx-4 ${styles.archiveItem}`}
+              >
                 <div
-                  className={`flex-3 flex ${index % 2 === 1 ? 'flex-row-reverse' : ''} gap-[1rem] px-[1rem]`}
+                  className={`flex-3 flex ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''} 
+                  gap-[1rem]
+                  px-[1rem]`}
                 >
                   {/* 顶部：姓名 + 拼音缩写 */}
-                  <div className="relative flex flex-col gap-[0.2rem] pb-[0.2rem] w-[6rem]">
+                  <div className="relative flex flex-col gap-[0.2rem] pb-0 lg:pb-[0.2rem] w-[6rem]">
                     <div
-                      className={`${index % 2 === 1 ? 'text-end' : ''} text-[0.5rem] leading-none`}
+                      className={`${index % 2 === 1 ? 'lg:text-end' : ''} 
+                      lg:text-[0.5rem] text-[0.4rem] 
+                      leading-none`}
                     >
-                      <span className={`${index % 2 === 1 ? 'pr-1' : 'pl-1'} font-semibold`}>
+                      <span
+                        className={`${index % 2 === 1 ? 'pl-1 lg:pl-0 lg:pr-1' : 'pl-1'} font-semibold`}
+                      >
                         {row.initials}
                       </span>
                     </div>
                     <div
-                      className={`${index % 2 === 1 ? 'text-end' : ''} h-[1.8rem] text-[1.6rem] font-bold leading-none tracking-[-0.1em]`}
+                      className={`${index % 2 === 1 ? 'lg:text-end' : ''} h-[1.8rem] 
+                      lg:text-[1.6rem] text-[1.2rem] 
+                      font-bold leading-none tracking-[-0.1em]`}
                     >
                       {row.name}
                     </div>
                     {/* 底部：学院图标 + 学院 */}
                     <div
                       className={`absolute top-full pt-[0.3rem]
-                    flex items-center gap-[0.3rem]
-                    ${index % 2 === 1 ? 'flex-row-reverse right-0' : ''}
+                    hidden lg:flex items-center gap-[0.3rem]
+                    ${index % 2 === 1 ? 'lg:flex-row-reverse lg:right-0' : ''}
                     whitespace-nowrap text-ellipsis text-[0.5rem] font-bold`}
                     >
                       <div className="h-full flex items-center">
@@ -254,9 +273,10 @@ export const DestinationArchive = ({
                   </div>
                   {/* 所去公司：内联展示，不单独放盒子 */}
                   <div
-                    className={`flex items-end pb-[0.3rem] gap-[0.3rem] text-[0.7rem] font-bold leading-none flex-1 min-w-0 ${index % 2 === 1 ? 'flex-row-reverse' : ''}`}
+                    className={`flex items-end pb-[0.3rem] gap-[0.3rem] text-[0.7rem] font-bold leading-none flex-1 min-w-0 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
                   >
-                    <span>{index % 2 === 1 ? '↙' : '↘'}</span>
+                    <span className={index % 2 === 1 ? 'lg:!hidden' : ''}>↘</span>
+                    {index % 2 === 1 && <span className="!hidden lg:!inline">↙</span>}
                     <span className="min-w-0 overflow-hidden whitespace-nowrap text-ellipsis">
                       {row.destination}
                     </span>
@@ -264,10 +284,11 @@ export const DestinationArchive = ({
                 </div>
 
                 <div
-                  className={`flex-1 pt-[0.3rem]
+                  className={`flex-1 pt-0 lg:pt-[0.3rem]
+               w-[var(--table-w)] lg:w-full
                 flex items-center gap-[0.3rem]
-                border-t-4 border-white/50
-                 ${index % 2 === 1 ? 'flex-row-reverse' : ''}`}
+                lg:border-t-2 border-t-1 border-[#808080]
+                 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
                 ></div>
               </div>
             ))}
@@ -275,7 +296,7 @@ export const DestinationArchive = ({
         ))}
       </div>
 
-      {pages.length > 1 && !scrolled && (
+      {isMobile && records.length > 8 && !scrolled && (
         <img src="/picture/scroll-tip.webp" alt="下滑查看更多" className={styles.scrollTip} />
       )}
 
@@ -285,12 +306,12 @@ export const DestinationArchive = ({
           <span>ARCHIVE SYSTEM</span>
         </div>
 
-        <span className="absolute left-1/2 -translate-x-1/2 text-[#191919]">
+        <span className="text-[#191919] lg:absolute lg:left-1/2 lg:-translate-x-1/2">
           <span className="font-mono-slash text-[1rem]">{String(index + 1).padStart(2, '0')}</span>{' '}
           / <span className="font-mono-slash text-[1rem]">{String(total).padStart(2, '0')}</span>
         </span>
 
-        <span>※ 已收集到的数据如上</span>
+        <span className="!hidden lg:!block">※ 已收集到的数据如上</span>
       </div>
     </div>
   );
