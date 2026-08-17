@@ -203,10 +203,10 @@ export const PC_HeroSection = () => {
           </div>
         </div>
 
-        {/* 右侧粒子画布容器：桌面端顺时针旋转 15°（lg:rotate-[15deg]）；移动端（max-lg）绝对定位在右下
+        {/* 右侧粒子画布容器：旋转已烘焙进桌面端图片（lm-2），不再用 CSS rotate；移动端（max-lg）绝对定位在右下
             容器宽高 boxW/boxH 由顶部 RESPONSIVE_BREAKPOINTS 配置控制 */}
         <div
-          className="relative z-10 rounded-lg lg:rotate-[15deg]
+          className="relative z-10 rounded-lg
           max-lg:absolute max-lg:left-[calc(50%-2rem)] max-lg:bottom-1/2
            max-lg:translate-y-1/4  max-lg:-translate-x-1/4 
           "
