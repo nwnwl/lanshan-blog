@@ -13,7 +13,7 @@ interface ParticleCanvasProps {
   style?: React.CSSProperties;
 }
 
-// lg 断点（≥1024px）：桌面用 lm-2（旋转已烘焙进图），移动端用 lm；显式传入 imageUrl 时遵循传入值
+// 移动端断点（≤1024px，含 1024）：移动端用 lm，桌面用 lm-2（旋转已烘焙进图）；显式传入 imageUrl 时遵循传入值
 const MOBILE_IMAGE = '/picture/lm.png';
 const DESKTOP_IMAGE = '/picture/lm-2.png';
 
@@ -31,7 +31,7 @@ const ParticleCanvas = forwardRef<ParticleCanvasHandle, ParticleCanvasProps>(
           setResolvedImage(imageUrl);
         } else {
           setResolvedImage(
-            window.matchMedia('(min-width: 1024px)').matches ? DESKTOP_IMAGE : MOBILE_IMAGE,
+            window.matchMedia('(max-width: 1024px)').matches ? MOBILE_IMAGE : DESKTOP_IMAGE,
           );
         }
       };
@@ -39,7 +39,7 @@ const ParticleCanvas = forwardRef<ParticleCanvasHandle, ParticleCanvasProps>(
       pickImage();
 
       // 只在跨越 1024px 断点时触发，避免每次 resize 都重建粒子系统
-      const mq = window.matchMedia('(min-width: 1024px)');
+      const mq = window.matchMedia('(max-width: 1024px)');
       mq.addEventListener('change', pickImage);
       return () => mq.removeEventListener('change', pickImage);
     }, [imageUrl]);
