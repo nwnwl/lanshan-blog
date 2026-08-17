@@ -18,7 +18,11 @@ export const ScrollIndicator = () => {
           50% { transform: translateX(0.5rem); }
         }
       `}</style>
-      <div className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3">
+      <div
+        className="pointer-events-none 
+      absolute bottom-[2rem] left-1/2 -translate-x-1/2 
+      z-20 flex items-center gap-3"
+      >
         {/* 左三角 */}
         <svg
           style={{ animation: 'driftLeft 1.5s ease-in-out infinite' }}
@@ -31,11 +35,11 @@ export const ScrollIndicator = () => {
         {/* 中间文字 */}
         <span
           onClick={() => navigate('/content', router.push)}
-          className="font-bold text-white text-sm tracking-wider
+          className="font-bold text-white tracking-wider max-lg:text-[2rem]
         select-none pointer-events-auto cursor-pointer
         hover:opacity-80 transition-opacity duration-300 ease-in-out"
         >
-          HOME
+          LEARN MORE
         </span>
         {/* 右三角 */}
         <svg

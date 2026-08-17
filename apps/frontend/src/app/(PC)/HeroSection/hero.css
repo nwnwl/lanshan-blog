@@ -1,0 +1,22 @@
+.heroJoin {
+  position: relative;
+  cursor: pointer;
+}
+.heroJoin::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -1.5rem;
+  width: 1rem;
+  height: 50%;
+  background-color: #00d4ff;
+  clip-path: polygon(0px 0px, 20% 0px, 20% 100%, 0px 100%);
+  transition:
+    clip-path 0.2s,
+    transform 0.2s,
+    -webkit-clip-path 0.2s;
+}
+.heroJoin:hover::before {
+  clip-path: polygon(0px 0px, 100% 50%, 0px 100%, 0px 100%);
+}
