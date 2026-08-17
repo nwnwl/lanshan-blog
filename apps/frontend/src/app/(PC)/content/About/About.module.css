@@ -313,9 +313,6 @@
   animation: fadeInUp 0.35s linear 0.15s forwards;
 }
 
-.aboutHeader {
-}
-
 .aboutHeader::before {
   content: '';
   position: absolute;
@@ -352,20 +349,6 @@
 
 /* ===== 初次登场遮罩与淡入 ===== */
 
-.maskWrapper {
-  position: relative;
-  overflow: hidden;
-}
-
-.whiteMask {
-  position: absolute;
-  inset: 0;
-  background-color: #fff;
-  z-index: 10;
-  transform-origin: right;
-  animation: whiteMaskShrink 0.35s ease-out 0.2s forwards;
-}
-
 @keyframes whiteMaskShrink {
   from {
     transform: scaleX(1);
@@ -386,11 +369,6 @@
   animation: fadeInThenBlink 0.6s ease-out 0.3s forwards;
 }
 
-.blinkDesc {
-  opacity: 0;
-  animation: fadeInThenBlink 0.6s ease-out 0.7s forwards;
-}
-
 @keyframes fadeInThenBlink {
   0% {
     opacity: 0;
@@ -405,27 +383,6 @@
     opacity: 1;
   }
   75% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes blinkIn {
-  0% {
-    opacity: 0;
-  }
-  25% {
-    opacity: 1;
-  }
-  45% {
-    opacity: 0.2;
-  }
-  70% {
-    opacity: 1;
-  }
-  85% {
     opacity: 0.5;
   }
   100% {

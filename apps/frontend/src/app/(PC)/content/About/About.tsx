@@ -98,10 +98,7 @@ export const PC_AboutSection = () => {
       <div
         className={`absolute p-2 bg-[#D9D9D9] flex items-center justify-center ${styles.fadeInUp} ${styles.icon1}`}
       >
-        <Icon
-          name="gameplay"
-          className="__05-Gameplay_icon__Yiqki w-[3.25em] h-auto text-[#A6A6A6]"
-        />
+        <Icon name="gameplay" className="w-[3.25em] h-auto text-[#A6A6A6]" />
       </div>
 
       {/* gameplayAlbum = [轮播][蓝条] */}
@@ -211,7 +208,7 @@ export const PC_AboutSection = () => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 57 47"
-          className="__08-AIC_icon__lIZuJ w-[3.25em] h-auto text-[#A6A6A6]"
+          className="w-[3.25em] h-auto text-[#A6A6A6]"
         >
           <path
             fillRule="evenodd"
