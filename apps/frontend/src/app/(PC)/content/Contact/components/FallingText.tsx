@@ -127,10 +127,6 @@ const FallingText = ({
     const el = containerRef.current;
     const m = mouse as unknown as Record<string, EventListener>;
     el.removeEventListener('wheel', m.mousewheel);
-    el.removeEventListener('touchstart', m.mousedown);
-    el.removeEventListener('touchmove', m.mousemove);
-    el.addEventListener('touchstart', m.mousedown, { passive: true });
-    el.addEventListener('touchmove', m.mousemove, { passive: true });
     const mc = MouseConstraint.create(engine, {
       mouse,
       constraint: { stiffness: mouseConstraintStiffness, render: { visible: false } },
