@@ -24,13 +24,6 @@ export const Marquee = ({ text, bgColor, textColor, direction = 'left' }: Marque
     const track = trackRef.current;
     if (!track) return;
 
-    // 默认速度：direction = left 则向左（负值），right 则向右（正值）
-    const base = 1; // 匀速速度，单位 px/帧，可调
-    const defaultSpeed = direction === 'left' ? -base : base;
-
-    // 根据全局反转状态，决定基础方向
-    targetSpeedRef.current = isReversed ? -defaultSpeed : defaultSpeed;
-
     let rafId: number;
     const animate = () => {
       // 速度平滑过渡（lerp），避免突变造成卡顿感
@@ -55,7 +48,7 @@ export const Marquee = ({ text, bgColor, textColor, direction = 'left' }: Marque
     };
     rafId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(rafId);
-  }, [direction]);
+  }, []);
 
   useEffect(() => {
     const base = 1;
