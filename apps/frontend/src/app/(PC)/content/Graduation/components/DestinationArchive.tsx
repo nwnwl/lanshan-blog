@@ -176,8 +176,6 @@ export const DestinationArchive = ({
     pages.push(records.slice(i, i + pageSize));
   }
 
-  // 滚动提示：常驻循环播放，不设自动隐藏定时器；滚到最后一页也照常播放。
-
   return (
     <div
       className="relative h-full w-full

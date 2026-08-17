@@ -50,7 +50,7 @@ export const CohortCarousel = ({ current, isSmall }: CohortCarouselProps) => {
       {COHORTS.map((cohort, i) => {
         if (isSmall && i !== current) return null; // 小屏只显示当前届
         const isCurrent = i === current;
-        const scale = isCurrent ? 1 : 0.8;
+        const scale = isCurrent ? 1 : SCALE;
         return (
           <div
             key={cohort}
