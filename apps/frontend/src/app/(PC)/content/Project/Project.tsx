@@ -1,6 +1,12 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type MouseEvent as ReactMouseEvent,
+} from 'react';
 import ProjectRow from './components/ProjectRow';
 import gsap from 'gsap';
 import styles from './ProjectSection.module.css';
@@ -44,8 +50,26 @@ export const PC_ProjectSection = () => {
   const cardRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const [cardEnabled, setCardEnabled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
     setCardEnabled(navigator.maxTouchPoints <= 0);
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 1024px)');
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    };
   }, []);
 
   // Preload all images on mount
@@ -70,11 +94,30 @@ export const PC_ProjectSection = () => {
     );
   }, []);
 
+  // Mobile (≤1024px): reveal card at tap position, auto-hide after 0.5s
+  const handleCardClick = useCallback(
+    (index: number, e: ReactMouseEvent<HTMLDivElement>) => {
+      const card = cardRef.current;
+      if (!card) return;
+      gsap.killTweensOf(card);
+      gsap.set(card, { x: e.clientX, y: e.clientY });
+      changePhoto(index);
+      gsap.to(card, { scale: 1, rotate: '-15deg', duration: 0.5, ease: 'power4.out' });
+      setActiveIndex(index);
+      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+      hideTimerRef.current = setTimeout(() => {
+        gsap.to(card, { scale: 0, rotate: '30deg', duration: 0.5, ease: 'power4.out' });
+        setActiveIndex(null);
+      }, 500);
+    },
+    [changePhoto],
+  );
+
   // Container-level delegated card events via GSAP
   useEffect(() => {
     const container = containerRef.current;
     const card = cardRef.current;
-    if (!container || !card || !cardEnabled) return;
+    if (!container || !card || !cardEnabled || isMobile) return;
 
     const onEnter = (e: MouseEvent) => {
       gsap
@@ -100,7 +143,7 @@ export const PC_ProjectSection = () => {
       container.removeEventListener('mousemove', onMove);
       container.removeEventListener('mouseleave', onLeave);
     };
-  }, [cardEnabled]);
+  }, [cardEnabled, isMobile]);
 
   return (
     <section id="project" className="w-full px-12 mt-30 mb-30 relative bg-white text-black">
@@ -112,7 +155,9 @@ export const PC_ProjectSection = () => {
             title={project.title}
             subTitle={project.subTitle}
             borderT={index === 0}
-            onHover={() => cardEnabled && changePhoto(index)}
+            active={activeIndex === index}
+            onHover={() => cardEnabled && !isMobile && changePhoto(index)}
+            onClick={(e) => isMobile && handleCardClick(index, e)}
           />
         ))}
       </div>

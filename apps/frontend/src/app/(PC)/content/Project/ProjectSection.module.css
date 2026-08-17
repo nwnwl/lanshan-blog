@@ -17,13 +17,25 @@
   pointer-events: none;
 }
 
-.row:hover::after {
+@media (hover: hover) {
+  .row:hover::after {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  /* hover 去掉数字描边（放 unlayered，覆盖 Tailwind @layer 优先级问题） */
+  .row:hover .number {
+    text-shadow: none;
+  }
+}
+
+/* 移动端点击激活态，复现 hover 变色 */
+.row.active::after {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
-/* hover 去掉数字描边（放 unlayered，覆盖 Tailwind @layer 优先级问题） */
-.row:hover .number {
+.row.active .number {
   text-shadow: none;
+  color: #00d4ff;
 }
 
 /* ===== Floating card: hidden by default, GSAP controls transform ===== */

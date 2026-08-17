@@ -1,3 +1,4 @@
+import type { MouseEvent } from 'react';
 import styles from '../ProjectSection.module.css';
 
 interface ProjectProps {
@@ -5,17 +6,20 @@ interface ProjectProps {
   title: string;
   subTitle: string;
   borderT?: boolean;
+  active?: boolean;
   onHover: () => void;
+  onClick?: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
-function ProjectRow({ id, title, subTitle, borderT, onHover }: ProjectProps) {
+function ProjectRow({ id, title, subTitle, borderT, active, onHover, onClick }: ProjectProps) {
   return (
     <div
-      className={`${styles.row} border-b-2 flex gap-4 items-center pl-12 
-      group 
-      h-40 sm:h-48 lg:h-44 xl:h-49 2xl:h-60 
-      ${borderT ? 'border-t-2' : ''}`}
+      className={`${styles.row} border-b-2 flex gap-4 items-center pl-12
+      group
+      h-40 sm:h-48 lg:h-44 xl:h-49 2xl:h-60
+      ${borderT ? 'border-t-2' : ''} ${active ? styles.active : ''}`}
       onMouseEnter={onHover}
+      onClick={onClick}
     >
       <div
         className={`${styles.number} text-white
@@ -29,9 +33,9 @@ function ProjectRow({ id, title, subTitle, borderT, onHover }: ProjectProps) {
         {id}
       </div>
       <div
-        className="flex flex-col gap-4 min-w-0 flex-1 z-10
+        className={`flex flex-col gap-4 min-w-0 flex-1 z-10
         group-hover:text-white
-        transition-colors duration-400 ease-in-out"
+        transition-colors duration-400 ease-in-out ${active ? 'text-white' : ''}`}
       >
         <span className="2xl:text-[3.6rem] lg:text-[2.8rem] md:text-[2.6rem] sm:text-[2.2rem] text-[1.8rem] font-black indent-3">
           {title}
