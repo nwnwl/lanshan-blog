@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Icon } from '@/components/Icon';
 import styles from './Contact.module.css';
 import FallingText from './components/FallingText';
@@ -11,7 +11,6 @@ const SHORT =
 const MINI = 'HTML Codex JavaScript Java Go Python Git•Github Claude•Code';
 
 export const PC_ContactSection = () => {
-  const sectionRef = useRef<HTMLElement>(null);
   const [toolkit, setToolkit] = useState(FULL);
 
   useEffect(() => {
@@ -26,7 +25,6 @@ export const PC_ContactSection = () => {
 
   return (
     <section
-      ref={sectionRef}
       id="contact"
       className="min-h-0 w-full flex flex-col
       2xl:gap-24 xl:gap-36 gap-42

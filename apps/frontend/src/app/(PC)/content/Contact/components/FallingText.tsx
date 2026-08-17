@@ -49,7 +49,7 @@ const FallingText = ({
       })
       .join(' ');
     textRef.current.innerHTML = newHTML;
-  }, [text, highlightWords, highlightClass]);
+  }, [text, highlightWords, altWords, highlightClass, altClass]);
 
   useEffect(() => {
     if (trigger === 'auto') {
@@ -99,7 +99,7 @@ const FallingText = ({
       Bodies.rectangle(w + T / 2, h / 2, T, h * 3, wo),
       Bodies.rectangle(w / 2, -T / 2 - h, w + T * 2, T, wo),
     ];
-    let walls = makeWalls(W, H);
+    const walls = makeWalls(W, H);
 
     const pills = textRef.current.querySelectorAll('.word');
     const items: { el: HTMLElement; body: Matter.Body }[] = [];
