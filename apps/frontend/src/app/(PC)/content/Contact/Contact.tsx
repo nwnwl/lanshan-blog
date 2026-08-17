@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from 'react';
 import { Icon } from '@/components/Icon';
 import styles from './Contact.module.css';
 import FallingText from './components/FallingText';
-import VariableProximity from '@/components/VariableProximity/VariableProximity';
 import SplitText from '@/components/SplitText/SplitText';
 
 const FULL =
@@ -124,27 +123,13 @@ export const PC_ContactSection = () => {
         <div className="absolute right-20 top-0 flex-col md:gap-6 sm:gap-16 text-right hidden md:flex">
           <div className="tracking-widest">
             <div className="xl:text-[6.8rem] lg:text-[5rem] text-[4.8rem] font-extrabold leading-none">
-              <VariableProximity
-                label="CONTACT"
-                containerRef={sectionRef}
-                fromFontVariationSettings="'wght' 600, 'opsz' 9"
-                toFontVariationSettings="'wght' 1000, 'opsz' 40"
-                radius={150}
-                falloff="gaussian"
-              />
+              CONTACT
             </div>
             <div
               className="xl:text-[4.5rem] lg:text-[3.8rem] text-[3.2rem]
             font-extrabold text-[#00D4FF] leading-none"
             >
-              <VariableProximity
-                label="US"
-                containerRef={sectionRef}
-                fromFontVariationSettings="'wght' 1000, 'opsz' 9"
-                toFontVariationSettings="'wght' 600, 'opsz' 40"
-                radius={150}
-                falloff="gaussian"
-              />
+              US
             </div>
           </div>
 
