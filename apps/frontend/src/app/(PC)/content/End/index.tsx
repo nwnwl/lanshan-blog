@@ -13,7 +13,7 @@ export const PC_EndSection = () => {
 
       {/* 版本 / 更新 / 开发者 / 版权信息 */}
       <div className="flex flex-col gap-2 text-sm text-[#aaaaaa] ml-16">
-        <span>版本：0.1.0</span>
+        <span>版本：1.0.0</span>
         <span>更新时间：2026-07-25</span>
         <span>开发者：LanShan Studio</span>
         <span>© 2025 蓝山工作室</span>

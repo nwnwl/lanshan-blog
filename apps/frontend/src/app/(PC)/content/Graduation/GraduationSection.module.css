@@ -85,32 +85,30 @@
   opacity: 1;
 }
 
-/* 滚动提示指示符（复刻终末地 shVZNI / scroll-tip 动画） */
+/* 滚动提示指示符（复刻终末地 shVZNI / scroll-tip 动画，常驻循环播放，定位在卡片底部上方）
+   scrollTip 是外层大卡片（本身不滚动）的绝对定位子元素，因此固定在大卡片底部，不随内容滚动 */
 @keyframes scrollTip {
   0% {
-    opacity: 1;
-    transform: translate(-50%);
+    transform: translate(-50%, -50%);
   }
-  45.95% {
-    opacity: 0;
-    transform: translate(-50%, 1.25rem);
+  50% {
+    transform: translate(-50%, calc(-50% + 1.25rem));
   }
   100% {
-    opacity: 0;
-    transform: translate(-50%, 1.25rem);
+    transform: translate(-50%, -50%);
   }
 }
 
 .scrollTip {
   z-index: 10;
-  opacity: 0;
+  opacity: 1;
   width: 2rem;
   height: auto;
   animation: 1.35s cubic-bezier(0.33, 0, 0.67, 1) 1.5s infinite scrollTip;
   position: absolute;
-  bottom: 3.4rem;
+  bottom: 1rem;
   left: 50%;
-  transform: translate(-50%);
+  transform: translate(-50%, -50%);
   pointer-events: none;
 }
 

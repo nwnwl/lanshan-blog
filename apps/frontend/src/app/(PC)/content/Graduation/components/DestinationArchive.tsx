@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../GraduationSection.module.css';
 import { DESTINATIONS } from '../data/destinations';
 
@@ -176,25 +176,7 @@ export const DestinationArchive = ({
     pages.push(records.slice(i, i + pageSize));
   }
 
-  const [scrolled, setScrolled] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const onScroll = () => {
-      if (el.scrollTop > 0) setScrolled(true);
-    };
-    el.addEventListener('scroll', onScroll, { passive: true });
-
-    // 动画循环 4 次后自动消失：1.5s 延迟 + 4 × 1.35s 时长
-    const timer = setTimeout(() => setScrolled(true), 1500 + 4 * 1350);
-
-    return () => {
-      el.removeEventListener('scroll', onScroll);
-      clearTimeout(timer);
-    };
-  }, []);
+  // 滚动提示：常驻循环播放，不设自动隐藏定时器；滚到最后一页也照常播放。
 
   return (
     <div
@@ -220,29 +202,25 @@ export const DestinationArchive = ({
 
       {/* PC 分页（下滑翻页）/ 移动端单页滚动 */}
       <div
-        ref={scrollRef}
-        className={`${styles.destinationGrid} relative isolate flex-1 overflow-y-auto overflow-x-hidden text-white snap-y snap-mandatory lg:snap-proximity [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
+        className={`${styles.destinationGrid} relative isolate flex-1 overflow-y-auto overflow-x-hidden text-white  [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
       >
         {pages.map((pageRows, pageIdx) => (
           <div
             key={pageIdx}
-            className={`${isMobile ? '' : 'h-full snap-start'} grid content-start gap-x-[2rem] gap-y-5 lg:py-16 py-20 px-12 ${styles.archiveGrid}`}
+            className={`${isMobile ? '' : 'h-full'} grid content-start gap-x-[2rem] gap-y-5 lg:py-16 pt-10 pb-5 px-12 ${styles.archiveGrid}`}
           >
             {pageRows.map((row, index) => (
-              <div
-                key={row.name}
-                className={`max-h-[5rem] flex flex-col mx-4 ${styles.archiveItem}`}
-              >
+              <div key={row.name} className={`max-h-[5rem] flex flex-col ${styles.archiveItem}`}>
                 <div
-                  className={`flex-3 flex ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''} 
+                  className={`flex-3 flex ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}
                   gap-[1rem]
                   px-[1rem]`}
                 >
                   {/* 顶部：姓名 + 拼音缩写 */}
                   <div className="relative flex flex-col gap-[0.2rem] pb-0 lg:pb-[0.2rem] w-[6rem]">
                     <div
-                      className={`${index % 2 === 1 ? 'lg:text-end' : ''} 
-                      lg:text-[0.5rem] text-[0.4rem] 
+                      className={`${index % 2 === 1 ? 'lg:text-end' : ''}
+                      lg:text-[0.5rem] text-[0.4rem]
                       leading-none`}
                     >
                       <span
@@ -252,7 +230,7 @@ export const DestinationArchive = ({
                       </span>
                     </div>
                     <div
-                      className={`${index % 2 === 1 ? 'lg:text-end' : ''} h-[1.8rem] 
+                      className={`${index % 2 === 1 ? 'lg:text-end' : ''} h-[1.8rem]
                       lg:text-[1.6rem] text-[1.2rem]
                       font-bold leading-none tracking-[-0.1em]`}
                     >
@@ -271,10 +249,19 @@ export const DestinationArchive = ({
                       <span>{row.college}</span>
                     </div>
                   </div>
+                  {/* 移动端：学院盒子（图标 + 学院名），与去向平分剩余空间 */}
+                  <div className="lg:hidden flex items-end pb-[0.3rem] gap-[0.3rem] lg:flex-1 min-w-0">
+                    <span className="shrink-0 flex items-center">
+                      <CollegeIcon college={row.college} />
+                    </span>
+                    <span className="min-w-0 overflow-hidden whitespace-nowrap text-ellipsis max-[400px]:text-[0.5rem] text-[0.7rem] font-bold leading-none">
+                      {row.college}
+                    </span>
+                  </div>
                   {/* 所去公司：内联展示，不单独放盒子 */}
                   <div
                     className={`flex items-end pb-[0.3rem] gap-[0.3rem]
-                      max-[400px]:text-[0.5rem] text-[0.7rem] font-bold leading-none flex-1 min-w-0 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+                      max-[400px]:text-[0.5rem] text-[0.7rem] font-bold leading-none lg:flex-1 min-w-0 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
                   >
                     <span className={index % 2 === 1 ? 'lg:!hidden' : ''}>↘</span>
                     {index % 2 === 1 && <span className="!hidden lg:!inline">↙</span>}
@@ -286,7 +273,7 @@ export const DestinationArchive = ({
 
                 <div
                   className={`flex-1 pt-0 lg:pt-[0.3rem]
-               w-[var(--table-w)] lg:w-full
+               w-full
                 flex items-center gap-[0.3rem]
                 lg:border-t-2 border-t-1 border-[#808080]
                  ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
@@ -295,11 +282,11 @@ export const DestinationArchive = ({
             ))}
           </div>
         ))}
-      </div>
 
-      {!isMobile && pages.length > 1 && !scrolled && (
-        <img src="/picture/scroll-tip.webp" alt="下滑查看更多" className={styles.scrollTip} />
-      )}
+        {!isMobile && pages.length > 1 && (
+          <img src="/picture/scroll-tip.webp" alt="下滑查看更多" className={styles.scrollTip} />
+        )}
+      </div>
 
       <div className="relative h-[2rem] flex items-center justify-between gap-3 bg-[#d9d9d9] px-5 py-3 text-[10px] tracking-wide md:px-6">
         <div className="flex flex-col text-[0.4rem] text-[#808080]">

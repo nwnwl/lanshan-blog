@@ -49,7 +49,6 @@ export const PC_GraduationSection = () => {
     if (!carousel) return;
     const onTransitionEnd = (e: TransitionEvent) => {
       // 只认表格自身（容器直接子元素）的 transform 过渡；
-      // 内部 3D 环 / 遮罩的 transitionend 冒泡上来时 target 不是直接子元素，跳过
       if (e.propertyName !== 'transform') return;
       if ((e.target as HTMLElement).parentElement === carousel) {
         busyRef.current = false;
@@ -64,7 +63,7 @@ export const PC_GraduationSection = () => {
   }, []);
 
   return (
-    <section id="graduation" className="min-h-[650px] lg:h-screen w-full">
+    <section id="graduation" className="w-full">
       <div
         className={`relative w-full flex items-center justify-center xl:justify-end ${styles.graduationWrap}`}
       >
@@ -98,7 +97,7 @@ export const PC_GraduationSection = () => {
                 >
                   <div
                     className="w-[2.6rem] h-[2rem]
-                    border-b-2
+                    border-b-2 max-lg:border-b-1
                     font-bold text-[1.2rem] text-center"
                   >
                     <span>最新</span>
