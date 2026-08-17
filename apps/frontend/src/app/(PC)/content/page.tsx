@@ -81,7 +81,7 @@ export default function ContentPage() {
         <div className="flex-1 flex flex-col overflow-hidden z-40">
           <PC_AboutSection />
           <PC_GraduationSection />
-          <div className="my-6">
+          <div className="my-6 lg:mt-18">
             <Marquee text={text_1} bgColor={'bg-white'} textColor={'text-black'} direction="left" />
             <Marquee
               text={text_2}
