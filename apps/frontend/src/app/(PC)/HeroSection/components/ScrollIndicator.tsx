@@ -26,8 +26,8 @@ export const ScrollIndicator = () => {
         {/* 左三角 */}
         <svg
           style={{ animation: 'driftLeft 1.5s ease-in-out infinite' }}
-          width="16"
-          height="16"
+          className="max-[500px]:w-3  max-[500px]:h-3
+          sm:w-4 sm:h-4 max-lg:w-5 max-lg:h-5"
           viewBox="0 0 20 20"
         >
           <polygon points="16,10 0,2 0,18" fill="white" />
@@ -36,6 +36,7 @@ export const ScrollIndicator = () => {
         <span
           onClick={() => navigate('/content', router.push)}
           className="font-bold text-white tracking-wider max-lg:text-[2rem]
+          max-[500px]:text-[1rem]
         select-none pointer-events-auto cursor-pointer
         hover:opacity-80 transition-opacity duration-300 ease-in-out"
         >
@@ -44,8 +45,9 @@ export const ScrollIndicator = () => {
         {/* 右三角 */}
         <svg
           style={{ animation: 'driftRight 1.5s ease-in-out infinite' }}
-          width="16"
-          height="16"
+          className="
+          max-[500px]:w-3  max-[500px]:h-3
+          sm:w-4 sm:h-4 max-lg:w-5 max-lg:h-5"
           viewBox="0 0 20 20"
         >
           <polygon points="4,10 20,2 20,18" fill="white" />

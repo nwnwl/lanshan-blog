@@ -20,12 +20,16 @@ interface ResponsiveConfig {
 const RESPONSIVE_BREAKPOINTS: [number, number, number, number, number][] = [
   // [视口宽度, scale, gap, w, h]
   [1900, 2.4, 2, 740, 740],
-  [1520, 1.8, 2, 620, 620],
-  [1330, 1.6, 2, 500, 500],
-  [1200, 1.3, 3, 440, 440],
-  [1110, 1.2, 3, 380, 380],
-  [1024, 1.1, 3, 350, 350],
-  [640, 1, 3, 350, 350],
+  [1520, 2.2, 2, 740, 740],
+  [1330, 1.8, 2, 630, 630],
+  [1200, 1.6, 3, 500, 500],
+  [1110, 1.4, 3, 440, 440],
+  [1025, 1.2, 3, 380, 380],
+  [820, 2.0, 3, 740, 740],
+  [640, 1.8, 3, 740, 740],
+  [500, 1.6, 3, 740, 740],
+  [400, 1.2, 3, 740, 740],
+  [0, 0.8, 3, 740, 740],
 ];
 
 const FALLBACK_CONFIG: ResponsiveConfig = { scale: 0.8, gap: 2, w: 260, h: 260 };
@@ -154,13 +158,17 @@ export const PC_HeroSection = () => {
       </div>
 
       {/* 前景：左侧文字 + 右侧粒子容器（pointer-events-none 让指针事件穿透到 z-0 的 PixelBlast 背景 canvas） */}
-      <div className="pointer-events-none relative flex min-h-[650px] h-screen w-full items-center justify-center lg:gap-30 max-lg:flex-col max-lg:gap-10">
+      <div
+        className="pointer-events-none relative flex min-h-[650px] h-screen w-full items-center justify-center lg:gap-48 max-lg:flex-col max-lg:gap-10
+      lg:pl-[4rem]"
+      >
         {/* 左侧主文字组：桌面端随 flex 居中；移动端（max-lg）绝对定位在左下角
             位置改这里：max-lg:left-[2rem] max-lg:bottom-[8rem] */}
         <div
           className="select-none 
           max-lg:flex max-lg:flex-col max-lg:items-start max-lg:gap-5
-          max-lg:absolute max-lg:left-[2rem] max-lg:bottom-[8rem]"
+          max-lg:absolute max-lg:left-[2rem] max-lg:bottom-[8rem]
+          "
         >
           {/* 主视觉标题："蓝山"（青色大字）
               字号改这里：text-[clamp(3rem,5vw+3rem,10rem)] → 最小3rem / 随屏缩放5vw+3rem / 最大10rem */}
@@ -207,8 +215,13 @@ export const PC_HeroSection = () => {
             容器宽高 boxW/boxH 由顶部 RESPONSIVE_BREAKPOINTS 配置控制 */}
         <div
           className="relative z-10 rounded-lg
-          max-lg:absolute max-lg:left-[calc(50%-2rem)] max-lg:bottom-1/2
+          max-lg:absolute max-lg:left-[calc(50%-2rem)]
+          max-lg:bottom-1/4
+          max-[500px]:bottom-1/6
            max-lg:translate-y-1/4  max-lg:-translate-x-1/4 
+           max-lg:translate-y-1/4   
+           max-[820px]:-translate-x-1/3 
+           max-[640px]:-translate-x-[38%] 
           "
           style={{ width: boxW, height: boxH }}
         >
