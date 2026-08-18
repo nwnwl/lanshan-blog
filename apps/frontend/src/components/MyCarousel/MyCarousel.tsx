@@ -16,21 +16,21 @@ interface ImageDescription {
 export const images_1: ImageItem[] = [
   {
     id: 1,
-    src: '/picture/studio-1.png',
+    src: '/picture/studio-1.webp',
     alt: 'studio picture',
-    thresholdSrc: '/picture/studio-threshold-1.png',
+    thresholdSrc: '/picture/studio-threshold-1.webp',
   },
   {
     id: 2,
-    src: '/picture/studio-2.png',
+    src: '/picture/studio-2.webp',
     alt: 'studio picture',
-    thresholdSrc: '/picture/studio-threshold-2.png',
+    thresholdSrc: '/picture/studio-threshold-2.webp',
   },
   {
     id: 3,
-    src: '/picture/studio-3.png',
+    src: '/picture/studio-3.webp',
     alt: 'graduate employment status',
-    thresholdSrc: '/picture/studio-threshold-3.png',
+    thresholdSrc: '/picture/studio-threshold-3.webp',
   },
 ];
 
@@ -39,19 +39,19 @@ export const images_2: ImageItem[] = [
     id: 4,
     src: '/picture/studio-4.webp',
     alt: 'studio desk',
-    thresholdSrc: '/picture/studio-threshold-4.png',
+    thresholdSrc: '/picture/studio-threshold-4.webp',
   },
   {
     id: 5,
     src: '/picture/studio-5.webp',
     alt: 'studio picture',
-    thresholdSrc: '/picture/studio-threshold-5.png',
+    thresholdSrc: '/picture/studio-threshold-5.webp',
   },
   {
     id: 6,
     src: '/picture/studio-6.webp',
     alt: 'Content coverage',
-    thresholdSrc: '/picture/studio-threshold-6.png',
+    thresholdSrc: '/picture/studio-threshold-6.webp',
   },
 ];
 

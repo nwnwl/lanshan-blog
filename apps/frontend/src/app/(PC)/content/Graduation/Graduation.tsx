@@ -81,12 +81,12 @@ export const PC_GraduationSection = () => {
               >
                 <div className={`animationEl heightGrowSon absolute top-0 ${styles.badgeBox}`}>
                   <img
-                    src="/picture/LanShan_ID_badge_tilted.png"
+                    src="/picture/LanShan_ID_badge_tilted.webp"
                     alt="cdlm"
                     className="hidden lg:block"
                   />
                   <img
-                    src="/picture/LanShan_ID_badge_tilted_2.png"
+                    src="/picture/LanShan_ID_badge_tilted_2.webp"
                     alt="cdlm"
                     className="lg:hidden"
                   />
