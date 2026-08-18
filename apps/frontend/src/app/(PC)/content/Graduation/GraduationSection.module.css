@@ -103,12 +103,12 @@
 }
 @media (max-width: 600px) {
   :root {
-    --table-w: 22rem; /* ← 改：移动端表格宽（之前的一半） */
+    --table-w: 25rem;
   }
 }
 @media (max-width: 400px) {
   :root {
-    --table-w: 20rem; /* ← 改：移动端表格宽（之前的一半） */
+    --table-w: 22rem;
   }
 }
 
@@ -155,6 +155,17 @@
   }
 }
 
+/* 550px 以下：对齐 About 蓝色条（font-size 100vw/98，left -42.5em，width 12em） */
+@media (max-width: 550px) {
+  .graduationBlock {
+    left: calc(50% - 100vw * 42.5 / 98);
+    top: calc(100vw * 14 / 98);
+  }
+  .blueBar {
+    width: calc(100vw * 12 / 98);
+  }
+}
+
 /* ⑥ 工牌图装饰大小：PC 默认，移动端（≤1024px）改大小
    注意：左移用 margin-left，不能用 transform（会被 heightGrowSon 的 transform 覆盖） */
 .badgeBox {
@@ -165,6 +176,22 @@
   .badgeBox {
     width: 11rem; /* ← 改：移动端宽度 */
     margin-left: -1.2rem; /* ← 改：移动端左移 */
+  }
+}
+@media (max-width: 550px) {
+  .badgeBox {
+    width: 9.5rem; /* ← 改：550px 以下工牌更小 */
+    margin-left: 0.6rem;
+  }
+  .carouselBtn {
+    padding: 0.625rem; /* ← 改：按钮更小（原 p-4 = 1rem） */
+  }
+  .carouselBtn svg {
+    width: 0.75rem; /* ← 改：箭头更小（原 w-3.5 = 0.875rem） */
+    height: 0.75rem;
+  }
+  .carouselBg {
+    gap: 1.8rem; /* ← 改：按钮间距更小（原 gap-12 = 3rem） */
   }
 }
 

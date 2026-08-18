@@ -263,6 +263,35 @@
   }
 }
 
+@media (max-width: 550px) {
+  .about {
+    font-size: calc(100vw / 98);
+    --carousel-w: 100vw;
+    --carousel-h: calc(100vw * 9 / 16);
+  }
+  :global(.carouselInfo) {
+    left: calc(50% - 16.1875em);
+  }
+  :global(.carouselBtnBox) {
+    left: calc(50% - 16.1875em);
+  }
+  :global(.paginationInfo) {
+    left: calc(50% - 24em);
+  }
+  .h5DecoLine {
+    width: 12em;
+    left: calc(50% - 42.5em);
+  }
+  .h5Deco1,
+  .h5Deco2 {
+    left: calc(50% - 41.25em);
+  }
+  .h5Text1,
+  .h5Text2 {
+    left: calc(50% - 9.6em);
+  }
+}
+
 @media (max-width: 640px) {
   .about {
     margin-top: 3em;

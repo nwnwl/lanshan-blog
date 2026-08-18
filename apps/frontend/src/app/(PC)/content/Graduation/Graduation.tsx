@@ -187,7 +187,7 @@ export const PC_GraduationSection = () => {
                     onClick={() => cycle(-1)}
                     className={`${styles.carouselBtn} rounded-full lg:p-2.5 p-4 border-2 border-[#E6E6E6]
                     transition-all duration-300 ease-out
-                    group-hover:enabled:bg-[#00d5ffca] cursor-pointer
+                    group-hover:enabled:bg-[#00d5ffca] active:enabled:bg-[#00d5ffca] cursor-pointer
                     disabled:opacity-40 disabled:cursor-auto`}
                   >
                     <svg
@@ -211,7 +211,7 @@ export const PC_GraduationSection = () => {
                     onClick={() => cycle(1)}
                     className={`${styles.carouselBtn} rounded-full lg:p-2.5 p-4 border-2 border-[#E6E6E6]
                     transition-all duration-300 ease-out
-                    group-hover:enabled:bg-[#00d5ffca] cursor-pointer
+                    group-hover:enabled:bg-[#00d5ffca] active:enabled:bg-[#00d5ffca] cursor-pointer
                     disabled:opacity-40 disabled:cursor-auto`}
                   >
                     <svg
