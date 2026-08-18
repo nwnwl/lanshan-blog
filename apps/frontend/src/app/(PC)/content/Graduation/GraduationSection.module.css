@@ -155,14 +155,17 @@
   }
 }
 
-/* 550px 以下：对齐 About 蓝色条（font-size 100vw/98，left -42.5em，width 12em） */
+/* 550px 以下：对齐 About 蓝色条（font-size 100vw/84，left -36.5em，width 12em） */
 @media (max-width: 550px) {
   .graduationBlock {
-    left: calc(50% - 100vw * 42.5 / 98);
-    top: calc(100vw * 14 / 98);
+    left: calc(50% - 100vw * 36.5 / 84);
+    top: calc(100vw * 14 / 84);
   }
   .blueBar {
-    width: calc(100vw * 12 / 98);
+    width: calc(100vw * 12 / 84);
+  }
+  .graduationWrap {
+    min-height: calc(100vw * 14 / 84 + 53.5rem + 6rem);
   }
 }
 

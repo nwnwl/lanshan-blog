@@ -127,7 +127,7 @@
     top: 0;
     left: calc(50% - 31.25em);
     width: 8.25em;
-    height: calc(100% + 14em);
+    height: calc(100% + 15em);
     background-color: #00d4ff;
     z-index: -1;
     overflow: hidden;
@@ -265,7 +265,7 @@
 
 @media (max-width: 550px) {
   .about {
-    font-size: calc(100vw / 98);
+    font-size: calc(100vw / 84);
     --carousel-w: 100vw;
     --carousel-h: calc(100vw * 9 / 16);
   }
@@ -280,15 +280,15 @@
   }
   .h5DecoLine {
     width: 12em;
-    left: calc(50% - 42.5em);
+    left: calc(50% - 36.5em);
   }
   .h5Deco1,
   .h5Deco2 {
-    left: calc(50% - 41.25em);
+    left: calc(50% - 35.25em);
   }
   .h5Text1,
   .h5Text2 {
-    left: calc(50% - 9.6em);
+    left: calc(50% - 7.9em);
   }
 }
 
