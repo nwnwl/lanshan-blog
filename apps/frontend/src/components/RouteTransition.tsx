@@ -16,8 +16,12 @@ export const RouteTransition = () => {
         className={`fixed inset-0 z-[1000] bg-[#191919]
           ${isIn ? 'anim-loading-in' : 'anim-loading-out'}`}
       />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1001] flex items-center justify-center pointer-events-none anim-lottie-fade">
-        <Lottie animationData={animationData} loop autoplay />
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+      z-[1001] flex items-center justify-center pointer-events-none anim-lottie-fade
+      w-full max-w-[500px]"
+      >
+        <Lottie animationData={animationData} loop autoplay className="anim-lottie" />
       </div>
     </>
   );

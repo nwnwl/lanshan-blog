@@ -285,6 +285,18 @@ html::-webkit-scrollbar {
   animation: lottie-fade 2s linear forwards;
 }
 
+/* lottie-web 默认给 SVG 写死 width/height 属性（500×500），
+   这里用 CSS 覆盖让它跟随容器宽度（<500px 时 w-full，否则 500px） */
+.anim-lottie {
+  width: 100%;
+}
+
+.anim-lottie svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 @keyframes blink {
   /* 0-45.5%：渐显（5/11 ≈ 45.5%） */
   0%,

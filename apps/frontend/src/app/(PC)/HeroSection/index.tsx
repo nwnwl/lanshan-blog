@@ -25,11 +25,10 @@ const RESPONSIVE_BREAKPOINTS: [number, number, number, number, number][] = [
   [1200, 1.6, 3, 500, 500],
   [1110, 1.4, 3, 440, 440],
   [1025, 1.2, 3, 380, 380],
-  [820, 2.0, 3, 740, 740],
-  [640, 1.8, 3, 740, 740],
-  [500, 1.6, 3, 740, 740],
-  [400, 1.2, 3, 740, 740],
-  [0, 0.8, 3, 740, 740],
+  [768, 1.7, 2, 500, 500],
+  [640, 1.6, 2, 420, 450],
+  [500, 1.3, 2, 350, 350],
+  [0, 1.1, 2, 320, 320],
 ];
 
 const FALLBACK_CONFIG: ResponsiveConfig = { scale: 0.8, gap: 2, w: 260, h: 260 };
@@ -93,7 +92,10 @@ export const PC_HeroSection = () => {
   }, []);
 
   return (
-    <div id="hero" className="part relative h-screen w-full overflow-hidden bg-[#191919]">
+    <div
+      id="hero"
+      className="part relative min-h-[600px] h-screen w-full overflow-hidden bg-[#191919]"
+    >
       <div
         className="absolute top-0 w-full
         flex justify-between z-50
@@ -138,7 +140,7 @@ export const PC_HeroSection = () => {
         <span className="text-white font-bold">CQUPT LANSHAN STUDIO</span>
       </div>
       {/* 背景：PixelBlast bayer 抖动全屏效果 */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 z-0">
         <PixelBlast
           variant="square"
           pixelSize={3}
@@ -159,7 +161,7 @@ export const PC_HeroSection = () => {
 
       {/* 前景：左侧文字 + 右侧粒子容器（pointer-events-none 让指针事件穿透到 z-0 的 PixelBlast 背景 canvas） */}
       <div
-        className="pointer-events-none relative flex min-h-[650px] h-screen w-full items-center justify-center lg:gap-48 max-lg:flex-col max-lg:gap-10
+        className="pointer-events-none relative flex min-h-[650px] h-screen w-full items-center justify-center lg:gap-20 max-lg:flex-col max-lg:gap-10
       lg:pl-[4rem]"
       >
         {/* 左侧主文字组：桌面端随 flex 居中；移动端（max-lg）绝对定位在左下角
@@ -167,12 +169,13 @@ export const PC_HeroSection = () => {
         <div
           className="select-none 
           max-lg:flex max-lg:flex-col max-lg:items-start max-lg:gap-5
-          max-lg:absolute max-lg:left-[2rem] max-lg:bottom-[8rem]
+          max-lg:absolute  max-lg:bottom-[8rem]
+          max-sm:left-[2rem] max-md:left-[4rem] max-lg:left-[6rem]
           "
         >
           {/* 主视觉标题："蓝山"（青色大字）
               字号改这里：text-[clamp(3rem,5vw+3rem,10rem)] → 最小3rem / 随屏缩放5vw+3rem / 最大10rem */}
-          <div className="text-[clamp(3rem,5vw+3rem,10rem)] leading-none text-[#00d4ff]">
+          <div className="text-[clamp(5rem,6vw+4rem,10rem)] leading-none text-[#00d4ff]">
             <span
               className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'} 
               transition-all delay-100 duration-700 ease-out
@@ -182,7 +185,7 @@ export const PC_HeroSection = () => {
             </span>
           </div>
           {/* 主视觉标题："工作室"（白色大字），字号同上（与"蓝山"保持一致） */}
-          <div className="overflow-hidden text-[clamp(3rem,5vw+3rem,10rem)] leading-none text-[#ffffff]">
+          <div className="overflow-hidden text-[clamp(5rem,6vw+4rem,10rem)] leading-none text-[#ffffff]">
             <span
               className={`${showTrans ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'} 
               transition-all duration-700 ease-out
@@ -217,11 +220,8 @@ export const PC_HeroSection = () => {
           className="relative z-10 rounded-lg
           max-lg:absolute max-lg:left-[calc(50%-2rem)]
           max-lg:bottom-1/4
-          max-[500px]:bottom-1/6
-           max-lg:translate-y-1/4  max-lg:-translate-x-1/4 
-           max-lg:translate-y-1/4   
-           max-[820px]:-translate-x-1/3 
-           max-[640px]:-translate-x-[38%] 
+          max-lg:-translate-y-1/6  
+          max-md:-translate-x-1/4  max-lg:-translate-x-1/5 
           "
           style={{ width: boxW, height: boxH }}
         >
