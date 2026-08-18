@@ -23,25 +23,25 @@ const projects: ProjectData[] = [
     id: '01',
     title: 'We CQUPT',
     subTitle: 'We 重邮小程序',
-    imageUrl: '/picture/project-1.png',
+    imageUrl: '/picture/project-1.webp',
   },
   {
     id: '02',
     title: 'AI Form-Filling Agent',
     subTitle: 'AI填表智能体',
-    imageUrl: '/picture/project-2.png',
+    imageUrl: '/picture/project-2.webp',
   },
   {
     id: '03',
     title: 'Campus AI Assistant',
     subTitle: '校园AI助理',
-    imageUrl: '/picture/project-3.png',
+    imageUrl: '/picture/project-3.webp',
   },
   {
     id: '04',
     title: 'CQEITC',
     subTitle: '重庆数字教育治理运行中心',
-    imageUrl: '/picture/project-4.png',
+    imageUrl: '/picture/project-4.webp',
   },
 ];
 
