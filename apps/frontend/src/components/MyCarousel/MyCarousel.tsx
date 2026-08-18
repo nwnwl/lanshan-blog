@@ -214,6 +214,7 @@ export const MyCarousel = ({
             className={`absolute inset-0 w-full h-full object-cover ${
               i === currentIndex ? 'opacity-100' : 'opacity-0'
             }`}
+            loading="lazy"
           />
         ))}
 
@@ -229,6 +230,7 @@ export const MyCarousel = ({
                   : styles.thresholdExitRight
                 : ''
             }`}
+            loading="lazy"
           />
         )}
 
@@ -270,7 +272,7 @@ export const MyCarousel = ({
             border-2
             border-[#E6E6E6]
             transition-all duration-500 ease-out
-            group-hover:bg-[#00d5ffca] cursor-pointer
+            group-hover:bg-[#00d5ffca] active:bg-[#00d5ffca] cursor-pointer
             `}
           >
             <svg
@@ -295,7 +297,7 @@ export const MyCarousel = ({
             border-2
             border-[#E6E6E6]
             transition-all duration-500 ease-out
-            group-hover:bg-[#00d5ffca] cursor-pointer`}
+            group-hover:bg-[#00d5ffca] active:bg-[#00d5ffca] cursor-pointer`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

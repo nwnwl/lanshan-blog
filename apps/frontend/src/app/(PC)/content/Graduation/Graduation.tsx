@@ -84,11 +84,13 @@ export const PC_GraduationSection = () => {
                     src="/picture/LanShan_ID_badge_tilted.webp"
                     alt="cdlm"
                     className="hidden lg:block"
+                    loading="lazy"
                   />
                   <img
                     src="/picture/LanShan_ID_badge_tilted_2.webp"
                     alt="cdlm"
                     className="lg:hidden"
+                    loading="lazy"
                   />
                 </div>
                 <div

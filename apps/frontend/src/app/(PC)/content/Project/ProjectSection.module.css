@@ -28,6 +28,13 @@
   }
 }
 
+/* 触屏：禁用 hover 黑幕，只保留 active 控制，避免 sticky hover 残留 */
+@media (hover: none) {
+  .row:hover::after {
+    clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);
+  }
+}
+
 /* 移动端点击激活态，复现 hover 变色 */
 .row.active::after {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);

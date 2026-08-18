@@ -9,6 +9,7 @@ export const PC_EndSection = () => {
         src="/picture/logoW.png"
         alt="logo"
         className="h-auto w-auto max-h-[120px] object-contain"
+        loading="lazy"
       />
 
       {/* 版本 / 更新 / 开发者 / 版权信息 */}

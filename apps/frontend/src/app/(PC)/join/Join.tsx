@@ -82,7 +82,12 @@ export const PC_JoinPage = () => {
       </div>
       {/* 二维码 */}
       <div className="z-100 absolute right-[1rem] md:right-[10rem] bottom-[1rem] md:bottom-[2rem] xl:bottom-[4rem]">
-        <img src="/picture/ewm.jpg" alt="二维码" className="h-[7rem] w-[7rem] object-cover" />
+        <img
+          src="/picture/ewm.jpg"
+          alt="二维码"
+          className="h-[7rem] w-[7rem] object-cover"
+          loading="lazy"
+        />
       </div>
       {/* 水平两栏布局，各占一半 */}
       <div

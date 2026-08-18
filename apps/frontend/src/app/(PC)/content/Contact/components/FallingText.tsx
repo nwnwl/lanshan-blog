@@ -176,7 +176,13 @@ const FallingText = ({
       }
       active = true;
     };
-    el.addEventListener('mouseenter', wake);
+    // 鼠标悬停在词块上时才唤醒，进入容器不唤醒
+    const onMoveWake = () => {
+      const bodies = items.map((it) => it.body);
+      if (Matter.Query.point(bodies, mouse.position).length > 0) wake();
+    };
+    el.addEventListener('mousemove', onMoveWake);
+    el.addEventListener('touchstart', wake);
 
     const loop = () => {
       const box = containerRef.current;
@@ -224,7 +230,8 @@ const FallingText = ({
     return () => {
       resizeObserver.disconnect();
       if (idleTimer) clearTimeout(idleTimer);
-      el.removeEventListener('mouseenter', wake);
+      el.removeEventListener('mousemove', onMoveWake);
+      el.removeEventListener('touchstart', wake);
       document.removeEventListener('mousemove', onDocMove);
       el.removeEventListener('touchstart', m.mousedown);
       el.removeEventListener('touchmove', m.mousemove);
