@@ -63,7 +63,7 @@ export const PC_GraduationSection = () => {
   }, []);
 
   return (
-    <section id="graduation" className="w-full">
+    <section id="graduation" className="w-full bg-white">
       <div
         className={`relative w-full flex items-center justify-center xl:justify-end ${styles.graduationWrap}`}
       >

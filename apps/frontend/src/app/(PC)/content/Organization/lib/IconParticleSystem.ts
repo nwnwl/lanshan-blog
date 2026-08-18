@@ -250,12 +250,20 @@ export class IconParticleSystem {
       autoDensity: false,
     });
 
+    // Pixi 事件系统默认 autoPreventDefault=true：touch 派生的 pointerdown 会被 preventDefault，
+    // 浏览器因此不会启动滚动手势 → 移动端在粒子 canvas 上滑动时页面滚不动。这里关掉它。
+    // 桌面鼠标排斥互动走 window.pointermove，不受影响。
+    this.app.renderer.events.autoPreventDefault = false;
+
     hostElement.appendChild(this.app.canvas as HTMLCanvasElement);
 
     const canvas = this.app.canvas as HTMLCanvasElement;
     canvas.style.display = 'block';
     canvas.style.width = '100%';
     canvas.style.height = '100%';
+    // 注意：Pixi 的 _addEvents 还会把 canvas 的 touch-action 设成 'none'（EventSystem._addEvents），
+    // touch-action:none 会禁止浏览器从 canvas 上启动原生滚动。覆盖为 pan-y 恢复纵向滚动。
+    canvas.style.touchAction = 'pan-y';
 
     this.container = new Container();
     this.app.stage.addChild(this.container);
