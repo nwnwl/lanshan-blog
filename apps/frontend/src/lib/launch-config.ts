@@ -12,4 +12,4 @@ export const FADE_DELAY_DESKTOP_MS = 250;
 export const HERO_IMAGE_MOBILE = '/picture/lm.png';
 export const HERO_IMAGE_DESKTOP = '/picture/lm-2.png';
 export const LOGO_IMAGE = '/picture/logoW.png';
-export const BG_IMAGE = '/picture/animebg.webp';
+export const BG_IMAGE = '/picture/animebg.png';
