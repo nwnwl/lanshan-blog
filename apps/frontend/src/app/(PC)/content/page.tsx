@@ -57,15 +57,35 @@ export default function ContentPage() {
   }, [phase]);
 
   useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      const next = e.deltaY > 0;
+    const applyDirection = (deltaY: number) => {
+      if (deltaY === 0) return;
+      const next = deltaY > 0; // 向下滚动 → 反转
       if (useMarqueeStore.getState().isReversed !== next) {
         setReversed(next);
       }
     };
 
+    const handleWheel = (e: WheelEvent) => applyDirection(e.deltaY);
+
+    let lastTouchY: number | null = null;
+    const handleTouchStart = (e: TouchEvent) => {
+      lastTouchY = e.touches[0]?.clientY ?? null;
+    };
+    const handleTouchMove = (e: TouchEvent) => {
+      const y = e.touches[0]?.clientY ?? null;
+      if (lastTouchY === null || y === null) return;
+      applyDirection(lastTouchY - y); // 手指上滑(内容下移) → deltaY > 0
+      lastTouchY = y;
+    };
+
     window.addEventListener('wheel', handleWheel, { passive: true });
-    return () => window.removeEventListener('wheel', handleWheel);
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+    };
   }, [setReversed]);
 
   return (

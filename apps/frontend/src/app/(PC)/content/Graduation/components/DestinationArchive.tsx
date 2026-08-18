@@ -282,7 +282,12 @@ export const DestinationArchive = ({
         ))}
 
         {!isMobile && pages.length > 1 && (
-          <img src="/picture/scroll-tip.webp" alt="下滑查看更多" className={styles.scrollTip} />
+          <img
+            src="/picture/scroll-tip.webp"
+            alt="下滑查看更多"
+            className={styles.scrollTip}
+            loading="lazy"
+          />
         )}
       </div>
 

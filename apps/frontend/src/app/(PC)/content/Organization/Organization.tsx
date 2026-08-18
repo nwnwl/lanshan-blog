@@ -129,7 +129,12 @@ export const PC_OrganizationSection = () => {
           className={`absolute top-0 left-0 h-full w-[calc((100%-2rem)*14/15-2rem)] lg:w-[calc((100%-1rem)*14/15-1rem)] ${styles.miziBg}`}
         />
         <div className="absolute inset-0">
-          <img src="/picture/organizationBg1.png" alt="" className="w-full h-full object-cover" />
+          <img
+            src="/picture/organizationBg1.png"
+            alt=""
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
         </div>
         {/* 光点背景层 */}
         <div className="absolute inset-0 z-10">

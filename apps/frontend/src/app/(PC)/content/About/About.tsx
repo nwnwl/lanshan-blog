@@ -119,6 +119,7 @@ export const PC_AboutSection = () => {
             className="absolute z-10"
             style={{ height: '5.4em', width: 'auto', bottom: '1.4em', left: '1.2em' }}
             alt=""
+            loading="lazy"
           />
           <div className="bg-white h-full w-[1em] relative">
             <span className="absolute top-[0.25em] [writing-mode:vertical-rl] -left-[0.25em] text-[2.4em] font-bold tracking-wider">
@@ -132,9 +133,19 @@ export const PC_AboutSection = () => {
       <div className={`absolute ${styles.h5DecoLine}`}></div>
       {/* 文字 + 装饰（前景，图片上方） */}
       <span className={`absolute ${styles.h5Text1}`}>OVERVIEW</span>
-      <img src="/picture/decoration-4.png" className={`absolute ${styles.h5Deco1}`} alt="" />
+      <img
+        src="/picture/decoration-4.png"
+        className={`absolute ${styles.h5Deco1}`}
+        alt=""
+        loading="lazy"
+      />
       <span className={`absolute ${styles.h5Text2}`}>BENEFITS</span>
-      <img src="/picture/decoration-4.png" className={`absolute ${styles.h5Deco2}`} alt="" />
+      <img
+        src="/picture/decoration-4.png"
+        className={`absolute ${styles.h5Deco2}`}
+        alt=""
+        loading="lazy"
+      />
 
       {/* ============================== Part 2: BENEFITS ============================== */}
 
@@ -153,6 +164,7 @@ export const PC_AboutSection = () => {
             className="absolute z-10"
             style={{ height: '5.4em', width: 'auto', bottom: '1.4em', left: '1.2em' }}
             alt=""
+            loading="lazy"
           />
           <div className="bg-white h-full w-[1em] relative">
             <span className="absolute top-[0.25em] [writing-mode:vertical-rl] -left-[0.25em] text-[2.4em] font-bold tracking-wider">
