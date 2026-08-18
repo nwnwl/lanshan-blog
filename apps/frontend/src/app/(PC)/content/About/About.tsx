@@ -58,7 +58,7 @@ export const PC_AboutSection = () => {
   }, []);
 
   return (
-    <section id="about" className={`${styles.about} relative w-full`}>
+    <section id="about" className={`${styles.about} bg-white relative w-full isolate`}>
       {/* ============================== Part 1: OVERVIEW ============================== */}
 
       {/* 移动端 // LANSHAN 装饰（终末地 h5Icon） */}
