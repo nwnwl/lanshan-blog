@@ -43,7 +43,7 @@ const notoSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'Lanshan Blog',
+  title: '蓝山工作室',
   description: 'A blog about web development and programming',
 };
 
