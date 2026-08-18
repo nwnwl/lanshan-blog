@@ -153,7 +153,6 @@ html::-webkit-scrollbar {
   width: 100%;
   height: var(--progress, 0%);
   background-color: #00d4ff;
-  transition: height 0.05s linear;
 }
 
 .progressText {
@@ -193,7 +192,6 @@ html::-webkit-scrollbar {
     width: var(--progress, 0%);
     height: 100%;
     max-width: calc(100% - 10rem); /* 为 progressText 预留宽度 */
-    transition: width 0.05s linear;
   }
   .progressText {
     top: 50%;

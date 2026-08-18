@@ -6,6 +6,7 @@ import { ScrollIndicator } from './components/ScrollIndicator';
 import { useEffect, useLayoutEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTransitionStore } from '@/store/transitionStore';
+import { useLaunchStore } from '@/store/launchStore';
 import './hero.css';
 
 // ====== 响应式断点配置 ======
@@ -43,6 +44,7 @@ function getResponsiveConfig(vw: number): ResponsiveConfig {
 export const PC_HeroSection = () => {
   const router = useRouter();
   const navigate = useTransitionStore((s) => s.navigate);
+  const isLoaded = useLaunchStore((s) => s.isLoaded);
   const [showTrans, setShowTrans] = useState(false);
   const canvasRef = useRef<ParticleCanvasHandle>(null);
   const [boxW, setBoxW] = useState(320);
@@ -78,18 +80,9 @@ export const PC_HeroSection = () => {
   }, []);
 
   useEffect(() => {
-    // 移动端（<1024px）与开场动画同步 1.5s 出现文字；桌面保持 2s
-    const isMobile = window.matchMedia('(max-width: 1023px)').matches;
-    const removeTimer = setTimeout(
-      () => {
-        setShowTrans(true);
-      },
-      isMobile ? 1500 : 2000,
-    );
-    return () => {
-      clearTimeout(removeTimer);
-    };
-  }, []);
+    // 开屏资源加载完成后统一触发 hero 文字入场（不再用固定延时）
+    if (isLoaded) setShowTrans(true);
+  }, [isLoaded]);
 
   return (
     <div
