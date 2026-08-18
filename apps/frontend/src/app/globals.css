@@ -11,13 +11,6 @@
   --breakpoint-3xl: 105rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 @utility font-harmony {
   font-family: var(--font-harmonyos-sans);
 }
