@@ -90,7 +90,7 @@ export const PC_OrganizationSection = () => {
     prevIconRef.current = 'lanshan';
     setCurrentIcon('lanshan');
     setDisplayDept('lanshan');
-    setButtonsVisible(true);
+    if (window.innerWidth >= 1024) setButtonsVisible(true); // 小屏按钮列由自动切换控制，返回不点亮入场
     // lastDeptKey 保持不变，锚点留在原位
   }, []);
 

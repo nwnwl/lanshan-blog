@@ -207,7 +207,7 @@ export const IconParticleCanvas = ({
           lg:pb-[calc((100vw-1rem)*1/15+1rem)]
           transition-all
            ${
-             buttonsVisible
+             buttonsVisible && !isMobile
                ? 'opacity-100 duration-700 ease-out'
                : 'opacity-0 duration-300 ease-in pointer-events-none'
            }`}
@@ -227,7 +227,7 @@ export const IconParticleCanvas = ({
             group cursor-pointer
             transition-all
             ${
-              buttonsVisible
+              buttonsVisible && !isMobile
                 ? 'translate-x-0 opacity-100 duration-700 ease-out'
                 : '-translate-x-full opacity-0 duration-300 ease-in'
             }
