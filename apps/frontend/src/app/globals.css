@@ -111,7 +111,7 @@ html::-webkit-scrollbar {
   background-position: 50%;
   background-repeat: no-repeat;
   opacity: 0;
-  animation: fadeIn 1s ease 0.5s forwards;
+  animation: fadeIn 1s ease forwards;
 }
 
 .logoContainer {
