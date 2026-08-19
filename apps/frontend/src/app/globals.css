@@ -8,6 +8,7 @@
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --breakpoint-lg: 64.0625rem;
   --breakpoint-3xl: 105rem;
 }
 

@@ -259,7 +259,7 @@ export const MyCarousel = ({
         left-[1.5em]
         bottom-[2em]
          z-50
-        lg:bg-black/60 bg-[#E6E6E6]
+        min-[1025px]:bg-black/60 bg-[#E6E6E6]
         rounded-full flex
         gap-[2em]
         p-[0.1875em]`}

@@ -205,31 +205,31 @@ export const DestinationArchive = ({
         {pages.map((pageRows, pageIdx) => (
           <div
             key={pageIdx}
-            className={`${isMobile ? '' : 'h-full'} grid content-start gap-x-[2rem] gap-y-5 lg:py-16 pt-10 pb-5 px-12 ${styles.archiveGrid}`}
+            className={`${isMobile ? '' : 'h-full'} grid content-start gap-x-[2rem] gap-y-5 min-[1025px]:py-16 pt-10 pb-5 px-12 ${styles.archiveGrid}`}
           >
             {pageRows.map((row, index) => (
               <div key={row.name} className={`max-h-[5rem] flex flex-col ${styles.archiveItem}`}>
                 <div
-                  className={`flex-3 flex ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}
+                  className={`flex-3 flex ${index % 2 === 1 ? 'min-[1025px]:flex-row-reverse' : ''}
                   gap-[1rem]
                   px-[1rem]`}
                 >
                   {/* 顶部：姓名 + 拼音缩写 */}
-                  <div className="relative flex flex-col gap-[0.2rem] pb-0 lg:pb-[0.2rem] w-[6rem]">
+                  <div className="relative flex flex-col gap-[0.2rem] pb-0 min-[1025px]:pb-[0.2rem] w-[6rem]">
                     <div
-                      className={`${index % 2 === 1 ? 'lg:text-end' : ''}
-                      lg:text-[0.5rem] text-[0.4rem]
+                      className={`${index % 2 === 1 ? 'min-[1025px]:text-end' : ''}
+                      min-[1025px]:text-[0.5rem] text-[0.4rem]
                       leading-none`}
                     >
                       <span
-                        className={`${index % 2 === 1 ? 'pl-1 lg:pl-0 lg:pr-1' : 'pl-1'} font-semibold`}
+                        className={`${index % 2 === 1 ? 'pl-1 min-[1025px]:pl-0 min-[1025px]:pr-1' : 'pl-1'} font-semibold`}
                       >
                         {row.initials}
                       </span>
                     </div>
                     <div
-                      className={`${index % 2 === 1 ? 'lg:text-end' : ''} h-[1.8rem]
-                      lg:text-[1.6rem] text-[1.2rem]
+                      className={`${index % 2 === 1 ? 'min-[1025px]:text-end' : ''} h-[1.8rem]
+                      min-[1025px]:text-[1.6rem] text-[1.2rem]
                       font-bold leading-none tracking-[-0.1em]`}
                     >
                       {row.name}
@@ -237,8 +237,8 @@ export const DestinationArchive = ({
                     {/* 底部：学院图标 + 学院 */}
                     <div
                       className={`absolute top-full pt-[0.3rem]
-                    hidden lg:flex items-center gap-[0.3rem]
-                    ${index % 2 === 1 ? 'lg:flex-row-reverse lg:right-0' : ''}
+                    hidden min-[1025px]:flex items-center gap-[0.3rem]
+                    ${index % 2 === 1 ? 'min-[1025px]:flex-row-reverse min-[1025px]:right-0' : ''}
                     whitespace-nowrap text-ellipsis text-[0.5rem] font-bold`}
                     >
                       <div className="h-full flex items-center">
@@ -248,7 +248,7 @@ export const DestinationArchive = ({
                     </div>
                   </div>
                   {/* 移动端：学院盒子（图标 + 学院名），与去向平分剩余空间 */}
-                  <div className="lg:hidden flex items-end pb-[0.3rem] gap-[0.3rem] lg:flex-1 min-w-0">
+                  <div className="min-[1025px]:hidden flex items-end pb-[0.3rem] gap-[0.3rem] min-[1025px]:flex-1 min-w-0">
                     <span className="shrink-0 flex items-center">
                       <CollegeIcon college={row.college} />
                     </span>
@@ -259,10 +259,10 @@ export const DestinationArchive = ({
                   {/* 所去公司：内联展示，不单独放盒子 */}
                   <div
                     className={`flex items-end pb-[0.3rem] gap-[0.3rem]
-                      max-[400px]:text-[0.5rem] text-[0.7rem] font-bold leading-none lg:flex-1 min-w-0 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+                      max-[400px]:text-[0.5rem] text-[0.7rem] font-bold leading-none min-[1025px]:flex-1 min-w-0 ${index % 2 === 1 ? 'min-[1025px]:flex-row-reverse' : ''}`}
                   >
-                    <span className={index % 2 === 1 ? 'lg:!hidden' : ''}>↘</span>
-                    {index % 2 === 1 && <span className="!hidden lg:!inline">↙</span>}
+                    <span className={index % 2 === 1 ? 'min-[1025px]:!hidden' : ''}>↘</span>
+                    {index % 2 === 1 && <span className="!hidden min-[1025px]:!inline">↙</span>}
                     <span className="min-w-0 overflow-hidden whitespace-nowrap text-ellipsis">
                       {row.destination}
                     </span>
@@ -270,11 +270,11 @@ export const DestinationArchive = ({
                 </div>
 
                 <div
-                  className={`flex-1 pt-0 lg:pt-[0.3rem]
+                  className={`flex-1 pt-0 min-[1025px]:pt-[0.3rem]
                w-full
                 flex items-center gap-[0.3rem]
-                lg:border-t-2 border-t-1 border-[#808080]
-                 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+                min-[1025px]:border-t-2 border-t-1 border-[#808080]
+                 ${index % 2 === 1 ? 'min-[1025px]:flex-row-reverse' : ''}`}
                 ></div>
               </div>
             ))}
@@ -297,12 +297,12 @@ export const DestinationArchive = ({
           <span>ARCHIVE SYSTEM</span>
         </div>
 
-        <span className="text-[#191919] lg:absolute lg:left-1/2 lg:-translate-x-1/2">
+        <span className="text-[#191919] min-[1025px]:absolute min-[1025px]:left-1/2 min-[1025px]:-translate-x-1/2">
           <span className="font-mono-slash text-[1rem]">{String(index + 1).padStart(2, '0')}</span>{' '}
           / <span className="font-mono-slash text-[1rem]">{String(total).padStart(2, '0')}</span>
         </span>
 
-        <span className="!hidden lg:!block">※ 已收集到的数据如上</span>
+        <span className="!hidden min-[1025px]:!block">※ 已收集到的数据如上</span>
       </div>
     </div>
   );

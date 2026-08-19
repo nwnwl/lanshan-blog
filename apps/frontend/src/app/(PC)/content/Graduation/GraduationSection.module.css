@@ -155,17 +155,17 @@
   }
 }
 
-/* 550px 以下：对齐 About 蓝色条（font-size 100vw/84，left -36.5em，width 12em） */
+/* 550px 以下：对齐 About 蓝色条（font-size 100vw/62，left -28.5em，width 8em） */
 @media (max-width: 550px) {
   .graduationBlock {
-    left: calc(50% - 100vw * 36.5 / 84);
-    top: calc(100vw * 14 / 84);
+    left: calc(50% - 100vw * 28.5 / 62);
+    top: 0;
   }
   .blueBar {
-    width: calc(100vw * 12 / 84);
+    width: calc(100vw * 8 / 62);
   }
   .graduationWrap {
-    min-height: calc(100vw * 14 / 84 + 53.5rem + 6rem);
+    min-height: calc(53.5rem + 6rem);
   }
 }
 
@@ -187,14 +187,14 @@
     margin-left: 0.6rem;
   }
   .carouselBtn {
-    padding: 0.625rem; /* ← 改：按钮更小（原 p-4 = 1rem） */
+    padding: 0.8rem; /* ← 改：按钮更小（原 p-4 = 1rem） */
   }
   .carouselBtn svg {
-    width: 0.75rem; /* ← 改：箭头更小（原 w-3.5 = 0.875rem） */
-    height: 0.75rem;
+    width: 0.9rem; /* ← 改：箭头更小（原 w-3.5 = 0.875rem） */
+    height: 0.9rem;
   }
   .carouselBg {
-    gap: 1.8rem; /* ← 改：按钮间距更小（原 gap-12 = 3rem） */
+    gap: 2.6rem; /* ← 改：按钮间距更小（原 gap-12 = 3rem） */
   }
 }
 
