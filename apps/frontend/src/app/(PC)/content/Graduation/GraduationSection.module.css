@@ -51,6 +51,13 @@
   opacity: 1;
 }
 
+/* 蓝色底只对真正支持 hover 的设备（PC）生效，触屏不粘滞 */
+@media (hover: hover) {
+  .carouselBtn:hover:enabled {
+    background-color: #00d5ffca;
+  }
+}
+
 /* 滚动提示指示符（复刻终末地 shVZNI / scroll-tip 动画，常驻循环播放，定位在卡片底部上方）
    scrollTip 是外层大卡片（本身不滚动）的绝对定位子元素，因此固定在大卡片底部，不随内容滚动 */
 @keyframes scrollTip {
