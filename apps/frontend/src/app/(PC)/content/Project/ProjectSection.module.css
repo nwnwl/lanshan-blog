@@ -35,6 +35,13 @@
   }
 }
 
+/* 550px 以下：按宽度彻底禁用 hover 黑幕（部分手机浏览器 hover 判断不准，sticky hover 会残留） */
+@media (max-width: 550px) {
+  .row:hover::after {
+    clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);
+  }
+}
+
 /* 移动端点击激活态，复现 hover 变色 */
 .row.active::after {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
