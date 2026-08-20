@@ -10,7 +10,7 @@ interface MarqueeProps {
 }
 
 // PC 基准速度 px/s（原 1px/帧在 120Hz 屏约等于此值），改为时间驱动后摆脱刷新率差异
-const BASE_SPEED = 120;
+const BASE_SPEED = 180;
 // 移动端基准速度（文字更小，降速避免看起来过快）
 const BASE_SPEED_MOBILE = 80;
 // 速度收敛速率，约等于原 0.15/帧 @60fps
