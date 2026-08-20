@@ -53,8 +53,16 @@
 
 /* 蓝色底只对真正支持 hover 的设备（PC）生效，触屏不粘滞 */
 @media (hover: hover) {
-  .carouselBtn:hover:enabled {
+  .carouselBtn:hover:enabled,
+  .carouselBtn:active:enabled {
     background-color: #00d5ffca;
+  }
+}
+
+/* 触屏设备：点击反馈过渡更快，蓝底快速闪现 */
+@media (hover: none) {
+  .carouselBtn {
+    transition-duration: 150ms;
   }
 }
 

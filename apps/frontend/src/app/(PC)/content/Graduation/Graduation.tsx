@@ -12,6 +12,7 @@ const SWITCH_FALLBACK_MS = SWITCH_MS + 250; // 兜底：万一 transitionend 没
 export const PC_GraduationSection = () => {
   const [current, setCurrent] = useState(0);
   const [isSmall, setIsSmall] = useState(false);
+  const [pressedBtn, setPressedBtn] = useState<'prev' | 'next' | null>(null);
   // 切换动画进行中：直接忽略点击（纯节流），避免连续点击叠加并发过渡 → 卡顿
   const busyRef = useRef(false);
   const fallbackTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -185,9 +186,13 @@ export const PC_GraduationSection = () => {
                     aria-label="上一届"
                     disabled={!isSmall && current === 0}
                     onClick={() => cycle(-1)}
+                    onTouchStart={() => setPressedBtn('prev')}
+                    onTouchEnd={() => setPressedBtn(null)}
+                    onTouchCancel={() => setPressedBtn(null)}
                     className={`${styles.carouselBtn} rounded-full lg:p-2.5 p-4 border-2 border-[#E6E6E6]
                     transition-all duration-300 ease-out
-                    active:enabled:bg-[#00d5ffca] cursor-pointer
+                    cursor-pointer
+                    ${pressedBtn === 'prev' ? 'bg-[#00d5ffca]' : ''}
                     disabled:opacity-40 disabled:cursor-auto`}
                   >
                     <svg
@@ -209,9 +214,13 @@ export const PC_GraduationSection = () => {
                     aria-label="下一届"
                     disabled={!isSmall && current === COHORTS.length - 1}
                     onClick={() => cycle(1)}
+                    onTouchStart={() => setPressedBtn('next')}
+                    onTouchEnd={() => setPressedBtn(null)}
+                    onTouchCancel={() => setPressedBtn(null)}
                     className={`${styles.carouselBtn} rounded-full lg:p-2.5 p-4 border-2 border-[#E6E6E6]
                     transition-all duration-300 ease-out
-                    active:enabled:bg-[#00d5ffca] cursor-pointer
+                    cursor-pointer
+                    ${pressedBtn === 'next' ? 'bg-[#00d5ffca]' : ''}
                     disabled:opacity-40 disabled:cursor-auto`}
                   >
                     <svg
