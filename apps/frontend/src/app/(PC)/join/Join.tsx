@@ -91,10 +91,11 @@ export const PC_JoinPage = () => {
       </div>
       {/* 水平两栏布局，各占一半 */}
       <div
-        className="w-full h-full px-[4rem]
+        className="pt-[6rem]
+        w-full h-full px-[4rem]
         relative z-10 flex flex-col-reverse 
         xl:flex-row justify-center sm:justify-center items-center 
-        gap-30 sm:gap-20
+        gap-30 sm:gap-10
       "
       >
         {/* 左侧：五个组名 + 二维码占位 */}
@@ -165,8 +166,8 @@ export const PC_JoinPage = () => {
             <div className="px-[1.1rem] mt-1 text-[2rem] md:text-[1.2rem] xl:text-[0.85rem] text-[#8f8f8f]">
               {group.en}
             </div>
-            <div className="mt-6 xl:mt-4 h-[3px] w-full bg-[#111111]" />
-            <p className="px-[1rem] mt-6 xl:mt-4 text-[1.2rem] sm:text-[1.5rem] md:text-[1.4rem] xl:text-[1.1rem] leading-[1.9] text-[#3a3a3a]">
+            <div className="mt-2 h-[3px] w-full bg-[#111111]" />
+            <p className="px-[1rem] mt-2 text-[1.2rem] sm:text-[1.5rem] md:text-[1.4rem] xl:text-[1.1rem] leading-[1.9] text-[#3a3a3a]">
               {group.text}
             </p>
           </div>
