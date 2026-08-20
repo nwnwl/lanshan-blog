@@ -48,7 +48,8 @@ const projects: ProjectData[] = [
 export const PC_ProjectSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const imgRefs = useRef<(HTMLImageElement | null)[]>([]);
+  const currentIndexRef = useRef<number | null>(null);
   const [cardEnabled, setCardEnabled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -72,26 +73,27 @@ export const PC_ProjectSection = () => {
     };
   }, []);
 
-  // Preload all images on mount
-  useEffect(() => {
-    projects.forEach((project) => {
-      const img = new Image();
-      img.src = project.imageUrl;
-    });
-  }, []);
-
   // Switch card image with GSAP rotation/scale entrance
   const changePhoto = useCallback((index: number) => {
-    const img = imgRef.current;
-    if (!img) return;
-    const nextSrc = projects[index].imageUrl;
-    if (img.src.endsWith(nextSrc)) return;
-    img.src = nextSrc;
-    gsap.fromTo(
-      img,
-      { rotate: '30deg', scale: 1.3 },
-      { rotate: 0, scale: 1, duration: 0.5, ease: 'power4.out' },
-    );
+    const imgs = imgRefs.current;
+    if (!imgs.length) return;
+    if (currentIndexRef.current === index) return;
+    currentIndexRef.current = index;
+
+    imgs.forEach((img, i) => {
+      if (!img) return;
+      // 先杀掉该图进行中的 tween，否则「隐藏」会被仍在跑的入场动画覆盖回去
+      gsap.killTweensOf(img);
+      if (i === index) {
+        gsap.fromTo(
+          img,
+          { rotate: '30deg', scale: 1.3, opacity: 1 },
+          { rotate: 0, scale: 1, opacity: 1, duration: 0.5, ease: 'power4.out' },
+        );
+      } else {
+        gsap.set(img, { opacity: 0 });
+      }
+    });
   }, []);
 
   // Mobile (≤1024px): reveal card at tap position, auto-hide after 0.5s
@@ -164,11 +166,18 @@ export const PC_ProjectSection = () => {
 
       {/* Floating card — GSAP-controlled, hidden by default via CSS scale(0) rotate(30deg) */}
       <div ref={cardRef} className={styles.card}>
-        <img
-          ref={imgRef}
-          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-          alt=""
-        />
+        {projects.map((project, index) => (
+          <img
+            key={project.id}
+            ref={(el) => {
+              imgRefs.current[index] = el;
+            }}
+            src={project.imageUrl}
+            alt={project.title}
+            loading="eager"
+            decoding="async"
+          />
+        ))}
       </div>
     </section>
   );

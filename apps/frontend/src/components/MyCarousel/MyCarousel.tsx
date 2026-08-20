@@ -272,7 +272,7 @@ export const MyCarousel = ({
             border-2
             border-[#E6E6E6]
             transition-all duration-500 ease-out
-            group-hover:bg-[#00d5ffca] active:bg-[#00d5ffca] cursor-pointer
+            active:bg-[#00d5ffca] cursor-pointer
             `}
           >
             <svg
@@ -297,7 +297,7 @@ export const MyCarousel = ({
             border-2
             border-[#E6E6E6]
             transition-all duration-500 ease-out
-            group-hover:bg-[#00d5ffca] active:bg-[#00d5ffca] cursor-pointer`}
+            active:bg-[#00d5ffca] cursor-pointer`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

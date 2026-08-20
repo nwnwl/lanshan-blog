@@ -277,14 +277,20 @@
     --carousel-w: 100vw;
     --carousel-h: calc(100vw * 9 / 16);
   }
+  .title1 {
+    left: calc(50% - 14.1875em);
+  }
+  .title2 {
+    left: calc(50% - 14.1875em);
+  }
   :global(.carouselInfo) {
-    left: calc(50% - 16.1875em);
+    left: calc(50% - 14.1875em);
   }
   :global(.carouselBtnBox) {
-    left: calc(50% - 16.1875em);
+    left: calc(50% - 14.1875em);
   }
   :global(.paginationInfo) {
-    left: calc(50% - 24em);
+    left: calc(50% - 21em);
   }
   .h5DecoLine {
     width: 8em;

@@ -119,7 +119,7 @@ export const PC_GraduationSection = () => {
             flex flex-col justify-between"
             >
               <div className="relative flex flex-col justify-center">
-                <div className="absolute bottom-[calc(100%-10px)]">
+                <div className="absolute bottom-[calc(100%-6px)]">
                   <Icon name="rowfont" className="w-[5rem]" />
                 </div>
                 <div className="flex items-center">
@@ -187,7 +187,7 @@ export const PC_GraduationSection = () => {
                     onClick={() => cycle(-1)}
                     className={`${styles.carouselBtn} rounded-full lg:p-2.5 p-4 border-2 border-[#E6E6E6]
                     transition-all duration-300 ease-out
-                    group-hover:enabled:bg-[#00d5ffca] active:enabled:bg-[#00d5ffca] cursor-pointer
+                    active:enabled:bg-[#00d5ffca] cursor-pointer
                     disabled:opacity-40 disabled:cursor-auto`}
                   >
                     <svg
@@ -211,7 +211,7 @@ export const PC_GraduationSection = () => {
                     onClick={() => cycle(1)}
                     className={`${styles.carouselBtn} rounded-full lg:p-2.5 p-4 border-2 border-[#E6E6E6]
                     transition-all duration-300 ease-out
-                    group-hover:enabled:bg-[#00d5ffca] active:enabled:bg-[#00d5ffca] cursor-pointer
+                    active:enabled:bg-[#00d5ffca] cursor-pointer
                     disabled:opacity-40 disabled:cursor-auto`}
                   >
                     <svg
