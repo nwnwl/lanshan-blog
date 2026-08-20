@@ -27,14 +27,12 @@ function ProjectRow({ id, title, subTitle, borderT, active, onHover, onClick }: 
         lg:text-[4.4rem] xl:text-[4.9rem]
         2xl:text-[5.2rem] 3xl:text-[5.6rem]
         font-bold
-        group-hover:text-[#00D4FF]
         transition-all duration-400 ease-in-out z-10`}
       >
         {id}
       </div>
       <div
-        className={`flex flex-col gap-4 min-w-0 flex-1 z-10
-        group-hover:text-white
+        className={`${styles.textGroup} flex flex-col gap-4 min-w-0 flex-1 z-10
         transition-colors duration-400 ease-in-out ${active ? 'text-white' : ''}`}
       >
         <span className="2xl:text-[3.6rem] lg:text-[2.8rem] md:text-[2.6rem] sm:text-[2.2rem] text-[1.8rem] font-black indent-3">

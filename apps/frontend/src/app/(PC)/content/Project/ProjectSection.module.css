@@ -22,9 +22,15 @@
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 
-  /* hover 去掉数字描边（放 unlayered，覆盖 Tailwind @layer 优先级问题） */
+  /* hover 去掉数字描边 + 变蓝（放 unlayered，覆盖 Tailwind @layer 优先级问题） */
   .row:hover .number {
     text-shadow: none;
+    color: #00d4ff;
+  }
+
+  /* hover 标题/副标题变白 */
+  .row:hover .textGroup {
+    color: #fff;
   }
 }
 
@@ -70,10 +76,13 @@
 }
 
 .card img {
-  position: relative;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
   object-fit: cover;
+  opacity: 0;
 }
 
 /* Number stroke via text-shadow — smoothly transitionable */

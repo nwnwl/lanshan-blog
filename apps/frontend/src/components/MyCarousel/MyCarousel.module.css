@@ -73,6 +73,13 @@
   opacity: 1;
 }
 
+/* 蓝色底只对真正支持 hover 的设备（PC）生效，触屏不粘滞 */
+@media (hover: hover) {
+  .carouselBtn:hover {
+    background-color: #00d5ffca;
+  }
+}
+
 /* ===== 文字退场：向滑动方向滑出 ===== */
 /* next: 向左滑出 */
 @keyframes slideOutLeft {
