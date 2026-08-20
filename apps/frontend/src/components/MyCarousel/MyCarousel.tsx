@@ -117,6 +117,7 @@ export const MyCarousel = ({
   const [direction, setDirection] = useState<'next' | 'prev'>('next');
   const [hasEntered, setHasEntered] = useState(false);
   const [revealed, setRevealed] = useState(false);
+  const [pressedBtn, setPressedBtn] = useState<'prev' | 'next' | null>(null);
   const total = images.length;
 
   useEffect(() => {
@@ -267,12 +268,16 @@ export const MyCarousel = ({
         <div className="p-0.5 bg-[#FAFAFA] rounded-full z-1 group">
           <button
             onClick={goPrev}
+            onTouchStart={() => setPressedBtn('prev')}
+            onTouchEnd={() => setPressedBtn(null)}
+            onTouchCancel={() => setPressedBtn(null)}
             className={`${styles.carouselBtn} rounded-full carouselBtnItem
             p-[0.625em]
             border-2
             border-[#E6E6E6]
             transition-all duration-500 ease-out
-            active:bg-[#00d5ffca] cursor-pointer
+            cursor-pointer
+            ${pressedBtn === 'prev' ? 'bg-[#00d5ffca]' : ''}
             `}
           >
             <svg
@@ -292,12 +297,16 @@ export const MyCarousel = ({
         <div className="p-0.5 bg-[#FAFAFA]  rounded-full z-1 group">
           <button
             onClick={goNext}
+            onTouchStart={() => setPressedBtn('next')}
+            onTouchEnd={() => setPressedBtn(null)}
+            onTouchCancel={() => setPressedBtn(null)}
             className={`${styles.carouselBtn} rounded-full carouselBtnItem
             p-[0.625em]
             border-2
             border-[#E6E6E6]
             transition-all duration-500 ease-out
-            active:bg-[#00d5ffca] cursor-pointer`}
+            cursor-pointer
+            ${pressedBtn === 'next' ? 'bg-[#00d5ffca]' : ''}`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
