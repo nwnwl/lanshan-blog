@@ -192,7 +192,7 @@ export const PC_GraduationSection = () => {
                     className={`${styles.carouselBtn} rounded-full lg:p-2.5 p-4 border-2 border-[#E6E6E6]
                     transition-all duration-300 ease-out
                     cursor-pointer
-                    ${pressedBtn === 'prev' ? 'bg-[#00d5ffca]' : ''}
+                    ${pressedBtn === 'prev' ? styles.pressed : ''}
                     disabled:opacity-40 disabled:cursor-auto`}
                   >
                     <svg
@@ -220,7 +220,7 @@ export const PC_GraduationSection = () => {
                     className={`${styles.carouselBtn} rounded-full lg:p-2.5 p-4 border-2 border-[#E6E6E6]
                     transition-all duration-300 ease-out
                     cursor-pointer
-                    ${pressedBtn === 'next' ? 'bg-[#00d5ffca]' : ''}
+                    ${pressedBtn === 'next' ? styles.pressed : ''}
                     disabled:opacity-40 disabled:cursor-auto`}
                   >
                     <svg

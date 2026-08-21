@@ -277,7 +277,7 @@ export const MyCarousel = ({
             border-[#E6E6E6]
             transition-all duration-500 ease-out
             cursor-pointer
-            ${pressedBtn === 'prev' ? 'bg-[#00d5ffca]' : ''}
+            ${pressedBtn === 'prev' ? styles.pressed : ''}
             `}
           >
             <svg
@@ -306,7 +306,7 @@ export const MyCarousel = ({
             border-[#E6E6E6]
             transition-all duration-500 ease-out
             cursor-pointer
-            ${pressedBtn === 'next' ? 'bg-[#00d5ffca]' : ''}`}
+            ${pressedBtn === 'next' ? styles.pressed : ''}`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

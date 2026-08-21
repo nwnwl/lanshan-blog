@@ -81,10 +81,31 @@
   }
 }
 
-/* 触屏设备：点击反馈过渡更快，蓝底快速闪现 */
+/* 触屏设备：点击反馈过渡更快，蓝底快速闪现；hover/active 蓝底不生效（防 sticky hover） */
 @media (hover: none) {
   .carouselBtn {
     transition-duration: 150ms;
+  }
+
+  .carouselBtn:hover,
+  .carouselBtn:active {
+    background-color: transparent;
+  }
+
+  .carouselBtn.pressed {
+    background-color: #00d5ffca;
+  }
+}
+
+/* 550px 以下：部分手机浏览器 hover 判断不准（sticky hover），按宽度再兜底 */
+@media (max-width: 550px) {
+  .carouselBtn:hover,
+  .carouselBtn:active {
+    background-color: transparent;
+  }
+
+  .carouselBtn.pressed {
+    background-color: #00d5ffca;
   }
 }
 
